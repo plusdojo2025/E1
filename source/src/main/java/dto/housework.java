@@ -1,5 +1,7 @@
 package dto;
 
-public class housework {
+import java.io.Serializable;
+
+public class housework implements Serializable {
 
 }

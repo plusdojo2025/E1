@@ -1,5 +1,7 @@
 package dto;
 
-public class achievement {
+import java.io.Serializable;
+
+public class achievement implements Serializable {
 
 }

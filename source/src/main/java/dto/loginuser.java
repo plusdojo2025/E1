@@ -1,5 +1,7 @@
 package dto;
 
-public class loginuser {
+import java.io.Serializable;
+
+public class loginuser implements Serializable {
 
 }

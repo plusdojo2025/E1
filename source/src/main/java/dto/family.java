@@ -1,5 +1,7 @@
 package dto;
 
-public class family {
+import java.io.Serializable;
+
+public class family implements Serializable {
 
 }

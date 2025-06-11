@@ -1,5 +1,7 @@
 package dto;
 
-public class notification {
+import java.io.Serializable;
+
+public class notification implements Serializable {
 
 }

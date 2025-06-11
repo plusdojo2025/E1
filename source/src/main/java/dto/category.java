@@ -1,5 +1,7 @@
 package dto;
 
-public class category {
+import java.io.Serializable;
+
+public class category implements Serializable {
 
 }
