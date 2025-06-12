@@ -8,6 +8,12 @@ private String family_id;
 private String memo;
 private String date;
 
+public today_memo(int memo_id, String family_id, String memo) {
+	this.memo_id = memo_id;
+	this.family_id = family_id;
+	this.memo = memo;
+}
+
 public today_memo(int memo_id, String family_id, String memo, String date) {
 	this.memo_id = memo_id;
 	this.family_id = family_id;
