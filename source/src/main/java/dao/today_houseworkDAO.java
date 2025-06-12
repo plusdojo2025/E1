@@ -8,9 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.Bc;
 import dto.housework;
-import dto.today_housework;
 
 public class today_houseworkDAO {
 
@@ -29,7 +27,7 @@ public class today_houseworkDAO {
 				"root", "password");
 			
 		// SQL文を準備する
-		String sql = "INSERT INTO today_housework (today_id, housework_id, date) "
+		String sql = "INSERT INTO today_housework (today_housework_id, housework_id, date) "
 				+ "SELECT 0, housework_id, NOW() "
 				+ "FROM housework "
 				+ "WHERE frequency = 0 OR frequency = " + dayOfWeek;
@@ -79,10 +77,11 @@ public class today_houseworkDAO {
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				housework hw = new housework(rs.getInt("housework_id"), rs.getString
-						rs.getInt("housework_id"),
-						rs.getString("date"));
+				housework hw = new housework(rs.getInt("housework_id"),rs.getString("housework_name"),
+						rs.getString("family_id"),rs.getInt("housework_level"));
+				houseworkList.add(hw);
 			}
+			
 						
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -101,5 +100,6 @@ public class today_houseworkDAO {
 				}
 			}
 		}
+		return houseworkList;
 	}
 }
