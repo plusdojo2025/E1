@@ -37,14 +37,20 @@ public class GachaServlet extends HttpServlet {
 		gachaDAO gcDAO = new gachaDAO();
 		List<user> familyList = gcDAO.select(family_id);
 		List<housework> houseworkList = gcDAO.selecthw(family_id);
+<<<<<<< Updated upstream
 		List<housework> fixed_levelList = gcDAO.selecthwlevel(family_id);
+=======
+>>>>>>> Stashed changes
 		
 		for (housework hw:houseworkList) {
 			sum_level += hw.getHousework_level();
 		}
+<<<<<<< Updated upstream
 		for (housework hw:fixed_levelList) {
 			
 		}
+=======
+>>>>>>> Stashed changes
 	}
 
 }

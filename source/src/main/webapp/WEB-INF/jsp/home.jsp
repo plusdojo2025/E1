@@ -94,8 +94,8 @@
       <div class="modal__contents2">
         <div class="modal__content2">
           <form method="POST" action="/E1/HomeServlet" id="form${status.index}">
-			<input type="text" name="memo">
-			<input type="submit" name="submit" value="メモ追加">
+			<input type="text" name="memo" id="memo_new">
+			<input type="submit" name="submit" value="メモ追加" id="memo_submit">
 			 </form>
         </div>
       </div>
@@ -156,6 +156,13 @@
    modal3[index].classList.remove('is-open3'); 
  	});
  });
+ 
+ document.querySelectorAll('.cancel').forEach((button, index) => {
+	  button.addEventListener('click', function(event) {
+	    event.preventDefault(); // フォーム送信を防ぐ
+	    modal3[index].classList.remove('is-open3');
+	  });
+	});
  
  </script>
  
