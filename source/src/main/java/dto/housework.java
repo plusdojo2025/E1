@@ -3,26 +3,36 @@ package dto;
 import java.io.Serializable;
 
 public class housework implements Serializable {
-private int housework_id;
-private String housework_name;
-private String family_id;
-private int category_id;
-private int housework_level;
-private int noti_flag;
-private String noti_time;
-private int frequency;
-private String manual;
-private String fixed_role;
-private String variable_role;
-private int log;
+	private int housework_id;
+	private String housework_name;
+	private String family_id;
+	private int category_id;
+	private int housework_level;
+	private int noti_flag;
+	private String noti_time;
+	private int frequency;
+	private String manual;
+	private String fixed_role;
+	private String variable_role;
+	private int log;
 
-//今日の家事一覧表示用
-public housework(int housework_id, String housework_name, String family_id, int housework_level) {
-	this.housework_id = housework_id;
-	this.housework_name = housework_name;
-	this.family_id = family_id;
-	this.housework_level = housework_level;
-}
+		//今日の家事一覧表示用
+		public housework(int housework_id, String housework_name, String family_id, int category_id,
+				int housework_level, int noti_flag, String noti_time, int frequency, String manual, String fixed_role,
+				String variable_role, int log) {
+			this.housework_id = housework_id;
+			this.housework_name = housework_name;
+			this.family_id = family_id;
+			this.category_id = category_id;
+			this.housework_level = housework_level;
+			this.noti_flag = noti_flag;
+			this.noti_time = noti_time;
+			this.frequency = frequency;
+			this.manual = manual;
+			this.fixed_role = fixed_role;
+			this.variable_role = variable_role;
+			this.log = log;
+		}
 
 public int getHousework_id() {
 	return housework_id;
