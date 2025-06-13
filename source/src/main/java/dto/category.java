@@ -11,6 +11,11 @@ public class category implements Serializable {
 		this.category_name = category_name;
 	}
 	
+	public category() {
+	    
+	}
+
+
 	public int getCategory_id() {
 		return category_id;
 	}
