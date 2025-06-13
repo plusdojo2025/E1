@@ -64,11 +64,11 @@ public int getHousework_level() {
 public void setHousework_level(int housework_level) {
 	this.housework_level = housework_level;
 }
-public int getNpti_flag() {
+public int getNoti_flag() {
 	return noti_flag;
 }
-public void setNpti_flag(int npti_flag) {
-	this.noti_flag = npti_flag;
+public void setNoti_flag(int noti_flag) {
+	this.noti_flag = noti_flag;
 }
 public String getNoti_time() {
 	return noti_time;
