@@ -3,24 +3,29 @@ package dto;
 import java.io.Serializable;
 
 public class housework implements Serializable {
-	private int housework_id;
-	private String housework_name;
-	private String family_id;
-	private int category_id;
-	private int housework_level;
-	private int noti_flag;
-	private String noti_time;
-	private int frequency;
-	private String manual;
-	private String fixed_role;
-	private String variable_role;
-	private int log;
+	private int housework_id;			/*家事ID*/
+	private String housework_name;		/*家事名*/
+	private String family_id;			/*ファミリーID*/
+	private int category_id;			/*カテゴリID*/
+	private int housework_level;		/*家事負担度*/
+	private int noti_flag;				/*通知有無*/
+	private String noti_time;			/*通知時間*/
+	private int frequency;				/*家事頻度*/
+	private String manual;				/*マニュアル*/
+	private String fixed_role;			/*固定担当者*/
+	private String variable_role;		/*可変担当者*/
+	private int log;					/*更新履歴*/
 
 	//今日の家事一覧表示用
 	public housework(int housework_id, String housework_name, String family_id, int housework_level) {
 		this.housework_id = housework_id;
 		this.housework_name = housework_name;
 		this.family_id = family_id;
+		this.housework_level = housework_level;
+	}
+	//分析ガチャ用
+	public housework(String fixed_role, int housework_level) {
+		this.fixed_role = fixed_role;
 		this.housework_level = housework_level;
 	}
 	

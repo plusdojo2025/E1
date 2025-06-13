@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.userDAO;
 import dto.loginuser;
 import dto.user;
+import process.Sha256Util;
 
 /**
  * Servlet implementation class LoginServlet
@@ -38,19 +39,39 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String user_id = request.getParameter("user_id");
 		String password = request.getParameter("password");
+		 
+		// useridとPWが入力されているか確認
+		if (user_id == null || user_id.isEmpty() || password == null || password.isEmpty()) {
+	            request.setAttribute("errorMessage", "ユーザーIDとパスワードは必須入力です。");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+	            dispatcher.forward(request, response);
+	            return; // これ以上処理を進めない
+	    }
+		
+		// --- ここからパスワードのSHA-256暗号化処理 ---
+        String hashedPassword = Sha256Util.hashString(password);
+        if (hashedPassword == null) {
+            // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
+            request.setAttribute("errorMessage", "システムエラーが発生しました。");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            dispatcher.forward(request, response);
+            return; // 処理を中断
+        }
+        // --- ここまでパスワードのSHA-256暗号化処理 ---
+        
 		// ログイン処理を行う
 		userDAO uDao = new userDAO();
-		if (uDao.isLoginOK(new user(user_id, password))) { // ログイン成功
+		if (uDao.isLoginOK(new user(user_id, hashedPassword))) { // ログイン成功
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
 			session.setAttribute("user_id", new loginuser(user_id));
 
-			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/webapp/HomeServlet");
+			// ホームサーブレットにリダイレクトする
+			response.sendRedirect("/E1/HomeServlet");
 			} else { // ログイン失敗
 			request.setAttribute("errorMessage", "ユーザー名またはパスワードが正しくありません。"); // エラーメッセージをリクエストスコープに設定
 
-			 RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp"); // 元のログインページ（login.jsp）を指定
+			 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp"); // 元のログインページ（login.jsp）を指定
 	         dispatcher.forward(request, response); // login.jsp に「フォワード」する
 		}
 	}
