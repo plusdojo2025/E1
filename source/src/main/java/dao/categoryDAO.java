@@ -35,7 +35,7 @@ public class categoryDAO {
 			
 			// 結果をリストに詰める
 			while (rs.next()) {
-			    category ct = new category(0,"");
+			    category ct = new category();
 			    ct.setCategory_id(rs.getInt("category_id"));
 			    ct.setCategory_name(rs.getString("category_name"));
 			    categoryList.add(ct);
