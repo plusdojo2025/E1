@@ -15,6 +15,11 @@ public achievement(int achieve_id, String user_id, String date, int achieve_hist
 	this.achieve_history = achieve_history;
 }
 
+public achievement(String user_id, int achieve_history) {
+	this.user_id = user_id;
+	this.achieve_history = achieve_history;
+}
+
 public int getAchieve_id() {
 	return achieve_id;
 }
