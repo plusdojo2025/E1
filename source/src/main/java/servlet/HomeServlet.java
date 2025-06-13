@@ -30,10 +30,13 @@ public class HomeServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		LocalDateTime nowDate = LocalDateTime.now();
-		System.out.println(nowDate);
-		DateTimeFormatter dtf3 =
-				DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-					String formatNowDate = dtf3.format(nowDate);
+		DateTimeFormatter dtf1 =
+				DateTimeFormatter.ofPattern("yyyy-MM-dd");
+					String formatNowDate1 = dtf1.format(nowDate);
+					String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
+		DateTimeFormatter dtf2 =
+				DateTimeFormatter.ofPattern("yyyy-MM");
+					String formatNowDate2 = dtf2.format(nowDate);
 		 Calendar cal = Calendar.getInstance();
 		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		 String family_id = "1001";
@@ -41,10 +44,14 @@ public class HomeServlet extends HttpServlet {
 		
 		 today_houseworkDAO td_hwDAO = new today_houseworkDAO();
 		 today_memoDAO memoDAO = new today_memoDAO();
-		 td_hwDAO.delete(family_id,dayOfWeek);
-		 //if(td_hwDAO.selectdate(formatNowDate, family_id) == 0) {
+		 //td_hwDAO.delete(family_id,dayOfWeek);
+		 if (td_hwDAO.selectdate(formatyesterdayDate) == 0) {
+			 td_hwDAO.reset();
+		 }
+		 int a = td_hwDAO.selectdate(formatNowDate1, family_id);
+		 if (a == 0) {
 		 	td_hwDAO.first_insert(dayOfWeek,family_id);
-		 //}
+		 }
 			List<housework> houseworkList = td_hwDAO.select(family_id); 
 			request.setAttribute("houseworkList",houseworkList);
 			
@@ -63,7 +70,12 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		Calendar cal = Calendar.getInstance();
+		LocalDateTime nowDate = LocalDateTime.now();
+		DateTimeFormatter dtf2 =
+				DateTimeFormatter.ofPattern("yyyyMM");
+					String formatNowDate2 = dtf2.format(nowDate);
 		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+		 String user_id = "1";
 		 String family_id = "1001";
 		 
 
@@ -75,7 +87,10 @@ public class HomeServlet extends HttpServlet {
 		
 
 		if (request.getParameter("submit").equals("完了")) {
+			int housework_id = Integer.parseInt(id);
+			if(td_hwDAO.submit(user_id, housework_id ,formatNowDate2)){
 			List<housework> houseworkList = td_hwDAO.select(family_id); 
+			request.setAttribute("houseworkList",houseworkList);
 			request.setAttribute("houseworkList",houseworkList);
 			
 			List<housework> irregular_houseworkList = td_hwDAO.select_ir(family_id);
@@ -83,17 +98,22 @@ public class HomeServlet extends HttpServlet {
 			
 			List<today_memo> memoList = memoDAO.select(family_id);
 			request.setAttribute("memoList", memoList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-		dispatcher.forward(request, response); 	
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+			dispatcher.forward(request, response); 	
+			}
 		}else if(request.getParameter("submit").equals("家事追加")) {
 			int housework_id = Integer.parseInt(id);
 			if(td_hwDAO.insert(housework_id)) {
 				List<housework> houseworkList = td_hwDAO.select(family_id); 
 				request.setAttribute("houseworkList",houseworkList);				
+				
 				List<housework> irregular_houseworkList = td_hwDAO.select_ir(family_id);
 				request.setAttribute("irregular_houseworkList",irregular_houseworkList);				
+				
 				List<today_memo> memoList = memoDAO.select(family_id);
 				request.setAttribute("memoList", memoList);
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 				dispatcher.forward(request, response); 
 			}
@@ -101,10 +121,13 @@ public class HomeServlet extends HttpServlet {
 			if(memoDAO.insert(memo)) {
 				List<housework> houseworkList = td_hwDAO.select(family_id); 
 				request.setAttribute("houseworkList",houseworkList);				
+				
 				List<housework> irregular_houseworkList = td_hwDAO.select_ir(family_id);
 				request.setAttribute("irregular_houseworkList",irregular_houseworkList);				
+				
 				List<today_memo> memoList = memoDAO.select(family_id);
 				request.setAttribute("memoList", memoList);
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 				dispatcher.forward(request, response); 
 			}

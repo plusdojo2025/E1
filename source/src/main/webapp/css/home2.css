@@ -1,4 +1,19 @@
 @charset "UTF-8";
+
+/*本日のメモ*/
+#memo{
+	border:1px solid #000000;
+	margin:100px 300px;
+}
+#memo_add{
+	text-align:right;
+	margin-right:30px;
+	margin-bottom:10px;
+}
+
+
+
+
 .layer2 {
   background: rgba(0, 0, 0, .2);
   width: 100%;
@@ -26,10 +41,11 @@
 
 .modal2 {
   position: relative;
+  top: 15%;
   margin-right: auto;
   margin-left: auto;
-  width: 80%;
-  min-width: 440px;
+  width: 40%;
+  min-width: 400px;
 
   /* 追記 */
   opacity: 0;
@@ -37,15 +53,14 @@
 }
 .button2 {
   background: orange;
-  border-radius: 12px;
+  border-radius: 50%;
   box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, .24);
   border: 1px solid orange;
   font-size: 16px;
   line-height: 1.6;
-  display: block;
-  padding: 12px 20px;
+  padding: 9px 15px;
   color: #fff;
-  text-align: center;
+  text-align: right;
   cursor: pointer;
   margin: 0;
 }
