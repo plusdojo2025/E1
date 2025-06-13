@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home2.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home3.css">
 <title>ホーム</title>
 </head>
 <body>
@@ -14,12 +15,32 @@
 <div id="housework_list">
 	<h2>本日の家事</h2>
 	 <c:forEach var="e" items="${houseworkList}" varStatus="status" >
-	 <form method="POST" action="/E1/HomeServlet" id="form${status.index}">
+	 <button value="完了" class="button3 js-modal-button3">完了</button>
+	  <div class="layer3 js-modal3">
+  <div class="modal3">
+    <div class="modal__inner3">
+     <div class="modal__button-wrap3">
+       <button class="close-button3 js-close-button3">
+         <span></span>
+         <span></span>
+       </button>
+      </div>
+      <div class="modal__contents3">
+        <div class="modal__content3">
+        <form method="POST" action="/E1/HomeServlet" id="form${status.index}">
 	 <input type="hidden" value="${e.housework_id}" 
 	 name="housework_id">
-	 <input type="submit" name="submit" value="完了" class="button3 js-modal-button3">
+	 <h6>完了チェックを行いますか？</h6>
+	 <br>
+	 <button class="cancel">Cancel</button>
+	 <button class="ok">OK</button>
+</form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 	  <c:out value="${e.housework_name}" /> 
-	 </form>
 	 </c:forEach>
 	 </div>
 	 <div id="housework_add">
@@ -82,23 +103,9 @@
   </div>
 </div>
  
- <div class="layer3 js-modal3">
-  <div class="modal3">
-    <div class="modal__inner3">
-     <div class="modal__button-wrap3">
-       <button class="close-button3 js-close-button3">
-         <span></span>
-         <span></span>
-       </button>
-      </div>
-      <div class="modal__contents3">
-        <div class="modal__content3">
+
           
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
  
  <script>
  const modal = document.querySelector('.js-modal'); // layer要素に付与したjs-modalクラスを取得し変数に格納
@@ -130,6 +137,26 @@
  modalClose2.addEventListener('click', () => { // xボタンをクリックしたときのイベントを登録
    modal2.classList.remove('is-open2'); 
  });
+ 
+ const modal3 = document.querySelectorAll('.js-modal3'); // layer要素に付与したjs-modalクラスを取得し変数に格納
+ const modalButton3 = document.querySelectorAll('.js-modal-button3'); // button要素に付与したjs-modal-buttonクラスを取得し、変数に格納
+
+ // 追記
+ const modalClose3 = document.querySelectorAll('.js-close-button3');　// xボタンのjs-close-buttonを取得し変数に格納
+
+ modalButton3.forEach((button, index) => {
+	 button.addEventListener('click', () => {
+	 modal3[index].classList.add('is-open3');
+ });
+ });
+
+ // 追記
+ modalClose3.forEach((button, index) => {
+ 	button.addEventListener('click', () => { // xボタンをクリックしたときのイベントを登録
+   modal3[index].classList.remove('is-open3'); 
+ 	});
+ });
+ 
  </script>
  
 </body>

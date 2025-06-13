@@ -16,7 +16,14 @@ public class housework implements Serializable {
 	private String variable_role;
 	private int log;
 
-		//今日の家事一覧表示用
+	//今日の家事一覧表示用
+	public housework(int housework_id, String housework_name, String family_id, int housework_level) {
+		this.housework_id = housework_id;
+		this.housework_name = housework_name;
+		this.family_id = family_id;
+		this.housework_level = housework_level;
+	}
+	
 		public housework(int housework_id, String housework_name, String family_id, int category_id,
 				int housework_level, int noti_flag, String noti_time, int frequency, String manual, String fixed_role,
 				String variable_role, int log) {
