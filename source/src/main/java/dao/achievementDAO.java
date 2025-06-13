@@ -41,7 +41,7 @@ public class achievementDAO {
                 String user_id = rs.getString("user_id");
                 int daily_score = rs.getInt("daily_score");
 
-                achievement a = new achievement(0, user_id, null, daily_score);
+                achievement a = new achievement(user_id, daily_score);
                 yesterdayList.add(a);
             }
 
@@ -89,7 +89,7 @@ public class achievementDAO {
                 String user_id = rs.getString("user_id");
                 int monthly_score = rs.getInt("monthly_score");
 
-                achievement a = new achievement(0, user_id, null, monthly_score);
+                achievement a = new achievement(user_id, monthly_score);
                 yearList.add(a);
             }
 
