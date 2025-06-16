@@ -43,6 +43,7 @@ public class AnalysisServlet extends HttpServlet {
 		// DAOを使って同じfamily_idを持つユーザーのリストを取得
 		try {
 			achievementDAO dao = new achievementDAO();
+			
 			List<user> userList = dao.selectUserId(familyId);
 			
 			// userList の中身をログ出力して確認
@@ -56,7 +57,7 @@ public class AnalysisServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			
-			// JSPに渡すためにリクエストスコープに保存
+			// 例外が発生した場合はエラーログを出力し、500エラーを返す
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "データの取得に失敗しました。");
 			return;
