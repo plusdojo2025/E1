@@ -27,7 +27,7 @@ public class categoryDAO {
 					"root", "password");
 		
 			// SELECT文を準備する
-			 String sql = "SELECT category_id, category_name FROM category";
+			 String sql = "SELECT * FROM category";
 			 PreparedStatement pStmt = conn.prepareStatement(sql);
 			 
 			// SELECT文を実行し、結果表を取得する

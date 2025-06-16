@@ -75,10 +75,11 @@ public class achievementDAO {
                 "root", "password");
 
             // SQL文を準備する
-            String sql = "SELECT user_id, COUNT(*) AS monthly_score "
+            String sql = "SELECT user_id, DATE_FORMAT(date, '%Y-%m') AS month, SUM(achieve_history) AS monthly_score "
             		+ "FROM achievement "
             		+ "WHERE date >= CURDATE() - INTERVAL 12 MONTH AND family_id = " + family_id
-            		+ "GROUP BY user_id";
+            		+ "GROUP BY user_id, month "
+            		+ "ORDER BY month ASC, user_id ASC";
             
             PreparedStatement pStmt = conn.prepareStatement(sql);
             
@@ -87,9 +88,10 @@ public class achievementDAO {
 
             while (rs.next()) {
                 String user_id = rs.getString("user_id");
+                String month = rs.getString("month");
                 int monthly_score = rs.getInt("monthly_score");
 
-                achievement a = new achievement(user_id, monthly_score);
+                achievement a = new achievement(user_id, month, monthly_score);
                 yearList.add(a);
             }
 
@@ -107,6 +109,47 @@ public class achievementDAO {
         // 結果を返す
         return yearList;
     }
+
+	// ユーザーリスト
+	public List<String> selectUserId(String family_id) {
+	    Connection conn = null;
+	    List<String> userList = new ArrayList<>();
+	
+	    try {
+	    	// JDBCドライバを読み込む
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        
+	        // データベースに接続する
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password");
+	
+	        // SQL文を準備する
+	        String sql = "SELECT DISTINCT user_id FROM achievement "
+	        		+ "WHERE family_id = " + family_id;
+	        
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+	
+	        // SQL文を実行し、結果表を取得する
+	        ResultSet rs = pStmt.executeQuery();
+	        while (rs.next()) {
+	            userList.add(rs.getString("user_id"));
+	        }
+	
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	
+	    // 結果を返す
+	    return userList;
+	}
+
 }
 
 
