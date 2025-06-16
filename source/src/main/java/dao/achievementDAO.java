@@ -30,7 +30,8 @@ public class achievementDAO {
             // SQL文を準備する
             String sql = "SELECT user_id, SUM(achieve_history) AS daily_score "
             		+ "FROM achievement "
-            		+ "WHERE date = CURDATE() - INTERVAL 1 DAY AND family_id = '" + family_id + "'"
+            		+ "WHERE date = CURDATE() - INTERVAL 1 DAY "
+            		+ "AND user_id IN (SELECT user_id FROM user WHERE family_id = '" + family_id + "' "
             		+ "GROUP BY user_id";
             
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -85,7 +86,7 @@ public class achievementDAO {
             // SQL文を準備する
             String sql = "SELECT user_id, DATE_FORMAT(date, '%Y-%m') AS month, SUM(achieve_history) AS monthly_score "
             		+ "FROM achievement "
-            		+ "WHERE date >= CURDATE() - INTERVAL 12 MONTH AND family_id = '" + family_id + "'"
+            		+ "WHERE date >= CURDATE() - INTERVAL 12 MONTH AND family_id = '" + family_id + "' "
             		+ "GROUP BY user_id, month "
             		+ "ORDER BY month ASC, user_id ASC";
             
