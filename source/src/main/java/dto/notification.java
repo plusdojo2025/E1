@@ -2,6 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
+
 public class notification implements Serializable{
 	private int noti_id;		//通知ID
 	private String user_id;		//ユーザーID
