@@ -21,6 +21,5 @@
 	</form>
 </c:forEach>
 </div>
-<c:out value="${userList}" default="userList is null or empty" />
 </body>
 </html>

@@ -133,14 +133,22 @@ public class achievementDAO {
 	
 	        // SQL文を実行し、結果表を取得する
 	        ResultSet rs = pStmt.executeQuery();
-	        while (rs.next()) {
+            while (rs.next()) {
+                String user_id = rs.getString("user_id");
+                float share_goal = rs.getFloat("share_goal");
+
+                user u = new user(user_id, share_goal);
+                userList.add(u);
+            }
+            
+	        /*while (rs.next()) {
 	        	user u = new user(
 	        		rs.getString("user_id"),
 	        		rs.getFloat("share_goal")
 	        		);
 	        		userList.add(u);
-	        }
-	        
+	        }*/
+	      
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
 	    } finally {
@@ -157,5 +165,9 @@ public class achievementDAO {
 	}
 
 }
+
+
+
+
 
 

@@ -35,11 +35,21 @@ public class AnalysisServlet extends HttpServlet {
 		
         // セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
+
+		if (familyId == null) {
+			familyId = "sato0611"; // テスト用の固定値
+		}
 		
 		// DAOを使って同じfamily_idを持つユーザーのリストを取得
 		try {
 			achievementDAO dao = new achievementDAO();
 			List<user> userList = dao.selectUserId(familyId);
+			
+			// userList の中身をログ出力して確認
+			System.out.println("userList size: " + userList.size());
+			for (user u : userList) {
+				System.out.println("user_id: " + u.getUser_id() + ", share_goal: " + u.getShare_goal());
+			}
 			
 			// JSPに渡すためにリクエストスコープに保存
 			request.setAttribute("userList", userList);
