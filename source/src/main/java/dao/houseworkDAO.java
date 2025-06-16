@@ -359,7 +359,7 @@ public class houseworkDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM Bc WHERE housework_id=?";
+			String sql = "DELETE FROM housework WHERE housework_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
