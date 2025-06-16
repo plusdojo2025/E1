@@ -134,7 +134,7 @@ public class houseworkDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			if (card.getHousework_id() != null) {
+			if (card.getHousework_id() != 0) {
 				pStmt.setString(1, "%" + card.getHousework_id() + "%");
 			} else {
 				pStmt.setString(1, "%");
@@ -149,17 +149,17 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(3, "%");
 			}
-			if (card.getCategory_id() != null) {
+			if (card.getCategory_id() != 0) {
 				pStmt.setString(4, "%" + card.getCategory_id() + "%");
 			} else {
 				pStmt.setString(4, "%");
 			}
-            if (card.getHousework_level() != null) {
+            if (card.getHousework_level() != 0) {
 				pStmt.setString(5, "%" + card.getHousework_level() + "%");
 			} else {
 				pStmt.setString(5, "%");
 			}
-            if (card.getNoti_flag() != null) {
+            if (card.getNoti_flag() != 0) {
 				pStmt.setString(6, "%" + card.getNoti_flag() + "%");
 			} else {
 				pStmt.setString(6, "%");
@@ -169,7 +169,7 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(7, "%");
 			}
-            if (card.getFrequency() != null) {
+            if (card.getFrequency() != 0) {
 				pStmt.setString(8, "%" + card.getFrequency() + "%");
 			} else {
 				pStmt.setString(8, "%");
@@ -189,7 +189,7 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(11, "%");
 			}
-            if (card.getLog() != null) {
+            if (card.getLog() != 0) {
 				pStmt.setString(12, "%" + card.getLog() + "%");
 			} else {
 				pStmt.setString(12, "%");
@@ -258,8 +258,8 @@ public class houseworkDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			if (card.getHousework_id() != null) {
-				pStmt.setString(1, card.getHousework_id());
+			if (card.getHousework_id() != 0) {
+				pStmt.setInt(1, card.getHousework_id());
 			} else {
 				pStmt.setString(1, "");
 			}
@@ -273,18 +273,18 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(3, "");
 			}
-			if (card.getCategory_id() != null) {
-				pStmt.setString(4, card.getCategory_id());
+			if (card.getCategory_id() != 0) {
+				pStmt.setInt(4, card.getCategory_id());
 			} else {
 				pStmt.setString(4, "");
 			}
-			if (card.getHousework_level() != null) {
-				pStmt.setString(5, card.getHousework_level());
+			if (card.getHousework_level() != 0) {
+				pStmt.setInt(5, card.getHousework_level());
 			} else {
 				pStmt.setString(5, "");
 			}
-			if (card.getNoti_flag() != null) {
-				pStmt.setString(6, card.getNoti_flag());
+			if (card.getNoti_flag() != 0) {
+				pStmt.setInt(6, card.getNoti_flag());
 			} else {
 				pStmt.setString(6, "");
 			}
@@ -293,8 +293,8 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(7, "");
 			}
-			if (card.getFrequency() != null) {
-				pStmt.setString(8, card.getFrequency());
+			if (card.getFrequency() != 0) {
+				pStmt.setInt(8, card.getFrequency());
 			} else {
 				pStmt.setString(8, "");
 			}
@@ -313,12 +313,12 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(11, "");
 			}
-			if (card.getLog() != null) {
-				pStmt.setString(12, card.getLog());
+			if (card.getLog() != 0) {
+				pStmt.setInt(12, card.getLog());
 			} else {
 				pStmt.setString(12, "");
 			}          
-			pStmt.setInt(13, card.getNumber());
+
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
