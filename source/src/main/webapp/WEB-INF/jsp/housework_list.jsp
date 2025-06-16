@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>家事一覧</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/housework_list.css">
+
 <!-- ↑cssのパスを動的に取得 -->
 </head>
 <body>
