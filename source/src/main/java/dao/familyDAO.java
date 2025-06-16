@@ -67,7 +67,6 @@ public class familyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace(); // エラーをログに出力
-            // 本番環境では、より具体的なエラーハンドリングを検討（例: DAOExceptionをスロー）
         } finally {
             // リソースを確実に解放
             closeResources(conn, pStmt, rs);
@@ -81,7 +80,7 @@ public class familyDAO {
      * @param newfamily 挿入する家族情報（IDとあいことば）を含むFamily DTO
      * @return 挿入が成功した場合はtrue、それ以外はfalse
      */
-    public boolean insertFami(family newfamily) {
+    public boolean insertFami(family newFamily) {
         String sql = "INSERT INTO family (family_id, fami_pass) VALUES (?, ?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -91,8 +90,8 @@ public class familyDAO {
             pstmt = conn.prepareStatement(sql);
 
             // パラメータを設定
-            pstmt.setString(1, newfamily.getFamily_id());
-            pstmt.setString(2, newfamily.getFami_pass()); // ここにはハッシュ化されたあいことばが渡される想定
+            pstmt.setString(1, newFamily.getFamily_id());
+            pstmt.setString(2, newFamily.getFami_pass()); // ここにはハッシュ化されたあいことばが渡される想定
 
             int rowsAffected = pstmt.executeUpdate(); // SQLを実行
 

@@ -36,16 +36,30 @@ public class FamilyRegistServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String family_id = request.getParameter("family_id");
 		String fami_pass = request.getParameter("fami_pass");
+		String confirm_fami_pass = request.getParameter("confirm_fami_pass");
 		
-		// familyidとPWが入力されているか確認
+		// familyidとあいことばが入力されているか確認
 		if (family_id == null || family_id.isEmpty() || fami_pass == null || fami_pass.isEmpty()) {
-	            request.setAttribute("errorMessage", "ユーザーIDとパスワードは必須入力です。");
+	            request.setAttribute("FamilyErrorMessage", "ファミリーIDとあいことばは必須入力です。");
 	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 	            dispatcher.forward(request, response);
 	            return; // これ以上処理を進めない
 	    }
-		
-		// --- ここからパスワードのSHA-256暗号化処理 ---
+		// あいことばと確認用あいことばが一致しているか確認
+        if (!fami_pass.equals(confirm_fami_pass)) {
+            request.setAttribute("FamilyErrorMessage", "あいことばと確認用あいことばが一致しません。");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+        //あいことばが文字数の条件を満たしているか確認
+		if (fami_pass.length() < 8 || fami_pass.length() > 15) {
+            request.setAttribute("FamilyErrorMessage", "あいことばは8文字以上15文字以下で入力してください。");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
+            dispatcher.forward(request, response);
+            return;
+		}
+		// --- ここからあいことばのSHA-256暗号化処理 ---
         String hashedFami_Pass = Sha256Util.hashString(fami_pass);
         if (hashedFami_Pass == null) {
             // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
@@ -59,13 +73,19 @@ public class FamilyRegistServlet extends HttpServlet {
 		// 登録処理を行う
 		familyDAO fDao = new familyDAO();
 		if (fDao.insertFami(new family(family_id, hashedFami_Pass))) { // 登録成功
-			request.setAttribute("result", "登録できました");
+//			request.setAttribute("result", "登録できました");
+			// 結果ページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+			dispatcher.forward(request, response);
 		} else { // 登録失敗
 			request.setAttribute("result","登録できませんでした");
+			// 結果ページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
+			dispatcher.forward(request, response);
 		}
 
-		// 結果ページにフォワードする
+/*		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
-		dispatcher.forward(request, response);	
+		dispatcher.forward(request, response);	*/
 	}
 }

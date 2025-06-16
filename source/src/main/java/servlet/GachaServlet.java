@@ -26,6 +26,42 @@ public class GachaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String family_id = "1001";
+		int sum_level = 0;
+		gachaDAO gcDAO = new gachaDAO();
+		List<user> familyList = gcDAO.select(family_id);
+		List<housework> houseworkList = gcDAO.selecthw(family_id);
+		List<housework> fixed_levelList = gcDAO.selecthwlevel(family_id);
+		List<housework> vari_houseworkList = gcDAO.selecthw_vari(family_id);		
+		for (housework hw:houseworkList) {
+			sum_level += hw.getHousework_level();
+		}
+		
+		for (user fm:familyList) {
+			fm.setUser_level(sum_level * fm.getShare_goal());
+		}
+		
+		for (user fm:familyList) {
+			for (housework hw:fixed_levelList) {
+				if (hw.getFixed_role().equals(fm.getUser_id())) {
+					fm.addUser_level(hw.getHousework_level());
+				}
+			}
+		}
+		
+		int i = 0;
+		Random rand = new Random();
+		while (i < vari_houseworkList.size()) {
+			int num = rand.nextInt(familyList.size());
+			if (familyList.get(num).getUser_level() >= 0) {
+				gcDAO.update(familyList.get(num),vari_houseworkList.get(i));
+				familyList.get(num).addUser_level(vari_houseworkList.get(i).getHousework_level());
+				i++;
+			}
+		}
+		
+		List<housework> roleList = gcDAO.select_role(family_id);
+		request.setAttribute("roleList",roleList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -60,9 +60,6 @@ public class userDAO {
             // 本番環境では、詳細なエラー情報をユーザーに返さないようにする
             // throw new DAOException("ログイン処理中にデータベースエラーが発生しました。", e); のように、
             // より上位の例外にラップしてスローすることも検討
-        } finally {
-            // リソースを確実にクローズ
-            closeResources(conn, pStmt, rs);
         }
         return loginResult;
     }
@@ -99,31 +96,6 @@ public class userDAO {
             //    System.err.println("ユーザーIDが既に存在します。");
             // }
             return false; // 挿入失敗
-        } finally {
-            // リソースを確実にクローズ
-            closeResources(conn, pstmt, null); // ResultSetはここでは不要
-        }
-    }
-
-    /**
-     * JDBCリソースを安全にクローズするためのヘルパーメソッド
-     * @param conn Connectionオブジェクト
-     * @param pstmt PreparedStatementオブジェクト
-     * @param rs ResultSetオブジェクト
-     */
-    private void closeResources(Connection conn, PreparedStatement pstmt, ResultSet rs) {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // クローズ時のエラーもログに出力
         }
     }
 }
