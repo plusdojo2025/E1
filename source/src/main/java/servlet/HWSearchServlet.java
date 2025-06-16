@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.houseworkDAO;
 import dto.housework;
@@ -26,14 +27,14 @@ public class HWSearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("${pageContext.request.contextPath}/webapp/LoginServlet");
+//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 //			return;
 //		}
 
-		// 検索ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("E1/WEB-INF/jsp/housework_list.jsp");
+		// 家事一覧ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "housework_list.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -43,9 +44,9 @@ public class HWSearchServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("${pageContext.request.contextPath}/webapp/LoginServlet");
+//			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
 		
@@ -72,8 +73,8 @@ public class HWSearchServlet extends HttpServlet {
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("cardList", cardList);
 
-		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("${pageContext.request.contextPath}/WEB-INF/jsp/housework_list.jsp");
+		// 家事一覧ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);		
 
 		// TODO Auto-generated method stub 自動生成
