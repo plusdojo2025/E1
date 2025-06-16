@@ -25,7 +25,7 @@ public class today_memoDAO {
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			String sql = "SELECT memo_id, family_id, memo FROM today_memo WHERE family_id = " + family_id;
+			String sql = "SELECT memo_id, family_id, memo FROM today_memo WHERE family_id = '" + family_id + "'";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			

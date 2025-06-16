@@ -1,1 +1,164 @@
 @charset "UTF-8";
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #e0e0e0, #b0b0b0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .gacha {
+    position: relative;
+    width: 220px;
+    height: 350px;
+    background: linear-gradient(145deg, #c14a00, #8e2b00);
+    border-radius: 25px;
+    box-shadow:
+      inset 0 5px 15px rgba(255, 140, 0, 0.8),
+      0 15px 30px rgba(0,0,0,0.5);
+  }
+  /* 上部透明カプセル窓 */
+  .window {
+    position: absolute;
+    top: 35px;
+    left: 30px;
+    width: 160px;
+    height: 120px;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.8) 15%, rgba(230,230,255,0.3) 90%);
+    border-radius: 20px;
+    box-shadow:
+      inset 0 3px 10px rgba(255,255,255,0.6),
+      0 5px 15px rgba(0,0,0,0.15);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    overflow: hidden;
+  }
+  /* 中のカプセルの影 */
+  .capsule-container {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    width: 120px;
+    height: 110px;
+    pointer-events: none;
+  }
+  .capsule {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #55aaff 60%, #2c75d9 90%);
+    box-shadow:
+      inset -5px -5px 10px rgba(255, 255, 255, 0.7),
+      inset 5px 5px 10px rgba(0, 0, 80, 0.7),
+      0 3px 8px rgba(0,0,0,0.6);
+    opacity: 0.8;
+  }
+  /* 複数カプセルを重ねて配置 */
+  .capsule:nth-child(1) { top: 10px; left: 10px; transform: rotate(-10deg);}
+  .capsule:nth-child(2) { top: 40px; left: 70px; transform: rotate(15deg);}
+  .capsule:nth-child(3) { top: 60px; left: 30px; transform: rotate(5deg);}
+  .capsule:nth-child(4) { top: 20px; left: 80px; transform: rotate(-20deg);}
+  .capsule:nth-child(5) { top: 70px; left: 70px; transform: rotate(25deg);}
+
+.handle {
+  position: absolute;
+  bottom: 90px;
+  right: 20px;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+  z-index: 20;
+}
+
+/* ハンドルの外側の円盤（へこみ風） */
+.handle-plate {
+  position: absolute;
+  top: 0; left: 0;
+  width: 70px; height: 70px;
+  background: radial-gradient(circle at center, #a85200, #4e1b00);
+  border-radius: 50%;
+  box-shadow:
+    inset 4px 4px 8px rgba(0, 0, 0, 0.7),
+    inset -4px -4px 10px rgba(255, 140, 0, 0.9);
+}
+
+/* 軸の中心丸 */
+.handle-center {
+  position: absolute;
+  top: 28px; left: 28px;
+  width: 14px; height: 14px;
+  background: radial-gradient(circle at center, #b97700, #3f1500);
+  border-radius: 50%;
+  box-shadow:
+    inset 3px 3px 6px rgba(0,0,0,0.8),
+    inset -2px -2px 3px rgba(255,165,0,0.8);
+  z-index: 10;
+}
+
+/* つまみ全体 */
+.handle-knob {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  width: 20px;  /* 太め */
+  height: 40px;
+  transform-origin: bottom center;
+  z-index: 15;
+}
+
+/* つまみの棒（凹み風） */
+
+.knob-stick {
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  width: 6px;  /* 太く */
+  height: 40px;
+  background: radial-gradient(circle at 50% 30%, #6b3a00, #3f1d00);
+  border-radius: 3px;
+  box-shadow:
+    inset 2px 3px 6px rgba(255, 180, 60, 0.7),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.9);
+}
+
+  /* 投入口 */
+  .slot {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    width: 120px;
+    height: 20px;
+    background: linear-gradient(145deg, #a04000, #6c2200);
+    border-radius: 10px;
+    box-shadow:
+      inset 0 3px 5px rgba(255,140,0,0.8),
+      0 4px 8px rgba(0,0,0,0.5);
+    transform: translateX(-50%);
+  }
+
+  /* 出てくるカプセルアニメーション */
+  .capsule-drop {
+    position: absolute;
+    bottom: 60px;
+    left: 90px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at center, #3498db 60%, #2980b9 90%);
+    border-radius: 50%;
+    box-shadow:
+      inset -5px -5px 10px rgba(255, 255, 255, 0.7),
+      inset 5px 5px 10px rgba(0, 0, 80, 0.7),
+      0 3px 8px rgba(0,0,0,0.6);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 10;
+  }
+  .capsule-drop.show {
+    opacity: 1;
+    transform: translateY(0);
+  }

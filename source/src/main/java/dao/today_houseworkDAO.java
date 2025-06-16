@@ -30,7 +30,7 @@ public class today_houseworkDAO {
 		String sql = "INSERT INTO today_housework (today_housework_id, housework_id, date) "
 				+ "SELECT 0, housework_id, NOW() "
 				+ "FROM housework "
-				+ "WHERE family_id = " + family_id + " AND frequency = 0 OR frequency = " + dayOfWeek;
+				+ "WHERE family_id = '" + family_id + "' AND frequency = 0 OR frequency = " + dayOfWeek;
 		
 		PreparedStatement pStmt = conn.prepareStatement(sql);
 		
@@ -71,7 +71,7 @@ public class today_houseworkDAO {
 			
 			String sql = "SELECT housework_id,housework_name,family_id,housework_level "
 					+ "FROM housework WHERE housework_id IN "
-					+ "(SELECT housework_id FROM today_housework) AND family_id = " + family_id;
+					+ "(SELECT housework_id FROM today_housework) AND family_id = '" + family_id + "'";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -119,7 +119,7 @@ public class today_houseworkDAO {
 					"root", "password");
 			
 			String sql = "SELECT housework_id,housework_name,family_id,housework_level "
-					+ "FROM housework WHERE frequency = 8 AND family_id = " + family_id;
+					+ "FROM housework WHERE frequency = 8 AND family_id = '" + family_id + "'";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -206,8 +206,8 @@ public class today_houseworkDAO {
 					"root", "password");
 			
 			String sql = "SELECT count(*) FROM today_housework "
-					+ "WHERE housework_id IN (SELECT housework_id FROM housework WHERE family_id = " + family_id
-					+ ") AND date LIKE ('%" + date + "%')";
+					+ "WHERE housework_id IN (SELECT housework_id FROM housework WHERE family_id = '" + family_id
+					+ "') AND date LIKE ('%" + date + "%')";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -297,7 +297,7 @@ public class today_houseworkDAO {
 
 			// SQL文を準備する
 			String sql = "DELETE FROM today_housework WHERE housework_id IN (SELECT housework_id FROM housework "
-					+ "WHERE family_id = + " + family_id + " AND (frequency = 0 OR frequency = " + dayOfWeek +"))"; 
+					+ "WHERE family_id = + '" + family_id + "' AND (frequency = 0 OR frequency = " + dayOfWeek +"))"; 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 
