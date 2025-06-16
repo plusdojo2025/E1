@@ -45,7 +45,7 @@
             
 
 			<div class="contents">
-            <c:forEach var="e" items="${homeworkList}" >
+            <c:forEach var="e" items="${cardList}" >
                 <form method="POST" id="search_result_form" action="/webapp/UpdateDeleteServlet">
 				家事ID<input type="hidden" name="housework_id" value="${e.housework_id}">
                 家事名<input type="text" name="housework_name" value="${e.housework_name}"><br>

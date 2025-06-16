@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,12 +27,12 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/webapp/LoginServlet");
+			response.sendRedirect("/E1/LoginServlet");
 			return;
 		}
 
 		// 検索ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/search.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -45,7 +44,7 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/webapp/LoginServlet");
+			response.sendRedirect("/E1/LoginServlet");
 			return;
 		}
 
@@ -70,16 +69,16 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		if (request.getParameter("submit").equals("更新")) {
 			if (hwDao.update(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag, 
 					noti_time, frequency, manual, fixed_role, variable_role, log))) { // 更新成功
-				request.setAttribute("result", new Result("家事情報更新", "家事情報をを更新しました。", "/webapp/HWSearchServlet"));
+				request.setAttribute("家事情報更新", "家事情報をを更新しました。");
 			} else { // 更新失敗
-				request.setAttribute("result", new Result("更新失敗", "レコードを更新できませんでした。", "/webapp/HWSearchServlet"));
+				request.setAttribute("更新失敗", "レコードを更新できませんでした。");
 			}
 		} else {
 			if (hwDao.delete(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag, 
 					noti_time, frequency, manual, fixed_role, variable_role, log))) { // 削除成功
-				request.setAttribute("result", new Result("削除成功", "家事情報を削除しました。", "/webapp/HWSearchServlet"));
+				request.setAttribute("削除成功", "家事情報を削除しました。");
 			} else { // 削除失敗
-				request.setAttribute("result", new Result("削除失敗", "家事情報を削除できませんでした。", "/webapp/HWSearchServlet"));
+				request.setAttribute("削除失敗", "家事情報を削除できませんでした。");
 			}
 		}
 

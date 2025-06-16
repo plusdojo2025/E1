@@ -29,12 +29,12 @@ public class HWSearchServlet extends HttpServlet {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
-//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+//			response.sendRedirect("/E1/LoginServlet");
 //			return;
 //		}
 
 		// 家事一覧ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "housework_list.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -44,9 +44,9 @@ public class HWSearchServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
+//			response.sendRedirect("/E1/LoginServlet");
 //			return;
 //		}
 		
@@ -78,7 +78,7 @@ public class HWSearchServlet extends HttpServlet {
 		dispatcher.forward(request, response);		
 
 		// TODO Auto-generated method stub 自動生成
-//		doGet(request, response);
+		doGet(request, response);
 	}
 
 }
