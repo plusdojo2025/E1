@@ -80,6 +80,13 @@ public class user implements Serializable {
     	this.user_name = user_name;
     	this.share_goal = share_goal;
     }
+    
+    //分析用
+    public user(String user_id, float share_goal) {
+    	this.user_id = user_id;
+    	this.share_goal = share_goal;
+    }
+    
 	public user() {
 		super();
 		this.user_id = "";

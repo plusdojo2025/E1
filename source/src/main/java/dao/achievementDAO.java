@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.achievement;
+import dto.user;
 
 public class achievementDAO {
 
-    // 昨日の achievement データを全件取得
+    // 指定された family_id の昨日の achievement データを全件取得
     public List<achievement> selectYesterdayAchievement(String family_id) {
         Connection conn = null;
         List<achievement> yesterdayList = new ArrayList<>();
@@ -60,7 +61,7 @@ public class achievementDAO {
         return yesterdayList;
     }
     
-    // 過去12か月分の achievement データを全件取得
+    // 指定された family_id の過去12か月分の achievement データを全件取得
     public List<achievement> selectYearAchievement(String family_id) {
         Connection conn = null;
         List<achievement> yearList = new ArrayList<>();
@@ -110,10 +111,10 @@ public class achievementDAO {
         return yearList;
     }
 
-	// ユーザーリスト
-	public List<String> selectUserId(String family_id) {
+	// 指定された family_id に属するユーザーの user_id と share_goal を取得
+	public List<user> selectUserId(String family_id) {
 	    Connection conn = null;
-	    List<String> userList = new ArrayList<>();
+	    List<user> userList = new ArrayList<>();
 	
 	    try {
 	    	// JDBCドライバを読み込む
@@ -125,7 +126,7 @@ public class achievementDAO {
 	            "root", "password");
 	
 	        // SQL文を準備する
-	        String sql = "SELECT DISTINCT user_id FROM achievement "
+	        String sql = "SELECT DISTINCT user_id, share_goal FROM user "
 	        		+ "WHERE family_id = " + family_id;
 	        
 	        PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -133,13 +134,18 @@ public class achievementDAO {
 	        // SQL文を実行し、結果表を取得する
 	        ResultSet rs = pStmt.executeQuery();
 	        while (rs.next()) {
-	            userList.add(rs.getString("user_id"));
+	        	user u = new user(
+	        		rs.getString("user_id"),
+	        		rs.getFloat("share_goal")
+	        		);
+	        		userList.add(u);
 	        }
-	
+	        
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
 	    } finally {
 	        try {
+	        	// データベースを切断
 	            if (conn != null) conn.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
