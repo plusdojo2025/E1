@@ -45,7 +45,7 @@ public class HomeServlet extends HttpServlet {
 		 today_houseworkDAO td_hwDAO = new today_houseworkDAO();
 		 today_memoDAO memoDAO = new today_memoDAO();
 		 //td_hwDAO.delete(family_id,dayOfWeek);
-		 if (td_hwDAO.selectdate(formatyesterdayDate) == 0) {
+		 if (td_hwDAO.selectdate(formatyesterdayDate) != 0) {
 			 td_hwDAO.reset();
 		 }
 		 int a = td_hwDAO.selectdate(formatNowDate1, family_id);
@@ -89,47 +89,16 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("submit").equals("完了")) {
 			int housework_id = Integer.parseInt(id);
 			if(td_hwDAO.submit(user_id, housework_id ,formatNowDate2)){
-			List<housework> houseworkList = td_hwDAO.select(family_id); 
-			request.setAttribute("houseworkList",houseworkList);
-			request.setAttribute("houseworkList",houseworkList);
-			
-			List<housework> irregular_houseworkList = td_hwDAO.select_ir(family_id);
-			request.setAttribute("irregular_houseworkList",irregular_houseworkList);
-			
-			List<today_memo> memoList = memoDAO.select(family_id);
-			request.setAttribute("memoList", memoList);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-			dispatcher.forward(request, response); 	
+				response.sendRedirect("/E1/HomeServlet");
 			}
 		}else if(request.getParameter("submit").equals("家事追加")) {
 			int housework_id = Integer.parseInt(id);
 			if(td_hwDAO.insert(housework_id)) {
-				List<housework> houseworkList = td_hwDAO.select(family_id); 
-				request.setAttribute("houseworkList",houseworkList);				
-				
-				List<housework> irregular_houseworkList = td_hwDAO.select_ir(family_id);
-				request.setAttribute("irregular_houseworkList",irregular_houseworkList);				
-				
-				List<today_memo> memoList = memoDAO.select(family_id);
-				request.setAttribute("memoList", memoList);
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-				dispatcher.forward(request, response); 
+				response.sendRedirect("/E1/HomeServlet");
 			}
-		}else {	
+		}else if(request.getParameter("submit").equals("メモ追加")) {	
 			if(memoDAO.insert(memo)) {
-				List<housework> houseworkList = td_hwDAO.select(family_id); 
-				request.setAttribute("houseworkList",houseworkList);				
-				
-				List<housework> irregular_houseworkList = td_hwDAO.select_ir(family_id);
-				request.setAttribute("irregular_houseworkList",irregular_houseworkList);				
-				
-				List<today_memo> memoList = memoDAO.select(family_id);
-				request.setAttribute("memoList", memoList);
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-				dispatcher.forward(request, response); 
+				response.sendRedirect("/E1/HomeServlet");
 			}
 		}
 	}

@@ -3,6 +3,11 @@ package dto;
 import java.io.Serializable;
 
 public class housework implements Serializable {
+
+	
+	//分担ガチャ用
+	private String role;
+
 	private int housework_id;			/*家事ID*/
 	private String housework_name;		/*家事名*/
 	private String family_id;			/*ファミリーID*/
@@ -23,10 +28,16 @@ public class housework implements Serializable {
 		this.family_id = family_id;
 		this.housework_level = housework_level;
 	}
-	//分析ガチャ用
+	
+	//分担ガチャ用コンストラクタ
 	public housework(String fixed_role, int housework_level) {
 		this.fixed_role = fixed_role;
 		this.housework_level = housework_level;
+	}
+	//分担ガチャ用コンストラクタ2
+	public housework(String housework_name, String role) {
+		this.housework_name = housework_name;
+		this.role = role;
 	}
 	
 		public housework(int housework_id, String housework_name, String family_id, int category_id,
@@ -117,6 +128,14 @@ public int getLog() {
 }
 public void setLog(int log) {
 	this.log = log;
+}
+
+public String getRole() {
+	return role;
+}
+
+public void setRole(String role) {
+	this.role = role;
 }
 
 

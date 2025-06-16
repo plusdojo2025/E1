@@ -10,13 +10,17 @@ public class user implements Serializable {
 	private float share_goal;
 	
 	//分担ガチャ用変数
-	private int user_level;
-
-	public int getUser_level() {
+	private float user_level;
+	
+	public void addUser_level(int user_level) {
+		this.user_level-=user_level;
+	}
+	
+	public float getUser_level() {
 		return user_level;
 	}
 
-	public void setUser_level(int user_level) {
+	public void setUser_level(float user_level) {
 		this.user_level = user_level;
 	}
 
