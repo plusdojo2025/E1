@@ -9,23 +9,23 @@
 </head>
 <body>
   <!-- ヘッダー（ここから） -->
-
   <!-- ヘッダー（ここまで） -->
   <!-- メイン（ここから） -->
 <h2>ログイン</h2>
+<span>${result}</span>
 <form method="POST"  id="login_form" action="/E1/LoginServlet">
 	<table>
 		<tr>
 			<td>
 				<label>ユーザーID<br>
-				<input type="text" name="user_id">
+				<input type="text" name="user_id" maxlength=10>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード<br>
-				<input type="password" name="password">
+				<input type="password" name="password" minlength=8 maxlength=15>
 				</label>
 			</td>
 		<tr>

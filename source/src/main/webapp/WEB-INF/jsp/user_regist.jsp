@@ -7,54 +7,61 @@
 <title>Insert title here</title>
 </head>
 <body>
+<span>${result}</span>
+<span>${UserErrorMessage}</span>
 <form method="POST"  id="user_regist_form" action="/E1/UserRegistServlet">
 	<table>
 		<tr>
 			<td>
 				<label><br>ファミリーID
-				<input type="text" name="family_id">
+				<input type="text" name="family_id" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>あいことば<br>
-				<input type="password" name="fami_pass">
+				<label>あいことば
+				<input type="password" name="fami_pass" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>ユーザーID<br>
-				<input type="text" name="user_id">
+				<label>ユーザーID
+				<input type="text" name="user_id" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>ニックネーム<br>
-				<input type="text" name="user_name">
+				<label>ニックネーム
+				<input type="text" name="user_name" maxlength=10 required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>パスワード<br>
-				<input type="password" name="password">
+				<label>パスワード
+				<input type="password" name="password" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>パスワード(確認)<br>
-				<input type="password" name="password">
+				<label>パスワード(確認)
+				<input type="password" name="confirmPassword" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<input type="hidden" name="share_goal" value="0.5">
-        		<p>※あなたの目標達成率はデフォルトで50%に設定されます。</p>
+        		<p>※あなたの分担目標はデフォルトで50%に設定されます。</p>
+        	</td>
+        </tr>
+        <tr>
+        	<td>
+        		<span>${result}</span>
         	</td>
         </tr>
 		<tr>
@@ -65,5 +72,6 @@
 		</tr>
 	</table>
 </form>
+<script src="user_regist.js"></script>
 </body>
 </html>
