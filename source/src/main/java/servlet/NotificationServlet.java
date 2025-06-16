@@ -26,13 +26,14 @@ public class NotificationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session=request.getSession(false);
 		
 		// 通知表示処理を行う
 		String user_id=(String) session.getAttribute("user_id");
 		notificationDAO notiDao = new notificationDAO();
-		List<notification> notiList = notiDao.select(new notification(),user_id);
+		//notiDao.delete(user_id);
+		List<notification> notiList = notiDao.select(user_id);
 		
 		// 通知一覧をリクエストスコープに格納する
 		request.setAttribute("notiList", notiList);

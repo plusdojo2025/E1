@@ -15,7 +15,7 @@ import dto.notification;
 
 public class notificationDAO {
 	//アプリ内通知の表示
-	public List<notification> select(notification noti,String user_id){
+	public List<notification> select(String user_id){
 		Connection conn = null;
 		List<notification> notiList = new ArrayList<notification>();
 		
@@ -71,8 +71,9 @@ public class notificationDAO {
 		return notiList;
 	}
 	
-	public void insert(notification noti) {
+	public boolean delete(String user_id) {
 		Connection conn=null;
+		boolean result=false;
 		
 		try {
 			// JDBCドライバを読み込む
@@ -82,8 +83,17 @@ public class notificationDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
+						
+			// SQL文を準備する
+			String sql="delete from notification where convert(date,noti_datetime)<>?;";
+			PreparedStatement pStmt=conn.prepareStatement(sql);
 			
-			String sql="insert into notification values (0,?,?,?)";
+			// SQL文を完成させる
+			LocalDate today=LocalDate.now();
+			long millisToday=today.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+			Date date=new Date(millisToday);
+			pStmt.setDate(0,date);
+			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -98,5 +108,6 @@ public class notificationDAO {
 				}
 			}
 		}
+		return result;
 	}
 }

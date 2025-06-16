@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>通知</h1>
+<hr>
 <div>
 	<c:forEach var="e" items="${notiList}">
 		<div>
