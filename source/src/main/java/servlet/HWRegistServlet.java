@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.houseworkDAO;
 import dto.housework;
@@ -52,10 +53,17 @@ public class HWRegistServlet extends HttpServlet {
 			return;
 		}*/
 		
+		// セッションを取得
+        HttpSession session = request.getSession();
+		// セッションからfamily_idを取得
+		String familyId = (String) session.getAttribute("family_id");
+		if (familyId == null) {
+			familyId = "sato0611"; // テスト用の固定値
+		}
+		
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String housework_name = request.getParameter("housework_name");
-		String family_id = request.getParameter("family_id");
 		int category_id = Integer.parseInt(request.getParameter("category_id"));
 		int housework_level = Integer.parseInt(request.getParameter("housework_level"));
 		int noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
@@ -68,8 +76,10 @@ public class HWRegistServlet extends HttpServlet {
 		
 		// 登録処理を行う
 		houseworkDAO hDao = new houseworkDAO();
-		if (hDao.insert(new housework(0,housework_name,family_id,category_id,housework_level,noti_flag,
-				noti_time,frequency,manual,fixed_role,variable_role,log))) { // 登録成功
+		housework hw = new housework(0, housework_name, familyId, category_id, housework_level,
+                noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log);
+		
+		if (hDao.insert(hw)) { // 登録成功
 			response.sendRedirect("/E1/HomeServlet");
 		} else { // 登録失敗
 			response.sendRedirect("/E1/HomeServlet");
