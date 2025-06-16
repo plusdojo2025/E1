@@ -1,1 +1,13 @@
 @charset "UTF-8";
+
+/* 家事一覧用のｃｓｓ */
+
+.tab_container {
+    display: flex;
+}
+.contents_label {
+    display: flex;
+}
+.contents {
+	display: flex;
+}

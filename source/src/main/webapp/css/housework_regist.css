@@ -1,1 +1,73 @@
 @charset "UTF-8";
+
+/*負担度を表す星*/
+.star {
+  font-size: 2rem;
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.selected {
+  color: gold;
+}
+
+/*曜日選択*/
+.days-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .day-label {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .day-label:hover {
+            background-color: #e0e0e0;
+        }
+
+        .day-checkbox:checked + .day-label {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .day-checkbox {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #007399;
+        }
+
+        select {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
