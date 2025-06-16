@@ -1,1 +1,13 @@
 @charset "UTF-8";
+
+/*負担度を表す星*/
+.star {
+  font-size: 2rem;
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.selected {
+  color: gold;
+}
