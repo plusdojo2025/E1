@@ -16,7 +16,7 @@
 		<label>${e.user_id}の分担割合<br>
 			<input type="text" name="goal" value="${e.share_goal}">
 			<input type="hidden" name="user_id" value="${e.user_id}">
-			<input type="submit" name="submit" value="分担目標設定" id="goal_submit">
+			<input type="submit" name="submit" value="設定" id="goal_submit">
 		</label>
 	</form>
 </c:forEach>
