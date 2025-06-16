@@ -203,15 +203,15 @@ public class houseworkDAO {
 				housework hw = new housework(rs.getInt("housework_id"), 
 							  rs.getString("housework_name"), 
 							  rs.getString("family_id"), 
-							  rs.getString("category_id"), 
-							  rs.getString("housework_level"), 
-							  rs.getString("noti_flag"), 
+							  rs.getInt("category_id"), 
+							  rs.getInt("housework_level"), 
+							  rs.getInt("noti_flag"), 
 							  rs.getString("noti_time"), 
-							  rs.getString("frequency"), 
+							  rs.getInt("frequency"), 
 							  rs.getString("manual"), 
 							  rs.getString("fixed_role"), 
 							  rs.getString("variable_role"), 
-							  rs.getString("log"));
+							  rs.getInt("log"));
 				cardList.add(hw);
 			}
 		} catch (SQLException e) {
