@@ -71,3 +71,9 @@
             border-radius: 5px;
             border: 1px solid #ccc;
         }
+        
+    /*通知時間の出すやつ*/
+    .noti-hidden {
+  display: none;
+}
+    

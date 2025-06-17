@@ -78,7 +78,7 @@ public class FamilyRegistServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
 			dispatcher.forward(request, response);
 		} else { // 登録失敗
-			request.setAttribute("result","登録できませんでした");
+			request.setAttribute("result","登録できませんでした。ファミリーIDが存在している可能性があります。");
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
 			dispatcher.forward(request, response);

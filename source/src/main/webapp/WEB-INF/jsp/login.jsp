@@ -12,7 +12,6 @@
   <!-- ヘッダー（ここまで） -->
   <!-- メイン（ここから） -->
 <h2>ログイン</h2>
-<span>${result}</span>
 <form method="POST"  id="login_form" action="/E1/LoginServlet">
 	<table>
 		<tr>
@@ -31,14 +30,18 @@
 		<tr>
 		<tr>
 			<td>
-				<input type="submit" name="submit" value="ログイン">
+				<span>${result}</span>
 				<span id="error_message">${errorMessage}</span>
+				<input type="submit" name="submit" value="ログイン">
 			<td>
 		</tr>
 	</table>
 </form>
 <form method="GET" action="/E1/FamilyRegistServlet">
         <input type="submit" value="IDをお持ちでない方はこちら">
+</form>
+<form method="GET" action="/E1/UserDeleteServlet">
+        <input type="submit" value="アカウント削除はこちら">
 </form>
   <!-- メイン（ここまで） -->
   <!-- フッター（ここから） -->

@@ -75,7 +75,7 @@ public class HomeServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyyMM");
 					String formatNowDate2 = dtf2.format(nowDate);
 		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-		 String user_id = "1";
+		 String user_id = "ren0712";
 		 String family_id = "1001";
 		 
 
@@ -88,8 +88,10 @@ public class HomeServlet extends HttpServlet {
 
 		if (request.getParameter("submit").equals("完了")) {
 			int housework_id = Integer.parseInt(id);
-			if(td_hwDAO.submit(user_id, housework_id ,formatNowDate2)){
-				response.sendRedirect("/E1/HomeServlet");
+			if(td_hwDAO.submit(user_id, family_id ,housework_id ,formatNowDate2)) { 
+					if (td_hwDAO.insert_notification(user_id,housework_id)){
+						response.sendRedirect("/E1/HomeServlet");
+					}
 			}
 		}else if(request.getParameter("submit").equals("家事追加")) {
 			int housework_id = Integer.parseInt(id);
