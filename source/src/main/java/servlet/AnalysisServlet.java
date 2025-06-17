@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -36,10 +34,11 @@ public class AnalysisServlet extends HttpServlet {
             return;
         }*/
 		
-        LocalDateTime nowDate = LocalDateTime.now();
+        //現在日時を取得し、yyyymmのフォーマットに変換
+        /*LocalDateTime nowDate = LocalDateTime.now();
         DateTimeFormatter dtf =
-				DateTimeFormatter.ofPattern("yyyy-MM");
-					String formatNowDate = dtf.format(nowDate);
+				DateTimeFormatter.ofPattern("yyyyMM");
+					String formatNowDate = dtf.format(nowDate);*/
         
         // セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
@@ -53,11 +52,7 @@ public class AnalysisServlet extends HttpServlet {
 			achievementDAO dao = new achievementDAO();
 			List<user> userList = dao.selectUserId(familyId);
 			
-			// userList の中身をログ出力して確認
-			/*System.out.println("userList size: " + userList.size());
-			for (user u : userList) {
-				System.out.println("user_id: " + u.getUser_id() + ", share_goal: " + u.getShare_goal());
-			}*/
+			
 			
 			// JSPに渡すためにリクエストスコープに保存
 			request.setAttribute("userList", userList);
@@ -73,13 +68,9 @@ public class AnalysisServlet extends HttpServlet {
 		// DAOを使って同じfamily_idの前日の実績データリストを取得
 		try {
 			achievementDAO dao = new achievementDAO();
-			List<achievement> yesterdayList = dao.selectYesterdayAchievement(familyId, formatNowDate);
+			List<achievement> yesterdayList = dao.selectYesterdayAchievement(familyId);
 			
-			// yesterdayList の中身をログ出力して確認
-			/*System.out.println("yesterdayList size: " + yesterdayList.size());
-			for (achievement a : yesterdayList) {
-				System.out.println("user_id: " + a.getUser_id() + ", daily_score: " + a.getAchieve_history());
-			}*/
+			
 			
 			// JSPに渡すためにリクエストスコープに保存
 			request.setAttribute("yesterdayList", yesterdayList);
@@ -92,16 +83,12 @@ public class AnalysisServlet extends HttpServlet {
 			return;
 		}
 		
-		// DAOを使って同じfamily_idの前月から過去12か月分の実績データリストを取得
+		// DAOを使って同じfamily_idの先月から過去12か月分の実績データリストを取得
 		try {
 			achievementDAO dao = new achievementDAO();
-			List<achievement> yearList = dao.selectYearAchievement(familyId, formatNowDate);
+			List<achievement> yearList = dao.selectYearAchievement(familyId);
 			
-			// yearList の中身をログ出力して確認
-			/*System.out.println("yearList size: " + yearList.size());
-			for (achievement a : yearList) {
-				System.out.println("user_id: " + a.getUser_id() + ", month: " + a.getDate() + ", monthly_score: " + a.getAchieve_history());
-			}*/
+			
 			
 			// JSPに渡すためにリクエストスコープに保存
 			request.setAttribute("yearList", yearList);
@@ -113,6 +100,24 @@ public class AnalysisServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "データの取得に失敗しました。");
 			return;
 		}
+		
+		// userList の中身をログ出力して確認
+					/*System.out.println("userList size: " + userList.size());
+					for (user u : userList) {
+						System.out.println("user_id: " + u.getUser_id() + ", share_goal: " + u.getShare_goal());
+					}*/
+		
+		// yesterdayList の中身をログ出力して確認
+					/*System.out.println("yesterdayList size: " + yesterdayList.size());
+					for (achievement a : yesterdayList) {
+						System.out.println("user_id: " + a.getUser_id() + ", daily_score: " + a.getAchieve_history());
+					}*/
+		
+		// yearList の中身をログ出力して確認
+					/*System.out.println("yearList size: " + yearList.size());
+					for (achievement a : yearList) {
+						System.out.println("user_id: " + a.getUser_id() + ", month: " + a.getDate() + ", monthly_score: " + a.getAchieve_history());
+					}*/
 		
 		// 分析画面（analysis.jsp）にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/analysis.jsp");

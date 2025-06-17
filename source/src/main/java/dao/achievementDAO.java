@@ -14,7 +14,7 @@ import dto.user;
 public class achievementDAO {
 
     // 指定された family_id の昨日の achievement データを全件取得
-    public List<achievement> selectYesterdayAchievement(String family_id, String now_date) {
+    public List<achievement> selectYesterdayAchievement(String family_id) {
         Connection conn = null;
         List<achievement> yesterdayList = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class achievementDAO {
 
             // SQL文を準備する
             String sql = "SELECT user_id, SUM(achieve_history) AS daily_score "
-            		+ "FROM achievement_" + now_date 
+            		+ "FROM achievement "
             		+ "WHERE date = CURDATE() - INTERVAL 1 DAY "
             		+ "AND family_id = '" + family_id + "' "
             		+ "GROUP BY user_id";
@@ -69,8 +69,8 @@ public class achievementDAO {
         return yesterdayList;
     }
     
-    // 指定された family_id の前月から過去12か月分の achievement データを全件取得
-    public List<achievement> selectYearAchievement(String family_id, String now_date) {
+    // 指定された family_id の先月から過去12か月分の achievement データを全件取得
+    public List<achievement> selectYearAchievement(String family_id) {
         Connection conn = null;
         List<achievement> yearList = new ArrayList<>();
 
@@ -85,7 +85,7 @@ public class achievementDAO {
 
             // SQL文を準備する
             String sql = "SELECT user_id, DATE_FORMAT(date, '%Y-%m') AS month, SUM(achieve_history) AS monthly_score "
-            		+ "FROM achievement_" + now_date
+            		+ "FROM achievement "
             		+ "WHERE date >= DATE_FORMAT(CURDATE() - INTERVAL 12 MONTH, '%Y-%m-01') "
             		+ "AND date < DATE_FORMAT(CURDATE(), '%Y-%m-01') "
             		+ "AND family_id = '" + family_id + "' "
@@ -182,5 +182,40 @@ public class achievementDAO {
 	    // 結果を返す
 	    return userList;
 	}
+	
+	// 先月より１３か月以前のデータを削除する
+	public void deleteOldAchievements() {
+	    Connection conn = null;
+	    PreparedStatement pStmt = null;
+
+	    try {
+	        // JDBCドライバの読み込み
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        // データベース接続
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        // SQL定義（13か月より前のデータを削除）
+	        String sql = "DELETE FROM achievement WHERE date < DATE_FORMAT(CURDATE() - INTERVAL 13 MONTH, '%Y-%m-01')";
+
+	        pStmt = conn.prepareStatement(sql);
+	        int deletedRows = pStmt.executeUpdate();
+	        System.out.println(deletedRows + " 件の古いデータを削除しました。");
+
+	    } catch (ClassNotFoundException | SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (pStmt != null) pStmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
 
 }
