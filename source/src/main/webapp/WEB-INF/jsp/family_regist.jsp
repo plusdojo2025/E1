@@ -12,21 +12,21 @@
 		<tr>
 			<td>
 				<label><br>ファミリーID
-				<input type="text" name="family_id" pattern="^[a-zA-Z0-9]+$" required>
+				<input type="text" name="family_id" placeholder="半角英数10文字以内" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="confirm_fami_pass" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="password" name="confirm_fami_pass" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば(確認)
-				<input type="password" name="fami_pass" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="password" name="fami_pass" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
@@ -49,6 +49,9 @@
 <!--  <form method="GET" action="/E1/UserRegistServlet">
 
 </form> -->
-	<button type="button" onclick="location.href='/E1/UserRegistServlet'">ファミリーIDをお持ちの方はこちら</button>
+<button type="button" onclick="location.href='/E1/UserRegistServlet'">ファミリーIDをお持ちの方はこちら</button>
+<form action="/E1/LoginServlet" method="get">
+    <button type="submit">戻る</button>
+</form>
 </body>
 </html>

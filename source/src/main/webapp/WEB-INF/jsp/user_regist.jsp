@@ -14,42 +14,42 @@
 		<tr>
 			<td>
 				<label><br>ファミリーID
-				<input type="text" name="family_id" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="text" name="family_id" placeholder="半角英数10文字以内" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="fami_pass" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="password" name="fami_pass" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>ユーザーID
-				<input type="text" name="user_id" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="text" name="user_id" placeholder="半角英数10文字以内" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>ニックネーム
-				<input type="text" name="user_name" maxlength=10 required>
+				<input type="text" name="user_name" placeholder="10文字以内" maxlength=10 required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード
-				<input type="password" name="password" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="password" name="password" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード(確認)
-				<input type="password" name="confirmPassword" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="password" name="confirmPassword" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
 				</label>
 			</td>
 		</tr>
@@ -66,12 +66,14 @@
         </tr>
 		<tr>
 			<td>
-				<input type="submit" name="submit" value="登録">
 				<span id="error_message">${errorMessage}</span>
+				<input type="submit" name="submit" value="登録">
 			</td>
 		</tr>
 	</table>
 </form>
-<script src="user_regist.js"></script>
+<form action="/E1/LoginServlet" method="get">
+    <button type="submit">戻る</button>
+</form>
 </body>
 </html>

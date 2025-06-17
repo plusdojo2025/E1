@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.familyDAO;
 import dao.userDAO;
-import dto.family;
 import dto.user;
 import process.Sha256Util;
 
-/**
- * Servlet implementation class UserRegistServlet
- */
-@WebServlet("/UserRegistServlet")
-public class UserRegistServlet extends HttpServlet {
+	/**
+	 * Servlet implementation class UserRegistServlet
+	 */
+	@WebServlet("/UserDeleteServlet")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -37,34 +35,18 @@ public class UserRegistServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String user_id = request.getParameter("user_id");
-		String user_name = request.getParameter("user_name");
 		String family_id = request.getParameter("family_id");
 		String fami_pass = request.getParameter("fami_pass");
 		String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
-		float share_goal = Float.parseFloat(request.getParameter("share_goal"));
+
 		
 		// useridとPWが入力されているか確認
 		if (user_id == null || user_id.isEmpty() || password == null || password.isEmpty()) {
 	            request.setAttribute("UserErrorMessage", "ユーザーIDとパスワードは必須入力です。");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
 	            dispatcher.forward(request, response);
 	            return; // これ以上処理を進めない
-	    }
-		// パスワードと確認用パスワードが一致しているか確認
-        if (!password.equals(confirmPassword)) {
-            request.setAttribute("UserErrorMessage", "パスワードと確認用パスワードが一致しません。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-		 //パスワードが文字数の条件を満たしているか確認
-        if (password.length() < 8 || password.length() > 15) {
-            request.setAttribute("UserErrorMessage", "パスワードは8文字以上15文字以下で入力してください。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
+		}
 		// --- ここからパスワードのSHA-256暗号化処理 ---
         String hashedPassword = Sha256Util.hashString(password);
         if (hashedPassword == null) {
@@ -75,21 +57,18 @@ public class UserRegistServlet extends HttpServlet {
             return; // 処理を中断
         }
         // --- ここまでパスワードのSHA-256暗号化処理 ---
-        familyDAO familyDAO = new familyDAO();
-        family family = new family(family_id, fami_pass);
-		// 登録処理を行う
-        if (familyDAO.isFamilyOK(family)) {
-			userDAO uDao = new userDAO();
-			if (uDao.insert(new user(user_id, user_name, family_id, hashedPassword, share_goal))) { // 登録成功
-	//			request.setAttribute("result", "登録処理が完了しました");
-			} else { // 登録失敗
-				request.setAttribute("result", "登録でエラーが発生しました");
-			} 
+
+        userDAO userDAO = new userDAO();
+
+        user user = new user(user_id, hashedPassword);
+        boolean isDeleted = userDAO.deleteUser(user);
+        if (isDeleted) {
+        	request.setAttribute("result", "ユーザー削除に成功しました。");
         } else {
-			request.setAttribute("result", "家族認証でエラーが発生しました");
-		}
+        	request.setAttribute("result", "ユーザー削除に失敗しました。");
+        }
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
 		dispatcher.forward(request, response);
 	}
 }
