@@ -26,12 +26,21 @@ public class houseworkDAO {
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 			"root", "password");
 			
+			// 必須項目のバリデーション
+	        if (card.getHousework_name() == null || card.getHousework_name().isEmpty() ||
+	            card.getFamily_id() == null || card.getFamily_id().isEmpty() ||
+	            card.getCategory_id() == 0 ||
+	            card.getFrequency() == 0) {
+	            return false;
+	        }
+			
 			// SQL文を準備する
 			String sql = "INSERT INTO housework VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 				// SQL文を完成させる
 				if (card.getHousework_name() != null) {
+					
 					pStmt.setString(1, card.getHousework_name());
 				} else {
 					pStmt.setString(1, "");

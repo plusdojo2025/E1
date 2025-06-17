@@ -38,9 +38,9 @@
 		<label>頻度
 		 <div>
             <select id="daySelection" name="daySelection">
-                <option value="select">曜日を選択</option>
-                <option value="daily">毎日</option>
-                <option value="irregular">不定期</option>
+                <option value="1">曜日を選択</option>
+                <option value="7">毎日</option>
+                <option value="3">不定期</option>
             </select>
         </div>
 		</label>
@@ -103,12 +103,12 @@
 		<br>
 		<!-- 通知 -->		
 		<label>通知
-		<input type="radio" name="noti_flag" value= 0 checked>off
-		<input type="radio" name="noti_flag" value= 1 >on
+		<input type="radio" name="noti_flag" value= 0 checked id="noti-off">off
+		<input type="radio" name="noti_flag" value= 1 id="noti-on">on
 		</label>
 		<br>
 		<label for="notify-time">通知時間:</label>
-		<input type="time" id="noti-time" name="noti-time">
+		<input type="time" id="noti-time" name="noti-time" class="noti-hidden">
 		
 		
 		<br>
@@ -174,19 +174,19 @@
             const daysContainer = document.getElementById('daysContainer');
             const checkboxes = document.querySelectorAll('.day-checkbox');
 
-            if (selection === 'select') {
+            if (selection === '1') {
                 // 「曜日を選択」の場合：ボタンを表示し、選択状態をリセット
                 daysContainer.classList.remove('hidden');
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = false;
                 });
-            } else if (selection === 'daily') {
+            } else if (selection === '7') {
                 // 「毎日」の場合：ボタンを表示し、すべて選択
                 daysContainer.classList.remove('hidden');
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = true;
                 });
-            } else if (selection === 'irregular') {
+            } else if (selection === '3') {
                 // 「不定期」の場合：ボタンを非表示にし、選択状態をリセット
                 daysContainer.classList.add('hidden');
                 checkboxes.forEach(checkbox => {
@@ -219,6 +219,40 @@
             closeModal();
         }
 		
+     // 通知ON/OFFで時間入力を有効・無効にする
+        document.getElementById("noti-off").addEventListener("change", function() {
+          document.getElementById("noti-time").classList.add("noti-hidden");
+        });
+
+        document.getElementById("noti-on").addEventListener("change", function() {
+          document.getElementById("noti-time").classList.remove("noti-hidden");
+        });
+
+        // ページ読み込み時に状態を正しく初期化（特に戻ってきたとき対策）
+        window.addEventListener("DOMContentLoaded", () => {
+          const isNotiOn = document.getElementById("noti-on").checked;
+          document.getElementById("noti-time").classList.toggle("noti-hidden", !isNotiOn);
+        });
+        
+     // 通知ON/OFFに応じて通知時間の表示切替
+        document.querySelectorAll('input[name="noti_flag"]').forEach(radio => {
+          radio.addEventListener('change', () => {
+            const timeInput = document.getElementById('noti-time');
+            if (document.querySelector('input[name="noti_flag"]:checked').value === '1') {
+              timeInput.classList.remove('noti-hidden');
+            } else {
+              timeInput.classList.add('noti-hidden');
+            }
+          });
+        });
+
+        // 初期状態の制御（ページ読み込み時）
+        window.addEventListener("DOMContentLoaded", () => {
+          const timeInput = document.getElementById('noti-time');
+          const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
+          timeInput.classList.toggle('noti-hidden', !isOn);
+        });
+
 	</script>
 	
 	</main>
