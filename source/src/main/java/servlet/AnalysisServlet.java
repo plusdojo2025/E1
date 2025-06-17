@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -34,6 +36,11 @@ public class AnalysisServlet extends HttpServlet {
             return;
         }*/
 		
+        LocalDateTime nowDate = LocalDateTime.now();
+        DateTimeFormatter dtf =
+				DateTimeFormatter.ofPattern("yyyy-MM");
+					String formatNowDate = dtf.format(nowDate);
+        
         // セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
 
@@ -66,16 +73,38 @@ public class AnalysisServlet extends HttpServlet {
 		// DAOを使って同じfamily_idの前日の実績データリストを取得
 		try {
 			achievementDAO dao = new achievementDAO();
-			List<achievement> yesterdayList = dao.selectYesterdayAchievement(familyId);
+			List<achievement> yesterdayList = dao.selectYesterdayAchievement(familyId, formatNowDate);
 			
-			// userList の中身をログ出力して確認
-			System.out.println("yesterdayList size: " + yesterdayList.size());
+			// yesterdayList の中身をログ出力して確認
+			/*System.out.println("yesterdayList size: " + yesterdayList.size());
 			for (achievement a : yesterdayList) {
 				System.out.println("user_id: " + a.getUser_id() + ", daily_score: " + a.getAchieve_history());
-			}
+			}*/
 			
 			// JSPに渡すためにリクエストスコープに保存
 			request.setAttribute("yesterdayList", yesterdayList);
+			
+		} catch (Exception e) {
+			
+			// 例外が発生した場合はエラーログを出力し、500エラーを返す
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "データの取得に失敗しました。");
+			return;
+		}
+		
+		// DAOを使って同じfamily_idの前月から過去12か月分の実績データリストを取得
+		try {
+			achievementDAO dao = new achievementDAO();
+			List<achievement> yearList = dao.selectYearAchievement(familyId, formatNowDate);
+			
+			// yearList の中身をログ出力して確認
+			/*System.out.println("yearList size: " + yearList.size());
+			for (achievement a : yearList) {
+				System.out.println("user_id: " + a.getUser_id() + ", month: " + a.getDate() + ", monthly_score: " + a.getAchieve_history());
+			}*/
+			
+			// JSPに渡すためにリクエストスコープに保存
+			request.setAttribute("yearList", yearList);
 			
 		} catch (Exception e) {
 			

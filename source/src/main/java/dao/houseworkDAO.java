@@ -144,64 +144,64 @@ public class houseworkDAO {
 
 			// SQL文を完成させる
 			if (card.getHousework_id() != 0) {
-				pStmt.setString(1, "'%" + card.getHousework_id() + "%'");
+				pStmt.setString(1, "%" + card.getHousework_id() + "%");
 			} else {
-				pStmt.setString(1, "'%'");
+				pStmt.setString(1, "%");
 			}
 			if (card.getHousework_name() != null) {
-				pStmt.setString(2, "'%" + card.getHousework_name() + "%'");
+				pStmt.setString(2, "%" + card.getHousework_name() + "%");
 			} else {
-				pStmt.setString(2, "'%' OR housework_name IS NULL");
+				pStmt.setString(2, "% OR housework_name IS NULL");
 			}
 			if (card.getFamily_id() != null) {
-				pStmt.setString(3, "'%" + card.getFamily_id() + "%'");
+				pStmt.setString(3, "%" + card.getFamily_id() + "%'");
 			} else {
-				pStmt.setString(3, "'%' OR family_id IS NULL");
+				pStmt.setString(3, "% OR family_id IS NULL");
 			}
 			if (card.getCategory_id() != 0) {
-				pStmt.setString(4, "'%" + card.getCategory_id() + "%'");
+				pStmt.setString(4, "%" + card.getCategory_id() + "%");
 			} else {
-				pStmt.setString(4, "'%'");
+				pStmt.setString(4, "%");
 			}
             if (card.getHousework_level() != 0) {
-				pStmt.setString(5, "'%" + card.getHousework_level() + "%'");
+				pStmt.setString(5, "%" + card.getHousework_level() + "%");
 			} else {
-				pStmt.setString(5, "'%'");
+				pStmt.setString(5, "%");
 			}
             if (card.getNoti_flag() != 0) {
-				pStmt.setString(6, "'%" + card.getNoti_flag() + "%'");
+				pStmt.setString(6, "%" + card.getNoti_flag() + "%");
 			} else {
-				pStmt.setString(6, "'%'");
+				pStmt.setString(6, "%");
 			}
             if (card.getNoti_time() != null) {
-				pStmt.setString(7, "'%" + card.getNoti_time() + "%'");
+				pStmt.setString(7, "%" + card.getNoti_time() + "%");
 			} else {
-				pStmt.setString(7, "'%' OR noti_time IS NULL");
+				pStmt.setString(7, "% OR noti_time IS NULL");
 			}
             if (card.getFrequency() != 0) {
-				pStmt.setString(8, "'%" + card.getFrequency() + "%'");
+				pStmt.setString(8, "%" + card.getFrequency() + "%");
 			} else {
-				pStmt.setString(8, "'%'");
+				pStmt.setString(8, "%");
 			}
             if (card.getManual() != null) {
-				pStmt.setString(9, "'%" + card.getManual() + "%'");
+				pStmt.setString(9, "%" + card.getManual() + "%");
 			} else {
-				pStmt.setString(9, "'%' OR manual IS NULL");
+				pStmt.setString(9, "% OR manual IS NULL");
 			}
             if (card.getFixed_role() != null) {
-				pStmt.setString(10, "'%"+ card.getFixed_role() + "%'");
+				pStmt.setString(10, "%"+ card.getFixed_role() + "%");
 			} else {
-				pStmt.setString(10, "'%' OR fixed_role IS NULL");
+				pStmt.setString(10, "% OR fixed_role IS NULL");
 			}
             if (card.getVariable_role() != null) {
-				pStmt.setString(11, "'%" + card.getVariable_role() + "%'");
+				pStmt.setString(11, "%" + card.getVariable_role() + "%");
 			} else {
-				pStmt.setString(11, "'%' OR variable_role IS NULL");
+				pStmt.setString(11, "% OR variable_role IS NULL");
 			}
             if (card.getLog() != 0) {
-				pStmt.setString(12, "'%" + card.getLog() + "%'");
+				pStmt.setString(12, "%" + card.getLog() + "%");
 			} else {
-				pStmt.setString(12, "'%'");
+				pStmt.setString(12, "%");
 			}
 
 			// SQL文を実行し、結果表を取得する
@@ -263,7 +263,7 @@ public class houseworkDAO {
 
 			// SQL文を準備する
             // 変えたい項目だけに絞る
-			String sql = "UPDATE housework SET housework_id=?, housework_name=?, family_id=?, category_id=?, housework_level=?, noti_flag=?, noti_time=?, frequency=?, manual=?, fixed_role=?, variable_role=? log=?, WHERE number=?";
+			String sql = "UPDATE housework SET housework_id=?, housework_name=?, family_id=?, category_id=?, housework_level=?, noti_flag=?, noti_time=?, frequency=?, manual=?, fixed_role=?, variable_role=? log=? WHERE housework_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

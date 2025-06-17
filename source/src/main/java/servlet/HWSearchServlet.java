@@ -51,6 +51,7 @@ public class HWSearchServlet extends HttpServlet {
 //		}
 		
 		// リクエストパラメータを取得する
+		//初期化
 		request.setCharacterEncoding("UTF-8");
 		String searchType = request.getParameter("searchType");
 		int housework_id = 0;
@@ -67,13 +68,13 @@ public class HWSearchServlet extends HttpServlet {
 		int log = 0;
 		
 		
-		
+		// 押されたボタンのnameにより格納するカテゴリIDを変更
 		if ("掃除".equals(searchType)) {
 			//掃除のみ表示
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 1;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");
@@ -87,7 +88,7 @@ public class HWSearchServlet extends HttpServlet {
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 2;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");
@@ -102,7 +103,7 @@ public class HWSearchServlet extends HttpServlet {
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 3;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");
@@ -117,7 +118,7 @@ public class HWSearchServlet extends HttpServlet {
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 4;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");
