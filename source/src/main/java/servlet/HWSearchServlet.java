@@ -20,6 +20,7 @@ import dto.housework;
 @WebServlet("/HWSearchServlet")
 public class HWSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Object cardList;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,11 +33,69 @@ public class HWSearchServlet extends HttpServlet {
 //			response.sendRedirect("/E1/LoginServlet");
 //			return;
 //		}
+		
+		// リクエストパラメータを取得する
+		//初期化
+		request.setCharacterEncoding("UTF-8");
+		String searchType = request.getParameter("searchType");
+		int housework_id = 0;
+		String housework_name = "";
+		String family_id = "";
+		int category_id = 0;
+		int housework_level = 0;
+		int noti_flag = 0;
+		String noti_time = "";
+		int frequency = 0;
+		String manual = "";
+		String fixed_role = "";
+		String variable_role = "";
+		int log = 0;
+		
+		houseworkDAO hwDAO = new houseworkDAO();
+		
+		// 家事一覧を作成
+		if ("掃除".equals(searchType)) {
+			// カテゴリが『掃除』のみを取得
+			List<housework> cardList = hwDAO.searchclean();
+		} else if ("洗濯".equals(searchType)) {
+			// カテゴリが『洗濯』のみを取得
+			List<housework> cardList = hwDAO.searchwash();
+		} else if ("料理".equals(searchType)) {
+			// カテゴリが『料理』のみを取得
+			List<housework> cardList = hwDAO.searchcook();
+		} else if ("その他".equals(searchType)) {
+			// カテゴリが『その他』のみを取得
+			List<housework> cardList = hwDAO.searchother();
+		} else {
+			// 全件を取得
+			housework_id = Integer.parseInt(request.getParameter("housework_id"));
+			housework_name = request.getParameter("housework_name");
+			family_id = request.getParameter("family_id");
+			category_id = Integer.parseInt(request.getParameter("category_id"));
+			housework_level = Integer.parseInt(request.getParameter("housework_level"));
+			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
+			noti_time = request.getParameter("noti_time");
+			frequency = Integer.parseInt(request.getParameter("frequency"));
+			manual = request.getParameter("manual");
+			fixed_role = request.getParameter("fixed_role");
+			variable_role = request.getParameter("variable_role");
+			log = Integer.parseInt(request.getParameter("log"));
+			List<housework> cardList = null;
+			houseworkDAO hwDao = new houseworkDAO();
+			cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
+					frequency, manual, fixed_role, variable_role, log));
+		}
+		
+				
+		// 結果をスコープに格納
+		request.setAttribute("cardList", cardList);
 
 		// 家事一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);
 	}
+
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -71,62 +130,18 @@ public class HWSearchServlet extends HttpServlet {
 		// 押されたボタンのnameにより格納するカテゴリIDを変更
 		if ("掃除".equals(searchType)) {
 			//掃除のみ表示
-			housework_id = Integer.parseInt(request.getParameter("housework_id"));
-			housework_name = request.getParameter("housework_name");
-			family_id = request.getParameter("family_id");
-			category_id = 1;
-			housework_level = Integer.parseInt(request.getParameter("housework_level"));
-			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
-			noti_time = request.getParameter("noti_time");
-			frequency = Integer.parseInt(request.getParameter("frequency"));
-			manual = request.getParameter("manual");
-			fixed_role = request.getParameter("fixed_role");
-			variable_role = request.getParameter("variable_role");
-			log = Integer.parseInt(request.getParameter("log"));
+
 		} else if ("洗濯".equals(searchType)) {
 			// 洗濯のみ表示
-			housework_id = Integer.parseInt(request.getParameter("housework_id"));
-			housework_name = request.getParameter("housework_name");
-			family_id = request.getParameter("family_id");
-			category_id = 2;
-			housework_level = Integer.parseInt(request.getParameter("housework_level"));
-			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
-			noti_time = request.getParameter("noti_time");
-			frequency = Integer.parseInt(request.getParameter("frequency"));
-			manual = request.getParameter("manual");
-			fixed_role = request.getParameter("fixed_role");
-			variable_role = request.getParameter("variable_role");
-			log = Integer.parseInt(request.getParameter("log"));
+
 			
 		} else if ("料理".equals(searchType)) {
 			// 料理のみ
-			housework_id = Integer.parseInt(request.getParameter("housework_id"));
-			housework_name = request.getParameter("housework_name");
-			family_id = request.getParameter("family_id");
-			category_id = 3;
-			housework_level = Integer.parseInt(request.getParameter("housework_level"));
-			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
-			noti_time = request.getParameter("noti_time");
-			frequency = Integer.parseInt(request.getParameter("frequency"));
-			manual = request.getParameter("manual");
-			fixed_role = request.getParameter("fixed_role");
-			variable_role = request.getParameter("variable_role");
-			log = Integer.parseInt(request.getParameter("log"));
+
 			
 		} else if ("その他".equals(searchType)) {
 			// その他
-			housework_id = Integer.parseInt(request.getParameter("housework_id"));
-			housework_name = request.getParameter("housework_name");
-			family_id = request.getParameter("family_id");
-			category_id = 4;
-			housework_level = Integer.parseInt(request.getParameter("housework_level"));
-			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
-			noti_time = request.getParameter("noti_time");
-			frequency = Integer.parseInt(request.getParameter("frequency"));
-			manual = request.getParameter("manual");
-			fixed_role = request.getParameter("fixed_role");
-			variable_role = request.getParameter("variable_role");
-			log = Integer.parseInt(request.getParameter("log"));
+
 			
 		} else if ("一覧".equals(searchType)) {
 			// 全件表示
