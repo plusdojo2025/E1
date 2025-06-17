@@ -17,14 +17,10 @@
         <!-- navタグで通知とログアウトを入れる -->
 
     </header>
-
     <!-- メイン -->
     <main class="housework_list_wrapper">
-        <!-- 家事一覧を文字で表示 -->
         <h2>家事一覧</h2>
-
-        <!--家事タブを押したときはカテゴリごとに検索、表示 -->
-        
+        <!--家事タブを押したときはカテゴリごとに検索、表示 -->        
         <div class="tab_container">
             <form method="POST" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
             <input type="submit" name="searchType" value="掃除">
@@ -43,9 +39,7 @@
                 <th>消去</th>
             </tr>
 
-            <!-- ↓サンプル家事 -->
-            
-
+            <!-- 取得した家事を一覧表示 -->          
 			<div class="card_container">
                 <tr class="card">
                 	<c:forEach var="e" items="${cardList}" varStatus="status">
@@ -94,28 +88,26 @@
         </div>
     </div> 
 
-        <div class="contents">
-        <form method="POST" id="contents_form" action="<c:url value='/HWSearchServlet' />">
-            <a>ホーム</a>
-            <input type="submit" name="searchType" value="一覧">
-            <a>登録</a>
-            <a>分析</a>
-            <a>くじ</a>
-        
-        </form>
-        </div>
-    </main>
 
+    </main>
 <!-- フッター -->
     <footer>
         <!-- 各コンテンツのアイコンを横に並べる -->
-
+        <div class="contents">
+	        <form method="POST" id="contents_form" action="<c:url value='/HWSearchServlet' />">
+	            <a>ホーム</a>
+	            <input type="submit" name="searchType" value="一覧">
+	            <a>登録</a>
+	            <a>分析</a>
+	            <a>くじ</a>        
+	        </form>
+        </div>
     </footer>
 <script>
     'use strict';
 /* 検索画面をモーダル表示 */
 //家事カードを押下時更新画面をモーダル表示
-    // 更新ボタンを押下時、更新確認モーダルを表示
+// 更新ボタンを押下時、更新確認モーダルを表示
 // ごみ箱アイコンを押下時消去確認モーダル表示示 
     const modal = document.getElementById("modal");
     const openModalBtn = document.getElementById("openModal");
@@ -140,9 +132,6 @@
     submitBtn.onclick = function() {
     alert("入力 " + userInput.value);
     }
-
-
-
 </script>
 </body>
 </html>

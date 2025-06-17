@@ -51,6 +51,7 @@ public class HWSearchServlet extends HttpServlet {
 //		}
 		
 		// リクエストパラメータを取得する
+		//初期化
 		request.setCharacterEncoding("UTF-8");
 		String searchType = request.getParameter("searchType");
 		int housework_id = 0;
@@ -67,7 +68,7 @@ public class HWSearchServlet extends HttpServlet {
 		int log = 0;
 		
 		
-		
+		// 押されたボタンのnameにより格納するカテゴリIDを変更
 		if ("掃除".equals(searchType)) {
 			//掃除のみ表示
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
