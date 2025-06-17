@@ -324,7 +324,7 @@ public class today_houseworkDAO {
 		return result;
 	}
 	
-	public boolean submit(String user_id, int housework_id, String formatNowDate2) {
+	public boolean submit(String user_id, String family_id, int housework_id, String formatNowDate2) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -338,8 +338,8 @@ public class today_houseworkDAO {
 				"root", "password");
 			
 		// SQL文を準備する
-		String sql = "INSERT INTO achievement" + formatNowDate2 + " "
-				+ "VALUES(0," + user_id + ", NOW(),"
+		String sql = "INSERT INTO achievement_" + formatNowDate2 + " "
+				+ "VALUES(0,'" + user_id + "', '" + family_id + "',NOW(),"
 						+ "(SELECT housework_level FROM housework WHERE housework_id = " + housework_id + "))";
 		
 		PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -408,4 +408,47 @@ public class today_houseworkDAO {
 		// 結果を返す
 		return result;
 	}
+	
+	public boolean insert_notification(String user_id, int housework_id) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+				"root", "password");
+			
+		// SQL文を準備する
+		String sql = "INSERT INTO notification VALUES(0,'" + user_id + "',NOW(),"
+				+ "CONCAT((SELECT user_id FROM user WHERE user_id = '" + user_id + "'), 'が',"
+						+ "(SELECT housework_name FROM housework WHERE housework_id = " + housework_id + " ),'を完了しました。'))";
+		
+		PreparedStatement pStmt = conn.prepareStatement(sql);
+		
+		// SQL文を実行する
+		if (pStmt.executeUpdate() >= 1) {
+			result = true;
+			}
+			
+		}  catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+	
 }

@@ -21,7 +21,16 @@ import dto.housework;
 @WebServlet("/HWRegistServlet")
 public class HWRegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	
+	private int parseIntOrDefault(String param, int defaultValue) {
+	    try {
+	        return Integer.parseInt(param);
+	    } catch (NumberFormatException | NullPointerException e) {
+	        return defaultValue;
+	    }
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -61,18 +70,22 @@ public class HWRegistServlet extends HttpServlet {
 			familyId = "sato0611"; // テスト用の固定値
 		}
 		
+		
+
+		
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String housework_name = request.getParameter("housework_name");
-		int category_id = Integer.parseInt(request.getParameter("category_id"));
-		int housework_level = Integer.parseInt(request.getParameter("housework_level"));
-		int noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
+		int category_id = parseIntOrDefault(request.getParameter("category_id"), 0);
+		int housework_level = parseIntOrDefault(request.getParameter("housework_level"), 0);
+		int noti_flag = parseIntOrDefault(request.getParameter("noti_flag"), 0);
 		String noti_time = request.getParameter("noti_time");
-		int frequency = Integer.parseInt(request.getParameter("frequency"));
+		int frequency = parseIntOrDefault(request.getParameter("frequency"), 0);
 		String manual = request.getParameter("manual");
 		String fixed_role = request.getParameter("fixed_role");
 		String variable_role = request.getParameter("variable_role");
-		int log = Integer.parseInt(request.getParameter("log"));
+		int log = parseIntOrDefault(request.getParameter("log"), 0);
+		
 		
 		// 登録処理を行う
 		houseworkDAO hDao = new houseworkDAO();
@@ -80,13 +93,20 @@ public class HWRegistServlet extends HttpServlet {
                 noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log);
 		
 		if (hDao.insert(hw)) { // 登録成功
-			response.sendRedirect("/E1/HomeServlet");
+			// 一覧ページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+			dispatcher.forward(request, response);
 		} else { // 登録失敗
 			response.sendRedirect("/E1/HomeServlet");
 		}
-		// 一覧ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
-		dispatcher.forward(request, response);
+		
+		
 	}
 
 }
+
+
+
+		
+
+
