@@ -26,10 +26,12 @@
         <!-- 家事タブを横に並べる、家事タブを押したときはカテゴリごとに表示 -->
         
         <div class="tab_container">
-            <div><p>掃除</p></div>
-            <div><p>洗濯</p></div>
-            <div><p>料理</p></div>
-            <div><p>その他</p></div>
+            <form method="POST" id="tabsearch_form" action="/webapp/HWSearchServlet">
+            <input type="submit" name="searchType" value="掃除">
+            <input type="submit" name="searchType" value="洗濯">
+            <input type="submit" name="searchType" value="料理">
+            <input type="submit" name="searchType" value="その他">
+            </form>
         </div>
 
         <!-- 家事一覧表示 -->
@@ -96,7 +98,7 @@
 
         <div class="contents">
             <a>ホーム</a>
-            <a href="">一覧</a>
+            <input type="submit" name="searchType" value="一覧">
             <a>登録</a>
             <a>分析</a>
             <a>くじ</a>
