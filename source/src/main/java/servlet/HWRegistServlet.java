@@ -86,6 +86,7 @@ public class HWRegistServlet extends HttpServlet {
 		String variable_role = request.getParameter("variable_role");
 		int log = parseIntOrDefault(request.getParameter("log"), 0);
 		
+		
 		// 登録処理を行う
 		houseworkDAO hDao = new houseworkDAO();
 		housework hw = new housework(0, housework_name, familyId, category_id, housework_level,
@@ -103,3 +104,9 @@ public class HWRegistServlet extends HttpServlet {
 	}
 
 }
+
+
+
+		
+
+

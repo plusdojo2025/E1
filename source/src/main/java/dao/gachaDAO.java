@@ -303,4 +303,131 @@ public class gachaDAO {
 		return roleList;
 	}
 	
+	public boolean click_gacha(String family_id) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "UPDATE housework SET log = 1 "
+					+ "WHERE family_id = '" + family_id + "'";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行する
+			if (pStmt.executeUpdate() >= 1) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
+	
+	public boolean reset_gacha() {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "UPDATE housework SET log = 0";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行する
+			if (pStmt.executeUpdate() >= 1) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
+	
+	public int select_log(String family_id) {
+		Connection conn = null;
+		int log = 0;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			String sql = "SELECT log FROM housework WHERE family_id = '" + family_id + "' LIMIT 1";
+			
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				log = rs.getInt("log");
+			}
+			
+						
+		}catch (SQLException e) {
+			e.printStackTrace();
+			log = 0;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			log = 0;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					log = 0;
+				}
+			}
+		}
+		return log;
+	}
+	
 }
