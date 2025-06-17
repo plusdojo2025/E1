@@ -30,7 +30,7 @@ public class today_houseworkDAO {
 		String sql = "INSERT INTO today_housework (today_housework_id, housework_id, date) "
 				+ "SELECT 0, housework_id, NOW() "
 				+ "FROM housework "
-				+ "WHERE family_id = '" + family_id + "' AND frequency = 0 OR frequency = " + dayOfWeek;
+				+ "WHERE family_id = '" + family_id + "' AND frequency = 0 OR frequency LIKE %" + dayOfWeek + "%";
 		
 		PreparedStatement pStmt = conn.prepareStatement(sql);
 		
