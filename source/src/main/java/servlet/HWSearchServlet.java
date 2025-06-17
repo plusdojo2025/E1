@@ -73,7 +73,7 @@ public class HWSearchServlet extends HttpServlet {
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 1;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");
@@ -87,7 +87,7 @@ public class HWSearchServlet extends HttpServlet {
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 2;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");
@@ -102,7 +102,7 @@ public class HWSearchServlet extends HttpServlet {
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 3;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");
@@ -117,7 +117,7 @@ public class HWSearchServlet extends HttpServlet {
 			housework_id = Integer.parseInt(request.getParameter("housework_id"));
 			housework_name = request.getParameter("housework_name");
 			family_id = request.getParameter("family_id");
-			category_id = Integer.parseInt(request.getParameter("category_id"));
+			category_id = 4;
 			housework_level = Integer.parseInt(request.getParameter("housework_level"));
 			noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 			noti_time = request.getParameter("noti_time");

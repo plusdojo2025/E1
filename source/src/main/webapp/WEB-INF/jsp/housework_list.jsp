@@ -23,10 +23,10 @@
         <!-- 家事一覧を文字で表示 -->
         <h2>家事一覧</h2>
 
-        <!-- 家事タブを横に並べる、家事タブを押したときはカテゴリごとに表示 -->
+        <!--家事タブを押したときはカテゴリごとに検索、表示 -->
         
         <div class="tab_container">
-            <form method="POST" id="tabsearch_form" action="/webapp/HWSearchServlet">
+            <form method="POST" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
             <input type="submit" name="searchType" value="掃除">
             <input type="submit" name="searchType" value="洗濯">
             <input type="submit" name="searchType" value="料理">
@@ -43,15 +43,13 @@
                 <th>消去</th>
             </tr>
 
-            <!-- 負担度、家事名、消去アイコンを横表示 -->
-
             <!-- ↓サンプル家事 -->
             
 
 			<div class="card_container">
                 <tr class="card">
                 	<c:forEach var="e" items="${cardList}" varStatus="status">
-                		<form method="POST" id="search_result_form" action="/webapp/HWSearchServlet">
+                		<form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
 						<input type="hidden" name="housework_id" value="${e.housework_id}">
 		                <input type="hidden" name="family_id" value="${e.family_id}">
 		                <input type="hidden" name="category_id" value="${e.category_id}">
@@ -71,7 +69,7 @@
 	                        <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
 	                    </td>
 	                    <td class="delete">
-	                        <form method="POST" id="search_result_form" action="/webapp/UpdateDeleteServlet">
+	                        <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
 	                        <!-- ごみ箱のイメージを張り付ける -->
 	                            <button class="js-modal-button" value="消去">消去</button>
 	                        </form>
@@ -97,11 +95,14 @@
     </div> 
 
         <div class="contents">
+        <form method="POST" id="contents_form" action="<c:url value='/HWSearchServlet' />">
             <a>ホーム</a>
             <input type="submit" name="searchType" value="一覧">
             <a>登録</a>
             <a>分析</a>
             <a>くじ</a>
+        
+        </form>
         </div>
     </main>
 
@@ -137,7 +138,7 @@
     }
 
     submitBtn.onclick = function() {
-    alert("入力された内容: " + userInput.value);
+    alert("入力 " + userInput.value);
     }
 
 
