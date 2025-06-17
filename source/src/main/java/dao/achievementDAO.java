@@ -31,7 +31,7 @@ public class achievementDAO {
             String sql = "SELECT user_id, SUM(achieve_history) AS daily_score "
             		+ "FROM achievement "
             		+ "WHERE date = CURDATE() - INTERVAL 1 DAY "
-            		+ "AND user_id IN (SELECT user_id FROM user WHERE family_id = '" + family_id + "' "
+            		+ "AND family_id = '" + family_id + "' "
             		+ "GROUP BY user_id";
             
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -69,7 +69,7 @@ public class achievementDAO {
         return yesterdayList;
     }
     
-    // 指定された family_id の過去12か月分の achievement データを全件取得
+    // 指定された family_id の前月から過去12か月分の achievement データを全件取得
     public List<achievement> selectYearAchievement(String family_id) {
         Connection conn = null;
         List<achievement> yearList = new ArrayList<>();
@@ -86,7 +86,9 @@ public class achievementDAO {
             // SQL文を準備する
             String sql = "SELECT user_id, DATE_FORMAT(date, '%Y-%m') AS month, SUM(achieve_history) AS monthly_score "
             		+ "FROM achievement "
-            		+ "WHERE date >= CURDATE() - INTERVAL 12 MONTH AND family_id = '" + family_id + "' "
+            		+ "WHERE date >= DATE_FORMAT(CURDATE() - INTERVAL 12 MONTH, '%Y-%m-01') "
+            		+ "AND date < DATE_FORMAT(CURDATE(), '%Y-%m-01') "
+            		+ "AND family_id = '" + family_id + "' "
             		+ "GROUP BY user_id, month "
             		+ "ORDER BY month ASC, user_id ASC";
             
@@ -182,9 +184,3 @@ public class achievementDAO {
 	}
 
 }
-
-
-
-
-
-

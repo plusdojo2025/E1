@@ -52,4 +52,3 @@ public void setAchieve_history(int achieve_history) {
 }
 
 }
-
