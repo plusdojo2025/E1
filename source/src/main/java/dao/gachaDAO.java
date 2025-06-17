@@ -25,14 +25,14 @@ public class gachaDAO {
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			String sql = "SELECT user_id user_name, share_goal FROM user WHERE family_id = " + family_id;
+			String sql = "SELECT user_id, user_name, share_goal FROM user WHERE family_id = '" + family_id + "'";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				user user = new user(rs.getString("uesr_id"),rs.getString("user_name"),
+				user user = new user(rs.getString("user_id"),rs.getString("user_name"),
 						rs.getFloat("share_goal"));
 				familyList.add(user);
 			}
@@ -74,7 +74,56 @@ public class gachaDAO {
 			String sql = "SELECT housework_id,housework_name,family_id,housework_level "
 					+ "FROM housework WHERE housework_id IN "
 					+ "(SELECT housework_id FROM today_housework) "
-					+ "AND family_id = " + family_id + " AND fixed_role = ''";
+					+ "AND family_id = '" + family_id + "'";
+			
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				housework hw = new housework(rs.getInt("housework_id"),rs.getString("housework_name"),
+						rs.getString("family_id"),rs.getInt("housework_level"));
+				houseworkList.add(hw);
+			}
+			
+						
+		}catch (SQLException e) {
+			e.printStackTrace();
+			houseworkList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			houseworkList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					houseworkList = null;
+				}
+			}
+		}
+		return houseworkList;
+	}
+	
+	public List<housework> selecthw_vari(String family_id) {
+		Connection conn = null;
+		List<housework> houseworkList = new ArrayList<housework>();
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			String sql = "SELECT housework_id,housework_name,family_id,housework_level "
+					+ "FROM housework WHERE housework_id IN "
+					+ "(SELECT housework_id FROM today_housework) "
+					+ "AND family_id = '" + family_id + "' AND fixed_role = ''";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -121,7 +170,7 @@ public class gachaDAO {
 					"root", "password");
 			
 			String sql = "SELECT fixed_role, SUM(housework_level) AS housework_level FROM housework "
-					+ "WHERE family_id = " + family_id + " AND fixed_role != '' "
+					+ "WHERE family_id = '" + family_id + "' AND fixed_role != '' "
 					+ "AND housework_id IN (SELECT housework_id FROM today_housework)"
 					+ "GROUP BY fixed_role";
 			
@@ -217,7 +266,7 @@ public class gachaDAO {
 					"root", "password");
 			
 			String sql = "SELECT housework_name, fixed_role, variable_role "
-					+ "FROM housework WHERE family_id = " + family_id + " AND housework_id IN (SELECT housework_id FROM today_housework)";
+					+ "FROM housework WHERE family_id = '" + family_id + "' AND housework_id IN (SELECT housework_id FROM today_housework)";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -252,6 +301,133 @@ public class gachaDAO {
 			}
 		}
 		return roleList;
+	}
+	
+	public boolean click_gacha(String family_id) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "UPDATE housework SET log = 1 "
+					+ "WHERE family_id = '" + family_id + "'";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行する
+			if (pStmt.executeUpdate() >= 1) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
+	
+	public boolean reset_gacha() {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "UPDATE housework SET log = 0";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行する
+			if (pStmt.executeUpdate() >= 1) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
+	
+	public int select_log(String family_id) {
+		Connection conn = null;
+		int log = 0;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			String sql = "SELECT log FROM housework WHERE family_id = '" + family_id + "' LIMIT 1";
+			
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				log = rs.getInt("log");
+			}
+			
+						
+		}catch (SQLException e) {
+			e.printStackTrace();
+			log = 0;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			log = 0;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					log = 0;
+				}
+			}
+		}
+		return log;
 	}
 	
 }

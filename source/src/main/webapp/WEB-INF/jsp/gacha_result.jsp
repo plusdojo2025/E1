@@ -8,19 +8,19 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/gacha.css">
 <title>Insert title here</title>
 </head>
-
 <body>
-<form method="POST" action="/E1/GachaServlet" id="gachaForm">
-<input type="hidden" name="click" value="on">
-</form>
-<div id="gacha">
-ガチャ
-</div>
+<c:forEach var="e" items="${role}">
+<c:set var="role" value="${e}" />
+<c:out value="${e}" />
+<c:forEach var="e" items="${roleList}">
+<c:if test="${role == e.role}">
+<ul>
+<li>
+<c:out value="${e.housework_name}" />
+</li>
+</ul>
+</c:if>
+</c:forEach>
+</c:forEach>
 </body>
-<script>
-document.getElementById('gacha').addEventListener('click', function() {
-	  // フォームを送信
-	  document.getElementById('gachaForm').submit();
-	});
-</script>
 </html>

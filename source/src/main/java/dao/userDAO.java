@@ -60,9 +60,6 @@ public class userDAO {
             // 本番環境では、詳細なエラー情報をユーザーに返さないようにする
             // throw new DAOException("ログイン処理中にデータベースエラーが発生しました。", e); のように、
             // より上位の例外にラップしてスローすることも検討
-        } finally {
-            // リソースを確実にクローズ
-            closeResources(conn, pStmt, rs);
         }
         return loginResult;
     }
@@ -75,19 +72,28 @@ public class userDAO {
      */
     public boolean insert(user newUser) {
         String sql = "INSERT INTO user (user_id, user_name, family_id, password, share_goal) VALUES (?, ?, ?, ?, ?)";
+        String cQuery = "SELECT COUNT(*) FROM family WHERE family_id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
 
         try {
             conn = getConnection(); // 共通メソッドで接続を取得
             pstmt = conn.prepareStatement(sql);
-
+         // familyid重複チェック
+            try (PreparedStatement checkStmt = conn.prepareStatement(cQuery)) {
+                checkStmt.setString(1, newUser.getUser_id());
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        return false; // 重複データあり
+                    }
+                }
+            }
             // パラメータを設定
             pstmt.setString(1, newUser.getUser_id());
             pstmt.setString(2, newUser.getUser_name());
             pstmt.setString(3, newUser.getFamily_id());
             pstmt.setString(4, newUser.getPassword()); // ここにはハッシュ化されたパスワードが渡される想定
-            pstmt.setDouble(5, newUser.getShare_goal());
+            pstmt.setFloat(5, newUser.getShare_goal());
 
             int rowsAffected = pstmt.executeUpdate(); // SQLを実行
 
@@ -99,31 +105,24 @@ public class userDAO {
             //    System.err.println("ユーザーIDが既に存在します。");
             // }
             return false; // 挿入失敗
-        } finally {
-            // リソースを確実にクローズ
-            closeResources(conn, pstmt, null); // ResultSetはここでは不要
         }
     }
-
-    /**
-     * JDBCリソースを安全にクローズするためのヘルパーメソッド
-     * @param conn Connectionオブジェクト
-     * @param pstmt PreparedStatementオブジェクト
-     * @param rs ResultSetオブジェクト
-     */
-    private void closeResources(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+    public boolean deleteUser(user newUser) {
+        String sql = "DELETE FROM user WHERE user_id = ? AND password = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
         try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+        	conn = getConnection(); // 共通メソッドで接続を取得
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, newUser.getUser_id());
+            pstmt.setString(2, newUser.getPassword());
+            int rowsAffected = pstmt.executeUpdate();
+
+            return rowsAffected > 0; // 1行以上削除されれば成功
         } catch (SQLException e) {
-            e.printStackTrace(); // クローズ時のエラーもログに出力
+            e.printStackTrace();
+            return false;
         }
     }
 }

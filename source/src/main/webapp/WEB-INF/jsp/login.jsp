@@ -9,7 +9,6 @@
 </head>
 <body>
   <!-- ヘッダー（ここから） -->
-
   <!-- ヘッダー（ここまで） -->
   <!-- メイン（ここから） -->
 <h2>ログイン</h2>
@@ -18,27 +17,31 @@
 		<tr>
 			<td>
 				<label>ユーザーID<br>
-				<input type="text" name="user_id">
+				<input type="text" name="user_id" maxlength=10>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード<br>
-				<input type="password" name="password">
+				<input type="password" name="password" minlength=8 maxlength=15>
 				</label>
 			</td>
 		<tr>
 		<tr>
 			<td>
-				<input type="submit" name="submit" value="ログイン">
+				<span>${result}</span>
 				<span id="error_message">${errorMessage}</span>
+				<input type="submit" name="submit" value="ログイン">
 			<td>
 		</tr>
 	</table>
 </form>
 <form method="GET" action="/E1/FamilyRegistServlet">
         <input type="submit" value="IDをお持ちでない方はこちら">
+</form>
+<form method="GET" action="/E1/UserDeleteServlet">
+        <input type="submit" value="アカウント削除はこちら">
 </form>
   <!-- メイン（ここまで） -->
   <!-- フッター（ここから） -->

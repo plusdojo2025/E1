@@ -28,12 +28,12 @@
       <div class="modal__contents3">
         <div class="modal__content3">
         <form method="POST" action="/E1/HomeServlet" id="form${status.index}">
-	 <input type="hidden" value="${e.housework_id}" 
+	 <input type="hidden" name="housework_id" value="${e.housework_id}" 
 	 name="housework_id">
 	 <h6>完了チェックを行いますか？</h6>
 	 <br>
 	 <button class="cancel">Cancel</button>
-	 <button class="ok">OK</button>
+	 <button class="ok" name="submit" value="完了">OK</button>
 </form>
         </div>
       </div>
