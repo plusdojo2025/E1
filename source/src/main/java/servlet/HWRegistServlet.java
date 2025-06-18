@@ -80,7 +80,7 @@ public class HWRegistServlet extends HttpServlet {
 		int housework_level = parseIntOrDefault(request.getParameter("housework_level"), 0);
 		int noti_flag = parseIntOrDefault(request.getParameter("noti_flag"), 0);
 		String noti_time = request.getParameter("noti_time");
-		int frequency = parseIntOrDefault(request.getParameter("frequency"), 0);
+		String frequency = request.getParameter("frequency");
 		String manual = request.getParameter("manual");
 		String fixed_role = request.getParameter("fixed_role");
 		String variable_role = request.getParameter("variable_role");

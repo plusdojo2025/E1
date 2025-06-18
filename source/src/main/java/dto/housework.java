@@ -15,7 +15,7 @@ public class housework implements Serializable {
 	private int housework_level;		/*家事負担度*/
 	private int noti_flag;				/*通知有無*/
 	private String noti_time;			/*通知時間*/
-	private String frequency;				/*家事頻度*/
+	private String frequency;			/*家事頻度*/
 	private String manual;				/*マニュアル*/
 	private String fixed_role;			/*固定担当者*/
 	private String variable_role;		/*可変担当者*/
