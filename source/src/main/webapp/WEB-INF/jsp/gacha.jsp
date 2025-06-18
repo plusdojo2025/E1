@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/gacha.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/gacha.css' />">
 <title>Insert title here</title>
 </head>
 
 <body>
-<form method="POST" action="/E1/GachaServlet" id="gachaForm">
+<form method="POST" action="<c:url value='/GachaServlet' />" id="gachaForm">
 <input type="hidden" name="click" value="on">
 </form>
 <div id="gacha">

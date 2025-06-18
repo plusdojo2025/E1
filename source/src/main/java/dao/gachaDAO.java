@@ -303,7 +303,7 @@ public class gachaDAO {
 		return roleList;
 	}
 	
-	public boolean click_gacha(String family_id) {
+	public boolean click_gacha(String family_id, int date) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -317,8 +317,8 @@ public class gachaDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE housework SET log = 1 "
-					+ "WHERE family_id = '" + family_id + "'";
+			String sql = "UPDATE housework SET log = " + date 
+					+ " WHERE family_id = '" + family_id + "'";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を実行する

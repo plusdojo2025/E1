@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home2.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home3.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
 <title>ホーム</title>
 </head>
 <body>
@@ -27,7 +27,7 @@
       </div>
       <div class="modal__contents3">
         <div class="modal__content3">
-        <form method="POST" action="/E1/HomeServlet" id="form${status.index}">
+        <form method="POST" action="<c:url value='/HomeServlet' />" id="form${status.index}">
 	 <input type="hidden" name="housework_id" value="${e.housework_id}" 
 	 name="housework_id">
 	 <h6>完了チェックを行いますか？</h6>
@@ -58,7 +58,7 @@
 	      </div>
 	      <div class="modal__contents">
 	        <div class="modal__content">
-	          <form method="POST" action="/E1/HomeServlet" id="form${status.index}">
+	          <form method="POST" action="<c:url value='/HomeServlet' />" id="form${status.index}">
 				 <select name="housework_id">
 				 <c:forEach var="e" items="${irregular_houseworkList}" varStatus="status" >
 					<option value="${e.housework_id}"><c:out value="${e.housework_name}" /></option>
@@ -93,7 +93,7 @@
       </div>
       <div class="modal__contents2">
         <div class="modal__content2">
-          <form method="POST" action="/E1/HomeServlet" id="form${status.index}">
+          <form method="POST" action="<c:url value='/HomeServlet' />" id="form${status.index}">
 			<input type="text" name="memo" id="memo_new">
 			<input type="submit" name="submit" value="メモ追加" id="memo_submit">
 			 </form>

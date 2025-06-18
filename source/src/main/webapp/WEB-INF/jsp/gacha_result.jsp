@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/gacha.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/gacha.css' />">
 <title>Insert title here</title>
 </head>
 <body>
