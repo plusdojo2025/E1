@@ -21,7 +21,7 @@
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="fami_pass" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="fami_pass" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
@@ -42,14 +42,14 @@
 		<tr>
 			<td>
 				<label>パスワード
-				<input type="password" name="password" placeholder="半角英数記号8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="password" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード(確認)
-				<input type="password" name="confirmPassword" placeholder="半角英数記号8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="confirmPassword" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>

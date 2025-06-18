@@ -59,8 +59,8 @@ public class UserRegistServlet extends HttpServlet {
             return;
         }
 		 //パスワードが文字数の条件を満たしているか確認
-        if (password.length() < 8 || password.length() > 15) {
-            request.setAttribute("UserErrorMessage", "パスワードは8文字以上15文字以下で入力してください。");
+        if (password.length() < 8 || password.length() > 20) {
+            request.setAttribute("UserErrorMessage", "パスワードは8文字以上20文字以下で入力してください。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
             dispatcher.forward(request, response);
             return;

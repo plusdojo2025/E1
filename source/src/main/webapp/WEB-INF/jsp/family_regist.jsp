@@ -19,14 +19,14 @@
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="confirm_fami_pass" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="confirm_fami_pass" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば(確認)
-				<input type="password" name="fami_pass" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="fami_pass" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
