@@ -68,7 +68,7 @@ public class FamilyRegistServlet extends HttpServlet {
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
-        // --- ここまでパスワードのSHA-256暗号化処理 ---
+        // --- ここまであいことばのSHA-256暗号化処理 ---
 
 		// 登録処理を行う
 		familyDAO fDao = new familyDAO();
