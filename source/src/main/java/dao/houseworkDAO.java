@@ -30,7 +30,7 @@ public class houseworkDAO {
 	        if (card.getHousework_name() == null || card.getHousework_name().isEmpty() ||
 	            card.getFamily_id() == null || card.getFamily_id().isEmpty() ||
 	            card.getCategory_id() == 0 ||
-	            card.getFrequency() == 0) {
+	            card.getFrequency() == null) {
 	            return false;
 	        }
 			
@@ -70,10 +70,10 @@ public class houseworkDAO {
 				} else {
 					pStmt.setString(6, "");
 				}
-				if (card.getFrequency() != 0) {
-					pStmt.setInt(7, card.getFrequency());
+				if (card.getFrequency() != null) {
+					pStmt.setString(7, card.getFrequency());
 				} else {
-					pStmt.setInt(7, 0);
+					pStmt.setString(7, "");
 				}
 				if (card.getManual() != null) {
 					pStmt.setString(8, card.getManual());
@@ -178,7 +178,7 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(7, "% OR noti_time IS NULL");
 			}
-            if (card.getFrequency() != 0) {
+            if (card.getFrequency() != null) {
 				pStmt.setString(8, "%" + card.getFrequency() + "%");
 			} else {
 				pStmt.setString(8, "%");
@@ -216,7 +216,7 @@ public class houseworkDAO {
 							  rs.getInt("housework_level"), 
 							  rs.getInt("noti_flag"), 
 							  rs.getString("noti_time"), 
-							  rs.getInt("frequency"), 
+							  rs.getString("frequency"), 
 							  rs.getString("manual"), 
 							  rs.getString("fixed_role"), 
 							  rs.getString("variable_role"), 
@@ -302,8 +302,8 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(7, "");
 			}
-			if (card.getFrequency() != 0) {
-				pStmt.setInt(8, card.getFrequency());
+			if (card.getFrequency() != null) {
+				pStmt.setString(8, card.getFrequency());
 			} else {
 				pStmt.setString(8, "");
 			}
@@ -426,7 +426,7 @@ public class houseworkDAO {
 	                rs.getInt("housework_level"),
 	                rs.getInt("noti_flag"),
 	                rs.getString("noti_time"),
-	                rs.getInt("frequency"),
+	                rs.getString("frequency"),
 	                rs.getString("manual"),
 	                rs.getString("fixed_role"),
 	                rs.getString("variable_role"),
@@ -448,7 +448,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchclean() {
+	public List<housework> searchclean(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『掃除』のデータだけを表示したい
 	    Connection conn = null;
@@ -474,7 +474,7 @@ public class houseworkDAO {
 	                rs.getInt("housework_level"),
 	                rs.getInt("noti_flag"),
 	                rs.getString("noti_time"),
-	                rs.getInt("frequency"),
+	                rs.getString("frequency"),
 	                rs.getString("manual"),
 	                rs.getString("fixed_role"),
 	                rs.getString("variable_role"),
@@ -495,7 +495,7 @@ public class houseworkDAO {
 	    }	    
 	    return cardList;  
 	}
-	public List<housework> searchwash() {
+	public List<housework> searchwash(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『洗濯』のデータだけを表示したい
 	    Connection conn = null;
@@ -521,7 +521,7 @@ public class houseworkDAO {
 	                rs.getInt("housework_level"),
 	                rs.getInt("noti_flag"),
 	                rs.getString("noti_time"),
-	                rs.getInt("frequency"),
+	                rs.getString("frequency"),
 	                rs.getString("manual"),
 	                rs.getString("fixed_role"),
 	                rs.getString("variable_role"),
@@ -543,7 +543,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchcook() {
+	public List<housework> searchcook(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『料理』のデータだけを表示したい
 	    Connection conn = null;
@@ -569,7 +569,7 @@ public class houseworkDAO {
 	                rs.getInt("housework_level"),
 	                rs.getInt("noti_flag"),
 	                rs.getString("noti_time"),
-	                rs.getInt("frequency"),
+	                rs.getString("frequency"),
 	                rs.getString("manual"),
 	                rs.getString("fixed_role"),
 	                rs.getString("variable_role"),
@@ -591,7 +591,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchother() {
+	public List<housework> searchother(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『その他』のデータだけを表示したい
 	    Connection conn = null;
@@ -617,7 +617,7 @@ public class houseworkDAO {
 	                rs.getInt("housework_level"),
 	                rs.getInt("noti_flag"),
 	                rs.getString("noti_time"),
-	                rs.getInt("frequency"),
+	                rs.getString("frequency"),
 	                rs.getString("manual"),
 	                rs.getString("fixed_role"),
 	                rs.getString("variable_role"),
