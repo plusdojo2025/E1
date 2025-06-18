@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="#" onClick="history.back(); return false;"><img src="仮置き.png"></a>
 <h1>通知</h1>
 <hr>
 <div>
@@ -14,6 +15,7 @@
 		<div>
 			<h2>${e.noti_content}</h2><br>
 			<p>${e.noti_datetime}</p>
+			<hr>
 		</div>
 	</c:forEach>
 </div>
