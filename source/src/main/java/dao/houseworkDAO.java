@@ -28,7 +28,7 @@ public class houseworkDAO {
 			
 			// 必須項目のバリデーション
 	        if (card.getHousework_name() == null || card.getHousework_name().isEmpty() ||
-	            /*card.getFamily_id() == null || card.getFamily_id().isEmpty() ||*/
+	            card.getFamily_id() == null || card.getFamily_id().isEmpty() ||
 	            card.getCategory_id() == 0 ||
 	            card.getFrequency() == null) {
 	            return false;

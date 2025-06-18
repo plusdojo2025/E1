@@ -37,11 +37,18 @@ public class HWRegistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		/*HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		HttpSession session = request.getSession();
+		/*if (session.getAttribute("id") == null) {
 			response.sendRedirect("/E1/LoginServlet");
 			return;
 		}*/
+		
+		// セッションからfamily_idを取得
+		String familyId = (String) session.getAttribute("family_id");
+		if (familyId == null) {
+			familyId = "sato0611"; // テスト用の固定値
+				}
+		
 		// 登録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_regist.jsp");
 		dispatcher.forward(request, response);
@@ -56,14 +63,13 @@ public class HWRegistServlet extends HttpServlet {
 		
 		
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		/*HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		HttpSession session = request.getSession();
+		/*if (session.getAttribute("id") == null) {
 			response.sendRedirect("/E1/LoginServlet");
 			return;
 		}*/
 		
-		// セッションを取得
-        HttpSession session = request.getSession();
+		
 		// セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
 		if (familyId == null) {
