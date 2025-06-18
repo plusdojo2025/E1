@@ -30,7 +30,7 @@ public class houseworkDAO {
 	        if (card.getHousework_name() == null || card.getHousework_name().isEmpty() ||
 	            card.getFamily_id() == null || card.getFamily_id().isEmpty() ||
 	            card.getCategory_id() == 0 ||
-	            card.getFrequency() == 0) {
+	            card.getFrequency() == null) {
 	            return false;
 	        }
 			
@@ -70,10 +70,10 @@ public class houseworkDAO {
 				} else {
 					pStmt.setString(6, "");
 				}
-				if (card.getFrequency() != 0) {
-					pStmt.setInt(7, card.getFrequency());
+				if (card.getFrequency() != null) {
+					pStmt.setString(7, card.getFrequency());
 				} else {
-					pStmt.setInt(7, 0);
+					pStmt.setString(7, "");
 				}
 				if (card.getManual() != null) {
 					pStmt.setString(8, card.getManual());
@@ -178,7 +178,7 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(7, "% OR noti_time IS NULL");
 			}
-            if (card.getFrequency() != 0) {
+            if (card.getFrequency() != null) {
 				pStmt.setString(8, "%" + card.getFrequency() + "%");
 			} else {
 				pStmt.setString(8, "%");
@@ -216,7 +216,7 @@ public class houseworkDAO {
 							  rs.getInt("housework_level"), 
 							  rs.getInt("noti_flag"), 
 							  rs.getString("noti_time"), 
-							  rs.getInt("frequency"), 
+							  rs.getString("frequency"), 
 							  rs.getString("manual"), 
 							  rs.getString("fixed_role"), 
 							  rs.getString("variable_role"), 
@@ -302,8 +302,8 @@ public class houseworkDAO {
 			} else {
 				pStmt.setString(7, "");
 			}
-			if (card.getFrequency() != 0) {
-				pStmt.setInt(8, card.getFrequency());
+			if (card.getFrequency() != null) {
+				pStmt.setString(8, card.getFrequency());
 			} else {
 				pStmt.setString(8, "");
 			}
@@ -396,5 +396,246 @@ public class houseworkDAO {
 		// 結果を返す
 		return result;
 // 削除ここまで
+	}
+	
+//	個別SQL
+
+	// 全件のデータだけを表示したい
+	public List<housework> all() {
+	    Connection conn = null;
+	    List<housework> cardList = new ArrayList<>();
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log FROM housework ORDER BY housework_id ASC";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            housework hw = new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            );
+	            cardList.add(hw);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        cardList = null;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            cardList = null;
+	        }
+	    }
+	    return cardList;  
+	}
+
+	public List<housework> searchclean(int category_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		// カテゴリが『掃除』のデータだけを表示したい
+	    Connection conn = null;
+	    List<housework> cardList = new ArrayList<>();
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        String sql = "SELECT * FROM housework WHERE category_id = 1;";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            housework hw = new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            );
+	            cardList.add(hw);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        cardList = null;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            cardList = null;
+	        }
+	    }	    
+	    return cardList;  
+	}
+	public List<housework> searchwash(int category_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		// カテゴリが『洗濯』のデータだけを表示したい
+	    Connection conn = null;
+	    List<housework> cardList = new ArrayList<>();
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        String sql = "SELECT * FROM housework WHERE category_id = 2";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            housework hw = new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            );
+	            cardList.add(hw);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        cardList = null;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            cardList = null;
+	        }
+	    }
+	    return cardList;  
+	}
+
+	public List<housework> searchcook(int category_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		// カテゴリが『料理』のデータだけを表示したい
+	    Connection conn = null;
+	    List<housework> cardList = new ArrayList<>();
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        String sql = "SELECT * FROM housework WHERE category_id = 3";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            housework hw = new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            );
+	            cardList.add(hw);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        cardList = null;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            cardList = null;
+	        }
+	    }
+	    return cardList;  
+	}
+
+	public List<housework> searchother(int category_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		// カテゴリが『その他』のデータだけを表示したい
+	    Connection conn = null;
+	    List<housework> cardList = new ArrayList<>();
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        String sql = "SELECT * FROM housework WHERE category_id = 4";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            housework hw = new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            );
+	            cardList.add(hw);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        cardList = null;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            cardList = null;
+	        }
+	    }
+	    return cardList;  
 	}
 }
