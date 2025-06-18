@@ -48,6 +48,7 @@ public class HWSearchServlet extends HttpServlet {
 		String fixed_role = "";
 		String variable_role = "";
 		int log = 0;
+		String role = "";
 		String searchType = request.getParameter("searchType");
 
 		
@@ -63,7 +64,7 @@ public class HWSearchServlet extends HttpServlet {
 
 			
 			List<housework>cardList = hwDAO.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-					frequency, manual, fixed_role, variable_role, log));
+					frequency, manual, fixed_role, variable_role, log, role));
 	//}
 		
 
@@ -108,6 +109,7 @@ public class HWSearchServlet extends HttpServlet {
 		String fixed_role = "";
 		String variable_role = "";
 		int log = 0;
+		String role = "";
 		
 		
 		// 押されたボタンのnameにより格納するカテゴリIDを変更
@@ -142,7 +144,7 @@ public class HWSearchServlet extends HttpServlet {
 			// 全件表示
 			houseworkDAO hwDao = new houseworkDAO();		
 			cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-					frequency, manual, fixed_role, variable_role, log));
+					frequency, manual, fixed_role, variable_role, log, role));
 
 		}
 		
@@ -172,6 +174,8 @@ public class HWSearchServlet extends HttpServlet {
 		// 家事一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);		
+		
+		System.out.println("cardList size: " + ((List<housework>) cardList).size());
 
 		// TODO Auto-generated method stub 自動生成
 		//doGet(request, response);
