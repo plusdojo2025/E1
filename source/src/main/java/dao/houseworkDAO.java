@@ -35,7 +35,11 @@ public class houseworkDAO {
 	        }
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO housework VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        /*
+			String sql = "INSERT INTO housework (housework_id, housework_name, family_id, category_id, housework_level, "
+					+ "noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log)VALUES (0,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			*/
+	        String sql = "INSERT INTO housework VALUES(0,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 				// SQL文を完成させる
@@ -47,9 +51,7 @@ public class houseworkDAO {
 				}
 				if (card.getFamily_id() != null) {
 					pStmt.setString(2, card.getFamily_id());
-				} else {
-					pStmt.setString(2, "");
-				}
+					}
 				if (card.getCategory_id() != 0) {
 					pStmt.setInt(3, card.getCategory_id());
 				} else {
