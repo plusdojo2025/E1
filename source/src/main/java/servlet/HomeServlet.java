@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.today_houseworkDAO;
 import dao.today_memoDAO;
@@ -27,6 +28,14 @@ public class HomeServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		// セッションを取得
+		HttpSession session = request.getSession();
+		
+		/*if (session.getAttribute("id") == null) {
+	    response.sendRedirect(request.getContextPath() + "/LoginServlet");
+	    return;
+		}*/
 		
 		request.setCharacterEncoding("UTF-8");
 		LocalDateTime nowDate = LocalDateTime.now();
@@ -37,7 +46,7 @@ public class HomeServlet extends HttpServlet {
 		 Calendar cal = Calendar.getInstance();
 		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		 String family_id = "1001";
-		 //String family_id = loginuser.getFamily_id();
+		//String familyId = (String) session.getAttribute("family_id");
 		
 		 today_houseworkDAO td_hwDAO = new today_houseworkDAO();
 		 today_memoDAO memoDAO = new today_memoDAO();
@@ -69,9 +78,12 @@ public class HomeServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		
 		 String user_id = "ren0712";
 		 String family_id = "1001";
-		 
+		//String userId = (String) session.getAttribute("user_id");
+		//String familyId = (String) session.getAttribute("family_id"); 
 
 		String id = request.getParameter("housework_id");
 		String text = request.getParameter("memo");
