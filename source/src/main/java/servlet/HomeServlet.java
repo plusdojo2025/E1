@@ -34,9 +34,6 @@ public class HomeServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyy-MM-dd");
 					String formatNowDate1 = dtf1.format(nowDate);
 					String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
-		DateTimeFormatter dtf2 =
-				DateTimeFormatter.ofPattern("yyyy-MM");
-					String formatNowDate2 = dtf2.format(nowDate);
 		 Calendar cal = Calendar.getInstance();
 		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		 String family_id = "1001";
@@ -44,7 +41,6 @@ public class HomeServlet extends HttpServlet {
 		
 		 today_houseworkDAO td_hwDAO = new today_houseworkDAO();
 		 today_memoDAO memoDAO = new today_memoDAO();
-		 //td_hwDAO.delete(family_id,dayOfWeek);
 		 if (td_hwDAO.selectdate(formatyesterdayDate) != 0) {
 			 td_hwDAO.reset();
 		 }
@@ -61,6 +57,10 @@ public class HomeServlet extends HttpServlet {
 			List<today_memo> memoList = memoDAO.select(family_id);
 			request.setAttribute("memoList", memoList);
 			
+
+			List<Integer> idList = td_hwDAO.selectachive(formatNowDate1, family_id);
+			request.setAttribute("idList", idList);
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 			dispatcher.forward(request, response); 
 		 
@@ -69,12 +69,6 @@ public class HomeServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		Calendar cal = Calendar.getInstance();
-		LocalDateTime nowDate = LocalDateTime.now();
-		DateTimeFormatter dtf2 =
-				DateTimeFormatter.ofPattern("yyyyMM");
-					String formatNowDate2 = dtf2.format(nowDate);
-		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		 String user_id = "ren0712";
 		 String family_id = "1001";
 		 
@@ -88,7 +82,7 @@ public class HomeServlet extends HttpServlet {
 
 		if (request.getParameter("submit").equals("完了")) {
 			int housework_id = Integer.parseInt(id);
-			if(td_hwDAO.submit(user_id, family_id ,housework_id ,formatNowDate2)) { 
+			if(td_hwDAO.submit(user_id, family_id ,housework_id)) { 
 					if (td_hwDAO.insert_notification(user_id,housework_id)){
 						response.sendRedirect(request.getContextPath() + "/HomeServlet");
 					}

@@ -1,13 +1,11 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,28 +35,23 @@ public class GachaServlet extends HttpServlet {
 		
 		//String familyId = (String) session.getAttribute("family_id");
 		String family_id = "1001";
+		LocalDateTime nowDate = LocalDateTime.now();
+		DateTimeFormatter dtf =
+				DateTimeFormatter.ofPattern("yyyyMMddHH");
+					int date = Integer.parseInt(dtf.format(nowDate));
 		gachaDAO gcDAO = new gachaDAO();
+		int log = gcDAO.select_log(family_id);
 		
-		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 21); // 午後9時
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        long initialDelay = calendar.getTimeInMillis() - System.currentTimeMillis();
-        if (initialDelay < 0) {
-            initialDelay += TimeUnit.DAYS.toMillis(1); // 翌日の午後9時に設定
-        }
-        scheduler.scheduleAtFixedRate(() -> {
-            // 実行する処理
-            gcDAO.reset_gacha();
-            
-        }, initialDelay, TimeUnit.DAYS.toMillis(1), TimeUnit.MILLISECONDS);
 		
-		if (gcDAO.select_log(family_id) == 0) {
+		 if (date / 100 != log /100) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
+			dispatcher.forward(request, response);			
+		}else if (log == 0) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);
-		}else {
+		}
+		
+		
 			
 			
 			List<housework> roleList = gcDAO.select_role(family_id);
@@ -73,7 +66,7 @@ public class GachaServlet extends HttpServlet {
 			request.setAttribute("roleList",roleList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha_result.jsp");
 			dispatcher.forward(request, response);
-		}
+		
 	}
 
 	/**
@@ -85,11 +78,14 @@ public class GachaServlet extends HttpServlet {
 		
 		//String familyId = (String) session.getAttribute("family_id");
 		String family_id = "1001";
-		
+		LocalDateTime nowDate = LocalDateTime.now();
+		DateTimeFormatter dtf =
+				DateTimeFormatter.ofPattern("yyyyMMddHH");
+					int date = Integer.parseInt(dtf.format(nowDate));
 		String event = request.getParameter("click");
 		if (event.equals("on")) {
 			gachaDAO gcDAO = new gachaDAO();
-			gcDAO.click_gacha(family_id);
+			gcDAO.click_gacha(family_id,date);
 			
 			int sum_level = 0;
 			List<user> familyList = gcDAO.select(family_id);

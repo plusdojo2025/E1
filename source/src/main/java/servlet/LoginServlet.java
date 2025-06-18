@@ -64,8 +64,8 @@ public class LoginServlet extends HttpServlet {
 		if (uDao.isLoginOK(new user(user_id, hashedPassword))) { // ログイン成功
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
-			session.setAttribute("user_id", new loginuser(user_id));
-
+			session.setAttribute("user_id", new loginuser(user_id,uDao.family_id(user_id)));
+			
 			// ホームサーブレットにリダイレクトする
 			response.sendRedirect("/E1/HomeServlet");
 			} else { // ログイン失敗

@@ -12,6 +12,31 @@
 	margin-right:30px;
 	margin-bottom:10px;
 }
+.housework{
+	display: flex;
+	align-items: center;
+	gap:5px;
+	column-width: 300px;
+}
+
+/*完了ボタンのcss*/
+.complete{
+  background: gray;
+  border-radius: 50%;
+  box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, .24);
+  border: 1px solid orange;
+  font-size: 10px;
+  line-height: 1.6;
+  padding: 5px 9px;
+  color: #fff;
+  text-align: right;
+  cursor: pointer;
+  margin-left: 10px
+}
+
+.complete_task{
+	text-decoration: line-through;
+}
 
 /*家事追加モーダルのcss*/
 .layer {
