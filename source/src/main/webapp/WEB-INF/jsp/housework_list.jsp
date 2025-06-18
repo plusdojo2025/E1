@@ -40,39 +40,49 @@
             </tr>
 
             <!-- 取得した家事を一覧表示 -->          
-			<div class="card_container">
-                <tr class="card">
-                	<c:forEach var="e" items="${cardList}" varStatus="status">
-                		<form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
-						<input type="hidden" name="housework_id" value="${e.housework_id}">
-		                <input type="hidden" name="family_id" value="${e.family_id}">
-		                <input type="hidden" name="category_id" value="${e.category_id}">
-		                <input type="hidden" name="noti_flag" value="${e.noti_flag}">
-		                <input type="hidden" name="noti_time" value="${e.noti_time}">
-		                <input type="hidden" name="frequency" value="${e.frequency}">
-		                <input type="hidden" name="manual" value="${e.manual}">
-		                <input type="hidden" name="fixed_role" value="${e.fixed_role}">
-		                <input type="hidden" name="variable_role" value="${e.variable_role}">
-		                <input type="hidden" name="log" value="${e.log}">               
+			<!--<div class="card_container">-->  
+               
+               	<c:forEach var="e" items="${cardList}" varStatus="status">
+               		
+    					<tr class="card">
+						<td>
+
+		                </td>            
 	                    <td class="housework_level">
 	                        <c:out value="${e.housework_level}" />
 	                        <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
 	                    </td>
 	                    <td class="housework_name">
+	                      <!--家事名押下時更新モーダル表示-->
+                      		<form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
+							<input type="hidden" name="housework_id" value="${e.housework_id}">
+			                <input type="hidden" name="family_id" value="${e.family_id}">
+			                <input type="hidden" name="category_id" value="${e.category_id}">
+			                <input type="hidden" name="noti_flag" value="${e.noti_flag}">
+			                <input type="hidden" name="noti_time" value="${e.noti_time}">
+			                <input type="hidden" name="frequency" value="${e.frequency}">
+			                <input type="hidden" name="manual" value="${e.manual}">
+			                <input type="hidden" name="fixed_role" value="${e.fixed_role}">
+			                <input type="hidden" name="variable_role" value="${e.variable_role}">
+			                <input type="hidden" name="log" value="${e.log}">   
+	                    
+	                    
 	                        <c:out value="${e.housework_name}" />                       
 	                        <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
+	                    	</form>
 	                    </td>
 	                    <td class="delete">
-	                        <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
+	                        <!--  <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">-->
 	                        <!-- ごみ箱のイメージを張り付ける -->
 	                            <button class="js-modal-button" value="消去">消去</button>
-	                        </form>
+	                        <!--</form>-->
 	                    </td>			                
               <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
-              			</form>
-       		 		</c:forEach>
-           		</tr>
-           	</div>
+              			</tr>
+              		
+          			
+   		 		</c:forEach>           		
+           	<!--</div>-->
            </table>
             <!-- 家事が追加されるごとに行を追加 -->
         <!-- 検索アイコン表示 -->
@@ -94,7 +104,7 @@
     <footer>
         <!-- 各コンテンツのアイコンを横に並べる -->
         <div class="contents">
-	        <form method="POST" id="contents_form" action="<c:url value='/HWSearchServlet' />">
+	        <form method="GET" id="contents_form" action="<c:url value='/HWSearchServlet' />">
 	            <a>ホーム</a>
 	            <input type="submit" name="searchType" value="一覧">
 	            <a>登録</a>
