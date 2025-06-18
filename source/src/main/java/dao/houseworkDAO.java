@@ -28,14 +28,15 @@ public class houseworkDAO {
 			
 			// 必須項目のバリデーション
 	        if (card.getHousework_name() == null || card.getHousework_name().isEmpty() ||
-	            card.getFamily_id() == null || card.getFamily_id().isEmpty() ||
+	            /*card.getFamily_id() == null || card.getFamily_id().isEmpty() ||*/
 	            card.getCategory_id() == 0 ||
 	            card.getFrequency() == null) {
 	            return false;
 	        }
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO housework VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO housework (housework_name, category_id, housework_level, "
+					+ "noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 				// SQL文を完成させる
@@ -45,55 +46,50 @@ public class houseworkDAO {
 				} else {
 					pStmt.setString(1, "");
 				}
-				if (card.getFamily_id() != null) {
-					pStmt.setString(2, card.getFamily_id());
-				} else {
-					pStmt.setString(2, "");
-				}
 				if (card.getCategory_id() != 0) {
-					pStmt.setInt(3, card.getCategory_id());
+					pStmt.setInt(2, card.getCategory_id());
+				} else {
+					pStmt.setInt(2, 0);
+				}
+				if (card.getHousework_level() != 0) {
+					pStmt.setInt(3, card.getHousework_level());
 				} else {
 					pStmt.setInt(3, 0);
 				}
-				if (card.getHousework_level() != 0) {
-					pStmt.setInt(4, card.getHousework_level());
+				if (card.getNoti_flag() != 0) {
+					pStmt.setInt(4, card.getNoti_flag());
 				} else {
 					pStmt.setInt(4, 0);
 				}
-				if (card.getNoti_flag() != 0) {
-					pStmt.setInt(5, card.getNoti_flag());
-				} else {
-					pStmt.setInt(5, 0);
-				}
 				if (card.getNoti_time() != null) {
-					pStmt.setString(6, card.getNoti_time());
+					pStmt.setString(5, card.getNoti_time());
+				} else {
+					pStmt.setString(5, "");
+				}
+				if (card.getFrequency() != null) {
+					pStmt.setString(6, card.getFrequency());
 				} else {
 					pStmt.setString(6, "");
 				}
-				if (card.getFrequency() != null) {
-					pStmt.setString(7, card.getFrequency());
+				if (card.getManual() != null) {
+					pStmt.setString(7, card.getManual());
 				} else {
 					pStmt.setString(7, "");
 				}
-				if (card.getManual() != null) {
-					pStmt.setString(8, card.getManual());
+				if (card.getFixed_role() != null) {
+					pStmt.setString(8, card.getFixed_role());
 				} else {
 					pStmt.setString(8, "");
 				}
-				if (card.getFixed_role() != null) {
-					pStmt.setString(9, card.getFixed_role());
+				if (card.getVariable_role() != null) {
+					pStmt.setString(9, card.getVariable_role());
 				} else {
 					pStmt.setString(9, "");
 				}
-				if (card.getVariable_role() != null) {
-					pStmt.setString(10, card.getVariable_role());
-				} else {
-					pStmt.setString(10, "");
-				}
 				if (card.getLog() != 0) {
-					pStmt.setInt(11, card.getLog());
+					pStmt.setInt(10, card.getLog());
 				} else {
-					pStmt.setInt(11, 0);
+					pStmt.setInt(10, 0);
 				}
 			
 				// SQL文を実行する

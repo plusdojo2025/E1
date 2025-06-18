@@ -86,6 +86,18 @@ public class HWRegistServlet extends HttpServlet {
 		String variable_role = request.getParameter("variable_role");
 		int log = parseIntOrDefault(request.getParameter("log"), 0);
 		
+		if ("0".equals(frequency)) {
+	        // 毎日の処理
+	    } else if ("8".equals(frequency)) {
+	        // 不定期の処理
+	    } else {
+	        // 複数曜日の処理（カンマ区切り）
+	        String[] days = frequency.split(",");
+	        for (String day : days) {
+	            int weekday = Integer.parseInt(day);
+	            // 曜日ごとの処理
+	        }
+	    }
 		
 		// 登録処理を行う
 		houseworkDAO hDao = new houseworkDAO();
