@@ -7,7 +7,7 @@ public class user implements Serializable {
 	private String user_name;
 	private String family_id;
 	private String password;
-	private float share_goal;
+	private Float share_goal;
 	
 	//分担ガチャ用変数
 	private float user_level;
@@ -56,15 +56,15 @@ public class user implements Serializable {
 		this.password = password;
 	}
 
-	public float getShare_goal() {
+	public Float getShare_goal() {
 		return share_goal;
 	}
 
-	public void setShare_goal(float share_goal) {
+	public void setShare_goal(Float share_goal) {
 		this.share_goal = share_goal;
 	}
 
-	public user(String user_id, String user_name, String family_id, String password, float share_goal) {
+	public user(String user_id, String user_name, String family_id, String password, Float share_goal) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -79,14 +79,14 @@ public class user implements Serializable {
         this.password = password;
     }
     //分担ガチャ用
-    public user(String user_id, String user_name, float share_goal) {
+    public user(String user_id, String user_name, Float share_goal) {
     	this.user_id = user_id;
     	this.user_name = user_name;
     	this.share_goal = share_goal;
     }
     
     //分析用
-    public user(String user_id, float share_goal) {
+    public user(String user_id, Float share_goal) {
     	this.user_id = user_id;
     	this.share_goal = share_goal;
     }
@@ -97,7 +97,7 @@ public class user implements Serializable {
 		this.user_name = "";
 		this.family_id = "";
 		this.password = "";
-		this.share_goal = 0;
+		this.share_goal = null;
 	}
 	
 }

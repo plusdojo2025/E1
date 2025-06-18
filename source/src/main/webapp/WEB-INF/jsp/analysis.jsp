@@ -12,14 +12,14 @@
 <body>
 <div id="share_goal">
   <h2>分担目標</h2>
-  <c:forEach var="e" items="${userList}" varStatus="status">
-    <form method="POST" action="${pageContext.request.contextPath}/AnalysisServlet" id="form${status.index}">
-      <label for="goal${status.index}"><c:out value="${e.user_id}" />の分担割合</label><br>
-      <input type="text" name="goal" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
-      <input type="hidden" name="user_id" value="<c:out value='${e.user_id}'/>">
-      <input type="submit" name="submit" value="設定" class="goal_submit">
-    </form>
-  </c:forEach>
+  <form method="POST" action="${pageContext.request.contextPath}/AnalysisServlet" id="form${status.index}">
+	  <c:forEach var="e" items="${userList}" varStatus="status">
+	      <label for="goal${status.index}"><c:out value="${e.user_id}" />の分担割合</label><br>
+	      <input type="text" name="goal" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
+	      <input type="hidden" name="user_id" value="<c:out value='${e.user_id}'/>">
+	  </c:forEach>
+	  <input type="submit" name="submit" value="設定" class="goal_submit">
+  </form>
 </div>
 
 <nav class="chart_nav">
