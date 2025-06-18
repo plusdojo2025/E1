@@ -63,8 +63,7 @@ public class HWSearchServlet extends HttpServlet {
 			//houseworkDAO hwDao = new houseworkDAO();
 
 			
-			List<housework>cardList = hwDAO.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-					frequency, manual, fixed_role, variable_role, log, role));
+			List<housework>cardList = hwDAO.all();
 	//}
 		
 
@@ -143,8 +142,7 @@ public class HWSearchServlet extends HttpServlet {
 		} else if ("一覧".equals(searchType)) {
 			// 全件表示
 			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-					frequency, manual, fixed_role, variable_role, log, role));
+			cardList = hwDao.all();
 
 		}
 		
@@ -174,6 +172,7 @@ public class HWSearchServlet extends HttpServlet {
 		// 家事一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);		
+		
 		
 		System.out.println("cardList size: " + ((List<housework>) cardList).size());
 

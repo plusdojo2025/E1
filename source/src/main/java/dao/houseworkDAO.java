@@ -413,7 +413,8 @@ public class houseworkDAO {
 	            "root", "password"
 	        );
 
-	        String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log FROM housework ORDER BY housework_id ASC";
+	        String sql = "SELECT * FROM housework ORDER BY housework_id ASC";
+	        //String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log FROM housework ORDER BY housework_id ASC";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        ResultSet rs = stmt.executeQuery();
 

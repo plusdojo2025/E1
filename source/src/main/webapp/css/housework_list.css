@@ -11,3 +11,55 @@
 .contents {
 	display: flex;
 }
+
+.modal-inner {
+    margin-top: 125px;
+    margin-bottom: 125px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+    display: block;
+    padding: 21px 8px 21px;
+    height: auto;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.4); /* 網掛け効果 */
+  display: none;
+  z-index: 999;
+  backdrop-filter: blur(3px);    /* 背景を軽くぼかす */
+}
+
+.modal-content {
+  background: #fffbea; /* 淡いクリーム色でやさしい印象 */
+  margin: 8% auto;
+  padding: 30px;
+  width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-family: 'Rounded Mplus 1c', sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  color: #444;
+}
+
+.close-button {
+  float: right;
+  font-size: 1.6em;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-button:hover {
+  color: #f66;
+}

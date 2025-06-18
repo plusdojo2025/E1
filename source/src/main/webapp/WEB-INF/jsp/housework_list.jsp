@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>家事一覧</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/housework_list.css">
-
 <!-- ↑cssのパスを動的に取得 -->
 </head>
 <body>
@@ -40,22 +39,16 @@
     </tr>
 
 <!-- 取得した家事を一覧表示 -->          
-<!--<div class="card_container">-->        
-		<tr>
-			<td>1</td>
-			<td>皿洗い（サンプル）</td>
-			<td>消去</td>			
-		</tr>
-
-
-         
+<!--<div class="card_container">-->             
       	<c:forEach var="e" items="${cardList}" varStatus="status">
         	<tr class="card">        
                  <td class="housework_level">
                      <c:out value="${e.housework_level}" />
                      <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
                  </td>
-                 <td class="housework_name">
+                 <td class="housework_name open-modal"
+                 data-housework-name="${e.housework_name}"
+                 data-housework-id="${e.housework_id}">
                    <!--家事名押下時更新モーダル表示-->
                   <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
 					<input type="hidden" name="housework_id" value="${e.housework_id}">
@@ -70,6 +63,7 @@
 	               <input type="hidden" name="log" value="${e.log}">   
                  
                  <!-- 家事名のみ表示 -->
+                 	
                      <c:out value="${e.housework_name}" />                       
                      <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
                  	</form>
@@ -81,9 +75,7 @@
                      <!--</form>-->
                  </td>			                
           <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
-          			</tr>
-          		
-      			
+          			</tr>        		
 	 		</c:forEach>           		
        	<!--</div>-->
        </table>
@@ -92,7 +84,66 @@
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
 
-<div id="modal" class="modal">
+
+<!-- 更新モーダルの中身 -->
+<div id="updateModal" class="modal modal-inner" style="display: none;">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>家事情報を編集</h2>
+    <!-- 更新フォームに渡す値 -->
+    <form id="updateForm" method="POST" action="<c:url value='/HWUpdateServlet' />">
+        <!-- 家事ID -->
+      <input type="hidden" name="housework_id" id="modal-housework-id" value="${e.housework_id}" />
+      <label>家事名：</label>
+      <input type="text" name="housework_name" id="modal-housework-name" value="${e.housework_name}" />
+	  <!-- ファミリーID -->
+	  <input type="hidden" name="family_id" value="${e.family_id}" />
+      <label>カテゴリID：</label>
+      <input type="number" name="category_id" id="modal-category-id" value="${e.category_id}"/>
+	  <label>家事負担度：</label>
+	  <input type="text" name="housework_level" value="${e.housework_level}" />
+	　　<label>通知有無：</label>
+	  <input type="text" name="noti_flag" value="${e.noti_flag}" />
+      <label>通知時間：</label>
+      <input type="time" name="noti_time" id="modal-noti-time" value="${e.noti_time}"/>
+      <label>家事頻度：</label>
+  		<input type="text" name="frequency" value="${e.frequency}" />
+     	<label>メモ（マニュアルなど）：</label>
+  		  <input type="text" name="manual" value="${e.manual}" />
+     	<label>固定担当者：</label>
+     	  <input type="text" name="fixd_role" value="${e.fixed_role}" />
+      	<label>可変担当者：</label>
+      	  <input type="text" name="variable_role" value="${e.variable_role}" />
+	  <!-- ファミリーID -->
+		<input type="hidden" name="log" value="${e.log}" />    	    	
+     	
+      <!-- 他にも編集したい項目を追加 -->
+
+      <button type="submit" id="updateTrigger">更新</button>
+    </form>
+  </div>
+</div>
+<!-- 更新確認モーダルの中身 -->
+<div id="confirmModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <p>この情報で更新しますか？</p>
+    <button id="confirmCancel">Cancel</button>
+    <button id="confirmOk">OK</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+                      
+
+
+
+<!-- 検索モーダルの中身 -->
+<div id="searchModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <h2>家事検索</h2>
@@ -118,33 +169,66 @@
 </footer>
 <script>
     'use strict';
+    
 /* 検索画面をモーダル表示 */
-//家事カードを押下時更新画面をモーダル表示
-// 更新ボタンを押下時、更新確認モーダルを表示
-// ごみ箱アイコンを押下時消去確認モーダル表示示 
-    const modal = document.getElementById("modal");
+    const searchModal = document.getElementById("searchModal");
     const openModalBtn = document.getElementById("openModal");
     const closeBtn = document.querySelector(".close-button");
     const submitBtn = document.getElementById("submitButton");
     const userInput = document.getElementById("userInput");
 
     openModalBtn.onclick = function() {
-    modal.style.display = "block";
+    searchModal.style.display = "block";
     }
 
     closeBtn.onclick = function() {
-    modal.style.display = "none";
+    searchModal.style.display = "none";
     }
 
     window.onclick = function(event) {
     if (event.target === modal) {
-        modal.style.display = "none";
+        searchModal.style.display = "none";
     }
     }
 
     submitBtn.onclick = function() {
     alert("入力 " + userInput.value);
     }
+    
+//  家事名押下時のスクリプト 家事カードを押下時更新画面をモーダル表示 
+    document.addEventListener("DOMContentLoaded", function () {
+      const updateModal = document.getElementById("updateModal");
+      const closeBtn = updateModal.querySelector(".close-button");
+      const modalName = document.getElementById("modal-housework-name");
+
+      document.querySelectorAll(".open-modal").forEach(function (td) {
+        td.addEventListener("click", function () {
+          const name = this.dataset.houseworkName;
+          const id = this.dataset.houseworkId;
+          modalName.textContent = "家事名: " + name + "（ID: " + id + "）";
+          updateModal.style.display = "block";
+        });
+      });
+
+      closeBtn.onclick = function () {
+        updateModal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target === modal) {
+          updateModal.style.display = "none";
+        }
+      };
+    });
+    
+//  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
+
+
+// ごみ箱アイコンを押下時消去確認モーダル表示
+
+
+    
+    
 </script>
 </body>
 </html>
