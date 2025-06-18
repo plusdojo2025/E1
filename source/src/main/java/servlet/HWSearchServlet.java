@@ -103,7 +103,7 @@ public class HWSearchServlet extends HttpServlet {
 		int housework_level = 0;
 		int noti_flag = 0;
 		String noti_time = "";
-		int frequency = 0;
+		String frequency = "";
 		String manual = "";
 		String fixed_role = "";
 		String variable_role = "";
@@ -147,13 +147,13 @@ public class HWSearchServlet extends HttpServlet {
 		}
 		
 //		housework_id = Integer.parseInt(request.getParameter("housework_id"));
-//		housework_name = request.getParameter("housework_name");
+		housework_name = request.getParameter("housework_name");
 //		family_id = request.getParameter("family_id");
-//		category_id = Integer.parseInt(request.getParameter("category_id"));
+		category_id = Integer.parseInt(request.getParameter("category_id"));
 //		housework_level = Integer.parseInt(request.getParameter("housework_level"));
-//		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
+		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 //		noti_time = request.getParameter("noti_time");
-//		frequency = Integer.parseInt(request.getParameter("frequency"));
+		frequency = request.getParameter("frequency");
 //		manual = request.getParameter("manual");
 //		fixed_role = request.getParameter("fixed_role");
 //		variable_role = request.getParameter("variable_role");
@@ -161,10 +161,13 @@ public class HWSearchServlet extends HttpServlet {
 
 		
 		// 検索処理を行う
-		//List<housework> cardList = null;
-//		houseworkDAO hwDao = new houseworkDAO();		
+//		List<housework> cardList = null;
+		houseworkDAO hwDao = new houseworkDAO();		
 //		cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
 //				frequency, manual, fixed_role, variable_role, log));
+		// 検索処理
+        List<housework> cardList = hwDao.searchHousework(category_id, housework_name, frequency, noti_flag);
+
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("cardList", cardList);
