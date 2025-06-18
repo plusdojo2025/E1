@@ -203,6 +203,7 @@ public class achievementDAO {
 
 	        pStmt = conn.prepareStatement(sql);
 	        int deletedRows = pStmt.executeUpdate();
+	        //開発中のみ使う
 	        System.out.println(deletedRows + " 件の古いデータを削除しました。");
 
 	    } catch (ClassNotFoundException | SQLException e) {
@@ -216,6 +217,48 @@ public class achievementDAO {
 	        }
 	    }
 	}
+	
+	public boolean updateShareGoal(user u) throws Exception {
+	    Connection conn = null;
+	    PreparedStatement pStmt = null;
+	    
+	    try {
+	    	// JDBCドライバを読み込む
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    	
+	        // データベース接続
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+	        
+	        // SQL定義（分担目標のデータを更新）
+	        String sql = "UPDATE users SET user_id = ? WHERE share_goal = ?";
+	
+	        pStmt = conn.prepareStatement(sql);
+	        
+	        if (u.getUser_id() != null) {
+				pStmt.setString(1, u.getUser_id());
+			}
+	        if (u.getShare_goal() != null) {
+	            pStmt.setFloat(2, u.getShare_goal());
+	        } else {
+	            pStmt.setFloat(2, 0.5f); // ← 初期値0.5をここで適用
+	        }
+	
+	        int result = pStmt.executeUpdate();
+	        return result == 1;
 
-
+	    } catch (ClassNotFoundException | SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        try {
+	            if (pStmt != null) pStmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
 }

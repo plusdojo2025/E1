@@ -11,98 +11,111 @@
 <!-- ↑cssのパスを動的に取得 -->
 </head>
 <body>
-    <!-- ヘッダー -->
-    <header>
-        <!-- ロゴ挿入 -->
-        <!-- navタグで通知とログアウトを入れる -->
+<!-- ヘッダー -->
+<header>
+    <!-- ロゴ挿入 -->
+    <!-- navタグで通知とログアウトを入れる -->
 
-    </header>
-    <!-- メイン -->
-    <main class="housework_list_wrapper">
-        <h2>家事一覧</h2>
-        <!--家事タブを押したときはカテゴリごとに検索、表示 -->        
-        <div class="tab_container">
-            <form method="POST" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
-            <input type="submit" name="searchType" value="掃除">
-            <input type="submit" name="searchType" value="洗濯">
-            <input type="submit" name="searchType" value="料理">
-            <input type="submit" name="searchType" value="その他">
-            </form>
-        </div>
+</header>
+<!-- メイン -->
+<main class="housework_list_wrapper">
+    <h2>家事一覧</h2>
+    <!--家事タブを押したときはカテゴリごとに検索、表示 -->        
+    <div class="tab_container">
+        <form method="POST" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
+        <input type="submit" name="searchType" value="掃除">
+        <input type="submit" name="searchType" value="洗濯">
+        <input type="submit" name="searchType" value="料理">
+        <input type="submit" name="searchType" value="その他">
+        </form>
+    </div>
 
-        <!-- 家事一覧表示 -->
-            <!-- 負担度、家事名、消去ラベル表示 -->
-            <table>
-            <tr class="card_label">
-                <th>負担度</th>
-                <th>家事名</th>
-                <th>消去</th>
-            </tr>
+<!-- 家事一覧表示 -->
+    <!-- 負担度、家事名、消去ラベル表示 -->
+    <table>
+    <tr class="card_label">
+        <th>負担度</th>
+        <th>家事名</th>
+        <th>消去</th>
+    </tr>
 
-            <!-- 取得した家事を一覧表示 -->          
-			<div class="card_container">
-                <tr class="card">
-                	<c:forEach var="e" items="${cardList}" varStatus="status">
-                		<form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
-						<input type="hidden" name="housework_id" value="${e.housework_id}">
-		                <input type="hidden" name="family_id" value="${e.family_id}">
-		                <input type="hidden" name="category_id" value="${e.category_id}">
-		                <input type="hidden" name="noti_flag" value="${e.noti_flag}">
-		                <input type="hidden" name="noti_time" value="${e.noti_time}">
-		                <input type="hidden" name="frequency" value="${e.frequency}">
-		                <input type="hidden" name="manual" value="${e.manual}">
-		                <input type="hidden" name="fixed_role" value="${e.fixed_role}">
-		                <input type="hidden" name="variable_role" value="${e.variable_role}">
-		                <input type="hidden" name="log" value="${e.log}">               
-	                    <td class="housework_level">
-	                        <c:out value="${e.housework_level}" />
-	                        <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
-	                    </td>
-	                    <td class="housework_name">
-	                        <c:out value="${e.housework_name}" />                       
-	                        <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
-	                    </td>
-	                    <td class="delete">
-	                        <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
-	                        <!-- ごみ箱のイメージを張り付ける -->
-	                            <button class="js-modal-button" value="消去">消去</button>
-	                        </form>
-	                    </td>			                
-              <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
-              			</form>
-       		 		</c:forEach>
-           		</tr>
-           	</div>
-           </table>
-            <!-- 家事が追加されるごとに行を追加 -->
-        <!-- 検索アイコン表示 -->
-        <!-- 検索アイコン押下時モーダル画面を表示 -->
-    <button id="openModal">検索</button>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>家事検索</h2>
-            <input type="text" id="userInput" placeholder="ここに入力してください">
-            <button id="submitButton">検索</button>
-        </div>
-    </div> 
+<!-- 取得した家事を一覧表示 -->          
+<!--<div class="card_container">-->        
+		<tr>
+			<td>1</td>
+			<td>皿洗い（サンプル）</td>
+			<td>消去</td>			
+		</tr>
 
 
-    </main>
+         
+      	<c:forEach var="e" items="${cardList}" varStatus="status">
+        	<tr class="card">        
+                 <td class="housework_level">
+                     <c:out value="${e.housework_level}" />
+                     <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
+                 </td>
+                 <td class="housework_name">
+                   <!--家事名押下時更新モーダル表示-->
+                  <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
+					<input type="hidden" name="housework_id" value="${e.housework_id}">
+	               <input type="hidden" name="family_id" value="${e.family_id}">
+	               <input type="hidden" name="category_id" value="${e.category_id}">
+	               <input type="hidden" name="noti_flag" value="${e.noti_flag}">
+	               <input type="hidden" name="noti_time" value="${e.noti_time}">
+	               <input type="hidden" name="frequency" value="${e.frequency}">
+	               <input type="hidden" name="manual" value="${e.manual}">
+	               <input type="hidden" name="fixed_role" value="${e.fixed_role}">
+	               <input type="hidden" name="variable_role" value="${e.variable_role}">
+	               <input type="hidden" name="log" value="${e.log}">   
+                 
+                 <!-- 家事名のみ表示 -->
+                     <c:out value="${e.housework_name}" />                       
+                     <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
+                 	</form>
+                 </td>
+                 <td class="delete">
+                     <!--  <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">-->
+                     <!-- ごみ箱のイメージを張り付ける -->
+                         <button class="js-modal-button" value="消去">消去</button>
+                     <!--</form>-->
+                 </td>			                
+          <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
+          			</tr>
+          		
+      			
+	 		</c:forEach>           		
+       	<!--</div>-->
+       </table>
+        <!-- 家事が追加されるごとに行を追加 -->
+    <!-- 検索アイコン表示 -->
+    <!-- 検索アイコン押下時モーダル画面を表示 -->
+<button id="openModal">検索</button>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>家事検索</h2>
+        <input type="text" id="userInput" placeholder="ここに入力してください">
+        <button id="submitButton">検索</button>
+    </div>
+</div> 
+
+
+</main>
 <!-- フッター -->
-    <footer>
-        <!-- 各コンテンツのアイコンを横に並べる -->
-        <div class="contents">
-	        <form method="POST" id="contents_form" action="<c:url value='/HWSearchServlet' />">
-	            <a>ホーム</a>
-	            <input type="submit" name="searchType" value="一覧">
-	            <a>登録</a>
-	            <a>分析</a>
-	            <a>くじ</a>        
-	        </form>
-        </div>
-    </footer>
+<footer>
+    <!-- 各コンテンツのアイコンを横に並べる -->
+    <div class="contents">
+     <form method="GET" id="contents_form" action="<c:url value='/HWSearchServlet' />">
+         <a>ホーム</a>
+         <input type="submit" name="searchType" value="一覧">
+         <a>登録</a>
+         <a>分析</a>
+         <a>くじ</a>        
+     </form>
+    </div>
+</footer>
 <script>
     'use strict';
 /* 検索画面をモーダル表示 */

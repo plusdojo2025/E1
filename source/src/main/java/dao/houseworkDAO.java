@@ -444,7 +444,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchclean() {
+	public List<housework> searchclean(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『掃除』のデータだけを表示したい
 	    Connection conn = null;
@@ -491,7 +491,7 @@ public class houseworkDAO {
 	    }	    
 	    return cardList;  
 	}
-	public List<housework> searchwash() {
+	public List<housework> searchwash(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『洗濯』のデータだけを表示したい
 	    Connection conn = null;
@@ -539,7 +539,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchcook() {
+	public List<housework> searchcook(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『料理』のデータだけを表示したい
 	    Connection conn = null;
@@ -587,7 +587,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchother() {
+	public List<housework> searchother(int category_id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『その他』のデータだけを表示したい
 	    Connection conn = null;
