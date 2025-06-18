@@ -75,8 +75,18 @@ public class UserRegistServlet extends HttpServlet {
             return; // 処理を中断
         }
         // --- ここまでパスワードのSHA-256暗号化処理 ---
+		// --- ここからあいことばのSHA-256暗号化処理 ---
+        String hashedFami_Pass = Sha256Util.hashString(fami_pass);
+        if (hashedFami_Pass == null) {
+            // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
+            request.setAttribute("errorMessage", "システムエラーが発生しました。");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            dispatcher.forward(request, response);
+            return; // 処理を中断
+        }
+        // --- ここまであいことばのSHA-256暗号化処理 ---
         familyDAO familyDAO = new familyDAO();
-        family family = new family(family_id, fami_pass);
+        family family = new family(family_id, hashedFami_Pass);
 		// 登録処理を行う
         if (familyDAO.isFamilyOK(family)) {
 			userDAO uDao = new userDAO();
