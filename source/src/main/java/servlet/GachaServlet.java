@@ -123,7 +123,7 @@ public class GachaServlet extends HttpServlet {
 				}
 			}
 		}
-		response.sendRedirect("/E1/GachaServlet");
+		response.sendRedirect(request.getContextPath() + "/GachaServlet");
 	}
 
 }

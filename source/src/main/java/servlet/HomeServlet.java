@@ -90,17 +90,17 @@ public class HomeServlet extends HttpServlet {
 			int housework_id = Integer.parseInt(id);
 			if(td_hwDAO.submit(user_id, family_id ,housework_id ,formatNowDate2)) { 
 					if (td_hwDAO.insert_notification(user_id,housework_id)){
-						response.sendRedirect("/E1/HomeServlet");
+						response.sendRedirect(request.getContextPath() + "/HomeServlet");
 					}
 			}
 		}else if(request.getParameter("submit").equals("家事追加")) {
 			int housework_id = Integer.parseInt(id);
 			if(td_hwDAO.insert(housework_id)) {
-				response.sendRedirect("/E1/HomeServlet");
+				response.sendRedirect(request.getContextPath() + "/HomeServlet");
 			}
 		}else if(request.getParameter("submit").equals("メモ追加")) {	
 			if(memoDAO.insert(memo)) {
-				response.sendRedirect("/E1/HomeServlet");
+				response.sendRedirect(request.getContextPath() + "/HomeServlet");
 			}
 		}
 	}
