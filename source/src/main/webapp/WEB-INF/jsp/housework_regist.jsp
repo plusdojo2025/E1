@@ -36,8 +36,8 @@
 		<!-- 頻度 -->	 	
 		 				  		
 		<label>頻度（必須）
-		 <input type="hidden" name="frequency" id="frequency">
-            <select id="daySelection" name="daySelection">
+		 
+            <select id="daySelection" name="frequency">
             <!-- 頻度の値（送信用） -->
 			
             

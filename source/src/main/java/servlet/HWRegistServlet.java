@@ -92,15 +92,17 @@ public class HWRegistServlet extends HttpServlet {
 		String variable_role = request.getParameter("variable_role");
 		int log = parseIntOrDefault(request.getParameter("log"), 0);
 		
+		String[] days = request.getParameterValues("days");
+		String a = "";
+		
 		if ("0".equals(frequency)) {
 	        // 毎日の処理
 	    } else if ("8".equals(frequency)) {
 	        // 不定期の処理
 	    } else {
 	        // 複数曜日の処理（カンマ区切り）
-	        String[] days = frequency.split(",");
 	        for (String day : days) {
-	            int weekday = Integer.parseInt(day);
+	           a += day;
 	            // 曜日ごとの処理
 	        }
 	    }
@@ -108,12 +110,12 @@ public class HWRegistServlet extends HttpServlet {
 		// 登録処理を行う
 		houseworkDAO hDao = new houseworkDAO();
 		housework hw = new housework(0, housework_name, familyId, category_id, housework_level,
-                noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log);
+                noti_flag, noti_time, a, manual, fixed_role, variable_role, log);
 		
 		if (hDao.insert(hw)) { // 登録成功
 			// 一覧ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
-			dispatcher.forward(request, response);
+        			dispatcher.forward(request, response);
 		} else { // 登録失敗
 			response.sendRedirect("/E1/HomeServlet");
 		}
