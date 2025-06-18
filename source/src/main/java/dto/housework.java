@@ -41,7 +41,7 @@ public class housework implements Serializable {
 	}
 	
 		public housework(int housework_id, String housework_name, String family_id, int category_id,
-				int housework_level, int noti_flag, String noti_time, int frequency, String manual, String fixed_role,
+				int housework_level, int noti_flag, String noti_time, String frequency, String manual, String fixed_role,
 				String variable_role, int log) {
 			this.housework_id = housework_id;
 			this.housework_name = housework_name;
@@ -99,10 +99,10 @@ public String getNoti_time() {
 public void setNoti_time(String noti_time) {
 	this.noti_time = noti_time;
 }
-public int getFrequency() {
+public String getFrequency() {
 	return frequency;
 }
-public void setFrequency(int frequency) {
+public void setFrequency(String frequency) {
 	this.frequency = frequency;
 }
 public String getManual() {
