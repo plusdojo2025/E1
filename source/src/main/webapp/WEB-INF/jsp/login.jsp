@@ -24,7 +24,7 @@
 		<tr>
 			<td>
 				<label>パスワード<br>
-				<input type="password" name="password" minlength=8 maxlength=15>
+				<input type="password" name="password" minlength=8 maxlength=20>
 				</label>
 			</td>
 		<tr>

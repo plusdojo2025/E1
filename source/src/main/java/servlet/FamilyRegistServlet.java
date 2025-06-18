@@ -53,8 +53,8 @@ public class FamilyRegistServlet extends HttpServlet {
             return;
         }
         //あいことばが文字数の条件を満たしているか確認
-		if (fami_pass.length() < 8 || fami_pass.length() > 15) {
-            request.setAttribute("FamilyErrorMessage", "あいことばは8文字以上15文字以下で入力してください。");
+		if (fami_pass.length() < 8 || fami_pass.length() > 20) {
+            request.setAttribute("FamilyErrorMessage", "あいことばは8文字以上20文字以下で入力してください。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
             dispatcher.forward(request, response);
             return;
@@ -68,7 +68,7 @@ public class FamilyRegistServlet extends HttpServlet {
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
-        // --- ここまでパスワードのSHA-256暗号化処理 ---
+        // --- ここまであいことばのSHA-256暗号化処理 ---
 
 		// 登録処理を行う
 		familyDAO fDao = new familyDAO();

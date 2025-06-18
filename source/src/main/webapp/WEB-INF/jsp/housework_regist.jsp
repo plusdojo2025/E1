@@ -29,45 +29,48 @@
 		</label>	 
 			
 		<!-- 家事名 -->		
-		<label>家事名
+		<label>家事名(必須)
 		<input type="text" name="housework_name"><br>
 		</label>
 		 	
 		<!-- 頻度 -->	 	
 		 				  		
-		<label>頻度
-		 <div>
-            <select id="daySelection" name="daySelection">
+		<label>頻度（必須）
+		 
+            <select id="daySelection" name="frequency">
+            <!-- 頻度の値（送信用） -->
+			
+            
                 <option value="1">曜日を選択</option>
-                <option value="7">毎日</option>
-                <option value="3">不定期</option>
+                <option value="0">毎日</option>
+                <option value="8">不定期</option>
             </select>
-        </div>
+     
 		</label>
 		<br>
 		
 		<!-- 曜日チェック（最初は非表示） -->
 		
 		<div id="daysContainer" class="days-container">
-            <input type="checkbox" id="mon" name="days" value="Monday" class="day-checkbox">
+            <input type="checkbox" id="mon" name="days" value="1" class="day-checkbox">
             <label for="mon" class="day-label">月</label>
 
-            <input type="checkbox" id="tue" name="days" value="Tuesday" class="day-checkbox">
+            <input type="checkbox" id="tue" name="days" value="2" class="day-checkbox">
             <label for="tue" class="day-label">火</label>
 
-            <input type="checkbox" id="wed" name="days" value="Wednesday" class="day-checkbox">
+            <input type="checkbox" id="wed" name="days" value="3" class="day-checkbox">
             <label for="wed" class="day-label">水</label>
 
-            <input type="checkbox" id="thu" name="days" value="Thursday" class="day-checkbox">
+            <input type="checkbox" id="thu" name="days" value="4" class="day-checkbox">
             <label for="thu" class="day-label">木</label>
 
-            <input type="checkbox" id="fri" name="days" value="Friday" class="day-checkbox">
+            <input type="checkbox" id="fri" name="days" value="5" class="day-checkbox">
             <label for="fri" class="day-label">金</label>
 
-            <input type="checkbox" id="sat" name="days" value="Saturday" class="day-checkbox">
+            <input type="checkbox" id="sat" name="days" value="6" class="day-checkbox">
             <label for="sat" class="day-label">土</label>
 
-            <input type="checkbox" id="sun" name="days" value="Sunday" class="day-checkbox">
+            <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
             <label for="sun" class="day-label">日</label>
         </div>
 		  
@@ -107,8 +110,8 @@
 		<input type="radio" name="noti_flag" value= 1 id="noti-on">on
 		</label>
 		<br>
-		<label for="notify-time">通知時間:</label>
-		<input type="time" id="noti-time" name="noti-time" class="noti-hidden">
+		<label for="notify_time">通知時間:</label>
+		<input type="time" id="noti_time" name="noti_time" class="noti-hidden">
 		
 		
 		<br>
@@ -136,6 +139,7 @@
 		
 		
 		</form>
+		</main>
 	<script>
 	'use strict'
 		//負担度を表す星
@@ -166,27 +170,25 @@
 		  });
 		});
 	
-	
-	
 		// プルダウンの選択に応じて曜日ボタンを制御
         document.getElementById('daySelection').addEventListener('change', function() {
             const selection = this.value;
             const daysContainer = document.getElementById('daysContainer');
             const checkboxes = document.querySelectorAll('.day-checkbox');
 
-            if (selection === '1') {
+            if (selection === "1") {
                 // 「曜日を選択」の場合：ボタンを表示し、選択状態をリセット
                 daysContainer.classList.remove('hidden');
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = false;
                 });
-            } else if (selection === '7') {
+            } else if (selection === "0") {
                 // 「毎日」の場合：ボタンを表示し、すべて選択
                 daysContainer.classList.remove('hidden');
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = true;
                 });
-            } else if (selection === '3') {
+            } else if (selection === "8") {
                 // 「不定期」の場合：ボタンを非表示にし、選択状態をリセット
                 daysContainer.classList.add('hidden');
                 checkboxes.forEach(checkbox => {
@@ -194,15 +196,32 @@
                 });
             }
         });
+		
+		
+        document.getElementById('form').addEventListener('submit', function(event) {
+            const daySelection = document.getElementById('daySelection').value;
+            const frequencyInput = document.getElementById('frequency');
+
+            if (daySelection === "0" || daySelection === "8") {
+                frequencyInput.value = daySelection;
+            } else if (daySelection === "1") {
+                const selectedDays = Array.from(document.querySelectorAll('.day-checkbox:checked'))
+                                         .map(cb => cb.value);
+                frequencyInput.value = selectedDays.join(",");
+            }
+        });
 
         // フォーム送信時の処理
-        document.getElementById('daysContainer').addEventListener('submit', function(event) {
+        document.getElementById('form').addEventListener('submit', function(event) {
             const selectedDays = Array.from(document.querySelectorAll('.day-checkbox:checked'))
                                      .map(checkbox => checkbox.value);
             const daySelection = document.getElementById('daySelection').value;
-            console.log('選択タイプ:', daySelection);
+            console.log('選択タイプ:', frequency);
             console.log('選択された曜日:', selectedDays);
         });
+	
+		
+       
 		
         //モーダル
         function openModal() {
@@ -221,23 +240,23 @@
 		
      // 通知ON/OFFで時間入力を有効・無効にする
         document.getElementById("noti-off").addEventListener("change", function() {
-          document.getElementById("noti-time").classList.add("noti-hidden");
+          document.getElementById("noti_time").classList.add("noti-hidden");
         });
 
         document.getElementById("noti-on").addEventListener("change", function() {
-          document.getElementById("noti-time").classList.remove("noti-hidden");
+          document.getElementById("noti_time").classList.remove("noti-hidden");
         });
 
         // ページ読み込み時に状態を正しく初期化（特に戻ってきたとき対策）
         window.addEventListener("DOMContentLoaded", () => {
           const isNotiOn = document.getElementById("noti-on").checked;
-          document.getElementById("noti-time").classList.toggle("noti-hidden", !isNotiOn);
+          document.getElementById("noti_time").classList.toggle("noti-hidden", !isNotiOn);
         });
         
      // 通知ON/OFFに応じて通知時間の表示切替
         document.querySelectorAll('input[name="noti_flag"]').forEach(radio => {
           radio.addEventListener('change', () => {
-            const timeInput = document.getElementById('noti-time');
+            const timeInput = document.getElementById('noti_time');
             if (document.querySelector('input[name="noti_flag"]:checked').value === '1') {
               timeInput.classList.remove('noti-hidden');
             } else {
@@ -248,14 +267,14 @@
 
         // 初期状態の制御（ページ読み込み時）
         window.addEventListener("DOMContentLoaded", () => {
-          const timeInput = document.getElementById('noti-time');
+          const timeInput = document.getElementById('noti_time');
           const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
           timeInput.classList.toggle('noti-hidden', !isOn);
         });
 
 	</script>
 	
-	</main>
+	
 	
 	
 	</body>

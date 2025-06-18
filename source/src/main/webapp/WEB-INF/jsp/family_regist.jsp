@@ -12,21 +12,21 @@
 		<tr>
 			<td>
 				<label><br>ファミリーID
-				<input type="text" name="family_id" placeholder="半角英数10文字以内" maxlength=10 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="text" name="family_id" placeholder="半角英数10文字以内" maxlength=10 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="confirm_fami_pass" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="password" name="confirm_fami_pass" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば(確認)
-				<input type="password" name="fami_pass" placeholder="半角英数8文字以上15文字以内" minlength=8 maxlength=15 pattern="^[a-zA-Z0-9]+$" required>
+				<input type="password" name="fami_pass" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
@@ -36,6 +36,12 @@
 				<span id="error_message">${errorMessage}</span>
 			</td>
 		</tr> --%>
+		<tr>
+			<td>
+				<label>使用可能記号　! @ # $ % ^ & * ( ) _ + = -　
+				</label>
+			</td>
+		</tr>
 		<tr>
         	<td>
         		<span>${result}</span>
