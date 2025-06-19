@@ -21,14 +21,7 @@
     <h2>家事一覧</h2>
     <!--家事タブを押したときはカテゴリごとに検索、表示 -->        
     <div class="tab_container">
-    <!-- 一旦コメントアウト 
-        <form method="POST" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
-        <input type="submit" name="searchType" value="掃除">
-        <input type="submit" name="searchType" value="洗濯">
-        <input type="submit" name="searchType" value="料理">
-        <input type="submit" name="searchType" value="その他">
-        </form>-->
-        <form method="GET" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
+    <form method="GET" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
 		  <input type="hidden" name="sortOrder" value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
 		  <button type="submit" name="searchType" value="掃除">掃除</button>
 		  <button type="submit" name="searchType" value="洗濯">洗濯</button>
@@ -60,17 +53,10 @@
         </tr>
     <!--  <table>
     <tr class="card_label">
-<<<<<<< HEAD
         <th>負担度</th>
         <th>家事名</th>
         <th>削除</th>
     </tr>-->
-=======
-      <th>負担度</th>
-      <th>家事名</th>
-      <th>消去</th>
-    </tr>
->>>>>>> 67e2b58073653d0bf6f3a51bd373df24138bb8b2
 
 <!-- 取得した家事を一覧表示 -->          
 <!--<div class="card_container">-->             
@@ -78,6 +64,7 @@
         	<tr class="card">        
                   <td class="housework_level">
                   <c:out value="${e.housework_level}" />
+                  <input type="hidden" name="housework_level" value="${e.housework_level}">
                   <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
                   </td>
                  <td class="housework_name open-modal"
@@ -95,7 +82,7 @@
                  data-log="${e.log}">
 
                   <!--家事名押下時更新モーダル表示-->
-                  <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
+                  <form method="POST" id="updateForm" action="<c:url value='/HWUpdateDeleteServlet' />">
 					        <input type="hidden" name="housework_id" value="${e.housework_id}">
                   <input type="hidden" name="family_id" value="${e.family_id}">
                   <input type="hidden" name="category_id" value="${e.category_id}">
@@ -109,7 +96,8 @@
                  
                  <!-- 家事名のみ表示 -->
                  	
-                     <c:out value="${e.housework_name}" />                       
+                     <c:out value="${e.housework_name}" />
+                     <input type="hidden" name="housework_name" value="${e.housework_name}">                       
                      <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
                  	</form>
                  </td>
@@ -194,7 +182,7 @@
 	  <!-- ファミリーID非表示 -->
 	  <input type="hidden" name="family_id" value="" />
     <label>カテゴリID：</label>
-    <input type="text" name="category_id" id="modal-category-id" value=""/>
+    <input type="number" name="category_id" id="modal-category-id" value=""/>
 	  <label>家事負担度：</label>
 	  <input type="text" name="housework_level" id="modal-housework-level" value="" />
 	  <label>通知有無：</label>
@@ -226,7 +214,6 @@
     <button id="confirmOk">OK</button>
   </div>
 </div>
-<<<<<<< HEAD
 <!-- 削除確認モーダルの中身 -->
 <div id="deleteConfirmModal" class="modal" style="display:none;">
   <div class="modal-content">
@@ -236,10 +223,6 @@
     <button id="confirmDeleteBtn">OK</button>
   </div>
 </div>     
-=======
-
-
->>>>>>> 67e2b58073653d0bf6f3a51bd373df24138bb8b2
 <!-- 検索モーダルの中身 -->
 <div id="searchModal" class="modal">
     <div class="modal-content">
@@ -339,14 +322,15 @@
     document.addEventListener("DOMContentLoaded", function () {
       const updateModal = document.getElementById("updateModal");
       const closeBtn = updateModal.querySelector(".close-button");
+      const updateForm = document.getElementById("updateForm");
+      const updateTrigger = document.getElementById("updateTrigger");       
       //const modalName = document.getElementById("modal-housework-name");
 
       document.querySelectorAll(".open-modal").forEach(function (td) {
         td.addEventListener("click", function () {
-          const name = this.dataset.houseworkName;
-          //const id = this.dataset.houseworkId;
+          //const name = this.dataset.houseworkName;
           //modalName.value = "家事名: " + name;
-          updateModal.style.display = "block";
+          //updateModal.style.display = "block";
 
           // モーダル内に値を格納
           const housework_name = this.dataset.houseworkName;
@@ -364,8 +348,9 @@
           //const log = this.dataset.log;
 
           // 更新モーダルに値を表示
+          console.log(housework_level);
           document.getElementById("modal-housework-name").value = housework_name;
-          document.getElementById("modal-housework-id").value = housework_id;
+          //document.getElementById("modal-housework-id").value = housework_id;
           //document.getElementById("modal-family-id").value = family_id; 
           document.getElementById("modal-category-id").value = category_id;
           document.getElementById("modal-housework-level").value = housework_level;
@@ -373,13 +358,25 @@
           document.getElementById("modal-noti-time").value = noti_time;
           document.getElementById("modal-frequency").value = frequency;
           document.getElementById("modal-manual").value = manual;
-          document.getElementById("modal-fixed-role").value = fixedRole;
-          document.getElementById("modal-variable-role").value = variableRole;
+          document.getElementById("modal-fixed-role").value = fixed_role;
+          document.getElementById("modal-variable-role").value = variable_role;
           //document.getElementById("log").value = log;
 
           updateModal.style.display = "block";
+
+
+
+
         });
       });    
+
+      updateTrigger.addEventListener("click", function() {
+        const confirmed = confirm("この情報で更新しますか？");
+        if (confirmed) {
+          updateForm.submit();
+        }
+      });
+ 
 
       closeBtn.onclick = function () {
         updateModal.style.display = "none";
@@ -392,36 +389,39 @@
     });
     
 //  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
-document.addEventListener("DOMContentLoaded", function () {
-  const updateTrigger = document.getElementById("updateTrigger");
-  const confirmModal = document.getElementById("confirmModal");
-  const confirmOk = document.getElementById("confirmOk");
-  const confirmCancel = document.getElementById("confirmCancel");
-  const updateForm = document.getElementById("updateForm");
+// ↓値確認用コンソール
 
-  // 更新ボタン押下時 → 確認モーダル表示
-  updateTrigger.addEventListener("click", function () {
-    confirmModal.style.display = "block";
-  });
 
-  // キャンセル → 確認モーダル非表示
-  confirmCancel.addEventListener("click", function () {
-    confirmModal.style.display = "none";
-  });
+// document.addEventListener("DOMContentLoaded", function () {
+//   const updateTrigger = document.getElementById("updateTrigger");
+//   const confirmModal = document.getElementById("confirmModal");
+//   const confirmOk = document.getElementById("confirmOk");
+//   const confirmCancel = document.getElementById("confirmCancel");
+//   const updateForm = document.getElementById("updateForm");
 
-  // OK → モーダル閉じてフォーム送信
-  confirmOk.addEventListener("click", function () {
-    confirmModal.style.display = "none";
-    updateForm.submit(); // 実際に送信
-  });
+//   // 更新ボタン押下時 → 確認モーダル表示
+//   updateTrigger.addEventListener("click", function () {
+//     confirmModal.style.display = "block";
+//   });
 
-  // 背景クリックで閉じる
-  window.addEventListener("click", function (event) {
-    if (event.target === confirmModal) {
-      confirmModal.style.display = "none";
-    }
-  });
-});
+//   // キャンセル → 確認モーダル非表示
+//   confirmCancel.addEventListener("click", function () {
+//     confirmModal.style.display = "none";
+//   });
+
+//   // OK → モーダル閉じてフォーム送信
+//   confirmOk.addEventListener("click", function () {
+//     confirmModal.style.display = "none";
+//     updateForm.submit(); // 実際に送信
+//   });
+
+//   // 背景クリックで閉じる
+//   window.addEventListener("click", function (event) {
+//     if (event.target === confirmModal) {
+//       confirmModal.style.display = "none";
+//     }
+//   });
+// });
 
 
 // ごみ箱アイコンを押下時消去確認モーダル表示

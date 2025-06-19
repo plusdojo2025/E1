@@ -49,11 +49,16 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 			response.sendRedirect("/E1/LoginServlet");
 			return;
 		}*/
-
+		
+		// 値確認用
+		System.out.println(request.getParameter("housework_level"));
+		
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		int housework_id = Integer.parseInt(request.getParameter("housework_id"));
-		String housework_name = request.getParameter("housework_name");
+		//String housework_name = request.getParameter("housework_name");
+		
+		String housework_name = "夜の洗濯";
 		String family_id = request.getParameter("family_id");
 		int category_id = Integer.parseInt(request.getParameter("category_id"));
 		int housework_level = Integer.parseInt(request.getParameter("housework_level"));
