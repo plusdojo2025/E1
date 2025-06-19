@@ -28,35 +28,8 @@ const nodes = document.querySelectorAll('.noti');
 	nodes.forEach(function(el) {
 	    houseworkIds.push(el.dataset.houseworkId);
 	    notiTimes.push(el.dataset.notiTime);
-	  });
-	scheduleAt();     
+	  });    
 	
-	function scheduleAt(timeStr, task) {
-		  const [h, m, s] = timeStr.split(':').map(Number);
-		  const now = new Date();
-		  const target = new Date(now);
-		  target.setHours(h, m, s, 0);
-
-		  // 今日のうちに実行時刻が過ぎていたら、翌日に
-		  if (target <= now) {
-		    target.setDate(target.getDate() + 1);
-		  }
-
-		  const delay = target - now; // ミリ秒
-		  setTimeout(() => {
-		    task();
-		    // 翌日も同じ時刻に再スケジュール
-		    scheduleAt(timeStr, task);
-		  }, delay);
-		}
-
-		// 実行：getData関数を指定時刻に実行
-		notiTimes.forEach(time => {
-		  scheduleAt(time, () => {
-		    getData();
-		    console.log(`📌 getData実行 at ${time}`, new Date());
-		  });
-		});
 
 
 
@@ -65,14 +38,25 @@ const getData = () =>{
 	 request.onreadystatechange = function(e){
 	 if (request.readyState == 4){
 		 if (request.status == 200){
+
 			 let jsonObject = 
 				 JSON.parse(request.responseText);
 			 let node = document.getElementById("result");
 		        let recv = request.responseText;
 		        let abc = new Array();
 		        abc += jsonObject.data;
-		        
 		        node.innerHTML = abc + "JSON TEXT:" + recv;
+		        
+		        
+		        Push.create("お知らせ", {
+		            body: "これは Push.js を使ったテスト通知です。",
+		            timeout: 8000, // ミリ秒後に自動で閉じる
+		            onClick: function () {
+		              window.focus();
+		              this.close();
+		              console.log('通知がクリックされました');
+		            }
+		        })
 		 }else{
 			 
 		 }
@@ -84,9 +68,23 @@ const getData = () =>{
 	  request.send();
 }
 
+// 一度だけ通知をスケジュールする関数
+function scheduleNotificationOnce(timeStr) {
+  const [h, m, s] = timeStr.split(':').map(Number);
+  const now = new Date();
+  const target = new Date(now);
+  target.setHours(h, m, s, 0);
 
+  // 時刻が過ぎている場合は、実行しない
+  if (target <= now) return;
 
-setInterval(scheduleTasksAt(notiTimes, getData), 10000);
+  const delay = target.getTime() - now.getTime();
+  setTimeout(() => {
+    sendNotif(timeStr);
+  }, delay);
+}
+
+setInterval(getData,1000);
 
 </script>
 </html>
