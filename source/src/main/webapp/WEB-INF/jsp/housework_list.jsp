@@ -122,7 +122,7 @@
     <!-- 検索アイコン表示 -->
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
- <form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
+<!--<form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
 	<input type="hidden" name="housework_id" id="modal-housework-id"/>
 	<input type="hidden" name="family_id"/>
 	<input type="hidden" name="housework_level"/>
@@ -160,7 +160,7 @@
     <input type="radio" name="notification" value="1"> ON
 
     <input type="submit" value="検索">
-</form>
+</form> -->
 
 <!-- 更新モーダルの中身 -->
 <div id="updateModal" class="modal modal-inner" style="display: none;">
@@ -221,9 +221,9 @@
 <div id="searchModal" class="modal" style="display: none;">
     <div class="modal-content">
  <!-- <span class="close-button">&times;</span> -->
- <button id="closeBtn">×</button>
+ <button id="close-button">×</button>
         <h2>家事検索</h2>
-    <form id="userInput" method="POST" action="<c:url value='/HWSearchServlet' />">
+    <form id="userInput" method="GET" action="<c:url value='/HWSearchServlet' />">
 	<input type="hidden" name="housework_id" id="modal-housework-id"/>
 	<input type="hidden" name="family_id"/>
 	<input type="hidden" name="housework_level"/>
@@ -238,10 +238,10 @@
         <option value="2">洗濯</option>
         <option value="3">料理</option>
         <option value="4">その他</option>
-    </select>
+    </select><br>
 
     <label>家事名:</label>
-    <input type="text" name="housework_name">
+    <input type="text" name="housework_name"><br>
 
     <label>頻度:</label>
     <select name="frequency">
@@ -254,11 +254,11 @@
         <option value="6">土</option>
         <option value="7">日</option>
         <option value="8">不定期</option>
-    </select>
+    </select><br>
 
     <label>通知ON/OFF:</label>
     <input type="radio" name="noti_flag" value="0" checked> OFF
-    <input type="radio" name="noti_flag" value="1"> ON
+    <input type="radio" name="noti_flag" value="1"> ON<br>
 
     <input type="submit" value="検索">
 </form>
@@ -307,7 +307,7 @@
 	// 検索画面をモーダル表示 	
     const searchModal = document.getElementById("searchModal");
     const openModalBtn = document.getElementById("openModal");
-    const closeBtn = document.querySelector(".close-button");
+    const closeBtn = document.querySelector("close-button");
     const submitBtn = document.getElementById("submitButton");
     const userInput = document.getElementById("userInput");
 

@@ -364,9 +364,9 @@ public class houseworkDAO {
 // 検索ここまで
 //	検索試作はじまり
 	public List<housework> searchHousework(int category_id, String housework_name, int frequency, int noti_flag) {
-	    List<housework> cardList = new ArrayList<>();
+	    List<housework> cardList2 = new ArrayList<>();
 
-	    String sql = "SELECT * FROM housework WHERE category_id = ? AND housework_name LIKE ? AND frequency = ? AND noti_flag = ?";
+	    String sql = "SELECT * FROM housework WHERE category_id = ? AND housework_name LIKE ? AND FIND_IN_SET(?, frequency) AND noti_flag = ?";
 		Connection conn = null;
 		
 		try {
@@ -390,7 +390,7 @@ public class houseworkDAO {
 
 	        try (ResultSet rs = pstmt.executeQuery()) {
 	            while (rs.next()) {
-	                cardList.add(new housework(
+	                cardList2.add(new housework(
 		                rs.getInt("housework_id"),
 		                rs.getString("housework_name"),
 		                rs.getString("family_id"),
@@ -410,7 +410,7 @@ public class houseworkDAO {
 	        e.printStackTrace();
 	    }
 	    
-	    return cardList;
+	    return cardList2;
 	}
 // 検索試作おわり
 

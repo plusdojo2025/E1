@@ -97,6 +97,9 @@ public class HomeServlet extends HttpServlet {
 					}
 			}
 		}else if(request.getParameter("submit").equals("家事追加")) {
+			if (id == null) {
+				id = "0";
+			}
 			int housework_id = Integer.parseInt(id);
 			if(td_hwDAO.insert(housework_id)) {
 				response.sendRedirect(request.getContextPath() + "/HomeServlet");

@@ -40,8 +40,12 @@ public class GachaServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
 					int date = Integer.parseInt(dtf.format(nowDate));
 		gachaDAO gcDAO = new gachaDAO();
-		int log = gcDAO.select_log(family_id);
-		
+		int log = 0;
+		try {
+			log = gcDAO.select_log(family_id);
+		}catch (Exception e){
+			
+		}
 		
 		 if (date / 100 != log /100) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
@@ -53,8 +57,12 @@ public class GachaServlet extends HttpServlet {
 		
 		
 			
-			
 			List<housework> roleList = gcDAO.select_role(family_id);
+			if (roleList.size() == 0) {
+				request.setAttribute("today_housework", "none");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
+				dispatcher.forward(request, response);
+			}
 			List<String> role = new ArrayList<String>();
 			for (housework hw:roleList) {
 				if (role.indexOf(hw.getRole()) == -1) {
