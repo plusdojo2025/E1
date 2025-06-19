@@ -10,8 +10,12 @@ import java.util.List;
 
 import dto.housework;
 
-public class houseworkDAO {
 
+public class houseworkDAO {
+	
+	
+	
+	
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(housework card) {
 		Connection conn = null;
