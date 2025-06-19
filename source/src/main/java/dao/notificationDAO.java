@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class notificationDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql="select noti_id,notification.user_id,noti_datetime,noti_content from notification join user on notification.user_id=user.user_id where family_id=(select family_id from user where user_id=?) and notification.user_id<>? and convert(date,noti_datetime)=?;";
+			String sql="select noti_id,notification.user_id,noti_datetime,noti_content from notification join user on notification.user_id=user.user_id where family_id=(select family_id from user where user_id=?) and notification.user_id<>? and convert(noti_datetime,date)=?;";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
@@ -39,7 +40,9 @@ public class notificationDAO {
 			LocalDate today=LocalDate.now();
 			long millisToday=today.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
 			Date date=new Date(millisToday);
-			pStmt.setDate(2,date);
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+			String d=df.format(date);
+			pStmt.setString(2,d);
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs=pStmt.executeQuery();
@@ -86,14 +89,16 @@ public class notificationDAO {
 					"root", "password");
 						
 			// SQL文を準備する
-			String sql="delete from notification where convert(date,noti_datetime)<>?;";
+			String sql="delete from notification where convert(noti_datetime,date)<>?;";
 			PreparedStatement pStmt=conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
 			LocalDate today=LocalDate.now();
 			long millisToday=today.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
 			Date date=new Date(millisToday);
-			pStmt.setDate(0,date);
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+			String d=df.format(date);
+			pStmt.setString(0,d);
 			
 			// SQL文を実行する
 			pStmt.executeUpdate();

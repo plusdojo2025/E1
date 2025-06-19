@@ -91,6 +91,7 @@ public class user implements Serializable {
     	this.user_id = user_id;
     	this.share_goal = share_goal;
     }
+
     
     //登録用
     public user(String user_id) {

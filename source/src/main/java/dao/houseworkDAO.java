@@ -128,6 +128,118 @@ public class houseworkDAO {
 		return result;	
 	}	
 
+	// 一覧を負担度で昇順降順
+	public List<housework> selectAllSorted(String sortOrder) {
+	    Connection conn = null;
+	    List<housework> cardList = new ArrayList<>();
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        // SQL：ソート順は "asc" または "desc"
+	        String sql = "SELECT * FROM housework ORDER BY housework_level " + 
+	                     ("desc".equalsIgnoreCase(sortOrder) ? "DESC" : "ASC");
+
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            housework hw = new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            );
+	            cardList.add(hw);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        cardList = null;
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return cardList;
+	}
+	
+	// タブで絞り込んだ結果を負担度で昇順降順
+	public List<housework> selectByCategorySorted(int categoryId, String sortOrder) {
+	    List<housework> cardList = new ArrayList<>();
+	    Connection conn = null;
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        // ソート順が "desc" なら DESC それ以外は ASC
+	        String order = "asc".equalsIgnoreCase(sortOrder) ? "ASC" : "DESC";
+
+	        String sql = "SELECT * FROM housework WHERE category_id = ? ORDER BY housework_level " + order;
+
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+	        pStmt.setInt(1, categoryId);
+
+	        ResultSet rs = pStmt.executeQuery();
+
+	        while (rs.next()) {
+	            housework hw = new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            );
+	            cardList.add(hw);
+	        }
+
+	        rs.close();
+	        pStmt.close();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        cardList = null;
+	    } finally {
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    return cardList;
+	}
+	
 // 検索ここから
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
 	public List<housework> select(housework card) {
@@ -144,7 +256,7 @@ public class houseworkDAO {
 					"root", "password");
 
 			// SQL文を準備する 
-			String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log" 
+			String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log " 
             + "FROM housework WHERE housework_id LIKE ? AND housework_name LIKE ?  AND family_id LIKE ? AND category_id LIKE ? AND housework_level LIKE ?  AND noti_flag LIKE ? AND noti_time LIKE ? AND frequency LIKE ? AND manual LIKE ? AND fixed_role LIKE ? AND variable_role LIKE ? AND log LIKE ? ORDER BY housework_id ASC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -250,7 +362,57 @@ public class houseworkDAO {
 		return cardList;
 	}
 // 検索ここまで
+//	検索試作はじまり
+	public List<housework> searchHousework(int category_id, String housework_name, int frequency, int noti_flag) {
+	    List<housework> cardList = new ArrayList<>();
 
+	    String sql = "SELECT * FROM housework WHERE category_id = ? AND housework_name LIKE ? AND frequency = ? AND noti_flag = ?";
+		Connection conn = null;
+		
+		try {
+			// JDBCドライバを読み込む
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+			"root", "password");
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	        pstmt.setInt(1, category_id);
+			if (housework_name == null) {
+			    pstmt.setString(2, "%"); // 全ての housework を取得
+			} else {
+			    pstmt.setString(2, "%" + housework_name + "%"); // 部分一致検索
+			}
+	        pstmt.setInt(3, frequency);
+	        pstmt.setInt(4, noti_flag);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                cardList.add(new housework(
+		                rs.getInt("housework_id"),
+		                rs.getString("housework_name"),
+		                rs.getString("family_id"),
+		                rs.getInt("category_id"),
+		                rs.getInt("housework_level"),
+		                rs.getInt("noti_flag"),
+		                rs.getString("noti_time"),
+		                rs.getString("frequency"),
+		                rs.getString("manual"),
+		                rs.getString("fixed_role"),
+		                rs.getString("variable_role"),
+		                rs.getInt("log")
+		                ));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return cardList;
+	}
+// 検索試作おわり
 
 // 更新ここから
     // 引数cardで指定されたレコードを更新し、成功したらtrueを返す
@@ -269,7 +431,7 @@ public class houseworkDAO {
 
 			// SQL文を準備する
             // 変えたい項目だけに絞る
-			String sql = "UPDATE housework SET housework_id=?, housework_name=?, family_id=?, category_id=?, housework_level=?, noti_flag=?, noti_time=?, frequency=?, manual=?, fixed_role=?, variable_role=? log=? WHERE housework_id=?";
+			String sql = "UPDATE housework SET housework_id=?, housework_name=?, family_id=?, category_id=?, housework_level=?, noti_flag=?, noti_time=?, frequency=?, manual=?, fixed_role=?, variable_role=?, log=? WHERE housework_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -419,7 +581,8 @@ public class houseworkDAO {
 	            "root", "password"
 	        );
 
-	        String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log FROM housework ORDER BY housework_id ASC";
+	        String sql = "SELECT * FROM housework ORDER BY housework_id ASC";
+	        //String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log FROM housework ORDER BY housework_id ASC";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        ResultSet rs = stmt.executeQuery();
 
@@ -644,4 +807,5 @@ public class houseworkDAO {
 	    }
 	    return cardList;  
 	}
+
 }

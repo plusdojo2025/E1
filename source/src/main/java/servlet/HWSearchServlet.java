@@ -33,8 +33,10 @@ public class HWSearchServlet extends HttpServlet {
 //			return;
 //		}
 
+		
 		//初期化
 		request.setCharacterEncoding("UTF-8");
+		/* 一旦コメントアウト 
 		//List<housework> cardList = null;
 		int housework_id = 0;
 		String housework_name = "";
@@ -52,7 +54,7 @@ public class HWSearchServlet extends HttpServlet {
 		String searchType = request.getParameter("searchType");
 
 		
-		
+	
 		houseworkDAO hwDAO = new houseworkDAO();
 		
 		// 家事一覧を作成
@@ -63,8 +65,7 @@ public class HWSearchServlet extends HttpServlet {
 			//houseworkDAO hwDao = new houseworkDAO();
 
 			
-			List<housework>cardList = hwDAO.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-					frequency, manual, fixed_role, variable_role, log, role));
+			List<housework>cardList = hwDAO.all();
 	//}
 		
 
@@ -72,7 +73,47 @@ public class HWSearchServlet extends HttpServlet {
 		
 				
 		// 結果をスコープに格納
-		request.setAttribute("cardList", cardList);
+		request.setAttribute("cardList", cardList);*/
+		
+		 // パラメータ取得
+	    String searchType = request.getParameter("searchType");
+	    String sortOrder = request.getParameter("sortOrder");
+
+	    // sortOrderがnullまたはasc/desc以外ならascにする
+	    if (sortOrder == null || (!sortOrder.equals("asc") && !sortOrder.equals("desc"))) {
+	        sortOrder = "asc";
+	    }
+
+	    houseworkDAO hwsDao = new houseworkDAO();
+	    List<housework> cardList = null;
+
+	    // searchTypeによりカテゴリIDを決定
+	    int categoryId = 0;  // 0 = 全件取得
+
+	    if ("掃除".equals(searchType)) {
+	        categoryId = 1;
+	    } else if ("洗濯".equals(searchType)) {
+	        categoryId = 2;
+	    } else if ("料理".equals(searchType)) {
+	        categoryId = 3;
+	    } else if ("その他".equals(searchType)) {
+	        categoryId = 4;
+	    } else {
+	        // 「一覧」やnullなどは全件取得
+	        categoryId = 0;
+	    }
+
+	    // DAOからデータ取得（カテゴリ指定 or 全件）
+	    if (categoryId == 0) {
+	        cardList = hwsDao.selectAllSorted(sortOrder);
+	    } else {
+	        cardList = hwsDao.selectByCategorySorted(categoryId, sortOrder);
+	    }
+
+	    // 結果をリクエストスコープへ
+	    request.setAttribute("cardList", cardList);
+	    request.setAttribute("searchType", searchType);
+	    request.setAttribute("sortOrder", sortOrder);
 
 		// 家事一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
@@ -86,6 +127,10 @@ public class HWSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		    doGet(request, response);
+	}
+}
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 //		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
@@ -93,6 +138,7 @@ public class HWSearchServlet extends HttpServlet {
 //			return;
 //		}
 		
+	/* 一旦コメントアウト
 		// リクエストパラメータを取得する
 		//初期化
 		request.setCharacterEncoding("UTF-8");
@@ -143,30 +189,31 @@ public class HWSearchServlet extends HttpServlet {
 		} else if ("一覧".equals(searchType)) {
 			// 全件表示
 			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-					frequency, manual, fixed_role, variable_role, log, role));
+			cardList = hwDao.all();
 
 		}
 		
 //		housework_id = Integer.parseInt(request.getParameter("housework_id"));
-//		housework_name = request.getParameter("housework_name");
+		housework_name = request.getParameter("housework_name");
 //		family_id = request.getParameter("family_id");
-//		category_id = Integer.parseInt(request.getParameter("category_id"));
+		category_id = Integer.parseInt(request.getParameter("category_id"));
 //		housework_level = Integer.parseInt(request.getParameter("housework_level"));
-//		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
+		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 //		noti_time = request.getParameter("noti_time");
-//		frequency = Integer.parseInt(request.getParameter("frequency"));
+		frequency = Integer.parseInt(request.getParameter("frequency"));
 //		manual = request.getParameter("manual");
 //		fixed_role = request.getParameter("fixed_role");
 //		variable_role = request.getParameter("variable_role");
 //		log = Integer.parseInt(request.getParameter("log"));
 
-		
 		// 検索処理を行う
-		//List<housework> cardList = null;
-//		houseworkDAO hwDao = new houseworkDAO();		
+//		List<housework> cardList = null;
+		houseworkDAO hwDao = new houseworkDAO();		
 //		cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
 //				frequency, manual, fixed_role, variable_role, log));
+		// 検索処理
+        List<housework> cardList = hwDao.searchHousework(category_id, housework_name, frequency, noti_flag);
+
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("cardList", cardList);
@@ -175,10 +222,11 @@ public class HWSearchServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);		
 		
+		
 		System.out.println("cardList size: " + ((List<housework>) cardList).size());
 
 		// TODO Auto-generated method stub 自動生成
 		//doGet(request, response);
 	}
 
-}
+}*/

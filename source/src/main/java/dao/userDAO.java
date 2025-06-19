@@ -153,4 +153,49 @@ public class userDAO {
             return false;
         }
     }
+    
+    public String family_id(String user_id) {
+		Connection conn = null;
+		String family_id = "";
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			String sql = "SELECT family_id FROM user WHERE user_id = '" + user_id + "'";
+			
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				family_id = rs.getString("family_id");
+			}
+			
+						
+		}catch (SQLException e) {
+			e.printStackTrace();
+			family_id = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			family_id = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					family_id = null;
+				}
+			}
+		}
+		return family_id;
+	}
+    
 }

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 
 import dao.notificationDAO;
 import dto.housework;
@@ -47,7 +50,85 @@ public class ReminderServlet extends HttpServlet {
 		notificationDAO notiDao = new notificationDAO();
 		List<housework> notiList = notiDao.select_rimnoti(user_id);
 		
-		
+		JSONObject json = new JSONObject();
+		/*int role = Integer.parseInt(request.getParameter("role"));
+		try {
+			// データベースとの接続の確立
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/e1_db";
+			Connection con = DriverManager.getConnection(url, "root", "password");
+
+
+			//DBから指定ロールのユーザだけを抽出
+			String sql1= "SELECT * from USER WHERE ROLE=?";
+			//指定ロールユーザが何人いるか確認しループ処理のカウンターにする
+			String sql2= "SELECT count(*) as number from USER WHERE ROLE=?";
+			//SQLインジェクション対策
+//			PreparedStatement stmt1 = con.prepareStatement(sql1);
+//			PreparedStatement stmt2 = con.prepareStatement(sql2);
+			PreparedStatement stmt1 = con.prepareStatement(sql1, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			PreparedStatement stmt2 = con.prepareStatement(sql2, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			//　SQL文"?"の箇所に値を埋める
+			stmt1.setInt(1, role);
+			stmt2.setInt(1, role);
+
+			//DBに対しQuery実行。rsに実行結果を蓄積
+			ResultSet rs2 = stmt2.executeQuery();
+			//結果セットの最終行に合計数なのでlastを呼び出してDBカーソルを合わせる
+			rs2.last();
+			int num = rs2.getInt("number");
+			//SQLの実行結果の処理
+
+			String role_name;
+			String[][] profile=new String[num][2];
+			int i=0;
+			ResultSet rs1 = stmt1.executeQuery();
+			while (rs1.next()) {
+				//profile = new String[rs.getRow()][2];
+				String user = rs1.getString("USERNAME");
+				int urole = rs1.getInt("ROLE");
+				if (urole == 1)
+					role_name = "管理者";
+				else if (urole == 2)
+					role_name = "編集者";
+				else
+					role_name = "寄稿者";
+
+				 profile[i][0] = user;
+				 profile[i][1] = role_name;
+				 i++;
+
+				//json.put("username",user);
+				//json.put("role", role_name);
+				//System.out.printf("ユーザ名:%s 役割:%s\n", user, role_name);
+			}*/
+			//json.put("任意の名前",値)
+			//json.put("data", a);
+			//System.out.println("user:"+Arrays.deepToString(a));
+
+			//DB接続終了
+			/*rs1.close();
+			rs2.close();
+			stmt1.close();
+			stmt2.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}*/
+	    //httpヘッダー送信の登録
+		/*response.setContentType("application/json");
+		response.setHeader("Cache-Control", "nocache");
+		response.setCharacterEncoding("utf-8");
+	    //送信データの登録
+		PrintWriter out = response.getWriter();
+		//送信データをネットストリームへ書き込む
+		out.print(json);*/
+	//}
+
 		
 		
 		for(int i=0;i<notiList.size();i++) {
@@ -62,7 +143,23 @@ public class ReminderServlet extends HttpServlet {
 		            @Override
 		            public void run() {
 		                // 実行したい処理をここに書く
-		                executeScheduledTask();
+		                //executeScheduledTask();
+		            	json.put("data",a);
+		                //httpヘッダー送信の登録
+		        		response.setContentType("application/json");
+		        		response.setHeader("Cache-Control", "nocache");
+		        		response.setCharacterEncoding("utf-8");
+		        		//送信データの登録
+		        		PrintWriter out;
+						try {
+							out = response.getWriter();
+							//送信データをネットストリームへ書き込む
+			        		out.print(json);
+						} catch (IOException e) {
+							// TODO 自動生成された catch ブロック
+							e.printStackTrace();
+						}
+		        		
 		            }
 		        };
 
@@ -83,7 +180,23 @@ public class ReminderServlet extends HttpServlet {
 			            @Override
 			            public void run() {
 			                // 実行したい処理をここに書く
-			                executeScheduledTask();
+			                //executeScheduledTask();
+			                json.put("data",a);
+			                //httpヘッダー送信の登録
+			        		response.setContentType("application/json");
+			        		response.setHeader("Cache-Control", "nocache");
+			        		response.setCharacterEncoding("utf-8");
+			        		//送信データの登録
+			        		PrintWriter out;
+							try {
+								out = response.getWriter();
+								//送信データをネットストリームへ書き込む
+				        		out.print(json);
+							} catch (IOException e) {
+								// TODO 自動生成された catch ブロック
+								e.printStackTrace();
+							}
+			        		
 			            }
 			        };
 	
@@ -108,10 +221,20 @@ public class ReminderServlet extends HttpServlet {
 			
 		
 		
-	}
-	private void executeScheduledTask() {
+}
+	/*private void executeScheduledTask() {
         // 定期実行する処理を実装
+		JSONObject json = new JSONObject();
+		json.put("data", a);
 		
+		//httpヘッダー送信の登録
+		/*response.setContentType("application/json");
+		response.setHeader("Cache-Control", "nocache");
+		response.setCharacterEncoding("utf-8");
+		//送信データの登録
+		PrintWriter out = response.getWriter();
+		//送信データをネットストリームへ書き込む
+		out.print(json);*/
 		/*SystemTray tray = SystemTray.getSystemTray();
 
         Image image = Toolkit.getDefaultToolkit().createImage(
@@ -128,7 +251,7 @@ public class ReminderServlet extends HttpServlet {
 	    }
 		trayIcon.displayMessage(a+"の時間です",
                 "カジミエール", MessageType.INFO);*/
-    }
+    //}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

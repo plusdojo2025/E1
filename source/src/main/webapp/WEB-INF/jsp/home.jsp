@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/home2.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/home3.css' />">
 <title>ホーム</title>
 </head>
 <body>
@@ -15,7 +15,12 @@
 <div id="housework_list">
 	<h2>本日の家事</h2>
 	 <c:forEach var="e" items="${houseworkList}" varStatus="status" >
-	 <button value="完了" class="button3 js-modal-button3">完了</button>
+	 <div class="housework">
+	 <button value="完了" class="button3 js-modal-button3" id="complete${e.housework_id}">完了</button>
+	 <div id="task${e.housework_id}">
+	 <c:out value="${e.housework_name}" /> 
+	</div>
+	</div>
 	  <div class="layer3 js-modal3">
   <div class="modal3">
     <div class="modal__inner3">
@@ -28,8 +33,7 @@
       <div class="modal__contents3">
         <div class="modal__content3">
         <form method="POST" action="<c:url value='/HomeServlet' />" id="form${status.index}">
-	 <input type="hidden" name="housework_id" value="${e.housework_id}" 
-	 name="housework_id">
+	 <input type="hidden" name="housework_id" value="${e.housework_id}">
 	 <h6>完了チェックを行いますか？</h6>
 	 <br>
 	 <button class="cancel">Cancel</button>
@@ -40,7 +44,7 @@
     </div>
   </div>
 </div>
-	  <c:out value="${e.housework_name}" /> 
+	 <br> 
 	 </c:forEach>
 	 </div>
 	 <div id="housework_add">
@@ -108,6 +112,7 @@
 
  
  <script>
+ //モーダルのスクリプト
  const modal = document.querySelector('.js-modal'); // layer要素に付与したjs-modalクラスを取得し変数に格納
  const modalButton = document.querySelector('.js-modal-button'); // button要素に付与したjs-modal-buttonクラスを取得し、変数に格納
 
@@ -164,6 +169,21 @@
 	  });
 	});
  
+ //完了チェックのスクリプト
+ const houseworkIdList = [<c:forEach var="id" items="${idList}" varStatus="status">
+ "${id}"<c:if test="${!status.last}">,</c:if>
+  </c:forEach>];
+ 
+ houseworkIdList.forEach(id => {
+	    const btn = document.getElementById("complete" + id);
+	    const text = document.getElementById("task" + id);
+	    if (btn) {
+	      btn.disabled = true;
+	      btn.classList.remove('button3');
+	      btn.classList.add('complete');
+	      text.classList.add('complete_task');
+	    }
+	  });
  </script>
  
 </body>

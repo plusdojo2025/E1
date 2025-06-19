@@ -30,7 +30,7 @@ public class today_houseworkDAO {
 		String sql = "INSERT INTO today_housework (today_housework_id, housework_id, date) "
 				+ "SELECT 0, housework_id, NOW() "
 				+ "FROM housework "
-				+ "WHERE family_id = '" + family_id + "' AND frequency = 0 OR frequency LIKE %" + dayOfWeek + "%";
+				+ "WHERE family_id = '" + family_id + "' AND frequency = '0' OR frequency LIKE '%" + dayOfWeek + "%'";
 		
 		PreparedStatement pStmt = conn.prepareStatement(sql);
 		
@@ -119,7 +119,7 @@ public class today_houseworkDAO {
 					"root", "password");
 			
 			String sql = "SELECT housework_id,housework_name,family_id,housework_level "
-					+ "FROM housework WHERE frequency = 8 AND family_id = '" + family_id + "'";
+					+ "FROM housework WHERE frequency = '8' AND family_id = '" + family_id + "'";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -297,7 +297,7 @@ public class today_houseworkDAO {
 
 			// SQL文を準備する
 			String sql = "DELETE FROM today_housework WHERE housework_id IN (SELECT housework_id FROM housework "
-					+ "WHERE family_id = + '" + family_id + "' AND (frequency = 0 OR frequency = " + dayOfWeek +"))"; 
+					+ "WHERE family_id = + '" + family_id + "' AND (frequency = '0' OR frequency = '" + dayOfWeek +"'))"; 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 
@@ -324,7 +324,7 @@ public class today_houseworkDAO {
 		return result;
 	}
 	
-	public boolean submit(String user_id, String family_id, int housework_id, String formatNowDate2) {
+	public boolean submit(String user_id, String family_id, int housework_id) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -338,8 +338,8 @@ public class today_houseworkDAO {
 				"root", "password");
 			
 		// SQL文を準備する
-		String sql = "INSERT INTO achievement_" + formatNowDate2 + " "
-				+ "VALUES(0,'" + user_id + "', '" + family_id + "',NOW(),"
+		String sql = "INSERT INTO achievement "
+				+ "VALUES(0,'" + user_id + "', '" + family_id + "', '" + housework_id +  "', NOW(),"
 						+ "(SELECT housework_level FROM housework WHERE housework_id = " + housework_id + "))";
 		
 		PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -449,6 +449,51 @@ public class today_houseworkDAO {
 			}
 		}
 		return result;
+	}
+	
+	public List<Integer> selectachive(String date, String family_id) {
+		Connection conn = null;
+		List<Integer> hwidList = new ArrayList<Integer>();
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			String sql = "SELECT housework_id FROM achievement "
+					+ "WHERE family_id = '" + family_id + "' AND date Like '%" + date + "%'";
+			
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				hwidList.add(rs.getInt("housework_id"));
+			}
+			
+						
+		}catch (SQLException e) {
+			e.printStackTrace();
+			hwidList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			hwidList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hwidList = null;
+				}
+			}
+		}
+		return hwidList;
 	}
 	
 }
