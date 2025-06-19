@@ -51,15 +51,6 @@
             <th>家事名</th>
             <th>削除</th>
         </tr>
-<<<<<<< HEAD
-=======
-    <!--  <table>
-    <tr class="card_label">
-        <th>負担度</th>
-        <th>家事名</th>
-        <th>削除</th>
-    </tr>-->
->>>>>>> cc04b9284034e8840f38d7baca400111cdd8e2aa
 
 <!-- 取得した家事を一覧表示 -->          
 <!--<div class="card_container">-->             
