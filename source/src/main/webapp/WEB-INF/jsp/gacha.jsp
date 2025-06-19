@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/gacha.css' />">
-<title>Insert title here</title>
+<title>分担ガチャ</title>
 </head>
 
 <body>
@@ -127,15 +127,17 @@
 </svg>
 </div>
 </section>
-
+<p id="none"></p>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
 </script>
 <script>
-$('#gacha').on('click', function(e) {
-	  e.preventDefault();
-
+$('#gacha').on('click', function(e) {	
+	const a = "${today_housework}";
+	if (a === null){
+	e.preventDefault();
+	  
 	  $('.toy').toggleClass('act');
 	  const $form = $('#gachaForm');
 	  const duration = parseFloat($('.toy').css('transition-duration')) * 1000;
@@ -155,6 +157,10 @@ $('#gacha').on('click', function(e) {
 	      $form.submit();
 	    }
 	  }, wait);
+	}else{
+		document.getElementById("none").textContent　= ("今日の家事が登録されていません");
+	}
 	});
+
 </script>
 </html>
