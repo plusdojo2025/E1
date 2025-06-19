@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import dao.notificationDAO;
 import dto.housework;
+import dto.loginuser;
 
 
 /**
@@ -46,7 +47,9 @@ public class ReminderServlet extends HttpServlet {
 		
 		HttpSession session=request.getSession(false);
 		
-		String user_id=(String) session.getAttribute("user_id");
+		Object attribute=session.getAttribute("user_id");
+		loginuser loginuser=(loginuser) attribute; 
+		String user_id=loginuser.getUser_id();
 		notificationDAO notiDao = new notificationDAO();
 		List<housework> notiList = notiDao.select_rimnoti(user_id);
 		
@@ -130,7 +133,7 @@ public class ReminderServlet extends HttpServlet {
 	//}
 
 		
-		
+		//登録した時間に家事名をjsに送る……はず
 		for(int i=0;i<notiList.size();i++) {
 			a=notiList.get(i).getHousework_name();
 			//頻度をString配列に変換→int配列に変換→intだと配列の一つ一つを読み取ってくれないのでIntegerに変換

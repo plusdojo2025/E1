@@ -35,7 +35,7 @@ public class NotificationServlet extends HttpServlet {
 		loginuser loginuser=(loginuser) attribute; 
 		String user_id=loginuser.getUser_id();
 		notificationDAO notiDao = new notificationDAO();
-		//notiDao.delete(user_id);
+		//notiDao.delete();
 		List<notification> notiList = notiDao.select(user_id);
 		
 		// 通知一覧をリクエストスコープに格納する

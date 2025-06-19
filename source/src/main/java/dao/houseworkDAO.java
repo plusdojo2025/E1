@@ -552,6 +552,11 @@ public class houseworkDAO {
 					// デフォルト値0
 					pStmt.setInt(12, 0);
 				}          
+				if (card.getHousework_id() != 0) {
+					pStmt.setInt(13, card.getHousework_id());
+				} else {
+					// 変更不可 必須項目
+				}
 
 
 				// SQL文を実行する
