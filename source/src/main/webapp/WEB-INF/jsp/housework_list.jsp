@@ -21,13 +21,6 @@
     <h2>家事一覧</h2>
     <!--家事タブを押したときはカテゴリごとに検索、表示 -->        
     <div class="tab_container">
-    <!-- 一旦コメントアウト 
-        <form method="POST" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
-        <input type="submit" name="searchType" value="掃除">
-        <input type="submit" name="searchType" value="洗濯">
-        <input type="submit" name="searchType" value="料理">
-        <input type="submit" name="searchType" value="その他">
-        </form>-->
         <form method="GET" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
 		  <input type="hidden" name="sortOrder" value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
 		  <button type="submit" name="searchType" value="掃除">掃除</button>
@@ -58,19 +51,6 @@
             <th>家事名</th>
             <th>削除</th>
         </tr>
-    <!--  <table>
-    <tr class="card_label">
-<<<<<<< HEAD
-        <th>負担度</th>
-        <th>家事名</th>
-        <th>削除</th>
-    </tr>-->
-=======
-      <th>負担度</th>
-      <th>家事名</th>
-      <th>消去</th>
-    </tr>
->>>>>>> 67e2b58073653d0bf6f3a51bd373df24138bb8b2
 
 <!-- 取得した家事を一覧表示 -->          
 <!--<div class="card_container">-->             
@@ -267,8 +247,8 @@
 </footer>
 <script>
     'use strict';
-// 負担度で昇順降順
-	/*document.addEventListener("DOMContentLoaded", function () {
+    // 負担度で昇順降順
+	document.addEventListener("DOMContentLoaded", function () {
 	    const sortToggleBtn = document.getElementById("sortToggleBtn");
 	    const sortOrderInput = document.getElementById("sortOrderInput");
 	    const sortIcon = document.getElementById("sortIcon");
@@ -277,38 +257,17 @@
 	    const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
 	
 	    sortToggleBtn.addEventListener("click", function () {
-	    	  if (sortOrderInput.value === "asc") {
-	    	    sortOrderInput.value = "desc";
-	    	    sortIcon.src = contextPath + "/img/sort_down.svg";
-	    	  } else {
-	    	    sortOrderInput.value = "asc";
-	    	    sortIcon.src = contextPath + "/img/sort_up.svg";
-	    	  }
-
-	    	  // カテゴリ選択があれば保持してform送信
-	    	  document.getElementById("sortForm").submit();
-	    	});*/
-	    // 負担度で昇順降順
-		document.addEventListener("DOMContentLoaded", function () {
-		    const sortToggleBtn = document.getElementById("sortToggleBtn");
-		    const sortOrderInput = document.getElementById("sortOrderInput");
-		    const sortIcon = document.getElementById("sortIcon");
-		
-		    // JSTLの変数をJavaScriptで使うために事前に定義しておく
-		    const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
-		
-		    sortToggleBtn.addEventListener("click", function () {
-		      if (sortOrderInput.value === "asc") {
-		        sortOrderInput.value = "desc";
-		        sortIcon.src = contextPath + "/img/sort_down.svg";
-		      } else {
-		        sortOrderInput.value = "asc";
-		        sortIcon.src = contextPath + "/img/sort_up.svg";
-		      }
-		
-		      document.getElementById("sortForm").submit();
-		    });
-		  });
+	      if (sortOrderInput.value === "asc") {
+	        sortOrderInput.value = "desc";
+	        sortIcon.src = contextPath + "/img/sort_down.svg";
+	      } else {
+	        sortOrderInput.value = "asc";
+	        sortIcon.src = contextPath + "/img/sort_up.svg";
+	      }
+	
+	      document.getElementById("sortForm").submit();
+	    });
+	  });
     
 	// 検索画面をモーダル表示 	
     const searchModal = document.getElementById("searchModal");
