@@ -51,6 +51,15 @@
             <th>家事名</th>
             <th>削除</th>
         </tr>
+<<<<<<< HEAD
+=======
+    <!--  <table>
+    <tr class="card_label">
+        <th>負担度</th>
+        <th>家事名</th>
+        <th>削除</th>
+    </tr>-->
+>>>>>>> cc04b9284034e8840f38d7baca400111cdd8e2aa
 
 <!-- 取得した家事を一覧表示 -->          
 <!--<div class="card_container">-->             
@@ -206,7 +215,6 @@
     <button id="confirmOk">OK</button>
   </div>
 </div>
-<<<<<<< HEAD
 <!-- 削除確認モーダルの中身 -->
 <div id="deleteConfirmModal" class="modal" style="display:none;">
   <div class="modal-content">
@@ -216,18 +224,52 @@
     <button id="confirmDeleteBtn">OK</button>
   </div>
 </div>     
-=======
-
-
->>>>>>> 67e2b58073653d0bf6f3a51bd373df24138bb8b2
 <!-- 検索モーダルの中身 -->
-<div id="searchModal" class="modal">
+<div id="searchModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close-button">&times;</span>
+ <!-- <span class="close-button">&times;</span> -->
+ <button id="closeBtn">×</button>
         <h2>家事検索</h2>
-        <input type="text" id="userInput" placeholder="ここに入力してください">
-        <button id="submitButton">検索</button>
-    </div>
+    <form id="userInput" method="POST" action="<c:url value='/HWSearchServlet' />">
+	<input type="hidden" name="housework_id" id="modal-housework-id"/>
+	<input type="hidden" name="family_id"/>
+	<input type="hidden" name="housework_level"/>
+	<input type="hidden" name="noti_time" id="modal-noti-time"/>
+	<input type="hidden" name="manual"/>
+	<input type="hidden" name="fixd_role"/>
+	<input type="hidden" name="variable_role"/>
+
+    <label>カテゴリー:</label>
+    <select name="category_id">
+        <option value="1">掃除</option>
+        <option value="2">洗濯</option>
+        <option value="3">料理</option>
+        <option value="4">その他</option>
+    </select>
+
+    <label>家事名:</label>
+    <input type="text" name="housework_name">
+
+    <label>頻度:</label>
+    <select name="frequency">
+        <option value="0">毎日</option>
+        <option value="1">月</option>
+        <option value="2">火</option>
+        <option value="3">水</option>
+        <option value="4">木</option>
+        <option value="5">金</option>
+        <option value="6">土</option>
+        <option value="7">日</option>
+        <option value="8">不定期</option>
+    </select>
+
+    <label>通知ON/OFF:</label>
+    <input type="radio" name="noti_flag" value="0" checked> OFF
+    <input type="radio" name="noti_flag" value="1"> ON
+
+    <input type="submit" value="検索">
+</form>
+</div>
 </div> 
 
 

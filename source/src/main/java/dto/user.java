@@ -73,10 +73,11 @@ public class user implements Serializable {
 		this.share_goal = share_goal;
 	}
 	
-    public user(String user_id, String password) {
+    public user(String user_id, String password, String user_name) {
         super();
         this.user_id = user_id;
         this.password = password;
+        this.user_name = user_name;
     }
     //分担ガチャ用
     public user(String user_id, String user_name, Float share_goal) {
@@ -91,6 +92,11 @@ public class user implements Serializable {
     	this.share_goal = share_goal;
     }
 
+    
+    //登録用
+    public user(String user_id) {
+        this.user_id = user_id;
+    }
     
 	public user() {
 		super();

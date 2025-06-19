@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.user; // DTOのuserクラスをインポート
 
@@ -107,6 +109,32 @@ public class userDAO {
             return false; // 挿入失敗
         }
     }
+    
+    
+    
+    public List<user> getUsersByFamilyid(String familyid) {
+    	
+    	
+    	//登録画面用
+	    List<user> users = new ArrayList<>();
+	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+    			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+    			"root", "password")) {
+	        String sql = "SELECT user_id FROM user WHERE family_id = ?";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, familyid);
+	        ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            users.add(new user(rs.getString("user_id")));
+	        }
+	        rs.close(); 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return users;
+	}
+    
+    
     public boolean deleteUser(user newUser) {
         String sql = "DELETE FROM user WHERE user_id = ? AND password = ?";
         Connection conn = null;
