@@ -246,7 +246,44 @@ public class houseworkDAO {
 		return cardList;
 	}
 // 検索ここまで
+//	検索試作はじまり
+	public List<housework> searchHousework(int category_id, String housework_name, String frequency, int noti_flag) {
+	    List<housework> resultList = new ArrayList<>();
+	    String sql = "SELECT * FROM housework WHERE category_id = ? AND housework_name LIKE ? AND frequency = ? AND notification_enabled = ?";
+		Connection conn = null;
+		
+		try {
+			// JDBCドライバを読み込む
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+			"root", "password");
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, category_id);
+	        pstmt.setString(2, "%" + housework_name + "%");  // 部分一致検索
+	        pstmt.setString(3, frequency);
+	        pstmt.setInt(4, noti_flag);
+	        
 
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                resultList.add(new housework(
+	                    rs.getString("housework_name"),
+	                    rs.getInt("category_id"),
+	                    rs.getString("frequency"),
+	                    rs.getInt("noti_flag")
+	                ));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return resultList;
+	}
+// 検索試作おわり
 
 // 更新ここから
     // 引数cardで指定されたレコードを更新し、成功したらtrueを返す

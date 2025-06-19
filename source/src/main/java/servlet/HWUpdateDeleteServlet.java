@@ -57,7 +57,7 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		int housework_level = Integer.parseInt(request.getParameter("housework_level"));
 		int noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 		String noti_time = request.getParameter("noti_time");
-		int frequency = Integer.parseInt(request.getParameter("frequency"));
+		String frequency = request.getParameter("frequency");
 		String manual = request.getParameter("manual");
 		String fixed_role = request.getParameter("fixed_role");
 		String variable_role = request.getParameter("variable_role");
