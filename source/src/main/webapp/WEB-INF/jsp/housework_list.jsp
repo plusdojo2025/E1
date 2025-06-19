@@ -140,7 +140,7 @@
       <input type="number" name="category_id" id="modal-category-id" value=""/>
 	  <label>家事負担度：</label>
 	  <input type="text" name="housework_level" value="" />
-	　　<label>通知有無：</label>
+		<label>通知有無：</label>
 	  <input type="text" name="noti_flag" value="" />
       <label>通知時間：</label>
       <input type="time" name="noti_time" id="modal-noti-time" value=""/>
