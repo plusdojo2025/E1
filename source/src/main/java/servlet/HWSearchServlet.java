@@ -33,8 +33,10 @@ public class HWSearchServlet extends HttpServlet {
 //			return;
 //		}
 
+		
 		//初期化
 		request.setCharacterEncoding("UTF-8");
+		/* 一旦コメントアウト 
 		//List<housework> cardList = null;
 		int housework_id = 0;
 		String housework_name = "";
@@ -52,7 +54,7 @@ public class HWSearchServlet extends HttpServlet {
 		String searchType = request.getParameter("searchType");
 
 		
-		
+	
 		houseworkDAO hwDAO = new houseworkDAO();
 		
 		// 家事一覧を作成
@@ -71,7 +73,47 @@ public class HWSearchServlet extends HttpServlet {
 		
 				
 		// 結果をスコープに格納
-		request.setAttribute("cardList", cardList);
+		request.setAttribute("cardList", cardList);*/
+		
+		 // パラメータ取得
+	    String searchType = request.getParameter("searchType");
+	    String sortOrder = request.getParameter("sortOrder");
+
+	    // sortOrderがnullまたはasc/desc以外ならascにする
+	    if (sortOrder == null || (!sortOrder.equals("asc") && !sortOrder.equals("desc"))) {
+	        sortOrder = "asc";
+	    }
+
+	    houseworkDAO hwsDao = new houseworkDAO();
+	    List<housework> cardList = null;
+
+	    // searchTypeによりカテゴリIDを決定
+	    int categoryId = 0;  // 0 = 全件取得
+
+	    if ("掃除".equals(searchType)) {
+	        categoryId = 1;
+	    } else if ("洗濯".equals(searchType)) {
+	        categoryId = 2;
+	    } else if ("料理".equals(searchType)) {
+	        categoryId = 3;
+	    } else if ("その他".equals(searchType)) {
+	        categoryId = 4;
+	    } else {
+	        // 「一覧」やnullなどは全件取得
+	        categoryId = 0;
+	    }
+
+	    // DAOからデータ取得（カテゴリ指定 or 全件）
+	    if (categoryId == 0) {
+	        cardList = hwsDao.selectAllSorted(sortOrder);
+	    } else {
+	        cardList = hwsDao.selectByCategorySorted(categoryId, sortOrder);
+	    }
+
+	    // 結果をリクエストスコープへ
+	    request.setAttribute("cardList", cardList);
+	    request.setAttribute("searchType", searchType);
+	    request.setAttribute("sortOrder", sortOrder);
 
 		// 家事一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
@@ -85,6 +127,10 @@ public class HWSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		    doGet(request, response);
+	}
+}
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 //		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
@@ -92,6 +138,7 @@ public class HWSearchServlet extends HttpServlet {
 //			return;
 //		}
 		
+	/* 一旦コメントアウト
 		// リクエストパラメータを取得する
 		//初期化
 		request.setCharacterEncoding("UTF-8");
@@ -180,4 +227,4 @@ public class HWSearchServlet extends HttpServlet {
 		//doGet(request, response);
 	}
 
-}
+}*/

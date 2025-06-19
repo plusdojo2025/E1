@@ -26,11 +26,12 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		//開発中なので一旦非公開
+		/*if (session.getAttribute("id") == null) {
 			response.sendRedirect("/E1/LoginServlet");
 			return;
-		}
-
+		}*/
+		
 		// 検索ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);
@@ -43,10 +44,11 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		//開発中なので一旦非公開
+		/*if (session.getAttribute("id") == null) {
 			response.sendRedirect("/E1/LoginServlet");
 			return;
-		}
+		}*/
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
@@ -57,7 +59,7 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		int housework_level = Integer.parseInt(request.getParameter("housework_level"));
 		int noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 		String noti_time = request.getParameter("noti_time");
-		int frequency = Integer.parseInt(request.getParameter("frequency"));
+		String frequency = request.getParameter("frequency");
 		String manual = request.getParameter("manual");
 		String fixed_role = request.getParameter("fixed_role");
 		String variable_role = request.getParameter("variable_role");
@@ -65,22 +67,31 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		
 		// 更新または削除を行う
 //		更新削除結果の通達方法要検討
+		String submit = request.getParameter("submit");
+		String actionType = request.getParameter("action_type");
+
 		houseworkDAO hwDao = new houseworkDAO();
-		if (request.getParameter("submit").equals("更新")) {
-			if (hwDao.update(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag, 
-					noti_time, frequency, manual, fixed_role, variable_role, log))) { // 更新成功
-				request.setAttribute("家事情報更新", "家事情報をを更新しました。");
-			} else { // 更新失敗
-				request.setAttribute("更新失敗", "レコードを更新できませんでした。");
-			}
+
+		if ("更新".equals(submit)) {
+		    // 更新処理
+		    if (hwDao.update(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag,
+		            noti_time, frequency, manual, fixed_role, variable_role, log))) {
+		        request.setAttribute("update_message", "家事情報を更新しました。");
+		    } else {
+		        request.setAttribute("update_error", "レコードを更新できませんでした。");
+		    }
+		} else if ("削除".equals(actionType)) {
+		    // 削除処理
+		    if (hwDao.delete(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag,
+		            noti_time, frequency, manual, fixed_role, variable_role, log))) {
+		        request.setAttribute("delete_message", "家事情報を削除しました。");
+		    } else {
+		        request.setAttribute("delete_error", "家事情報を削除できませんでした。");
+		    }
 		} else {
-			if (hwDao.delete(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag, 
-					noti_time, frequency, manual, fixed_role, variable_role, log))) { // 削除成功
-				request.setAttribute("削除成功", "家事情報を削除しました。");
-			} else { // 削除失敗
-				request.setAttribute("削除失敗", "家事情報を削除できませんでした。");
-			}
+		    request.setAttribute("update_error", "不正な操作です。");
 		}
+
 
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
