@@ -103,7 +103,7 @@ public class HWSearchServlet extends HttpServlet {
 		int housework_level = 0;
 		int noti_flag = 0;
 		String noti_time = "";
-		String frequency = "";
+		int frequency = 0;
 		String manual = "";
 		String fixed_role = "";
 		String variable_role = "";
@@ -153,13 +153,12 @@ public class HWSearchServlet extends HttpServlet {
 //		housework_level = Integer.parseInt(request.getParameter("housework_level"));
 		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
 //		noti_time = request.getParameter("noti_time");
-		frequency = request.getParameter("frequency");
+		frequency = Integer.parseInt(request.getParameter("frequency"));
 //		manual = request.getParameter("manual");
 //		fixed_role = request.getParameter("fixed_role");
 //		variable_role = request.getParameter("variable_role");
 //		log = Integer.parseInt(request.getParameter("log"));
 
-		
 		// 検索処理を行う
 //		List<housework> cardList = null;
 		houseworkDAO hwDao = new houseworkDAO();		

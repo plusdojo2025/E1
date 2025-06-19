@@ -83,45 +83,7 @@
     <!-- 検索アイコン表示 -->
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
- <form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
-	<input type="hidden" name="housework_id" id="modal-housework-id"/>
-	<input type="hidden" name="family_id"/>
-	<input type="hidden" name="housework_level"/>
-	<input type="hidden" name="noti_time" id="modal-noti-time"/>
-	<input type="hidden" name="manual"/>
-	<input type="hidden" name="fixd_role"/>
-	<input type="hidden" name="variable_role"/>
-
-    <label>カテゴリー:</label>
-    <select name="category_id">
-        <option value="1">掃除</option>
-        <option value="2">洗濯</option>
-        <option value="3">料理</option>
-        <option value="4">その他</option>
-    </select>
-
-    <label>家事名:</label>
-    <input type="text" name="housework_name">
-
-    <label>頻度:</label>
-    <select name="frequency">
-        <option value="0">毎日</option>
-        <option value="1">月</option>
-        <option value="2">火</option>
-        <option value="3">水</option>
-        <option value="4">木</option>
-        <option value="5">金</option>
-        <option value="6">土</option>
-        <option value="7">日</option>
-        <option value="8">不定期</option>
-    </select>
-
-    <label>通知ON/OFF:</label>
-    <input type="radio" name="notification" value="0" checked> OFF
-    <input type="radio" name="notification" value="1"> ON
-
-    <input type="submit" value="検索">
-</form>
+ 
 
 <!-- 更新モーダルの中身 -->
 <div id="updateModal" class="modal modal-inner" style="display: none;">
@@ -171,13 +133,51 @@
 
 
 <!-- 検索モーダルの中身 -->
-<div id="searchModal" class="modal">
+<div id="searchModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close-button">&times;</span>
+ <!-- <span class="close-button">&times;</span> -->
+ <button id="closeBtn">×</button>
         <h2>家事検索</h2>
-        <input type="text" id="userInput" placeholder="ここに入力してください">
-        <button id="submitButton">検索</button>
-    </div>
+    <form id="userInput" method="POST" action="<c:url value='/HWSearchServlet' />">
+	<input type="hidden" name="housework_id" id="modal-housework-id"/>
+	<input type="hidden" name="family_id"/>
+	<input type="hidden" name="housework_level"/>
+	<input type="hidden" name="noti_time" id="modal-noti-time"/>
+	<input type="hidden" name="manual"/>
+	<input type="hidden" name="fixd_role"/>
+	<input type="hidden" name="variable_role"/>
+
+    <label>カテゴリー:</label>
+    <select name="category_id">
+        <option value="1">掃除</option>
+        <option value="2">洗濯</option>
+        <option value="3">料理</option>
+        <option value="4">その他</option>
+    </select>
+
+    <label>家事名:</label>
+    <input type="text" name="housework_name">
+
+    <label>頻度:</label>
+    <select name="frequency">
+        <option value="0">毎日</option>
+        <option value="1">月</option>
+        <option value="2">火</option>
+        <option value="3">水</option>
+        <option value="4">木</option>
+        <option value="5">金</option>
+        <option value="6">土</option>
+        <option value="7">日</option>
+        <option value="8">不定期</option>
+    </select>
+
+    <label>通知ON/OFF:</label>
+    <input type="radio" name="noti_flag" value="0" checked> OFF
+    <input type="radio" name="noti_flag" value="1"> ON
+
+    <input type="submit" value="検索">
+</form>
+</div>
 </div> 
 
 
