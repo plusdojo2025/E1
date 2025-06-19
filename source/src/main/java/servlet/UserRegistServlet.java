@@ -37,7 +37,6 @@ public class UserRegistServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String user_id = request.getParameter("user_id");
-		String user_name = request.getParameter("user_name");
 		String family_id = request.getParameter("family_id");
 		String fami_pass = request.getParameter("fami_pass");
 		String password = request.getParameter("password");
@@ -90,7 +89,7 @@ public class UserRegistServlet extends HttpServlet {
 		// 登録処理を行う
         if (familyDAO.isFamilyOK(family)) {
 			userDAO uDao = new userDAO();
-			if (uDao.insert(new user(user_id, user_name, family_id, hashedPassword, share_goal))) { // 登録成功
+			if (uDao.insert(new user(user_id, family_id, hashedPassword, share_goal))) { // 登録成功
 	//			request.setAttribute("result", "登録処理が完了しました");
 			} else { // 登録失敗
 				request.setAttribute("result", "登録でエラーが発生しました");

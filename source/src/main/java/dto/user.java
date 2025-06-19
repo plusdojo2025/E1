@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class user implements Serializable {
 	private String user_id;
-	private String user_name;
 	private String family_id;
 	private String password;
 	private Float share_goal;
@@ -32,14 +31,6 @@ public class user implements Serializable {
 		this.user_id = user_id;
 	}
 
-	public String getUser_name() {
-		return user_name;
-	}
-
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
-
 	public String getFamily_id() {
 		return family_id;
 	}
@@ -64,10 +55,9 @@ public class user implements Serializable {
 		this.share_goal = share_goal;
 	}
 
-	public user(String user_id, String user_name, String family_id, String password, Float share_goal) {
+	public user(String user_id, String family_id, String password, Float share_goal) {
 		super();
 		this.user_id = user_id;
-		this.user_name = user_name;
 		this.family_id = family_id;
 		this.password = password;
 		this.share_goal = share_goal;
@@ -79,13 +69,7 @@ public class user implements Serializable {
         this.password = password;
         this.user_name = user_name;
     }
-    //分担ガチャ用
-    public user(String user_id, String user_name, Float share_goal) {
-    	this.user_id = user_id;
-    	this.user_name = user_name;
-    	this.share_goal = share_goal;
-    }
-    
+
     //分析用
     public user(String user_id, Float share_goal) {
     	this.user_id = user_id;
@@ -101,7 +85,6 @@ public class user implements Serializable {
 	public user() {
 		super();
 		this.user_id = "";
-		this.user_name = "";
 		this.family_id = "";
 		this.password = "";
 		this.share_goal = null;
