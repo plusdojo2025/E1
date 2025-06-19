@@ -83,7 +83,45 @@
     <!-- 検索アイコン表示 -->
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
+ <form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
+	<input type="hidden" name="housework_id" id="modal-housework-id"/>
+	<input type="hidden" name="family_id"/>
+	<input type="hidden" name="housework_level"/>
+	<input type="hidden" name="noti_time" id="modal-noti-time"/>
+	<input type="hidden" name="manual"/>
+	<input type="hidden" name="fixd_role"/>
+	<input type="hidden" name="variable_role"/>
 
+    <label>カテゴリー:</label>
+    <select name="category_id">
+        <option value="1">掃除</option>
+        <option value="2">洗濯</option>
+        <option value="3">料理</option>
+        <option value="4">その他</option>
+    </select>
+
+    <label>家事名:</label>
+    <input type="text" name="housework_name">
+
+    <label>頻度:</label>
+    <select name="frequency">
+        <option value="0">毎日</option>
+        <option value="1">月</option>
+        <option value="2">火</option>
+        <option value="3">水</option>
+        <option value="4">木</option>
+        <option value="5">金</option>
+        <option value="6">土</option>
+        <option value="7">日</option>
+        <option value="8">不定期</option>
+    </select>
+
+    <label>通知ON/OFF:</label>
+    <input type="radio" name="notification" value="0" checked> OFF
+    <input type="radio" name="notification" value="1"> ON
+
+    <input type="submit" value="検索">
+</form>
 
 <!-- 更新モーダルの中身 -->
 <div id="updateModal" class="modal modal-inner" style="display: none;">
@@ -91,35 +129,34 @@
     <span class="close-button">&times;</span>
     <h2>家事情報を編集</h2>
     <!-- 更新フォームに渡す値 -->
-    <form id="updateForm" method="POST" action="<c:url value='/HWUpdateServlet' />">
+    <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
         <!-- 家事ID -->
-      <input type="hidden" name="housework_id" id="modal-housework-id" value="${e.housework_id}" />
+      <input type="hidden" name="housework_id" id="modal-housework-id" value="" />
       <label>家事名：</label>
-      <input type="text" name="housework_name" id="modal-housework-name" value="${e.housework_name}" />
+      <input type="text" name="housework_name" id="modal-housework-name" value="" />
 	  <!-- ファミリーID -->
-	  <input type="hidden" name="family_id" value="${e.family_id}" />
+	  <input type="hidden" name="family_id" value="" />
       <label>カテゴリID：</label>
-      <input type="number" name="category_id" id="modal-category-id" value="${e.category_id}"/>
+      <input type="number" name="category_id" id="modal-category-id" value=""/>
 	  <label>家事負担度：</label>
-	  <input type="text" name="housework_level" value="${e.housework_level}" />
+	  <input type="text" name="housework_level" value="" />
 	　　<label>通知有無：</label>
-	  <input type="text" name="noti_flag" value="${e.noti_flag}" />
+	  <input type="text" name="noti_flag" value="" />
       <label>通知時間：</label>
-      <input type="time" name="noti_time" id="modal-noti-time" value="${e.noti_time}"/>
+      <input type="time" name="noti_time" id="modal-noti-time" value=""/>
       <label>家事頻度：</label>
-  		<input type="text" name="frequency" value="${e.frequency}" />
+  		<input type="text" name="frequency" value="" />
      	<label>メモ（マニュアルなど）：</label>
-  		  <input type="text" name="manual" value="${e.manual}" />
+  		  <input type="text" name="manual" value="" />
      	<label>固定担当者：</label>
-     	  <input type="text" name="fixd_role" value="${e.fixed_role}" />
+     	  <input type="text" name="fixd_role" value="" />
       	<label>可変担当者：</label>
-      	  <input type="text" name="variable_role" value="${e.variable_role}" />
+      	  <input type="text" name="variable_role" value="" />
 	  <!-- ファミリーID -->
-		<input type="hidden" name="log" value="${e.log}" />    	    	
+		<input type="hidden" name="log" value="" />    	    	
      	
-      <!-- 他にも編集したい項目を追加 -->
-
-      <button type="submit" id="updateTrigger">更新</button>
+     <button type="button" id="updateTrigger">更新</button>
+      <!-- <button type="submit" id="updateTrigger" value="更新">更新</button>  -->
     </form>
   </div>
 </div>
@@ -131,15 +168,6 @@
     <button id="confirmOk">OK</button>
   </div>
 </div>
-
-
-
-
-
-
-
-                      
-
 
 
 <!-- 検索モーダルの中身 -->
@@ -209,6 +237,16 @@
           updateModal.style.display = "block";
         });
       });
+      
+      // モーダル内に値を格納
+      td.addEventListener("click", function () {
+    	  const name = this.dataset.houseworkName;
+    	  const id = this.dataset.houseworkId;
+    	  document.getElementById("modal-housework-name").value = name;
+    	  document.getElementById("modal-housework-id").value = id;
+    	  updateModal.style.display = "block";
+    	});
+
 
       closeBtn.onclick = function () {
         updateModal.style.display = "none";
@@ -222,6 +260,36 @@
     });
     
 //  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
+document.addEventListener("DOMContentLoaded", function () {
+  const updateTrigger = document.getElementById("updateTrigger");
+  const confirmModal = document.getElementById("confirmModal");
+  const confirmOk = document.getElementById("confirmOk");
+  const confirmCancel = document.getElementById("confirmCancel");
+  const updateForm = document.getElementById("updateForm");
+
+  // 更新ボタン押下時 → 確認モーダル表示
+  updateTrigger.addEventListener("click", function () {
+    confirmModal.style.display = "block";
+  });
+
+  // キャンセル → 確認モーダル非表示
+  confirmCancel.addEventListener("click", function () {
+    confirmModal.style.display = "none";
+  });
+
+  // OK → モーダル閉じてフォーム送信
+  confirmOk.addEventListener("click", function () {
+    confirmModal.style.display = "none";
+    updateForm.submit(); // 実際に送信
+  });
+
+  // 背景クリックで閉じる
+  window.addEventListener("click", function (event) {
+    if (event.target === confirmModal) {
+      confirmModal.style.display = "none";
+    }
+  });
+});
 
 
 // ごみ箱アイコンを押下時消去確認モーダル表示
