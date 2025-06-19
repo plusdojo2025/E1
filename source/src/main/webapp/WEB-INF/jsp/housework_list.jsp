@@ -109,11 +109,13 @@
 				    <input type="hidden" name="log" value="${e.log}">
 				    <input type="hidden" name="action_type" value="削除">
 				  </form>
-				  <button class="js-modal-button" data-id="${e.housework_id}">削除</button>
+				  <button class="js-modal-button" data-id="${e.housework_id}">
+				  <img src="<c:url value='/img/trash.svg' />" alt="削除" width="24" height="24">
+				  </button>
 				</td>           
           <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
-          			</tr>        		
-	 		</c:forEach>           		
+          	</tr>        		
+	 	</c:forEach>           		
        	<!--</div>-->
        </table>
         <!-- 家事が追加されるごとに行を追加 -->
@@ -214,7 +216,7 @@
     <button id="cancelDeleteBtn">Cancel</button>
     <button id="confirmDeleteBtn">OK</button>
   </div>
-</div>     
+</div>
 <!-- 検索モーダルの中身 -->
 <div id="searchModal" class="modal" style="display: none;">
     <div class="modal-content">
@@ -365,8 +367,8 @@
           document.getElementById("modal-noti-time").value = noti_time;
           document.getElementById("modal-frequency").value = frequency;
           document.getElementById("modal-manual").value = manual;
-          document.getElementById("modal-fixed-role").value = fixedRole;
-          document.getElementById("modal-variable-role").value = variableRole;
+          document.getElementById("modal-fixed-role").value = fixed_role;
+          document.getElementById("modal-variable-role").value = variable_role;
           //document.getElementById("log").value = log;
 
           updateModal.style.display = "block";
@@ -415,44 +417,48 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
-// ごみ箱アイコンを押下時消去確認モーダル表示
-document.addEventListener("DOMContentLoaded", function () {
+	//ごみ箱アイコンを押下時消去確認モーダル表示
+	document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("deleteConfirmModal");
     let currentForm = null;
 
-    // 削除ボタンをクリックしてモーダルを開く
+    // ごみ箱アイコンを押したらモーダルを開く
     document.querySelectorAll(".js-modal-button").forEach(button => {
         button.addEventListener("click", function () {
-            const formId = "delete_form_" + this.getAttribute("data-id");
+            const houseworkId = this.getAttribute("data-id");
+            const formId = "delete_form_" + houseworkId;
             currentForm = document.getElementById(formId);
-            modal.style.display = "block";
+            if (currentForm) {
+                modal.style.display = "block";
+            } else {
+                console.error("フォームが見つかりません:", formId);
+            }
         });
     });
 
-    // Cancelボタンで閉じる
-    document.getElementById("cancelDeleteBtn").onclick = function () {
+    // Cancelボタンでモーダルを閉じる
+    document.getElementById("cancelDeleteBtn").addEventListener("click", function () {
         modal.style.display = "none";
         currentForm = null;
-    };
+    });
 
-    // OKボタンで削除実行
-    document.getElementById("confirmDeleteBtn").onclick = function () {
+    // OKボタンでフォーム送信
+    document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
         if (currentForm) {
             currentForm.submit();
         }
-    };
+    });
 
-    // ×ボタン（クローズボタン）で閉じる
+    // ×（クローズボタン）で閉じる
     const closeBtn = modal.querySelector(".close-button");
     if (closeBtn) {
-        closeBtn.onclick = function () {
+        closeBtn.addEventListener("click", function () {
             modal.style.display = "none";
             currentForm = null;
-        };
+        });
     }
 
-    // モーダル背景クリックでも閉じる（オプション）
+    // 背景クリックで閉じる
     window.addEventListener("click", function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
