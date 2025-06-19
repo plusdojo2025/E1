@@ -63,11 +63,10 @@ public class user implements Serializable {
 		this.share_goal = share_goal;
 	}
 	
-    public user(String user_id, String password, String user_name) {
+    public user(String user_id, String password) {
         super();
         this.user_id = user_id;
         this.password = password;
-        this.user_name = user_name;
     }
 
     //分析用
