@@ -28,7 +28,8 @@
 		<tr>
 			<td>
 				<label>パスワード<br>
-				<input type="password" name="password" class="login_input" minlength=8 maxlength=20>
+				<input type="password" id="password" name="password" class="login_input" minlength=8 maxlength=20>
+				 <button type="button" onclick="togglePassword()">表示</button>
 				</label>
 			</td>
 		</tr>
@@ -50,6 +51,18 @@
 </div>
   <!-- メイン（ここまで） -->
   <!-- フッター（ここから） -->
-
+<script>
+  function togglePassword() {
+    const pwd = document.getElementById("password");
+    const btn = event.target;
+    if (pwd.type === "password") {
+      pwd.type = "text";
+      btn.textContent = "非表示";
+    } else {
+      pwd.type = "password";
+      btn.textContent = "表示";
+    }
+  }
+</script>
 </body>
 </html>
