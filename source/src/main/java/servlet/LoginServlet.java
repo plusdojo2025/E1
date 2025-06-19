@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.userDAO;
-import dto.loginuser;
 import dto.user;
 import process.Sha256Util;
 
@@ -61,11 +60,13 @@ public class LoginServlet extends HttpServlet {
         
 		// ログイン処理を行う
 		userDAO uDao = new userDAO();
+		String family_id = uDao.family_id(user_id);
 		if (uDao.isLoginOK(new user(user_id, hashedPassword))) { // ログイン成功
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
-			session.setAttribute("user_id", new loginuser(user_id));
-
+			session.setAttribute("user_id", user_id);
+			session.setAttribute("family_id", family_id);
+			
 			// ホームサーブレットにリダイレクトする
 			response.sendRedirect("/E1/HomeServlet");
 			} else { // ログイン失敗

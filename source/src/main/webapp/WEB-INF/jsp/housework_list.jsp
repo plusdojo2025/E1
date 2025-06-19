@@ -60,34 +60,52 @@
         </tr>
     <!--  <table>
     <tr class="card_label">
+<<<<<<< HEAD
         <th>負担度</th>
         <th>家事名</th>
         <th>削除</th>
     </tr>-->
+=======
+      <th>負担度</th>
+      <th>家事名</th>
+      <th>消去</th>
+    </tr>
+>>>>>>> 67e2b58073653d0bf6f3a51bd373df24138bb8b2
 
 <!-- 取得した家事を一覧表示 -->          
 <!--<div class="card_container">-->             
       	<c:forEach var="e" items="${cardList}" varStatus="status">
         	<tr class="card">        
-                 <td class="housework_level">
-                     <c:out value="${e.housework_level}" />
-                     <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
-                 </td>
+                  <td class="housework_level">
+                  <c:out value="${e.housework_level}" />
+                  <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
+                  </td>
                  <td class="housework_name open-modal"
                  data-housework-name="${e.housework_name}"
-                 data-housework-id="${e.housework_id}">
-                   <!--家事名押下時更新モーダル表示-->
+                 data-housework-id="${e.housework_id}"
+                 data-family-id="${e.family_id}"
+                 data-category-id="${e.category_id}"
+                 data-housework-level="${e.housework_level}"
+                 data-noti-flag="${e.noti_flag}"
+                 data-noti-time="${e.noti_time}"
+                 data-frequency="${e.frequency}"
+                 data-manual="${e.manual}"
+                 data-fixed-role="${e.fixed_role}"
+                 data-variable-role="${e.variable_role}"
+                 data-log="${e.log}">
+
+                  <!--家事名押下時更新モーダル表示-->
                   <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
-					<input type="hidden" name="housework_id" value="${e.housework_id}">
-	               <input type="hidden" name="family_id" value="${e.family_id}">
-	               <input type="hidden" name="category_id" value="${e.category_id}">
-	               <input type="hidden" name="noti_flag" value="${e.noti_flag}">
-	               <input type="hidden" name="noti_time" value="${e.noti_time}">
-	               <input type="hidden" name="frequency" value="${e.frequency}">
-	               <input type="hidden" name="manual" value="${e.manual}">
-	               <input type="hidden" name="fixed_role" value="${e.fixed_role}">
-	               <input type="hidden" name="variable_role" value="${e.variable_role}">
-	               <input type="hidden" name="log" value="${e.log}">   
+					        <input type="hidden" name="housework_id" value="${e.housework_id}">
+                  <input type="hidden" name="family_id" value="${e.family_id}">
+                  <input type="hidden" name="category_id" value="${e.category_id}">
+                  <input type="hidden" name="noti_flag" value="${e.noti_flag}">
+                  <input type="hidden" name="noti_time" value="${e.noti_time}">
+                  <input type="hidden" name="frequency" value="${e.frequency}">
+                  <input type="hidden" name="manual" value="${e.manual}">
+                  <input type="hidden" name="fixed_role" value="${e.fixed_role}">
+                  <input type="hidden" name="variable_role" value="${e.variable_role}">
+                  <input type="hidden" name="log" value="${e.log}">   
                  
                  <!-- 家事名のみ表示 -->
                  	
@@ -122,7 +140,45 @@
     <!-- 検索アイコン表示 -->
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
+ <form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
+	<input type="hidden" name="housework_id" id="modal-housework-id"/>
+	<input type="hidden" name="family_id"/>
+	<input type="hidden" name="housework_level"/>
+	<input type="hidden" name="noti_time" id="modal-noti-time"/>
+	<input type="hidden" name="manual"/>
+	<input type="hidden" name="fixed_role"/>
+	<input type="hidden" name="variable_role"/>
 
+    <label>カテゴリー:</label>
+    <select name="category_id">
+        <option value="1">掃除</option>
+        <option value="2">洗濯</option>
+        <option value="3">料理</option>
+        <option value="4">その他</option>
+    </select>
+
+    <label>家事名:</label>
+    <input type="text" name="housework_name">
+
+    <label>頻度:</label>
+    <select name="frequency">
+        <option value="0">毎日</option>
+        <option value="1">月</option>
+        <option value="2">火</option>
+        <option value="3">水</option>
+        <option value="4">木</option>
+        <option value="5">金</option>
+        <option value="6">土</option>
+        <option value="7">日</option>
+        <option value="8">不定期</option>
+    </select>
+
+    <label>通知ON/OFF:</label>
+    <input type="radio" name="notification" value="0" checked> OFF
+    <input type="radio" name="notification" value="1"> ON
+
+    <input type="submit" value="検索">
+</form>
 
 <!-- 更新モーダルの中身 -->
 <div id="updateModal" class="modal modal-inner" style="display: none;">
@@ -130,35 +186,34 @@
     <span class="close-button">&times;</span>
     <h2>家事情報を編集</h2>
     <!-- 更新フォームに渡す値 -->
-    <form id="updateForm" method="POST" action="<c:url value='/HWUpdateServlet' />">
-        <!-- 家事ID -->
-      <input type="hidden" name="housework_id" id="modal-housework-id" value="${e.housework_id}" />
+    <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
+        <!-- 家事ID非表示 -->
+      <input type="hidden" name="housework_id" id="modal-housework-id" value="" />
       <label>家事名：</label>
-      <input type="text" name="housework_name" id="modal-housework-name" value="${e.housework_name}" />
-	  <!-- ファミリーID -->
-	  <input type="hidden" name="family_id" value="${e.family_id}" />
-      <label>カテゴリID：</label>
-      <input type="number" name="category_id" id="modal-category-id" value="${e.category_id}"/>
+      <input type="text" name="housework_name" id="modal-housework-name" value="" />
+	  <!-- ファミリーID非表示 -->
+	  <input type="hidden" name="family_id" value="" />
+    <label>カテゴリID：</label>
+    <input type="text" name="category_id" id="modal-category-id" value=""/>
 	  <label>家事負担度：</label>
-	  <input type="text" name="housework_level" value="${e.housework_level}" />
-	　　<label>通知有無：</label>
-	  <input type="text" name="noti_flag" value="${e.noti_flag}" />
+	  <input type="text" name="housework_level" id="modal-housework-level" value="" />
+	  <label>通知有無：</label>
+	  <input type="text" name="noti_flag" id="modal-noti-flag" value="" />
       <label>通知時間：</label>
-      <input type="time" name="noti_time" id="modal-noti-time" value="${e.noti_time}"/>
+      <input type="time" name="noti_time" id="modal-noti-time" value=""/>
       <label>家事頻度：</label>
-  		<input type="text" name="frequency" value="${e.frequency}" />
+  		<input type="text" name="frequency" id="modal-frequency" value="" />
      	<label>メモ（マニュアルなど）：</label>
-  		  <input type="text" name="manual" value="${e.manual}" />
+  		  <input type="text" name="manual" id="modal-manual" value="" />
      	<label>固定担当者：</label>
-     	  <input type="text" name="fixd_role" value="${e.fixed_role}" />
+     	  <input type="text" name="fixed_role" id="modal-fixed-role" value="" />
       	<label>可変担当者：</label>
-      	  <input type="text" name="variable_role" value="${e.variable_role}" />
-	  <!-- ファミリーID -->
-		<input type="hidden" name="log" value="${e.log}" />    	    	
+      	  <input type="text" name="variable_role" id="modal-variable-role" value="" />
+	  <!-- ログ非表示 -->
+		<input type="hidden" name="log" id="modal-log" value="" />    	    	
      	
-      <!-- 他にも編集したい項目を追加 -->
-
-      <button type="submit" id="updateTrigger">更新</button>
+     <button type="button" id="updateTrigger">更新</button>
+      <!-- <button type="submit" id="updateTrigger" value="更新">更新</button>  -->
     </form>
   </div>
 </div>
@@ -171,6 +226,7 @@
     <button id="confirmOk">OK</button>
   </div>
 </div>
+<<<<<<< HEAD
 <!-- 削除確認モーダルの中身 -->
 <div id="deleteConfirmModal" class="modal" style="display:none;">
   <div class="modal-content">
@@ -180,6 +236,10 @@
     <button id="confirmDeleteBtn">OK</button>
   </div>
 </div>     
+=======
+
+
+>>>>>>> 67e2b58073653d0bf6f3a51bd373df24138bb8b2
 <!-- 検索モーダルの中身 -->
 <div id="searchModal" class="modal">
     <div class="modal-content">
@@ -279,29 +339,89 @@
     document.addEventListener("DOMContentLoaded", function () {
       const updateModal = document.getElementById("updateModal");
       const closeBtn = updateModal.querySelector(".close-button");
-      const modalName = document.getElementById("modal-housework-name");
+      //const modalName = document.getElementById("modal-housework-name");
 
       document.querySelectorAll(".open-modal").forEach(function (td) {
         td.addEventListener("click", function () {
           const name = this.dataset.houseworkName;
-          const id = this.dataset.houseworkId;
-          modalName.textContent = "家事名: " + name + "（ID: " + id + "）";
+          //const id = this.dataset.houseworkId;
+          //modalName.value = "家事名: " + name;
+          updateModal.style.display = "block";
+
+          // モーダル内に値を格納
+          const housework_name = this.dataset.houseworkName;
+          const housework_id = this.dataset.houseworkId;
+          // ここに情報を追加 
+          //const family_id = this.dataset.familyId;
+          const category_id = this.dataset.categoryId;
+          const housework_level = this.dataset.houseworkLevel;
+          const noti_flag = this.dataset.notiFlag;
+          const noti_time = this.dataset.notiTime;
+          const frequency = this.dataset.frequency;
+          const manual = this.dataset.manual;
+          const fixed_role = this.dataset.fixedRole;
+          const variable_role = this.dataset.variableRole;
+          //const log = this.dataset.log;
+
+          // 更新モーダルに値を表示
+          document.getElementById("modal-housework-name").value = housework_name;
+          document.getElementById("modal-housework-id").value = housework_id;
+          //document.getElementById("modal-family-id").value = family_id; 
+          document.getElementById("modal-category-id").value = category_id;
+          document.getElementById("modal-housework-level").value = housework_level;
+          document.getElementById("modal-noti-flag").value = noti_flag;
+          document.getElementById("modal-noti-time").value = noti_time;
+          document.getElementById("modal-frequency").value = frequency;
+          document.getElementById("modal-manual").value = manual;
+          document.getElementById("modal-fixed-role").value = fixedRole;
+          document.getElementById("modal-variable-role").value = variableRole;
+          //document.getElementById("log").value = log;
+
           updateModal.style.display = "block";
         });
-      });
+      });    
 
       closeBtn.onclick = function () {
         updateModal.style.display = "none";
       };
-
       window.onclick = function (event) {
-        if (event.target === modal) {
+        if (event.target === updateModal) {
           updateModal.style.display = "none";
         }
       };
     });
     
 //  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
+document.addEventListener("DOMContentLoaded", function () {
+  const updateTrigger = document.getElementById("updateTrigger");
+  const confirmModal = document.getElementById("confirmModal");
+  const confirmOk = document.getElementById("confirmOk");
+  const confirmCancel = document.getElementById("confirmCancel");
+  const updateForm = document.getElementById("updateForm");
+
+  // 更新ボタン押下時 → 確認モーダル表示
+  updateTrigger.addEventListener("click", function () {
+    confirmModal.style.display = "block";
+  });
+
+  // キャンセル → 確認モーダル非表示
+  confirmCancel.addEventListener("click", function () {
+    confirmModal.style.display = "none";
+  });
+
+  // OK → モーダル閉じてフォーム送信
+  confirmOk.addEventListener("click", function () {
+    confirmModal.style.display = "none";
+    updateForm.submit(); // 実際に送信
+  });
+
+  // 背景クリックで閉じる
+  window.addEventListener("click", function (event) {
+    if (event.target === confirmModal) {
+      confirmModal.style.display = "none";
+    }
+  });
+});
 
 
 // ごみ箱アイコンを押下時消去確認モーダル表示
