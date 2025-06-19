@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@
             <select id="daySelection" name="frequency">
             <!-- 頻度の値（送信用） -->
 			
-            
+            	
                 <option value="1">曜日を選択</option>
                 <option value="0">毎日</option>
                 <option value="8">不定期</option>
@@ -50,8 +51,8 @@
 		<br>
 		
 		<!-- 曜日チェック（最初は非表示） -->
-		
 		<div id="daysContainer" class="days-container">
+		
             <input type="checkbox" id="mon" name="days" value="1" class="day-checkbox">
             <label for="mon" class="day-label">月</label>
 
@@ -89,17 +90,17 @@
 		</label>
 		
 		<!-- メモ -->	
-		<label>メモ</label>	
+		<label>マニュアル</label>	
 		<!-- メモ記入用のモーダル -->
 		<div id="memoModal" class="modal" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, 0); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
 		    <h3>メモを入力</h3>
 		    <textarea id="memoInput" rows="10" cols="40"></textarea><br>
 		    <button type="button" onclick="saveMemo()">保存</button>
 		    <button type="button" onclick="closeModal()">キャンセル</button>
-		</div>-->
+		</div>
 		
 		<!-- モーダルを開くボタン -->
-		<button type="button" onclick="openModal()">メモを書く</button>
+		<button type="button" onclick="openModal()">マニュアルを書く</button>
 
 		<!-- 実際のフォームの中に隠しフィールドとして保持 -->
 		<input type="hidden" name="manual" id="manual">
@@ -110,7 +111,7 @@
 		<input type="radio" name="noti_flag" value= 1 id="noti-on">on
 		</label>
 		<br>
-		<label for="notify_time">通知時間:</label>
+		<label for="notify_time"></label>
 		<input type="time" id="noti_time" name="noti_time" class="noti-hidden">
 		
 		
@@ -123,11 +124,11 @@
 		</label>
 			
 		<!-- 担当者選択プルダウン -->
-		 <select name="variable_role" id="variable_role" style="display:none;">
-		    <option value="user1">ユーザー1</option>
-		    <option value="user2">ユーザー2</option>
-	     <!--家庭ごとに動的 -->
-  		</select>
+		 <select name="variable_role" id="variable_role" style="display: none;">
+		  <c:forEach var="user" items="${userList}">
+		    <option value="${user.user_id}"><c:out value="${user.user_id}"/></option>
+		  </c:forEach>
+		</select>
 		<br>		
 				
 			
@@ -135,9 +136,9 @@
 			<input type="submit" name="regist" value="登録"><br>
 			<span id="error_message"></span>
         </td>
-      
-		
-		
+  		<c:out value="${errorMessage}"/>    
+	
+				
 		</form>
 		</main>
 	<script>
@@ -163,13 +164,21 @@
 	});
 
 		//担当者決定方法によるプルダウン表示切替
-		document.querySelectorAll('input[name="assign_method"]').forEach(radio => {
+		document.querySelectorAll('input[name="fixed_role"]').forEach(radio => {
 		  radio.addEventListener('change', () => {
-		    const assignedUser = document.getElementById('assigned_user');
-		    assignedUser.style.display = (document.querySelector('input[name="assign_method"]:checked').value === 'variable') ? 'block' : 'none';
+		    const variable_role = document.getElementById('variable_role');
+		    variable_role.style.display = (document.querySelector('input[name="fixed_role"]:checked').value === '1') ? 'block' : 'none';
 		  });
 		});
-	
+		
+		// ページ読み込み時にも状態を初期化
+		window.addEventListener('DOMContentLoaded', () => {
+		  const variable_role = document.getElementById('variable_role');
+		  const isSelected = document.querySelector('input[name="fixed_role"]:checked').value === '1';
+		  variable_role.style.display = isSelected ? 'block' : 'none';
+		});
+		
+		
 		// プルダウンの選択に応じて曜日ボタンを制御
         document.getElementById('daySelection').addEventListener('change', function() {
             const selection = this.value;
@@ -271,7 +280,9 @@
           const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
           timeInput.classList.toggle('noti-hidden', !isOn);
         });
-
+	
+        
+        
 	</script>
 	
 	
