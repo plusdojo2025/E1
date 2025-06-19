@@ -12,13 +12,14 @@
 <body>
 <div id="share_goal">
   <h2>分担目標</h2>
-  <form method="POST" action="${pageContext.request.contextPath}/AnalysisServlet" id="form${status.index}">
+  <form method="POST" action="${pageContext.request.contextPath}/AnalysisServlet" id="form${status.index}" onsubmit="return validateGoals();">
 	  <c:forEach var="e" items="${userList}" varStatus="status">
-	      <label for="goal${status.index}"><c:out value="${e.user_id}" />の分担割合</label><br>
-	      <input type="text" name="goal" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
+	      <label for="goal${status.index}"><c:out value="${e.user_id}" />の分担割合</label>
+	      <input type="text" name="goal" class="goal-input" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
 	      <input type="hidden" name="user_id" value="<c:out value='${e.user_id}'/>">
 	  </c:forEach>
 	  <input type="submit" name="submit" value="設定" class="goal_submit">
+	  <p id="error_message">${errorMessage}</p>
   </form>
 </div>
 
@@ -37,6 +38,7 @@
     <c:otherwise>
       <canvas id="daily_chart_Canvas"></canvas>
       <script>
+      'use strict';
         const yesterdayList = [
           <c:forEach var="a" items="${yesterdayList}" varStatus="status">
           {
@@ -88,6 +90,7 @@
     <c:otherwise>
       <canvas id="monthly_chart_Canvas"></canvas>
       <script>
+      'use strict';
         const yearList = [
           <c:forEach var="a" items="${yearList}" varStatus="status">
           {
@@ -174,5 +177,48 @@
     </c:otherwise>
   </c:choose>
 </div>
+<script>
+'use strict';
+function validateGoals() {
+	  const inputs = document.querySelectorAll('.goal-input');
+	  const errorEl = document.getElementById('error_message');
+	  let total = 0;
+	  let hasInvalid = false;
+
+	  errorEl.textContent = ''; // 初期化
+
+	  // 半角数字＋小数点のみの正規表現（マイナス不要なら外す）
+	  const halfWidthNumberRegex = /^[0-9]*\.?[0-9]+$/;
+
+	  inputs.forEach(input => {
+	    const val = input.value.trim();
+
+	    // 半角数字かどうかチェック
+	    if (!halfWidthNumberRegex.test(val)) {
+	      hasInvalid = true;
+	      return;
+	    }
+
+	    const num = parseFloat(val);
+	    if (isNaN(num)) {
+	      hasInvalid = true;
+	    } else {
+	      total += num;
+	    }
+	  });
+
+	  if (hasInvalid) {
+	    errorEl.textContent = '半角数字で正しい値を入力してください。';
+	    return false;
+	  }
+
+	  if (Math.abs(total - 1.0) > 0.0001) {
+	    errorEl.textContent = '分担割合の合計が1になっていません。';
+	    return false;
+	  }
+
+	  return true;
+	}
+</script>
 </body>
 </html>

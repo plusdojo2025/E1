@@ -233,18 +233,19 @@ public class achievementDAO {
 	        );
 	        
 	        // SQL定義（分担目標のデータを更新）
-	        String sql = "UPDATE users SET user_id = ? WHERE share_goal = ?";
+	        String sql = "UPDATE user SET share_goal = ? WHERE user_id = ?";
 	
 	        pStmt = conn.prepareStatement(sql);
 	        
-	        if (u.getUser_id() != null) {
-				pStmt.setString(1, u.getUser_id());
-			}
+
 	        if (u.getShare_goal() != null) {
-	            pStmt.setFloat(2, u.getShare_goal());
+	            pStmt.setFloat(1, u.getShare_goal());
 	        } else {
-	            pStmt.setFloat(2, 0.5f); // ← 初期値0.5をここで適用
+	            pStmt.setFloat(1, 0.5f); // ← 初期値0.5をここで適用
 	        }
+	        if (u.getUser_id() != null) {
+				pStmt.setString(2, u.getUser_id());
+			}
 	
 	        int result = pStmt.executeUpdate();
 	        return result == 1;

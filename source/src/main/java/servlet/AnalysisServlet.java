@@ -45,7 +45,7 @@ public class AnalysisServlet extends HttpServlet {
 			String familyId = (String) session.getAttribute("family_id");
 			
 			if (familyId == null) {
-				familyId = "sato0611"; // テスト用の固定値
+				familyId = "se2025"; // テスト用の固定値
 			}
 			
 			try {
@@ -116,45 +116,38 @@ public class AnalysisServlet extends HttpServlet {
 			    return;
 			}*/
 
-	        String user_id = request.getParameter("user_id");
-	        String shareGoalStr = request.getParameter("share_goal");
-	        float share_goal = 0.5f;
-	        boolean hasError = false;
+	        String[] userList = request.getParameterValues("user_id");
+	        String[] shareGoalStr = request.getParameterValues("goal");
 
-	        if (shareGoalStr != null && !shareGoalStr.isEmpty()) {
-	            try {
-	                share_goal = Float.parseFloat(shareGoalStr);
-	            } catch (NumberFormatException e) {
-	                request.setAttribute("errorMessage", "分担目標は数値で入力してください。");
-	                hasError = true;
-	            }
-	        } else {
-	            request.setAttribute("errorMessage", "分担目標を入力してください。");
-	            hasError = true;
-	        }
-
-	        if (hasError) {
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/analysis.jsp");
-	            dispatcher.forward(request, response);
-	            return;
-	        }
-
+	        boolean allSuccess = true;  // 全員の更新成功フラグ
+	        achievementDAO adao = new achievementDAO();
+	        
 	        try {
 	            // 分担目標更新処理
-	            user u = new user();
-	            u.setUser_id(user_id);
-	            u.setShare_goal(share_goal);
+	        	for (int i = 0; i < userList.length; i++) {
+	        		String user_id = userList[i];
+	        		float share_goal = Float.parseFloat(shareGoalStr[i]);
+		            user u = new user();
+		            u.setUser_id(user_id);
+		            u.setShare_goal(share_goal);
+	
+		            if (!adao.updateShareGoal(u)) {
+		                allSuccess = false;
+		                // ログ出力で原因調査しやすく
+		                System.err.println("更新失敗: user_id=" + user_id + ", share_goal=" + share_goal);
+		            }
+		        }
 
-	            achievementDAO adao = new achievementDAO();
-	            if (adao.updateShareGoal(u)) {
-	                response.sendRedirect(request.getContextPath() + "/HomeServlet");
-	                return;
-	            } else {
-	                request.setAttribute("errorMessage", "分担目標の設定に失敗しました。");
-	                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/analysis.jsp");
-	                dispatcher.forward(request, response);
-	            }
-
+		        if (allSuccess) {
+		            // 全員成功 → 正常リダイレクト
+		            response.sendRedirect(request.getContextPath() + "/AnalysisServlet");
+		        } else {
+		            // 一部失敗 → エラーメッセージをセットしてJSPに戻す
+		            request.setAttribute("errorMessage", "一部のユーザーの分担目標更新に失敗しました。");
+		            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/analysis.jsp");
+		            dispatcher.forward(request, response);
+		        }
+	        	
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            request.setAttribute("errorMessage", "予期せぬエラーが発生しました。");
