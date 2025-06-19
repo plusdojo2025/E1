@@ -258,7 +258,7 @@
     <input type="radio" name="noti_flag" value="0" checked> OFF
     <input type="radio" name="noti_flag" value="1"> ON<br>
 
-    <input type="submit" value="検索">
+    <input type="submit" name="search" value="検索">
 </form>
 </div>
 </div> 
