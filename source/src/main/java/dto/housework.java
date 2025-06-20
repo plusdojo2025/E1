@@ -39,6 +39,11 @@ public class housework implements Serializable {
 		this.housework_name = housework_name;
 		this.role = role;
 	}
+	//通知用コンストラクタ
+	public housework(int housework_id,String noti_time) {
+		this.housework_id = housework_id;
+		this.noti_time = noti_time;
+	}
 	
 		public housework(int housework_id, String housework_name, String family_id, int category_id,
 				int housework_level, int noti_flag, String noti_time, String frequency, String manual, String fixed_role,
