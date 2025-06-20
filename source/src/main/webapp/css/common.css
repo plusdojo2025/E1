@@ -2,6 +2,11 @@
 
 /*モバイル対応*/
 @media(max-width: 767px){
+	html {
+    font-size: 16px;
+    font-family: "けいふぉんと";
+    background-color: rgba(255,229,204,.3);
+	}
 	
 	.wrapper {
     margin-top: 150px; /* ヘッダーにかぶらないように余白を取る */
