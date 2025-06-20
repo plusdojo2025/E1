@@ -463,12 +463,6 @@ public class houseworkDAO {
 
 	    return cardList;
 	}
-// 更新ここから
-    // 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(housework card) {
-		Connection conn = null;
-		boolean result = false;
-
 	// 更新ここから
 	    // 引数cardで指定されたレコードを更新し、成功したらtrueを返す
 		public boolean update(housework card) {
