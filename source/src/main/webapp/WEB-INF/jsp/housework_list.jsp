@@ -126,15 +126,15 @@
 				  </button>
 				</td>           
           <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
-          	</tr>        		
-	 	</c:forEach>           		
+          			</tr>        		
+	 		</c:forEach>           		
        	<!--</div>-->
        </table>
         <!-- 家事が追加されるごとに行を追加 -->
     <!-- 検索アイコン表示 -->
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
-<!--<form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
+ <form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
 	<input type="hidden" name="housework_id" id="modal-housework-id"/>
 	<input type="hidden" name="family_id"/>
 	<input type="hidden" name="housework_level"/>
@@ -172,7 +172,7 @@
     <input type="radio" name="notification" value="1"> ON
 
     <input type="submit" value="検索">
-</form> -->
+</form>
 
 <!-- 更新モーダルの中身 -->
 <div id="updateModal" class="modal modal-inner" style="display: none;">
@@ -182,32 +182,47 @@
     <!-- 更新フォームに渡す値 -->
     <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
         <!-- 家事ID非表示 -->
-      <input type="hidden" name="housework_id" id="modal-housework-id" value="" />
-      <label>家事名：</label>
-      <input type="text" name="housework_name" id="modal-housework-name" value="" />
-	  <!-- ファミリーID非表示 -->
-	  <input type="hidden" name="family_id" value="" />
-    <label>カテゴリID：</label>
-    <input type="number" name="category_id" id="modal-category-id" value=""/>
+    <label>家事ID：
+    <input type="text" name="housework_id" id="housework-id" value=""/></label><br>
+    <label>家事名：</label>
+    <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
+	 <!-- ファミリーID非表示 -->
+	 <input type="hidden" name="family_id" value="" />
+	    <label>カテゴリID：</label>
+	    <input type="number" name="category_id" id="modal-category-id" value=""/><br>
 	  <label>家事負担度：</label>
-	  <input type="text" name="housework_level" id="modal-housework-level" value="" />
+	  <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
 	  <label>通知有無：</label>
-	  <input type="text" name="noti_flag" id="modal-noti-flag" value="" />
+	  <!--ラジオボタンにしたい
+      <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
+   	  <input type="radio" name="noti_flag" id="modal-noti-flag" value="1"> ON
+   	  --> 	  
+	    <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
       <label>通知時間：</label>
-      <input type="time" name="noti_time" id="modal-noti-time" value=""/>
+      <input type="time" name="noti_time" id="modal-noti-time" value=""/><br>
       <label>家事頻度：</label>
-  		<input type="text" name="frequency" id="modal-frequency" value="" />
-     	<label>メモ（マニュアルなど）：</label>
-  		  <input type="text" name="manual" id="modal-manual" value="" />
-     	<label>固定担当者：</label>
-     	  <input type="text" name="fixed_role" id="modal-fixed-role" value="" />
+		<input type="text" name="frequency" id="modal-frequency" value="" /><br>
+  		<label>メモ（マニュアルなど）：</label>
+	  	<input type="text" name="manual" id="modal-manual" value="" /><br>
+  		  
+    	<label>固定担当者：</label>
+    	  <!-- 担当者と通知はラジオボタンにしたい
+      <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
+   	  <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
+   	  -->
+  		  
+  		  
+  		   		
+ 
+     	  <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br> 
+     	  
       	<label>可変担当者：</label>
-      	  <input type="text" name="variable_role" id="modal-variable-role" value="" />
+      	  <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
 	  <!-- ログ非表示 -->
 		<input type="hidden" name="log" id="modal-log" value="" />    	    	
      	
-     <button type="button" id="updateTrigger">更新</button>
-      <!-- <button type="submit" id="updateTrigger" value="更新">更新</button>  -->
+    <!--  <button type="button" id="updateTrigger">更新</button> -->
+        <input type="submit" id="updateTrigger" name="submit" value="更新"/>
     </form>
   </div>
 </div>
@@ -230,51 +245,13 @@
   </div>
 </div>     
 <!-- 検索モーダルの中身 -->
-<div id="searchModal" class="modal" style="display: none;">
+<div id="searchModal" class="modal">
     <div class="modal-content">
- <!-- <span class="close-button">&times;</span> -->
- <button id="close-button">×</button>
+        <span class="close-button">&times;</span>
         <h2>家事検索</h2>
-    <form id="userInput" method="GET" action="<c:url value='/HWSearchServlet' />">
-	<input type="hidden" name="housework_id" id="modal-housework-id"/>
-	<input type="hidden" name="family_id"/>
-	<input type="hidden" name="housework_level"/>
-	<input type="hidden" name="noti_time" id="modal-noti-time"/>
-	<input type="hidden" name="manual"/>
-	<input type="hidden" name="fixd_role"/>
-	<input type="hidden" name="variable_role"/>
-
-    <label>カテゴリー:</label>
-    <select name="category_id">
-        <option value="1">掃除</option>
-        <option value="2">洗濯</option>
-        <option value="3">料理</option>
-        <option value="4">その他</option>
-    </select><br>
-
-    <label>家事名:</label>
-    <input type="text" name="housework_name"><br>
-
-    <label>頻度:</label>
-    <select name="frequency">
-        <option value="0">毎日</option>
-        <option value="1">月</option>
-        <option value="2">火</option>
-        <option value="3">水</option>
-        <option value="4">木</option>
-        <option value="5">金</option>
-        <option value="6">土</option>
-        <option value="7">日</option>
-        <option value="8">不定期</option>
-    </select><br>
-
-    <label>通知ON/OFF:</label>
-    <input type="radio" name="noti_flag" value="0" checked> OFF
-    <input type="radio" name="noti_flag" value="1"> ON<br>
-
-    <input type="submit" name="search" value="検索">
-</form>
-</div>
+        <input type="text" id="userInput" placeholder="ここに入力してください">
+        <button id="submitButton">検索</button>
+    </div>
 </div> 
 
 
@@ -294,8 +271,8 @@
 </footer>
 <script>
     'use strict';
-    // 負担度で昇順降順
-	document.addEventListener("DOMContentLoaded", function () {
+// 負担度で昇順降順
+	/*document.addEventListener("DOMContentLoaded", function () {
 	    const sortToggleBtn = document.getElementById("sortToggleBtn");
 	    const sortOrderInput = document.getElementById("sortOrderInput");
 	    const sortIcon = document.getElementById("sortIcon");
@@ -304,22 +281,43 @@
 	    const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
 	
 	    sortToggleBtn.addEventListener("click", function () {
-	      if (sortOrderInput.value === "asc") {
-	        sortOrderInput.value = "desc";
-	        sortIcon.src = contextPath + "/img/sort_down.svg";
-	      } else {
-	        sortOrderInput.value = "asc";
-	        sortIcon.src = contextPath + "/img/sort_up.svg";
-	      }
-	
-	      document.getElementById("sortForm").submit();
-	    });
-	  });
+	    	  if (sortOrderInput.value === "asc") {
+	    	    sortOrderInput.value = "desc";
+	    	    sortIcon.src = contextPath + "/img/sort_down.svg";
+	    	  } else {
+	    	    sortOrderInput.value = "asc";
+	    	    sortIcon.src = contextPath + "/img/sort_up.svg";
+	    	  }
+
+	    	  // カテゴリ選択があれば保持してform送信
+	    	  document.getElementById("sortForm").submit();
+	    	});*/
+	    // 負担度で昇順降順
+		document.addEventListener("DOMContentLoaded", function () {
+		    const sortToggleBtn = document.getElementById("sortToggleBtn");
+		    const sortOrderInput = document.getElementById("sortOrderInput");
+		    const sortIcon = document.getElementById("sortIcon");
+		
+		    // JSTLの変数をJavaScriptで使うために事前に定義しておく
+		    const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
+		
+		    sortToggleBtn.addEventListener("click", function () {
+		      if (sortOrderInput.value === "asc") {
+		        sortOrderInput.value = "desc";
+		        sortIcon.src = contextPath + "/img/sort_down.svg";
+		      } else {
+		        sortOrderInput.value = "asc";
+		        sortIcon.src = contextPath + "/img/sort_up.svg";
+		      }
+		
+		      document.getElementById("sortForm").submit();
+		    });
+		  });
     
 	// 検索画面をモーダル表示 	
     const searchModal = document.getElementById("searchModal");
     const openModalBtn = document.getElementById("openModal");
-    const closeBtn = document.querySelector("close-button");
+    const closeBtn = document.querySelector(".close-button");
     const submitBtn = document.getElementById("submitButton");
     const userInput = document.getElementById("userInput");
 
@@ -374,6 +372,7 @@
           console.log(housework_level);
           document.getElementById("modal-housework-name").value = housework_name;
           //document.getElementById("modal-housework-id").value = housework_id;
+          console.log("housework_id:", housework_id); 
           //document.getElementById("modal-family-id").value = family_id; 
           document.getElementById("modal-category-id").value = category_id;
           document.getElementById("modal-housework-level").value = housework_level;
@@ -384,7 +383,7 @@
           document.getElementById("modal-fixed-role").value = fixed_role;
           document.getElementById("modal-variable-role").value = variable_role;
           //document.getElementById("log").value = log;
-
+          document.getElementById("housework-id").value = housework_id;
           updateModal.style.display = "block";
 
 
@@ -445,6 +444,7 @@
 //     }
 //   });
 // });
+
 
 	//ごみ箱アイコンを押下時消去確認モーダル表示
 	document.addEventListener("DOMContentLoaded", function () {

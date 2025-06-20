@@ -469,105 +469,119 @@ public class houseworkDAO {
 		Connection conn = null;
 		boolean result = false;
 
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
+	// 更新ここから
+	    // 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		public boolean update(housework card) {
+			Connection conn = null;
+			boolean result = false;
 
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
 
-			// SQL文を準備する
-            // 変えたい項目だけに絞る
-			String sql = "UPDATE housework SET housework_id=?, housework_name=?, family_id=?, category_id=?, housework_level=?, noti_flag=?, noti_time=?, frequency=?, manual=?, fixed_role=?, variable_role=?, log=? WHERE housework_id=?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
 
-			// SQL文を完成させる
-			if (card.getHousework_id() != 0) {
-				pStmt.setInt(1, card.getHousework_id());
-			} else {
-				pStmt.setString(1, "");
-			}
-			if (card.getHousework_name() != null) {
-				pStmt.setString(2, card.getHousework_name());
-			} else {
-				pStmt.setString(2, "");
-			}
-			if (card.getFamily_id() != null) {
-				pStmt.setString(3, card.getFamily_id());
-			} else {
-				pStmt.setString(3, "");
-			}
-			if (card.getCategory_id() != 0) {
-				pStmt.setInt(4, card.getCategory_id());
-			} else {
-				pStmt.setString(4, "");
-			}
-			if (card.getHousework_level() != 0) {
-				pStmt.setInt(5, card.getHousework_level());
-			} else {
-				pStmt.setString(5, "");
-			}
-			if (card.getNoti_flag() != 0) {
-				pStmt.setInt(6, card.getNoti_flag());
-			} else {
-				pStmt.setString(6, "");
-			}
-			if (card.getNoti_time() != null) {
-				pStmt.setString(7, card.getNoti_time());
-			} else {
-				pStmt.setString(7, "");
-			}
-			if (card.getFrequency() != null) {
-				pStmt.setString(8, card.getFrequency());
-			} else {
-				pStmt.setString(8, "");
-			}
-			if (card.getManual() != null) {
-				pStmt.setString(9, card.getManual());
-			} else {
-				pStmt.setString(9, "");
-			}
-			if (card.getFixed_role() != null) {
-				pStmt.setString(10, card.getFixed_role());
-			} else {
-				pStmt.setString(10, "");
-			}
-			if (card.getVariable_role() != null) {
-				pStmt.setString(11, card.getVariable_role());
-			} else {
-				pStmt.setString(11, "");
-			}
-			if (card.getLog() != 0) {
-				pStmt.setInt(12, card.getLog());
-			} else {
-				pStmt.setString(12, "");
-			}          
+				// SQL文を準備する
+	            // 変えたい項目だけに絞る
+				String sql = "UPDATE housework SET housework_id=?, housework_name=?, family_id=?, category_id=?, housework_level=?, noti_flag=?, noti_time=?, frequency=?, manual=?, fixed_role=?, variable_role=?, log=? WHERE housework_id=?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+
+				// SQL文を完成させる
+				if (card.getHousework_id() != 0) {
+					pStmt.setInt(1, card.getHousework_id());
+				} else {
+					// 変更不可 必須項目
+				}
+				if (card.getHousework_name() != null) {
+					pStmt.setString(2, card.getHousework_name());
+				} else {
+					//pStmt.setString(2, "");
+					// 必須項目 未入力の場合スクリプトでエラーメッセージを表示
+				}
+				if (card.getFamily_id() != null) {
+					pStmt.setString(3, card.getFamily_id());
+				} else {
+					// pStmt.setString(3, "");
+					// 変更不可 必須項目
+				}
+				if (card.getCategory_id() != 0) {
+					pStmt.setInt(4, card.getCategory_id());
+				} else {
+					// 必須項目 １～４それ以外はエラーメッセージ
+					pStmt.setInt(4, 1);
+				}
+				if (card.getHousework_level() != 0) {
+					pStmt.setInt(5, card.getHousework_level());
+				} else {
+					// デフォルト値１
+					pStmt.setInt(5, 1);
+				}
+				if (card.getNoti_flag() != 0) {
+					pStmt.setInt(6, card.getNoti_flag());
+				} else {
+					// デフォルト値０
+					pStmt.setInt(6, 0);
+				}
+				if (card.getNoti_time() != null) {
+					pStmt.setString(7, card.getNoti_time());
+				} else {
+					// デフォルト値7:00
+					pStmt.setString(7, "7:00");
+				}
+				if (card.getFrequency() != null) {
+					pStmt.setString(8, card.getFrequency());
+				} else {
+					// 必須項目 未入力の場合エラーメッセージを表示
+					pStmt.setString(8, "8");
+				}
+				if (card.getManual() != null) {
+					pStmt.setString(9, card.getManual());
+				} else {
+					pStmt.setString(9, "");
+				}
+				if (card.getFixed_role() != null) {
+					pStmt.setString(10, card.getFixed_role());
+				} else {
+					pStmt.setString(10, "");
+				}
+				if (card.getVariable_role() != null) {
+					pStmt.setString(11, card.getVariable_role());
+				} else {
+					pStmt.setString(11, "");
+				}
+				if (card.getLog() != 0) {
+					pStmt.setInt(12, card.getLog());
+				} else {
+					// デフォルト値0
+					pStmt.setInt(12, 0);
+				}          
 
 
-			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
-				result = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
+			// 結果を返す
+			return result;
 		}
-		// 結果を返す
-		return result;
-	}
-// 更新ここまで
+	// 更新ここまで
 
 // 削除ここから
 	// 引数cardで指定された家事IDのレコードを削除し、成功したらtrueを返す

@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <title>ホーム</title>
 </head>
-
+<div class="wrapper">
 <!-- ヘッダー（ここから） -->
 	<header id="header">
 		<div class="header-inner">
@@ -203,7 +203,7 @@
  </script>
  
 </body>
-
+</div>
 <!-- フッター（ここから） -->
 	<div id="footer">
 		<nav class="navi" >
