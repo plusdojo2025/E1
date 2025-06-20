@@ -21,7 +21,7 @@
     <h2>家事一覧</h2>
     <!--家事タブを押したときはカテゴリごとに検索、表示 -->        
     <div class="tab_container">
-        <form method="GET" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
+    <form method="GET" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
 		  <input type="hidden" name="sortOrder" value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
 		  <button type="submit" name="searchType" value="掃除">掃除</button>
 		  <button type="submit" name="searchType" value="洗濯">洗濯</button>
@@ -51,6 +51,12 @@
             <th>家事名</th>
             <th>削除</th>
         </tr>
+    <!--  <table>
+    <tr class="card_label">
+        <th>負担度</th>
+        <th>家事名</th>
+        <th>削除</th>
+    </tr>-->
 
 <!-- 取得した家事を一覧表示 -->          
 <!--<div class="card_container">-->             
@@ -58,6 +64,7 @@
         	<tr class="card">        
                   <td class="housework_level">
                   <c:out value="${e.housework_level}" />
+                  <input type="hidden" name="housework_level" value="${e.housework_level}">
                   <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
                   </td>
                  <td class="housework_name open-modal"
@@ -75,7 +82,7 @@
                  data-log="${e.log}">
 
                   <!--家事名押下時更新モーダル表示-->
-                  <form method="POST" id="search_result_form" action="<c:url value='/HWUpdateDeleteServlet' />">
+                  <form method="POST" id="updateForm" action="<c:url value='/HWUpdateDeleteServlet' />">
 					        <input type="hidden" name="housework_id" value="${e.housework_id}">
                   <input type="hidden" name="family_id" value="${e.family_id}">
                   <input type="hidden" name="category_id" value="${e.category_id}">
@@ -89,7 +96,8 @@
                  
                  <!-- 家事名のみ表示 -->
                  	
-                     <c:out value="${e.housework_name}" />                       
+                     <c:out value="${e.housework_name}" />
+                     <input type="hidden" name="housework_name" value="${e.housework_name}">                       
                      <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
                  	</form>
                  </td>
@@ -109,18 +117,20 @@
 				    <input type="hidden" name="log" value="${e.log}">
 				    <input type="hidden" name="action_type" value="削除">
 				  </form>
-				  <button class="js-modal-button" data-id="${e.housework_id}">削除</button>
+				  <button class="js-modal-button" data-id="${e.housework_id}">
+				  <img src="<c:url value='/img/trash.svg' />" alt="削除" width="24" height="24">
+				  </button>
 				</td>           
           <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
-          			</tr>        		
-	 		</c:forEach>           		
+          	</tr>        		
+	 	</c:forEach>           		
        	<!--</div>-->
        </table>
         <!-- 家事が追加されるごとに行を追加 -->
     <!-- 検索アイコン表示 -->
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
- <form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
+<!--<form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
 	<input type="hidden" name="housework_id" id="modal-housework-id"/>
 	<input type="hidden" name="family_id"/>
 	<input type="hidden" name="housework_level"/>
@@ -158,7 +168,7 @@
     <input type="radio" name="notification" value="1"> ON
 
     <input type="submit" value="検索">
-</form>
+</form> -->
 
 <!-- 更新モーダルの中身 -->
 <div id="updateModal" class="modal modal-inner" style="display: none;">
@@ -174,7 +184,7 @@
 	  <!-- ファミリーID非表示 -->
 	  <input type="hidden" name="family_id" value="" />
     <label>カテゴリID：</label>
-    <input type="text" name="category_id" id="modal-category-id" value=""/>
+    <input type="number" name="category_id" id="modal-category-id" value=""/>
 	  <label>家事負担度：</label>
 	  <input type="text" name="housework_level" id="modal-housework-level" value="" />
 	  <label>通知有無：</label>
@@ -219,9 +229,9 @@
 <div id="searchModal" class="modal" style="display: none;">
     <div class="modal-content">
  <!-- <span class="close-button">&times;</span> -->
- <button id="closeBtn">×</button>
+ <button id="close-button">×</button>
         <h2>家事検索</h2>
-    <form id="userInput" method="POST" action="<c:url value='/HWSearchServlet' />">
+    <form id="userInput" method="GET" action="<c:url value='/HWSearchServlet' />">
 	<input type="hidden" name="housework_id" id="modal-housework-id"/>
 	<input type="hidden" name="family_id"/>
 	<input type="hidden" name="housework_level"/>
@@ -236,10 +246,10 @@
         <option value="2">洗濯</option>
         <option value="3">料理</option>
         <option value="4">その他</option>
-    </select>
+    </select><br>
 
     <label>家事名:</label>
-    <input type="text" name="housework_name">
+    <input type="text" name="housework_name"><br>
 
     <label>頻度:</label>
     <select name="frequency">
@@ -252,13 +262,13 @@
         <option value="6">土</option>
         <option value="7">日</option>
         <option value="8">不定期</option>
-    </select>
+    </select><br>
 
     <label>通知ON/OFF:</label>
     <input type="radio" name="noti_flag" value="0" checked> OFF
-    <input type="radio" name="noti_flag" value="1"> ON
+    <input type="radio" name="noti_flag" value="1"> ON<br>
 
-    <input type="submit" value="検索">
+    <input type="submit" name="search" value="検索">
 </form>
 </div>
 </div> 
@@ -305,7 +315,7 @@
 	// 検索画面をモーダル表示 	
     const searchModal = document.getElementById("searchModal");
     const openModalBtn = document.getElementById("openModal");
-    const closeBtn = document.querySelector(".close-button");
+    const closeBtn = document.querySelector("close-button");
     const submitBtn = document.getElementById("submitButton");
     const userInput = document.getElementById("userInput");
 
@@ -331,14 +341,15 @@
     document.addEventListener("DOMContentLoaded", function () {
       const updateModal = document.getElementById("updateModal");
       const closeBtn = updateModal.querySelector(".close-button");
+      const updateForm = document.getElementById("updateForm");
+      const updateTrigger = document.getElementById("updateTrigger");       
       //const modalName = document.getElementById("modal-housework-name");
 
       document.querySelectorAll(".open-modal").forEach(function (td) {
         td.addEventListener("click", function () {
-          const name = this.dataset.houseworkName;
-          //const id = this.dataset.houseworkId;
+          //const name = this.dataset.houseworkName;
           //modalName.value = "家事名: " + name;
-          updateModal.style.display = "block";
+          //updateModal.style.display = "block";
 
           // モーダル内に値を格納
           const housework_name = this.dataset.houseworkName;
@@ -356,8 +367,9 @@
           //const log = this.dataset.log;
 
           // 更新モーダルに値を表示
+          console.log(housework_level);
           document.getElementById("modal-housework-name").value = housework_name;
-          document.getElementById("modal-housework-id").value = housework_id;
+          //document.getElementById("modal-housework-id").value = housework_id;
           //document.getElementById("modal-family-id").value = family_id; 
           document.getElementById("modal-category-id").value = category_id;
           document.getElementById("modal-housework-level").value = housework_level;
@@ -365,13 +377,25 @@
           document.getElementById("modal-noti-time").value = noti_time;
           document.getElementById("modal-frequency").value = frequency;
           document.getElementById("modal-manual").value = manual;
-          document.getElementById("modal-fixed-role").value = fixedRole;
-          document.getElementById("modal-variable-role").value = variableRole;
+          document.getElementById("modal-fixed-role").value = fixed_role;
+          document.getElementById("modal-variable-role").value = variable_role;
           //document.getElementById("log").value = log;
 
           updateModal.style.display = "block";
+
+
+
+
         });
       });    
+
+      updateTrigger.addEventListener("click", function() {
+        const confirmed = confirm("この情報で更新しますか？");
+        if (confirmed) {
+          updateForm.submit();
+        }
+      });
+ 
 
       closeBtn.onclick = function () {
         updateModal.style.display = "none";
@@ -384,75 +408,82 @@
     });
     
 //  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
-document.addEventListener("DOMContentLoaded", function () {
-  const updateTrigger = document.getElementById("updateTrigger");
-  const confirmModal = document.getElementById("confirmModal");
-  const confirmOk = document.getElementById("confirmOk");
-  const confirmCancel = document.getElementById("confirmCancel");
-  const updateForm = document.getElementById("updateForm");
-
-  // 更新ボタン押下時 → 確認モーダル表示
-  updateTrigger.addEventListener("click", function () {
-    confirmModal.style.display = "block";
-  });
-
-  // キャンセル → 確認モーダル非表示
-  confirmCancel.addEventListener("click", function () {
-    confirmModal.style.display = "none";
-  });
-
-  // OK → モーダル閉じてフォーム送信
-  confirmOk.addEventListener("click", function () {
-    confirmModal.style.display = "none";
-    updateForm.submit(); // 実際に送信
-  });
-
-  // 背景クリックで閉じる
-  window.addEventListener("click", function (event) {
-    if (event.target === confirmModal) {
-      confirmModal.style.display = "none";
-    }
-  });
-});
+// ↓値確認用コンソール
 
 
-// ごみ箱アイコンを押下時消去確認モーダル表示
-document.addEventListener("DOMContentLoaded", function () {
+// document.addEventListener("DOMContentLoaded", function () {
+//   const updateTrigger = document.getElementById("updateTrigger");
+//   const confirmModal = document.getElementById("confirmModal");
+//   const confirmOk = document.getElementById("confirmOk");
+//   const confirmCancel = document.getElementById("confirmCancel");
+//   const updateForm = document.getElementById("updateForm");
+
+//   // 更新ボタン押下時 → 確認モーダル表示
+//   updateTrigger.addEventListener("click", function () {
+//     confirmModal.style.display = "block";
+//   });
+
+//   // キャンセル → 確認モーダル非表示
+//   confirmCancel.addEventListener("click", function () {
+//     confirmModal.style.display = "none";
+//   });
+
+//   // OK → モーダル閉じてフォーム送信
+//   confirmOk.addEventListener("click", function () {
+//     confirmModal.style.display = "none";
+//     updateForm.submit(); // 実際に送信
+//   });
+
+//   // 背景クリックで閉じる
+//   window.addEventListener("click", function (event) {
+//     if (event.target === confirmModal) {
+//       confirmModal.style.display = "none";
+//     }
+//   });
+// });
+
+	//ごみ箱アイコンを押下時消去確認モーダル表示
+	document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("deleteConfirmModal");
     let currentForm = null;
 
-    // 削除ボタンをクリックしてモーダルを開く
+    // ごみ箱アイコンを押したらモーダルを開く
     document.querySelectorAll(".js-modal-button").forEach(button => {
         button.addEventListener("click", function () {
-            const formId = "delete_form_" + this.getAttribute("data-id");
+            const houseworkId = this.getAttribute("data-id");
+            const formId = "delete_form_" + houseworkId;
             currentForm = document.getElementById(formId);
-            modal.style.display = "block";
+            if (currentForm) {
+                modal.style.display = "block";
+            } else {
+                console.error("フォームが見つかりません:", formId);
+            }
         });
     });
 
-    // Cancelボタンで閉じる
-    document.getElementById("cancelDeleteBtn").onclick = function () {
+    // Cancelボタンでモーダルを閉じる
+    document.getElementById("cancelDeleteBtn").addEventListener("click", function () {
         modal.style.display = "none";
         currentForm = null;
-    };
+    });
 
-    // OKボタンで削除実行
-    document.getElementById("confirmDeleteBtn").onclick = function () {
+    // OKボタンでフォーム送信
+    document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
         if (currentForm) {
             currentForm.submit();
         }
-    };
+    });
 
-    // ×ボタン（クローズボタン）で閉じる
+    // ×（クローズボタン）で閉じる
     const closeBtn = modal.querySelector(".close-button");
     if (closeBtn) {
-        closeBtn.onclick = function () {
+        closeBtn.addEventListener("click", function () {
             modal.style.display = "none";
             currentForm = null;
-        };
+        });
     }
 
-    // モーダル背景クリックでも閉じる（オプション）
+    // 背景クリックで閉じる
     window.addEventListener("click", function (event) {
         if (event.target === modal) {
             modal.style.display = "none";

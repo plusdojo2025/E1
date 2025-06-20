@@ -73,7 +73,7 @@ public class userDAO {
      * @return 挿入が成功した場合はtrue、失敗した場合はfalse
      */
     public boolean insert(user newUser) {
-        String sql = "INSERT INTO user (user_id, user_name, family_id, password, share_goal) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user (user_id, family_id, password, share_goal) VALUES (?, ?, ?, ?)";
         String cQuery = "SELECT COUNT(*) FROM family WHERE family_id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -92,10 +92,9 @@ public class userDAO {
             }
             // パラメータを設定
             pstmt.setString(1, newUser.getUser_id());
-            pstmt.setString(2, newUser.getUser_name());
-            pstmt.setString(3, newUser.getFamily_id());
-            pstmt.setString(4, newUser.getPassword()); // ここにはハッシュ化されたパスワードが渡される想定
-            pstmt.setFloat(5, newUser.getShare_goal());
+            pstmt.setString(2, newUser.getFamily_id());
+            pstmt.setString(3, newUser.getPassword()); // ここにはハッシュ化されたパスワードが渡される想定
+            pstmt.setFloat(4, newUser.getShare_goal());
 
             int rowsAffected = pstmt.executeUpdate(); // SQLを実行
 

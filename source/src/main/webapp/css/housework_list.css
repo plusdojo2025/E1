@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 /* 家事一覧用のｃｓｓ */
-/*html {
+html {
   scroll-behavior: smooth; /* スクロールちらつきを抑える */
-/*}*/
+}
 .tab_container {
     display: flex;
 }
