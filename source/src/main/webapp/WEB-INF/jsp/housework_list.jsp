@@ -86,8 +86,9 @@
                  data-log="${e.log}">
 
                   <!--家事名押下時更新モーダル表示-->
-                  <class="modal-value" onsubmit="return cancelsubmit()" action="<c:url value='/HWUpdateDeleteServlet' />">
-					        <input type="hidden" name="housework_id" value="${e.housework_id}">
+                  <!-- <form id="updateForm" method="POST" onsubmit="return cancelsubmit()" action="<c:url value='/HWUpdateDeleteServlet' />">
+		           -->
+		          <input type="hidden" name="housework_id" value="${e.housework_id}">
                   <input type="hidden" name="family_id" value="${e.family_id}">
                   <input type="hidden" name="category_id" value="${e.category_id}">
                   <input type="hidden" name="noti_flag" value="${e.noti_flag}">
@@ -103,7 +104,7 @@
                      <c:out value="${e.housework_name}" />
                      <input type="hidden" name="housework_name" value="${e.housework_name}">                       
                      <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
-                  </class>
+                  <!-- </form> -->
                  </td>
                  <td class="delete">
 				  <form method="POST" id="delete_form_${e.housework_id}" action="<c:url value='/HWUpdateDeleteServlet' />" style="display:none;">
@@ -219,10 +220,6 @@
       <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
    	  <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
    	  -->
-  		  
-  		  
-  		   		
- 
      	  <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br> 
      	  
       	<label>可変担当者：</label>
