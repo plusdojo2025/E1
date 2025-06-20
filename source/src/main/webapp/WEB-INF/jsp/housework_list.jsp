@@ -36,6 +36,10 @@
 	<form id="sortForm" method="GET" action="<c:url value='/HWSearchServlet' />">
 	  <input type="hidden" name="sortOrder" id="sortOrderInput" value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
 	  <input type="hidden" name="searchType" value="${param.searchType != null ? param.searchType : ''}" />
+      <input type="hidden" name="housework_name" value="${housework_name}">	
+      <input type="hidden" name="category_id" value="${category_id}">	
+      <input type="hidden" name="noti_flag" value="${noti_flag}">	
+      <input type="hidden" name="frequency" value="${frequency}">	
 	</form>
 
     <!-- ソート切替ボタン付きテーブル -->
