@@ -82,7 +82,7 @@
                  data-log="${e.log}">
 
                   <!--家事名押下時更新モーダル表示-->
-                  <form method="POST" id="updateForm" action="<c:url value='/HWUpdateDeleteServlet' />">
+                  <class="modal-value" onsubmit="return cancelsubmit()" action="<c:url value='/HWUpdateDeleteServlet' />">
 					        <input type="hidden" name="housework_id" value="${e.housework_id}">
                   <input type="hidden" name="family_id" value="${e.family_id}">
                   <input type="hidden" name="category_id" value="${e.category_id}">
@@ -99,7 +99,7 @@
                      <c:out value="${e.housework_name}" />
                      <input type="hidden" name="housework_name" value="${e.housework_name}">                       
                      <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
-                 	</form>
+                  </class>
                  </td>
                  <td class="delete">
 				  <form method="POST" id="delete_form_${e.housework_id}" action="<c:url value='/HWUpdateDeleteServlet' />" style="display:none;">
@@ -213,12 +213,12 @@
      	  <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br> 
      	  
       	<label>可変担当者：</label>
-      	  <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
+      	<input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
 	  <!-- ログ非表示 -->
 		<input type="hidden" name="log" id="modal-log" value="" />    	    	
      	
     <!--  <button type="button" id="updateTrigger">更新</button> -->
-        <input type="submit" id="updateTrigger" name="submit" value="更新"/>
+        <input type="submit" id="updateTrigger" name="updateSubmit" value="更新"/>
     </form>
   </div>
 </div>
@@ -326,7 +326,7 @@
     }
 
     window.onclick = function(event) {
-    if (event.target === modal) {
+    if (event.target === searchModal) {
         searchModal.style.display = "none";
     }
     }
@@ -405,6 +405,17 @@
         }
       };
     });
+
+    // function cancelsubmit() {
+    //   const confirmed = window.confirm("この情報で更新しますか？");      
+    //   if (confirmed) {
+    //     const updateForm = document.getElementById("updateForm"); // ← ここで再取得
+    //     console.log((new FormData(updateForm)));
+    //     updateForm.submit();
+    //   }
+    // }
+
+
     
 //  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
 // ↓値確認用コンソール
