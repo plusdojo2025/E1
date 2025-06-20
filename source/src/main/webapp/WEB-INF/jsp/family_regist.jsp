@@ -55,8 +55,8 @@
 <!--  <form method="GET" action="/E1/UserRegistServlet">
 
 </form> -->
-<button type="button" onclick="location.href='/E1/UserRegistServlet'">ファミリーIDをお持ちの方はこちら</button>
-<form action="/E1/LoginServlet" method="get">
+<button type="button" onclick="location.href='/e1/UserRegistServlet'">ファミリーIDをお持ちの方はこちら</button>
+<form action="/e1/LoginServlet" method="get">
     <button type="submit">戻る</button>
 </form>
 </body>
