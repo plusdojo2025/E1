@@ -35,14 +35,14 @@ public class notificationDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-			pStmt.setString(0, "'"+user_id+"'");
-			pStmt.setString(1,"'"+user_id+"'");
+			pStmt.setString(1, user_id);
+			pStmt.setString(2,user_id);
 			LocalDate today=LocalDate.now();
 			long millisToday=today.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
 			Date date=new Date(millisToday);
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 			String d=df.format(date);
-			pStmt.setString(2,d);
+			pStmt.setString(3,d);
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs=pStmt.executeQuery();
@@ -98,7 +98,7 @@ public class notificationDAO {
 			Date date=new Date(millisToday);
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 			String d=df.format(date);
-			pStmt.setString(0,d);
+			pStmt.setString(1,d);
 			
 			// SQL文を実行する
 			pStmt.executeUpdate();
