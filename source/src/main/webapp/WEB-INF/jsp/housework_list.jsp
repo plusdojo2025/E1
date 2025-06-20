@@ -179,27 +179,27 @@
     <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
         <!-- 家事ID非表示 -->
     <label>家事ID：
-    <input type="text" name="housework_id" id="housework-id" value=""/></label>
+    <input type="text" name="housework_id" id="housework-id" value=""/></label><br>
     <label>家事名：</label>
-    <input type="text" name="housework_name" id="modal-housework-name" value="" />
+    <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
 	 <!-- ファミリーID非表示 -->
 	 <input type="hidden" name="family_id" value="" />
 	    <label>カテゴリID：</label>
-	    <input type="number" name="category_id" id="modal-category-id" value=""/>
+	    <input type="number" name="category_id" id="modal-category-id" value=""/><br>
 	  <label>家事負担度：</label>
-	  <input type="text" name="housework_level" id="modal-housework-level" value="" />
+	  <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
 	  <label>通知有無：</label>
 	  <!--ラジオボタンにしたい
       <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
    	  <input type="radio" name="noti_flag" id="modal-noti-flag" value="1"> ON
    	  --> 	  
-	    <input type="text" name="noti_flag" id="modal-noti-flag" value="" /> 
+	    <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
       <label>通知時間：</label>
-      <input type="time" name="noti_time" id="modal-noti-time" value=""/>
+      <input type="time" name="noti_time" id="modal-noti-time" value=""/><br>
       <label>家事頻度：</label>
-		<input type="text" name="frequency" id="modal-frequency" value="" />
+		<input type="text" name="frequency" id="modal-frequency" value="" /><br>
   		<label>メモ（マニュアルなど）：</label>
-	  	<input type="text" name="manual" id="modal-manual" value="" />
+	  	<input type="text" name="manual" id="modal-manual" value="" /><br>
   		  
     	<label>固定担当者：</label>
     	  <!-- 担当者と通知はラジオボタンにしたい
@@ -210,10 +210,10 @@
   		  
   		   		
  
-     	  <input type="text" name="fixed_role" id="modal-fixed-role" value="" /> 
+     	  <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br> 
      	  
       	<label>可変担当者：</label>
-      	  <input type="text" name="variable_role" id="modal-variable-role" value="" />
+      	  <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
 	  <!-- ログ非表示 -->
 		<input type="hidden" name="log" id="modal-log" value="" />    	    	
      	
