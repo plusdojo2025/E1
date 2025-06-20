@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="POST"  id="family_regist_form" action="/E1/FamilyRegistServlet">
+<form method="POST"  id="family_regist_form" action="${pageContext.request.contextPath}/FamilyRegistServlet">
 	<table>
 		<tr>
 			<td>
