@@ -15,7 +15,7 @@
 <img src="${pageContext.request.contextPath}/img/logo_lightblue.png" alt="カジミエールのロゴ" id="kajimieru">
 <div id="container">
 <h2 id="login_title">ログイン</h2>
-<form method="POST"  id="login_form" action="/E1/LoginServlet">
+<form method="POST"  id="login_form" action="${pageContext.request.contextPath}/LoginServlet">
 	<table id="login_content">
 		<tr>
 			<td>
@@ -41,10 +41,10 @@
 		</tr>
 	</table>
 </form>
-<form method="GET" action="/E1/FamilyRegistServlet">
+<form method="GET" action="${pageContext.request.contextPath}/FamilyRegistServlet">
         <input type="submit" value="IDをお持ちでない方はこちら" id="no_id">
 </form>
-<form method="GET" action="/E1/UserDeleteServlet">
+<form method="GET" action="${pageContext.request.contextPath}/UserDeleteServlet">
         <input type="submit" value="アカウント削除はこちら" id="no_account">
 </form>
 </div>
