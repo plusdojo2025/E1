@@ -337,9 +337,9 @@
     }
     }
 
-    submitBtn.onclick = function() {
+/*    submitBtn.onclick = function() {
     alert("入力 " + userInput.value);
-    }
+    } */
     
 //  家事名押下時のスクリプト 家事カードを押下時更新画面をモーダル表示 
     document.addEventListener("DOMContentLoaded", function () {
