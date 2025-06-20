@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.notificationDAO;
+import dto.loginuser;
 import dto.notification;
 
 /**
@@ -30,7 +31,9 @@ public class NotificationServlet extends HttpServlet {
 		HttpSession session=request.getSession(false);
 		
 		// 通知表示処理を行う
-		String user_id=(String) session.getAttribute("user_id");
+		Object attribute=session.getAttribute("user_id");
+		loginuser loginuser=(loginuser) attribute; 
+		String user_id=loginuser.getUser_id();
 		notificationDAO notiDao = new notificationDAO();
 		//notiDao.delete(user_id);
 		List<notification> notiList = notiDao.select(user_id);

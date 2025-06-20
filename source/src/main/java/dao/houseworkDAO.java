@@ -413,8 +413,56 @@ public class houseworkDAO {
 	    return cardList2;
 	}
 // 検索試作おわり
+	public List<housework> searchHouseworkSorted(String category_id, String housework_name, String frequency, String noti_flag, String sortOrder) {
+	    List<housework> cardList = new ArrayList<>();
+	    Connection conn = null;
 
+	    try {
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password");
 
+	        String sql = "SELECT * FROM housework WHERE category_id = ? AND housework_name LIKE ? AND frequency LIKE ? AND noti_flag = ?"
+	                   + " ORDER BY housework_level " + ("desc".equalsIgnoreCase(sortOrder) ? "DESC" : "ASC");
+
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1,Integer.parseInt(category_id));
+	        pstmt.setString(2, "%" + (housework_name == null ? "" : housework_name) + "%");
+	        pstmt.setString(3, "%" + frequency + "%");
+	        pstmt.setInt(4, Integer.parseInt(noti_flag));
+
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	            cardList.add(new housework(
+	                rs.getInt("housework_id"),
+	                rs.getString("housework_name"),
+	                rs.getString("family_id"),
+	                rs.getInt("category_id"),
+	                rs.getInt("housework_level"),
+	                rs.getInt("noti_flag"),
+	                rs.getString("noti_time"),
+	                rs.getString("frequency"),
+	                rs.getString("manual"),
+	                rs.getString("fixed_role"),
+	                rs.getString("variable_role"),
+	                rs.getInt("log")
+	            ));
+	        }
+	        rs.close();
+	        pstmt.close();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return cardList;
+	}
 	// 更新ここから
 	    // 引数cardで指定されたレコードを更新し、成功したらtrueを返す
 		public boolean update(housework card) {
