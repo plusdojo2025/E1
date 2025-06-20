@@ -31,10 +31,9 @@ public class HomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// セッションを取得
 		HttpSession session = request.getSession();
-		
-		/*if (session.getAttribute("id") == null) {
-	    response.sendRedirect(request.getContextPath() + "/LoginServlet");
-	    return;
+		/*if (session.getAttribute("user_id") == null) {
+		    response.sendRedirect(request.getContextPath() + "/LoginServlet");
+		    return;
 		}*/
 		
 		request.setCharacterEncoding("UTF-8");
@@ -45,8 +44,7 @@ public class HomeServlet extends HttpServlet {
 					String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
 		 Calendar cal = Calendar.getInstance();
 		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-		 String family_id = "1001";
-		//String familyId = (String) session.getAttribute("family_id");
+		String family_id = (String) session.getAttribute("family_id");
 		
 		 today_houseworkDAO td_hwDAO = new today_houseworkDAO();
 		 today_memoDAO memoDAO = new today_memoDAO();
@@ -80,10 +78,9 @@ public class HomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		
-		 String user_id = "ren0712";
-		 String family_id = "1001";
-		//String userId = (String) session.getAttribute("user_id");
-		//String familyId = (String) session.getAttribute("family_id"); 
+		 
+		String user_id = (String) session.getAttribute("user_id");
+		String family_id = (String) session.getAttribute("family_id"); 
 
 		String id = request.getParameter("housework_id");
 		String text = request.getParameter("memo");
@@ -100,6 +97,9 @@ public class HomeServlet extends HttpServlet {
 					}
 			}
 		}else if(request.getParameter("submit").equals("家事追加")) {
+			if (id == null) {
+				id = "0";
+			}
 			int housework_id = Integer.parseInt(id);
 			if(td_hwDAO.insert(housework_id)) {
 				response.sendRedirect(request.getContextPath() + "/HomeServlet");

@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.user; // DTOのuserクラスをインポート
 
@@ -71,7 +73,7 @@ public class userDAO {
      * @return 挿入が成功した場合はtrue、失敗した場合はfalse
      */
     public boolean insert(user newUser) {
-        String sql = "INSERT INTO user (user_id, user_name, family_id, password, share_goal) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user (user_id, family_id, password, share_goal) VALUES (?, ?, ?, ?)";
         String cQuery = "SELECT COUNT(*) FROM family WHERE family_id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -90,10 +92,9 @@ public class userDAO {
             }
             // パラメータを設定
             pstmt.setString(1, newUser.getUser_id());
-            pstmt.setString(2, newUser.getUser_name());
-            pstmt.setString(3, newUser.getFamily_id());
-            pstmt.setString(4, newUser.getPassword()); // ここにはハッシュ化されたパスワードが渡される想定
-            pstmt.setFloat(5, newUser.getShare_goal());
+            pstmt.setString(2, newUser.getFamily_id());
+            pstmt.setString(3, newUser.getPassword()); // ここにはハッシュ化されたパスワードが渡される想定
+            pstmt.setFloat(4, newUser.getShare_goal());
 
             int rowsAffected = pstmt.executeUpdate(); // SQLを実行
 
@@ -107,6 +108,32 @@ public class userDAO {
             return false; // 挿入失敗
         }
     }
+    
+    
+    
+    public List<user> getUsersByFamilyid(String familyid) {
+    	
+    	
+    	//登録画面用
+	    List<user> users = new ArrayList<>();
+	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+    			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+    			"root", "password")) {
+	        String sql = "SELECT user_id FROM user WHERE family_id = ?";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, familyid);
+	        ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            users.add(new user(rs.getString("user_id")));
+	        }
+	        rs.close(); 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return users;
+	}
+    
+    
     public boolean deleteUser(user newUser) {
         String sql = "DELETE FROM user WHERE user_id = ? AND password = ?";
         Connection conn = null;

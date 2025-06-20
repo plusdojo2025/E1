@@ -1,1 +1,40 @@
 @charset "UTF-8";
+
+/*モバイル対応*/
+@media(max-width: 767px){
+	
+	.wrapper {
+    margin-top: 150px; /* ヘッダーにかぶらないように余白を取る */
+  	}
+
+	#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(255,127,0);
+    color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px;
+    z-index: 1000;
+    height: auto; /* 高さ固定を解除 */
+  }
+
+	
+	#logo {
+	  height: auto;  
+	  width: 100%;
+	  margin: 0;
+	  text-align: center;
+	}
+	
+	#logo img {
+    width: 80%;
+    height: auto;
+    max-width: 300px; /* 最大幅を制限 */
+  }
+	
+}
