@@ -42,10 +42,10 @@
 	</table>
 </form>
 <form method="GET" action="/E1/FamilyRegistServlet">
-        <input type="submit" value="IDをお持ちでない方はこちら">
+        <input type="submit" value="IDをお持ちでない方はこちら" id="no_id">
 </form>
 <form method="GET" action="/E1/UserDeleteServlet">
-        <input type="submit" value="アカウント削除はこちら">
+        <input type="submit" value="アカウント削除はこちら" id="no_account">
 </form>
 </div>
   <!-- メイン（ここまで） -->
