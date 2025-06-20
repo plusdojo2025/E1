@@ -1,1 +1,131 @@
 @charset "UTF-8";
+html {
+    font-size: 16px;
+    font-family: "けいふぉんと";
+    background-color: rgba(255,229,204,.3);
+}
+
+.login_input {
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    display: block;
+    margin: 9px auto;
+    font-size: 17px;
+    color: #5e5e5e;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255,229,204,.7);
+    transition: all 0.2s ease-in-out;
+}
+
+.login_input:focus {
+    outline: none;
+    box-shadow: 3px 3px 10px #333;
+    background: rgba(255,229,204,.18);
+}
+
+#kaji_logo {
+    width: 20%;
+    height: auto;
+    margin-top: 200px;
+    margin-left: 390px;
+}
+
+#kajimieru {
+    width: 50%;
+    height: auto;
+    margin-top: 0px;
+    margin-left: 240px;
+}
+
+#container {
+    position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 70%;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
+}
+
+#login_title {
+    text-align: center;
+    padding: 50px;
+    color: #FF7F00;
+    font-size: 32px;
+    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+}
+
+#login_content {
+    margin-left: 175px;
+}
+
+#error_message {
+    color: red;
+}
+#login_btn {
+    margin-top: 50px;
+    margin-left: 100px;
+    text-align: center;
+    background: #FF7F00;
+    border-radius: 50px;
+    border-color: #A6CAEC;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 260px;
+    padding: 10px 25px;
+    color: #FFFFFF;
+    transition: 0.3s ease-in-out;
+    font-weight: 500;
+}
+
+#no_id {
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-decoration: none; /* 下線を消したい場合 */
+    margin-top: 40px;
+    margin-left:230px;
+    color: #FF7F00;
+}
+#no_account {
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-decoration: none; /* 下線を消したい場合 */
+    margin-top: 20px;
+    margin-left:250px;
+    color: #FF7F00;
+    margin-bottom: 50px;
+}
+#no_id:active{
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-decoration: none; /* 下線を消したい場合 */
+    margin-top: 20px;
+    margin-left:230px;
+    color: #A6CAEC;
+}
+#no_account:active{
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-decoration: none; /* 下線を消したい場合 */
+    margin-top: 20px;
+    margin-left:250px;
+    color: #A6CAEC;
+}
+

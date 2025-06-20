@@ -1,8 +1,11 @@
 @charset "UTF-8";
+/*モバイル対応*/
+@media(max-width: 767px){
 /*本日の家事のcss*/
 #housework{
 	border:1px solid #000000;
-	margin:100px 300px;
+	margin:10px 0;
+	height: 300px;
 }
 #housework_list{
 	text-align:center;
@@ -24,7 +27,7 @@
   background: gray;
   border-radius: 50%;
   box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, .24);
-  border: 1px solid orange;
+  border: 1px solid rgb(255,127,0);
   font-size: 10px;
   line-height: 1.6;
   padding: 5px 9px;
@@ -76,17 +79,18 @@
   visibility: hidden;
 }
 .button {
-  background: orange;
+  background: rgb(255,127,0);
   border-radius: 50%;
   box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, .24);
-  border: 1px solid orange;
+  border: 1px solid rgb(255,127,0);
   font-size: 16px;
   line-height: 1.6;
   padding: 9px 15px;
   color: #fff;
   text-align: right;
   cursor: pointer;
-  margin: 0;
+  margin-right: 0px;
+	margin-top: 165px
 }
 
 /* グレー背景 */
@@ -106,7 +110,7 @@
   margin-right: auto;
   margin-left: auto;
   width: 40%;
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .modal__inner {
@@ -142,7 +146,7 @@
   position: relative;
   width: 39px;
   height: 39px;
-  background: orange;
+  background: rgb(255,127,0);
   border-radius: 50%;
   padding: 0;
   border: transparent;
@@ -166,4 +170,5 @@
 
 .close-button span:nth-child(2) {
   transform: rotate(-45deg) translate(1px, -1px);
+}
 }

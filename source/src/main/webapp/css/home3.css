@@ -1,4 +1,6 @@
 @charset "UTF-8";
+/*モバイル対応*/
+@media(max-width: 767px){
 .layer3 {
   background: rgba(0, 0, 0, .2);
   width: 100%;
@@ -37,10 +39,10 @@
   visibility: hidden;
 }
 .button3 {
-  background: orange;
+  background: rgb(255,127,0);
   border-radius: 50%;
   box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, .24);
-  border: 1px solid orange;
+  border: 1px solid rgb(255,127,0);
   font-size: 10px;
   line-height: 1.6;
   padding: 5px 9px;
@@ -102,7 +104,7 @@
   position: relative;
   width: 39px;
   height: 39px;
-  background: orange;
+  background: rgb(255,127,0);
   border-radius: 50%;
   padding: 0;
   border: transparent;
@@ -126,4 +128,5 @@
 
 .close-button3 span:nth-child(2) {
   transform: rotate(-45deg) translate(1px, -1px);
+}
 }

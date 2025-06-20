@@ -9,19 +9,19 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/home2.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/home3.css' />">
-<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
 <title>ホーム</title>
 </head>
 
 <!-- ヘッダー（ここから） -->
 	<header id="header">
-		<div class="header-inner">
+	
 		<h1 id="logo">
 	      <a href="/E1/HomeServlet">
 	      <img src="img/logo_lightblue.png"  alt="カジミエール">
 	    </a>
 	    </h1>
-		</div>
+		
 	</header>
 <!-- ヘッダー（ここまで） -->
 
@@ -201,7 +201,7 @@
 	    }
 	  });
  </script>
- 
+ </div>
 </body>
 
 <!-- フッター（ここから） -->

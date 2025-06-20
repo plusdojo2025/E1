@@ -1,23 +1,47 @@
 @charset "UTF-8";
 
-#header {
-  align-items: center;  /* ロゴと日付の縦位置そろえる */
-  /*gap: 40px;  ロゴと日付の間に余白 */
-  position: fixed;/* ウィンドウを基準に画面に固定 */
-	top: 0;
-	left: 0;
-	width: 100%;
-  
-	background-color: rgb(255,127,0);
-	color: #fff;
-  padding: 30px 50px; /* ヘッダーに上下左右それぞれ余白を指定 */
-  box-sizing: border-box; /* padding分を含んで幅を100%にするため */
-  display: flex; /* 中の要素を横並びにする */
-  z-index: 1000; /* 他の要素の上に表示 */
-  height: 130px; /* ロゴの高さに合わせて調整 */
-}
-
 /*モバイル対応*/
 @media(max-width: 767px){
+	html {
+    font-size: 16px;
+    font-family: "けいふぉんと";
+    background-color: rgba(255,229,204,.3);
+	}
+	
+	.wrapper {
+    margin-top: 150px; /* ヘッダーにかぶらないように余白を取る */
+	background-color: #F5DEB3	
+  	}
+
+	#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #F5DEB3;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7px 5px;
+    z-index: 1000;
+    height: auto; /* 高さ固定を解除 */
+	border-bottom: 6px solid rgb(255,127,0); /* 線の太さと色を調整 */
+
+  }
+
+	
+	#logo {
+	  height: auto;  
+	  width: 100%;
+	  margin: 0;
+	  text-align: center;
+	}
+	
+	#logo img {
+    width: 80%;
+    height: auto;
+    max-width: 300px; /* 最大幅を制限 */
+  }
 	
 }
