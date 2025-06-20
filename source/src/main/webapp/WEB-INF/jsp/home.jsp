@@ -5,12 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/home2.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/home3.css' />">
+<link rel="stylesheet" type="text/css" href="css/common.css">
 <title>ホーム</title>
 </head>
+
+<!-- ヘッダー（ここから） -->
+	<header id="header">
+		<div class="header-inner">
+		<h1 id="logo">
+	      <a href="/E1/HomeServlet">
+	      <img src="img/logo_lightblue.png"  alt="カジミエール">
+	    </a>
+	    </h1>
+		</div>
+	</header>
+<!-- ヘッダー（ここまで） -->
+
 <body>
+<div class="wrapper">
 <div id="housework">
 <div id="housework_list">
 	<h2>本日の家事</h2>
@@ -187,5 +203,19 @@
  </script>
  
 </body>
+
+<!-- フッター（ここから） -->
+	<div id="footer">
+		<nav class="navi" >
+			<ul id="nav">
+				<li><a href="/webapp/HomeServlet">ホーム</a></li>
+		        <li><a href="/webapp/HWSearchServlet">一覧</a></li>
+		        <li><a href="/webapp/HWRegistServlet">登録</a></li>
+		        <li><a href="/webapp/GachaServlet">くじ</a></li>
+		        <li><a href="/webapp/AnalysisServlet">分析</a></li>
+			</ul>
+		</nav>
+	</div>
+<!-- フッター（ここまで） -->
 
 </html>

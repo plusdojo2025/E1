@@ -1,5 +1,4 @@
 package servlet;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class HWRegistServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
@@ -57,11 +56,10 @@ public class HWRegistServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 			
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
@@ -80,13 +78,13 @@ public class HWRegistServlet extends HttpServlet {
 		}
 		
 		// **バリデーションフラグ**
-				boolean hasValidationError = false; 
+				boolean hasValidationError = false;
 				// リクエストパラメータを取得
 				String housework_name = request.getParameter("housework_name");
 				// category_idは必須ではないため、ここではバリデーションの対象外
 				int category_id = parseIntOrDefault(request.getParameter("category_id"), 0);
 				
-				String housework_level_str = request.getParameter("housework_level"); 
+				String housework_level_str = request.getParameter("housework_level");
 				int housework_level = parseIntOrDefault(housework_level_str, 0); // hiddenフィールドから取得
 				
 				// noti_flagとnoti_timeは必須ではないため、ここではバリデーションの対象外
@@ -98,9 +96,7 @@ public class HWRegistServlet extends HttpServlet {
 				String fixed_role = request.getParameter("fixed_role");
 				String variable_role = request.getParameter("variable_role");
 				// logも必須ではないため、ここではバリデーションの対象外
-				int log = parseIntOrDefault(request.getParameter("log"), 0); 
-
-
+				int log = parseIntOrDefault(request.getParameter("log"), 0);
 		String[] days = request.getParameterValues("days");
 		String a = "";
 		
@@ -109,39 +105,35 @@ public class HWRegistServlet extends HttpServlet {
 				if (housework_name == null || housework_name.trim().isEmpty()) {
 				    hasValidationError = true;
 				}
-
 				// 2. 頻度
 				// 「選択してください」(value="") が選ばれている場合、または
 				// 「曜日を選択」(value="1") が選ばれているのに曜日が一つも選択されていない場合
-				if (frequency_param == null || frequency_param.trim().isEmpty() || 
+				if (frequency_param == null || frequency_param.trim().isEmpty() ||
 				    ("1".equals(frequency_param) && (days == null || days.length == 0))) {
 				    hasValidationError = true;
 				}
 				
 				// 3. 負担度
 				// housework_levelが0の場合（星が一つも選択されていない状態）
-				if (housework_level == 0) { 
+				if (housework_level == 0) {
 				    hasValidationError = true;
 				}
 				
 				// **バリデーションエラーがあった場合**
 				if (hasValidationError) {
 				    // エラーメッセージをリクエスト属性に設定
-				    request.setAttribute("errorMessage", "必須項目が入力されていません"); 
-
+				    request.setAttribute("errorMessage", "必須項目が入力されていません");
 				    // userListを再度取得してリクエスト属性に設定 (JSPでプルダウンを表示するため)
 				    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
 				    request.setAttribute("userList", userList);
-
 				    // 登録ページにフォワードしてエラーメッセージを表示し、処理を終了
 				    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_regist.jsp");
 				    dispatcher.forward(request, response);
 				    return; // ここで処理を終了し、DB登録に進まないようにする
 				}
-
 				// **バリデーション成功: データベース登録処理へ**
 				// DTOに渡す最終的なfrequencyの値を生成
-				String finalFrequencyValueForDB = ""; 
+				String finalFrequencyValueForDB = "";
 				if ("0".equals(frequency_param)) { // 「毎日」の場合
 				    finalFrequencyValueForDB = "0";
 				} else if ("8".equals(frequency_param)) { // 「不定期」の場合
@@ -149,17 +141,16 @@ public class HWRegistServlet extends HttpServlet {
 				} else { // 「曜日を選択」(value="1") が選ばれている場合
 				    // 曜日の値はdays配列に入っているので、カンマ区切りで結合
 				    if (days != null && days.length > 0) {
-				        finalFrequencyValueForDB = String.join(",", days); 
+				        finalFrequencyValueForDB = String.join(",", days);
 				    } else {
 		                // ここはバリデーションで弾かれるはずだが、念のため空文字列にしておく
-		                finalFrequencyValueForDB = ""; 
+		                finalFrequencyValueForDB = "";
 		            }
 				
 				 // DTOにセット
 					// finalFrequencyValueForDB を渡す
 					housework hw = new housework(0, housework_name, familyId, category_id, housework_level,
-					    noti_flag, noti_time, finalFrequencyValueForDB, manual, fixed_role, variable_role, log); 
-
+					    noti_flag, noti_time, finalFrequencyValueForDB, manual, fixed_role, variable_role, log);
 					// 登録処理を行う
 					houseworkDAO hDao = new houseworkDAO();
 					
@@ -169,29 +160,12 @@ public class HWRegistServlet extends HttpServlet {
 			 	dispatcher.forward(request, response);
 					} else { // 登録失敗 (DBエラーなど)
 					    // 登録失敗時もエラーメッセージを表示してJSPに戻す
-					    request.setAttribute("errorMessage", "家事の登録に失敗しました。再度お試しください。"); 
-					    
+					    request.setAttribute("errorMessage", "家事の登録に失敗しました。再度お試しください。");
+					   
 					    // userListを再度取得してリクエスト属性に設定 (JSPでプルダウンを表示するため)
 					    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
 					    request.setAttribute("userList", userList);
-
 					    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_regist.jsp");
 					    dispatcher.forward(request, response);
 					}
 				}}}
-		
-		
-		
-	
-		
-		
-		
-	
-
-
-
-
-
-		
-
-

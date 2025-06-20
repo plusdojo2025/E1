@@ -5,15 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-   
 <title>登録</title>
 <link rel="stylesheet" type="text/css" href="css/housework_regist.css">
-
 </head>
 	<body>
-
-
 <!-- メイン（ここから） -->
 	<main>
 		<h2>家事登録（新しい家事を入力してください）</h2>
@@ -27,7 +22,7 @@
 			<option value="3">料理</option>
 			<option value="4">その他</option>
 			</select>
-		</label>	 
+		</label>	
 			
 		<!-- 家事名 -->		
 		<label>家事名(必須)
@@ -37,7 +32,7 @@
 		<!-- 頻度 -->	 	
 		 				  		
 		<label>頻度（必須）
-		 
+		
             <select id="daySelection" name="frequency">
             <!-- 頻度の値（送信用） -->
 			
@@ -46,7 +41,6 @@
                 <option value="0">毎日</option>
                 <option value="8">不定期</option>
             </select>
-     
 		</label>
 		<br>
 		
@@ -55,26 +49,20 @@
 		
             <input type="checkbox" id="mon" name="days" value="1" class="day-checkbox">
             <label for="mon" class="day-label">月</label>
-
             <input type="checkbox" id="tue" name="days" value="2" class="day-checkbox">
             <label for="tue" class="day-label">火</label>
-
             <input type="checkbox" id="wed" name="days" value="3" class="day-checkbox">
             <label for="wed" class="day-label">水</label>
-
             <input type="checkbox" id="thu" name="days" value="4" class="day-checkbox">
             <label for="thu" class="day-label">木</label>
-
             <input type="checkbox" id="fri" name="days" value="5" class="day-checkbox">
             <label for="fri" class="day-label">金</label>
-
             <input type="checkbox" id="sat" name="days" value="6" class="day-checkbox">
             <label for="sat" class="day-label">土</label>
-
             <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
             <label for="sun" class="day-label">日</label>
         </div>
-		  
+		 
 				
 		<!-- 負担度 -->		
 		<label>負担度
@@ -101,7 +89,6 @@
 		
 		<!-- モーダルを開くボタン -->
 		<button type="button" onclick="openModal()">マニュアルを書く</button>
-
 		<!-- 実際のフォームの中に隠しフィールドとして保持 -->
 		<input type="hidden" name="manual" id="manual">
 		<br>
@@ -136,7 +123,7 @@
 			<input type="submit" name="regist" value="登録"><br>
 			<span id="error_message"></span>
         </td>
-  		<c:out value="${errorMessage}"/>    
+  		<c:out value="${errorMessage}"/>
 	
 				
 		</form>
@@ -151,7 +138,6 @@
 	  star.addEventListener('click', () => {
 	    const value = parseInt(star.dataset.value);
 	    burdenInput.value = value; // hiddenに保存
-
 	    // 星を色付け
 	    stars.forEach(s => {
 	      if (parseInt(s.dataset.value) <= value) {
@@ -162,7 +148,6 @@
 	    });
 	  });
 	});
-
 		//担当者決定方法によるプルダウン表示切替
 		document.querySelectorAll('input[name="fixed_role"]').forEach(radio => {
 		  radio.addEventListener('change', () => {
@@ -184,7 +169,6 @@
             const selection = this.value;
             const daysContainer = document.getElementById('daysContainer');
             const checkboxes = document.querySelectorAll('.day-checkbox');
-
             if (selection === "1") {
                 // 「曜日を選択」の場合：ボタンを表示し、選択状態をリセット
                 daysContainer.classList.remove('hidden');
@@ -210,7 +194,6 @@
         document.getElementById('form').addEventListener('submit', function(event) {
             const daySelection = document.getElementById('daySelection').value;
             const frequencyInput = document.getElementById('frequency');
-
             if (daySelection === "0" || daySelection === "8") {
                 frequencyInput.value = daySelection;
             } else if (daySelection === "1") {
@@ -219,7 +202,6 @@
                 frequencyInput.value = selectedDays.join(",");
             }
         });
-
         // フォーム送信時の処理
         document.getElementById('form').addEventListener('submit', function(event) {
             const selectedDays = Array.from(document.querySelectorAll('.day-checkbox:checked'))
@@ -230,17 +212,14 @@
         });
 	
 		
-       
 		
         //モーダル
         function openModal() {
             document.getElementById('memoModal').style.display = 'block';
         }
-
         function closeModal() {
             document.getElementById('memoModal').style.display = 'none';
         }
-
         function saveMemo() {
             var memo = document.getElementById('memoInput').value;
             document.getElementById('manual').value = memo;
@@ -251,17 +230,14 @@
         document.getElementById("noti-off").addEventListener("change", function() {
           document.getElementById("noti_time").classList.add("noti-hidden");
         });
-
         document.getElementById("noti-on").addEventListener("change", function() {
           document.getElementById("noti_time").classList.remove("noti-hidden");
         });
-
         // ページ読み込み時に状態を正しく初期化（特に戻ってきたとき対策）
         window.addEventListener("DOMContentLoaded", () => {
           const isNotiOn = document.getElementById("noti-on").checked;
           document.getElementById("noti_time").classList.toggle("noti-hidden", !isNotiOn);
         });
-        
      // 通知ON/OFFに応じて通知時間の表示切替
         document.querySelectorAll('input[name="noti_flag"]').forEach(radio => {
           radio.addEventListener('change', () => {
@@ -273,7 +249,6 @@
             }
           });
         });
-
         // 初期状態の制御（ページ読み込み時）
         window.addEventListener("DOMContentLoaded", () => {
           const timeInput = document.getElementById('noti_time');
@@ -281,8 +256,6 @@
           timeInput.classList.toggle('noti-hidden', !isOn);
         });
 	
-        
-        
 	</script>
 	
 	
@@ -292,4 +265,3 @@
 	
 	
 </html>
-		
