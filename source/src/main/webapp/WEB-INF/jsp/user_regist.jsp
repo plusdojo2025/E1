@@ -9,7 +9,7 @@
 <body>
 <span>${result}</span>
 <span>${UserErrorMessage}</span>
-<form method="POST"  id="user_regist_form" action="/E1/UserRegistServlet">
+<form method="POST"  id="user_regist_form" action="${pageContext.request.contextPath}/UserRegistServlet">
 	<table>
 		<tr>
 			<td>
@@ -78,7 +78,7 @@
 		</tr>
 	</table>
 </form>
-<form action="/E1/LoginServlet" method="get">
+<form action="${pageContext.request.contextPath}/LoginServlet" method="get">
     <button type="submit">戻る</button>
 </form>
 </body>

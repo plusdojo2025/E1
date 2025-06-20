@@ -75,7 +75,7 @@ public class notificationDAO {
 		return notiList;
 	}
 	
-	public boolean delete(String user_id) {
+	public boolean delete() {
 		Connection conn=null;
 		boolean result=false;
 		
@@ -139,7 +139,7 @@ public class notificationDAO {
 			PreparedStatement pStmt=conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-			pStmt.setString(0, "'"+user_id+"'");
+			pStmt.setString(1, user_id);
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs=pStmt.executeQuery();
