@@ -134,7 +134,7 @@
     <!-- 検索アイコン表示 -->
     <!-- 検索アイコン押下時モーダル画面を表示 -->
 <button id="openModal">検索</button>
- <form id="searchForm" method="POST" action="<c:url value='/HWSearchServlet' />">
+ <form id="searchForm" method="GET" action="<c:url value='/HWSearchServlet' />">
 	<input type="hidden" name="housework_id" id="modal-housework-id"/>
 	<input type="hidden" name="family_id"/>
 	<input type="hidden" name="housework_level"/>
