@@ -255,10 +255,17 @@
           const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
           timeInput.classList.toggle('noti-hidden', !isOn);
         });
+        
+        
+        window.addEventListener("load", function() {
+        	  if (!localStorage.getItem("loaded")) {
+        	    localStorage.setItem("loaded", "true");
+        	    window.location.reload();
+        	  }
+        });
+
 	
 	</script>
-	
-	
 	
 	
 	</body>
