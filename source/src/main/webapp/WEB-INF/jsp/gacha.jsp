@@ -127,8 +127,8 @@
 </svg>
 </div>
 </section>
-<p id="none"></p>
 </div>
+<p id="none"></p>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
 </script>

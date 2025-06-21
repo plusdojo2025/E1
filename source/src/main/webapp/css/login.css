@@ -1,14 +1,16 @@
 @charset "UTF-8";
 html {
-    font-size: 16px;
+	font-size: 16px;
     font-family: "けいふぉんと";
+    color: #003366;
     background-color: rgba(255,229,204,.3);
+	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
 }
 
 .login_input {
     text-decoration: none;
     position: relative;
-    width: 100%;
+    width: 350px;
     display: block;
     margin: 9px auto;
     font-size: 17px;
@@ -20,11 +22,11 @@ html {
     transition: all 0.2s ease-in-out;
 }
 
-.login_input:focus {
+/*.login_input:focus {
     outline: none;
     box-shadow: 3px 3px 10px #333;
     background: rgba(255,229,204,.18);
-}
+}*/
 
 #kaji_logo {
     width: 20%;
@@ -47,7 +49,7 @@ html {
     right: 0;
     bottom: 0;
     margin: auto;
-    width: 70%;
+    width: 700px;
     height: auto;
     border: #5e5e5e;
     border-radius: 100px;

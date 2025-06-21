@@ -5,51 +5,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/user_regist.css">
 </head>
 <body>
+<img src="${pageContext.request.contextPath}/img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="${pageContext.request.contextPath}/img/logo_lightblue.png" alt="カジミエールのロゴ" id="kajimieru">
 <span>${result}</span>
-<span>${UserErrorMessage}</span>
+<div id="container">
 <form method="POST"  id="user_regist_form" action="${pageContext.request.contextPath}/UserRegistServlet">
-	<table>
+<h2>ユーザー登録</h2>
+	<table id="user_content">
 		<tr>
 			<td>
 				<label><br>ファミリーID
-				<input type="text" name="family_id" placeholder="半角英数記号10文字以内" maxlength=10 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="text" name="family_id" class="user_input" placeholder="半角英数記号10文字以内" maxlength=10 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="fami_pass" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="fami_pass" class="user_input" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>ユーザーID
-				<input type="text" name="user_id" placeholder="半角英数記号10文字以内" maxlength=10 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="text" name="user_id" class="user_input" placeholder="半角英数記号10文字以内" maxlength=10 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>ニックネーム
-				<input type="text" name="user_name" placeholder="10文字以内" maxlength=10 required>
+				<input type="text" name="user_name" class="user_input" placeholder="10文字以内" maxlength=10 required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード
-				<input type="password" name="password" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="password" class="user_input" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード(確認)
-				<input type="password" name="confirmPassword" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="confirmPassword" class="user_input" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
@@ -73,7 +77,8 @@
 		<tr>
 			<td>
 				<span id="error_message">${errorMessage}</span>
-				<input type="submit" name="submit" value="登録">
+				<span id="user_error">${UserErrorMessage}</span>
+				<input type="submit" name="submit" value="登録" id="user_btn">
 			</td>
 		</tr>
 	</table>
@@ -81,5 +86,6 @@
 <form action="${pageContext.request.contextPath}/LoginServlet" method="get">
     <button type="submit">戻る</button>
 </form>
+</div>
 </body>
 </html>

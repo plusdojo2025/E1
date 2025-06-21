@@ -1,14 +1,21 @@
 @charset "UTF-8";
 
+html {
+	font-size: 16px;
+    font-family: "けいふぉんと";
+    color: #003366;
+    background-color: rgba(255,229,204,.3);
+	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
+}
+
 #gacha{
-	border:1px solid #000000;
-	margin:300px;
+	margin-right:590px;
 }
 
   .wrapper {
   position: relative;
   width: 100%;
-  height: 100lvh;
+  height: 1500px;
   min-height: 300px;
 }
 
@@ -19,14 +26,17 @@
   left: 0;
   right: 0;
   width: 210px;
-  height: 300px;
-  margin: auto auto;
+  height: 1100px;
+  margin-top: 300px;
+  margin-bottom: o;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 svg {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 800px;
+  height: auto;
 }
 svg .st0 {
   fill: #CCCCCC;
@@ -164,4 +174,9 @@ svg .st13 {
 }
 .act #handle {
   transform: rotate(360deg);
+}
+#none {
+	color:red;
+	text-align: center;
+	font-size: 32px;
 }

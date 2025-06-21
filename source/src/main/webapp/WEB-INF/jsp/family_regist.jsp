@@ -5,28 +5,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/family_regist.css">
 </head>
 <body>
+<img src="${pageContext.request.contextPath}/img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="${pageContext.request.contextPath}/img/logo_lightblue.png" alt="カジミエールのロゴ" id="kajimieru">
+<div id="container">
 <form method="POST"  id="family_regist_form" action="${pageContext.request.contextPath}/FamilyRegistServlet">
-	<table>
+<h2>ファミリー登録</h2>
+	<table id="family_content">
 		<tr>
 			<td>
 				<label><br>ファミリーID
-				<input type="text" name="family_id" placeholder="半角英数10文字以内" maxlength=10 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="text" name="family_id" class="family_input" placeholder="半角英数10文字以内" maxlength=10 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="confirm_fami_pass" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="confirm_fami_pass"  class="family_input" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>あいことば(確認)
-				<input type="password" name="fami_pass" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="fami_pass"  class="family_input" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
@@ -49,15 +54,16 @@
         </tr>
 	</table>
 	
-<span>${FamilyErrorMessage}</span><br>
-<input type="submit" value="登録">
+<span id="family_error">${FamilyErrorMessage}</span><br>
+<input type="submit" value="登録" id="family_btn">
 </form>
 <!--  <form method="GET" action="/E1/UserRegistServlet">
 
 </form> -->
-<button type="button" onclick="location.href='/e1/UserRegistServlet'">ファミリーIDをお持ちの方はこちら</button>
+<button type="button" onclick="location.href='/e1/UserRegistServlet'" id="family_id">ファミリーIDをお持ちの方はこちら</button>
 <form action="/e1/LoginServlet" method="get">
     <button type="submit">戻る</button>
 </form>
+</div>
 </body>
 </html>

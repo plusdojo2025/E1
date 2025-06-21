@@ -1,1 +1,103 @@
 @charset "UTF-8";
+html {
+	font-size: 16px;
+    font-family: "けいふぉんと";
+    color: #003366;
+    background-color: rgba(255,229,204,.3);
+	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
+}
+
+#kaji_logo {
+    width: 20%;
+    height: auto;
+    margin-top: 200px;
+    margin-left: 390px;
+}
+
+#kajimieru {
+    width: 50%;
+    height: auto;
+    margin-top: 0px;
+    margin-left: 240px;
+}
+
+#container {
+    position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 700px;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
+}
+
+h2 {
+    text-align: center;
+    padding-top: 80px;
+    color: #FF7F00;
+    font-size: 32px;
+    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+}
+
+#family_content {
+    margin-left: 170px;
+}
+
+.family_input {
+    text-decoration: none;
+    position: relative;
+    width: 350px;
+    display: block;
+    margin-top: 9px;
+    margin-bottom: 9px;
+    font-size: 17px;
+    color: #5e5e5e;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255,229,204,.7);
+    transition: all 0.2s ease-in-out;
+}
+
+#error_message {
+    color: red;
+}
+
+#family_error {
+    color: red;
+    font-size: 24px;
+}
+
+#family_btn {
+    margin-top: 50px;
+    margin-left: 300px;
+    margin-bottom:50px;
+    text-align: center;
+    background: #FF7F00;
+    border-radius: 50px;
+    border-color: #A6CAEC;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 260px;
+    padding: 10px 25px;
+    color: #FFFFFF;
+    transition: 0.3s ease-in-out;
+    font-weight: 500;
+}
+
+#family_id {
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-decoration: none; /* 下線を消したい場合 */
+    margin-bottom: 40px;
+    margin-left:230px;
+    color: #FF7F00;
+}
