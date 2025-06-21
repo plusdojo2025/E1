@@ -15,7 +15,7 @@
 <img src="${pageContext.request.contextPath}/img/logo_lightblue.png" alt="カジミエールのロゴ" id="kajimieru">
 <div id="container">
 <h2 id="login_title">ログイン</h2>
-<form method="POST"  id="login_form" action="/E1/LoginServlet">
+<form method="POST"  id="login_form" action="${pageContext.request.contextPath}/LoginServlet">
 	<table id="login_content">
 		<tr>
 			<td>
@@ -28,7 +28,8 @@
 		<tr>
 			<td>
 				<label>パスワード<br>
-				<input type="password" name="password" class="login_input" minlength=8 maxlength=20>
+				<input type="password" id="password" name="password" class="login_input" minlength=8 maxlength=20>
+				 <button type="button" onclick="togglePassword()">表示</button>
 				</label>
 			</td>
 		</tr>
@@ -41,15 +42,27 @@
 		</tr>
 	</table>
 </form>
-<form method="GET" action="/E1/FamilyRegistServlet">
+<form method="GET" action="${pageContext.request.contextPath}/FamilyRegistServlet">
         <input type="submit" value="IDをお持ちでない方はこちら" id="no_id">
 </form>
-<form method="GET" action="/E1/UserDeleteServlet">
+<form method="GET" action="${pageContext.request.contextPath}/UserDeleteServlet">
         <input type="submit" value="アカウント削除はこちら" id="no_account">
 </form>
 </div>
   <!-- メイン（ここまで） -->
   <!-- フッター（ここから） -->
-
+<script>
+  function togglePassword() {
+    const pwd = document.getElementById("password");
+    const btn = event.target;
+    if (pwd.type === "password") {
+      pwd.type = "text";
+      btn.textContent = "非表示";
+    } else {
+      pwd.type = "password";
+      btn.textContent = "表示";
+    }
+  }
+</script>
 </body>
 </html>

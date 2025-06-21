@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/E1/UserDeleteServlet" method="post">
+<form action="${pageContext.request.contextPath}/UserDeleteServlet" method="post">
     <label for="user_id">削除するユーザーID</label>
     <input type="text" name="user_id" id="user_id">
     
@@ -16,7 +16,7 @@
     
     <button type="submit">削除</button>
 </form>
-<form action="/E1/FamilyDeleteServlet" method="post">
+<form action="${pageContext.request.contextPath}/FamilyDeleteServlet" method="post">
     <label for="family_id">削除するファミリーID</label>
     <input type="text" name="family_id" id="family_id">
     
@@ -25,7 +25,7 @@
     
     <button type="submit">削除</button>
 </form>
-<form action="/E1/LoginServlet" method="get">
+<form action="${pageContext.request.contextPath}/LoginServlet" method="get">
     <button type="submit">戻る</button>
 </form>
 <span>${result}</span>

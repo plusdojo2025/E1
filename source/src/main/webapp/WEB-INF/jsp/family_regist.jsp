@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="POST"  id="family_regist_form" action="/E1/FamilyRegistServlet">
+<form method="POST"  id="family_regist_form" action="${pageContext.request.contextPath}/FamilyRegistServlet">
 	<table>
 		<tr>
 			<td>
@@ -55,8 +55,8 @@
 <!--  <form method="GET" action="/E1/UserRegistServlet">
 
 </form> -->
-<button type="button" onclick="location.href='/E1/UserRegistServlet'">ファミリーIDをお持ちの方はこちら</button>
-<form action="/E1/LoginServlet" method="get">
+<button type="button" onclick="location.href='/e1/UserRegistServlet'">ファミリーIDをお持ちの方はこちら</button>
+<form action="/e1/LoginServlet" method="get">
     <button type="submit">戻る</button>
 </form>
 </body>

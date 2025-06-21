@@ -32,7 +32,7 @@ public class gachaDAO {
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				user user = new user(rs.getString("user_id"),rs.getString("user_name"),
+				user user = new user(rs.getString("user_id"),
 						rs.getFloat("share_goal"));
 				familyList.add(user);
 			}
