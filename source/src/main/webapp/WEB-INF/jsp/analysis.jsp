@@ -15,15 +15,15 @@
   <form method="POST" action="<c:url value='/AnalysisServlet' />" id="form${status.index}" onsubmit="return validateGoals();">
 	  <c:forEach var="e" items="${userList}" varStatus="status">
 	      <label for="goal${status.index}"><c:out value="${e.user_id}" />の分担割合</label>
-	      <input type="text" name="goal" class="goal-input" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
+	      <input type="text" name="goal" class="goal_input" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
 	      <input type="hidden" name="user_id" value="<c:out value='${e.user_id}'/>">
 	  </c:forEach>
-	  <input type="submit" name="submit" value="設定" class="goal_submit">
+	  <input type="submit" name="submit" value="設定" id="goal_submit">
 	  <p id="error_message">${errorMessage}</p>
   </form>
 </div>
 
-<nav class="chart_nav">
+<nav id="chart_nav">
   <ul>
     <li id="daily_nav"><a href="#daily_chart">前日の負担割合</a></li>
     <li id="monthly_nav"><a href="#monthly_chart">月ごとの負担割合の推移</a></li>
@@ -33,7 +33,7 @@
 <div id="daily_chart">
   <c:choose>
     <c:when test="${empty yesterdayList}">
-      <p>前日の実績データがありません。</p>
+      <p id="no_yesterday">前日の実績データがありません。</p>
     </c:when>
     <c:otherwise>
       <canvas id="daily_chart_Canvas"></canvas>
@@ -180,7 +180,7 @@
 <script>
 'use strict';
 function validateGoals() {
-	  const inputs = document.querySelectorAll('.goal-input');
+	  const inputs = document.querySelectorAll('.goal_input');
 	  const errorEl = document.getElementById('error_message');
 	  let total = 0;
 	  let hasInvalid = false;

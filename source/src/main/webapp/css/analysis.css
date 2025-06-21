@@ -1,9 +1,153 @@
 @charset "UTF-8";
 
-/*スムーズスクロールを有効にする*/
 html {
-	scroll-behavior: smooth;
-	}
+	font-size: 16px;
+    font-family: "けいふぉんと";
+    color: #003366;
+    background-color: rgba(255,229,204,.3);
+	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
+}
+
+#share_goal {
+	position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    margin: auto;
+    padding-bottom: 5px;
+    width: 700px;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
+}
+
+h2 {
+    padding-top:50px;
+    margin-left:285px;
+    color: #FF7F00;
+    font-size: 32px;
+    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+}
+
+label {
+	margin-top:10px;
+    margin-left: 268px;
+}
+.goal_input {
+    text-decoration: none;
+    position: relative;
+    width: 100px;
+    display: block;
+    margin-top: 9px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px;
+    color: #5e5e5e;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255,229,204,.7);
+    transition: all 0.2s ease-in-out;
+    text-align:center;
+}
+
+#goal_submit {
+    margin-bottom: 50px;
+    margin-left: 310px;
+    text-align: center;
+    background: #FF7F00;
+    border-radius: 50px;
+    border-color: #A6CAEC;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 260px;
+    padding: 10px 25px;
+    color: #FFFFFF;
+    transition: 0.3s ease-in-out;
+    font-weight: 500;
+}
+
+#error_message {
+    margin-left: 205px;
+    color:red;
+}
+
+#chart_nav {
+    position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#daily_nav {
+    list-style: none;
+    display: inline-block;
+ 
+}
+
+#monthly_nav {
+    list-style: none;
+    display: inline-block;
+    padding-left:100px;
+}
+
+#daily_chart {
+    position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#monthly_chart {
+    position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 
 #daily_chart_Canvas {
     width: 400px;
@@ -18,7 +162,7 @@ html {
     width: 1000px;
     height: 400px;
     margin-top: 50px;
-    margin-left: 40px;
+    margin-left: 20px;
     margin-bottom: 100px;
     aspect-ratio: auto 572/286;
 }
