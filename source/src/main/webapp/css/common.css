@@ -37,6 +37,43 @@
     width: 80%;
     height: auto;
     max-width: 300px; /* 最大幅を制限 */
-  }
+  	}
+	
+	#footer {
+	  position: fixed;
+	  bottom: 0;
+	  width: 100%;
+	  background-color: white; /* 背景色 */
+	  border-top: 1px solid #ccc;
+	  z-index: 1000;
+	}
+	
+	.footer-nav ul {
+  display: flex;                 /* 横並びにする */
+  justify-content: space-around; /* 均等に並べる */
+  align-items: center;          /* 垂直方向の中央揃え */
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+}
+
+.footer-nav li {
+  flex: 1;                       /* 各アイコンの幅を均等にする */
+  text-align: center;
+}
+
+.footer-nav li a img {
+  width: 4px;                   /* アイコンサイズ（調整してOK） */
+  height: 4px;
+  display: block;
+  margin: 0 auto;
+}
+	
+	
+	
+	
+	
+	
+	
 	
 }

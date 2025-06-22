@@ -206,16 +206,17 @@
 
 <!-- フッター（ここから） -->
 	<div id="footer">
-		<nav class="navi" >
-			<ul id="nav">
-				<li><a href="/webapp/HomeServlet">ホーム</a></li>
-		        <li><a href="/webapp/HWSearchServlet">一覧</a></li>
-		        <li><a href="/webapp/HWRegistServlet">登録</a></li>
-		        <li><a href="/webapp/GachaServlet">くじ</a></li>
-		        <li><a href="/webapp/AnalysisServlet">分析</a></li>
-			</ul>
-		</nav>
+	  <nav class="navi">
+	    <ul>
+	      <li><a href="/E1/HomeServlet"><img src="" alt="ホーム"></a></li>
+	      <li><a href="/E1/HWSearchServlet"><img src="" alt="一覧"></a></li>
+	      <li><a href="/E1/HWRegistServlet"><img src="" alt="登録"></a></li>
+	      <li><a href="/E1/GachaServlet"><img src="" alt="くじ"></a></li>
+	      <li><a href="/E1/AnalysisServlet"><img src="" alt="分析"></a></li>
+	    </ul>
+	  </nav>
 	</div>
+	
 <!-- フッター（ここまで） -->
 
 </html>

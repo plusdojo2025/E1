@@ -5,16 +5,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_regist.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
 <title>登録</title>
-<link rel="stylesheet" type="text/css" href="css/housework_regist.css">
 </head>
+	
+	<!-- ヘッダー（ここから） -->
+	<header id="header">
+	
+		<h1 id="logo">
+	      <a href="/E1/HomeServlet">
+	      <img src="img/logo_lightblue.png"  alt="カジミエール">
+	    </a>
+	    </h1>
+		
+	</header>
+<!-- ヘッダー（ここまで） -->
+	
 	<body>
 <!-- メイン（ここから） -->
-	<main>
+	<main class="form-wrapper">
 		<h2>家事登録（新しい家事を入力してください）</h2>
 		<hr>
 		<form id="form" method="POST" action="/E1/HWRegistServlet">
-		<!-- カテゴリ -->
+		 <!-- カテゴリ -->
+		 <div class="form-group">
 		<label>カテゴリ:
 			<select name="category_id">
 			<option value="1">掃除</option>
@@ -22,15 +37,18 @@
 			<option value="3">料理</option>
 			<option value="4">その他</option>
 			</select>
-		</label>	
+		</label>
+		</div>	
 			
-		<!-- 家事名 -->		
+		<!-- 家事名 -->
+		<div class="form-group">		
 		<label>家事名(必須)
 		<input type="text" name="housework_name"><br>
 		</label>
+		</div> 
 		 	
 		<!-- 頻度 -->	 	
-		 				  		
+		<div class="form-group"> 				  		
 		<label>頻度（必須）
 		
             <select id="daySelection" name="frequency">
@@ -62,20 +80,23 @@
             <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
             <label for="sun" class="day-label">日</label>
         </div>
-		 
+		</div> 
 				
 		<!-- 負担度 -->		
+		
+		<div class="stars" id="star-rating">
 		<label>負担度
-			<div class="stars" id="star-rating">
+			
 				  <span class="star" data-value="1">★</span>
 				  <span class="star" data-value="2">★</span>
 				  <span class="star" data-value="3">★</span>
 				  <span class="star" data-value="4">★</span>
 				  <span class="star" data-value="5">★</span>
-			</div>
+			
 			<input type="hidden" name="housework_level" id="housework_level" value="0">
 			
 		</label>
+		</div>
 		
 		<!-- メモ -->	
 		<label>マニュアル</label>	
@@ -118,14 +139,14 @@
 		</select>
 		<br>		
 				
-			
+		<div class="form-submit">	
         <td colspan="2">
 			<input type="submit" name="regist" value="登録"><br>
 			<span id="error_message"></span>
         </td>
   		<c:out value="${errorMessage}"/>
 	
-				
+		</div>		
 		</form>
 		</main>
 	<script>
