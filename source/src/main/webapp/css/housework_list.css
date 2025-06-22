@@ -1,5 +1,11 @@
 @charset "UTF-8";
-
+html {
+	font-size: 16px;
+    font-family: "けいふぉんと";
+    color: #003366;
+    background-color: rgba(255,229,204,.3);
+	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
+}
 /* 家事一覧用のｃｓｓ */
 html {
   scroll-behavior: smooth; /* スクロールちらつきを抑える */
@@ -65,3 +71,89 @@ html {
 .close-button:hover {
   color: #f66;
 }
+
+.housework_list_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* 横方向の中央揃え */
+  justify-content: center;  /* 縦方向の中央揃え（必要なら） */
+  min-height: 50vh;    /* 画面の高さを全体に使う */
+  text-align: center;   /* テキストを中央揃え */
+  justify-content: flex-start;
+  padding: 30px 10px;
+  background-color: rgba(255, 229, 204, 0.3);
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #003366;
+}
+
+table {
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 700px;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: left;
+}
+
+th, td {
+  padding: 12px 15px;
+  font-size: 1rem;
+}
+
+th {
+  background-color: #ff7f00;
+  color: white;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #fffaf3;
+}
+
+tr:hover {
+  background-color: #f9e4d6;
+}
+
+.sort-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+img {
+  vertical-align: middle;
+}
+
+button.js-modal-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* タブボタン調整 */
+.tab_container button {
+  margin: 0 5px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #ffb366;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab_container button:hover {
+  background-color: #ff9f33;
+}
+	
