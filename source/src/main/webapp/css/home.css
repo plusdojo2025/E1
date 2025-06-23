@@ -1,9 +1,23 @@
 @charset "UTF-8";
-/*モバイル対応*/
-@media(max-width: 767px){
+html {
+	font-size: 16px;
+    font-family: "けいふぉんと";
+    color: #003366;
+    background-color: rgba(255,229,204,.3);
+	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
+}
+/* ヘッダー　*/
+#logo_img {
+	width: 1000px;
+	margin-left: 220px;
+}
+#bar_img {
+	height: 40px;
+	width: auto;
+}
+
 /*本日の家事のcss*/
 #housework{
-	border:1px solid #000000;
 	margin:10px 0;
 	height: 300px;
 }
@@ -170,5 +184,4 @@
 
 .close-button span:nth-child(2) {
   transform: rotate(-45deg) translate(1px, -1px);
-}
 }
