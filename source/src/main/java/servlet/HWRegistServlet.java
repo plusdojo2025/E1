@@ -146,7 +146,7 @@ public class HWRegistServlet extends HttpServlet {
 		                // ここはバリデーションで弾かれるはずだが、念のため空文字列にしておく
 		                finalFrequencyValueForDB = "";
 		            }
-				
+				}
 				 // DTOにセット
 					// finalFrequencyValueForDB を渡す
 					housework hw = new housework(0, housework_name, familyId, category_id, housework_level,
@@ -168,4 +168,4 @@ public class HWRegistServlet extends HttpServlet {
 					    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_regist.jsp");
 					    dispatcher.forward(request, response);
 					}
-				}}}
+				}}
