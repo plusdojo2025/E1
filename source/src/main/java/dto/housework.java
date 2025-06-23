@@ -144,12 +144,13 @@ public void setRole(String role) {
 }
 
 // 家事検索用
-public housework(String housework_name, int category_id, String frequency, int noti_flag) {
+public housework(String housework_name, int category_id, String frequency, int noti_flag, String family_id) {
 	super();
 	this.housework_name = housework_name;
 	this.category_id = category_id;
 	this.frequency = frequency;
 	this.noti_flag = noti_flag;
+	this.family_id = family_id;
 }
 
 

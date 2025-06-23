@@ -129,7 +129,7 @@ public class houseworkDAO {
 	}	
 
 	// 一覧を負担度で昇順降順
-	public List<housework> selectAllSorted(String sortOrder) {
+	public List<housework> selectAllSorted(String sortOrder, String family_Id) {
 	    Connection conn = null;
 	    List<housework> cardList = new ArrayList<>();
 
@@ -142,10 +142,11 @@ public class houseworkDAO {
 	        );
 
 	        // SQL：ソート順は "asc" または "desc"
-	        String sql = "SELECT * FROM housework ORDER BY housework_level " + 
+	        String sql = "SELECT * FROM housework WHERE family_id = ? ORDER BY housework_level " + 
 	                     ("desc".equalsIgnoreCase(sortOrder) ? "DESC" : "ASC");
 
 	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, family_Id);
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
@@ -181,7 +182,7 @@ public class houseworkDAO {
 	}
 	
 	// タブで絞り込んだ結果を負担度で昇順降順
-	public List<housework> selectByCategorySorted(int categoryId, String sortOrder) {
+	public List<housework> selectByCategorySorted(int categoryId, String sortOrder, String family_Id) {
 	    List<housework> cardList = new ArrayList<>();
 	    Connection conn = null;
 
@@ -196,10 +197,11 @@ public class houseworkDAO {
 	        // ソート順が "desc" なら DESC それ以外は ASC
 	        String order = "asc".equalsIgnoreCase(sortOrder) ? "ASC" : "DESC";
 
-	        String sql = "SELECT * FROM housework WHERE category_id = ? ORDER BY housework_level " + order;
+	        String sql = "SELECT * FROM housework WHERE category_id = ? AND family_id = ? ORDER BY housework_level " + order;
 
 	        PreparedStatement pStmt = conn.prepareStatement(sql);
 	        pStmt.setInt(1, categoryId);
+	        pStmt.setString(2, family_Id); 
 
 	        ResultSet rs = pStmt.executeQuery();
 
@@ -239,7 +241,8 @@ public class houseworkDAO {
 
 	    return cardList;
 	}
-	
+
+/*
 // 検索ここから
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
 	public List<housework> select(housework card) {
@@ -360,7 +363,7 @@ public class houseworkDAO {
 		}
 		// 結果を返す
 		return cardList;
-	}
+	} */
 // 検索ここまで
 //	検索試作はじまり
 	public List<housework> searchHousework(String family_Id, int category_id, String housework_name, int frequency, int noti_flag) {
@@ -414,7 +417,7 @@ public class houseworkDAO {
 	    return cardList2;
 	}
 // 検索試作おわり
-	public List<housework> searchHouseworkSorted(String category_id, String housework_name, String frequency, String noti_flag, String sortOrder) {
+	public List<housework> searchHouseworkSorted(String category_id, String housework_name, String frequency, String noti_flag, String sortOrder, String family_Id) {
 	    List<housework> cardList = new ArrayList<>();
 	    Connection conn = null;
 
@@ -431,6 +434,7 @@ public class houseworkDAO {
 	        pstmt.setString(2, "%" + (housework_name == null ? "" : housework_name) + "%");
 	        pstmt.setString(3, "%" + frequency + "%");
 	        pstmt.setInt(4, Integer.parseInt(noti_flag));
+	        pstmt.setString(5, family_Id);
 
 	        ResultSet rs = pstmt.executeQuery();
 	        while (rs.next()) {

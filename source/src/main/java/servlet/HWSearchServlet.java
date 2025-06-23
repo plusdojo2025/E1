@@ -119,7 +119,7 @@ public class HWSearchServlet extends HttpServlet {
 		    if (categoryId == 0) {
 		        cardList = hwsDao.selectAllSorted(sortOrder);
 		    } else {
-		        cardList = hwsDao.selectByCategorySorted(categoryId, sortOrder);
+		        cardList = hwsDao.selectByCategorySorted(categoryId, sortOrder, family_Id);
 		    }
 		    // 結果をリクエストスコープへ
 		    request.setAttribute("cardList", cardList);
@@ -134,7 +134,7 @@ public class HWSearchServlet extends HttpServlet {
 //			cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
 //					frequency, manual, fixed_role, variable_role, log));
 			// 検索処理
-	        cardList = hwDao.searchHouseworkSorted(category_id, housework_name, frequency, noti_flag, sortOrder);
+	        cardList = hwDao.searchHouseworkSorted(category_id, housework_name, frequency, noti_flag, sortOrder, family_Id);
 		   
 			// 検索結果をリクエストスコープに格納する
 		    
