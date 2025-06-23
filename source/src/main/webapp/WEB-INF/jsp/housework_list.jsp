@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>家事一覧</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/housework_list.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_list.css' />">
 <!-- ↑cssのパスを動的に取得 -->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
 </head>
 <body>
 <!-- ヘッダー -->

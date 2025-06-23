@@ -12,20 +12,20 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
 <title>ホーム</title>
 </head>
-
+<body>
 <!-- ヘッダー（ここから） -->
 	<header id="header">
 	
 		<h1 id="logo">
-	      <a href="/E1/HomeServlet">
-	      <img src="img/logo_lightblue.png"  alt="カジミエール">
+	      <a href="<c:url value='/HomeServlet' />">
+	      <img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエール">
 	    </a>
 	    </h1>
 		
 	</header>
 <!-- ヘッダー（ここまで） -->
 
-<body>
+<main>
 <div class="wrapper">
 <div id="housework">
 <div id="housework_list">
@@ -122,11 +122,23 @@
     </div>
   </div>
 </div>
- 
 
-          
+ </main>
+ <!-- フッター（ここから） -->
+	<div id="footer">
+	  <nav class="navi">
+	    <ul>
+	      <li><a href="<c:url value='/HomeServlet' />"><img src="<c:url value='/img/home.svg' />" alt="ホーム"></a></li>
+	      <li><a href="<c:url value='/HWSearchServlet' />"><img src="<c:url value='/img/list.svg' />" alt="一覧"></a></li>
+	      <li><a href="<c:url value='/HWRegistServlet' />"><img src="<c:url value='/img/regist.svg' />" alt="登録"></a></li>
+	      <li><a href="<c:url value='/GachaServlet' />"><img src="<c:url value='/img/gacha.svg' />" alt="くじ"></a></li>
+	      <li><a href="<c:url value='/AnalysisServlet' />"><img src="<c:url value='/img/analysis.svg' />" alt="分析"></a></li>
+	    </ul>
+	  </nav>
+	</div>
 
- 
+
+<!-- フッター（ここまで） -->
  <script>
  //モーダルのスクリプト
  const modal = document.querySelector('.js-modal'); // layer要素に付与したjs-modalクラスを取得し変数に格納
@@ -201,22 +213,5 @@
 	    }
 	  });
  </script>
- </div>
-</body>
-
-<!-- フッター（ここから） -->
-	<div id="footer">
-	  <nav class="navi">
-	    <ul>
-	      <li><a href="/E1/HomeServlet"><img src="" alt="ホーム"></a></li>
-	      <li><a href="/E1/HWSearchServlet"><img src="" alt="一覧"></a></li>
-	      <li><a href="/E1/HWRegistServlet"><img src="" alt="登録"></a></li>
-	      <li><a href="/E1/GachaServlet"><img src="" alt="くじ"></a></li>
-	      <li><a href="/E1/AnalysisServlet"><img src="" alt="分析"></a></li>
-	    </ul>
-	  </nav>
-	</div>
-	
-<!-- フッター（ここまで） -->
-
+ </body>
 </html>
