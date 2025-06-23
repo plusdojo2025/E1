@@ -90,3 +90,9 @@ h2 {
     transition: 0.3s ease-in-out;
     font-weight: 500;
 }
+#to_login {
+    width: 50px;
+    height: auto;
+    margin-left: 50px;
+    margin-bottom: 20px;
+}

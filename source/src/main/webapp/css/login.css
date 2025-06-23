@@ -70,6 +70,7 @@ html {
 
 #error_message {
     color: red;
+    font-size: 20px;
 }
 #login_btn {
     margin-top: 50px;
@@ -95,8 +96,9 @@ html {
     color: inherit;
     font: inherit;
     margin-bottom: 20px;
-    margin-left:250px;
+    margin-left:230px;
     color: #FF7F00;
+	font-size: 20px;
 }
 #no_account {
     all: unset;
@@ -104,13 +106,14 @@ html {
     color: inherit;
     font: inherit;
     margin-bottom: 50px;
-    margin-left:265px;
+    margin-left:250px;
     color: #FF7F00;
+	font-size: 20px;
 }
 #togglePasswordIcon {
 	position: absolute;
 	margin-left: 330px;
-	top: 49%;
+	top: 48%;
 	transform: translateY(-50%);
 	width: 24px;
 	height: 24px;
