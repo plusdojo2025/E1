@@ -51,7 +51,8 @@
           <tr class="card_label">
             <th>
               <button type="button" id="sortToggleBtn" class="sort-button" title="負担度で並び替え">
-                <img id="sortIcon" src="img/<c:out value='${param.sortOrder == " desc" ? "sort_down.svg" : "sort_up.svg"}' />"
+                <img id="sortIcon" src="img/<c:out value='${param.sortOrder == " desc" ? "sort_down.svg" : "sort_up.svg"
+                  }' />"
                 alt="ソートアイコン" style="width:16px; height:16px; vertical-align:middle;">
               </button>
               負担度
@@ -104,8 +105,8 @@
                 <!-- </form> -->
               </td>
               <td class="delete">
-                <form method="POST" id="delete_form_${e.housework_id}" action="${pageContext.request.contextPath}/HWUpdateDeleteServlet"
-                  style="display:none;">
+                <form method="POST" id="delete_form_${e.housework_id}"
+                  action="${pageContext.request.contextPath}/HWUpdateDeleteServlet" style="display:none;">
                   <input type="hidden" name="housework_id" value="${e.housework_id}">
                   <input type="hidden" name="housework_name" value="${e.housework_name}">
                   <input type="hidden" name="family_id" value="${e.family_id}">
@@ -227,7 +228,7 @@
               <input type="hidden" name="log" id="modal-log" value="" />
 
               <!--  <button type="button" id="updateTrigger">更新</button> -->
-              <input type="submit" id="updateTrigger" name="updateSubmit" value="更新" />
+              <input type="submit" id="updateTrigger" name="submit" value="更新" />
             </form>
           </div>
         </div>
@@ -395,6 +396,18 @@
           updateTrigger.addEventListener("click", function (event) {
             const confirmedCheck = window.confirm("この情報で更新しますか？");
             if (confirmedCheck === true) {
+              const housework_name = this.dataset.houseworkName;
+              const housework_id = this.dataset.houseworkId;
+              // ここに情報を追加 
+              //const family_id = this.dataset.familyId;
+              const category_id = this.dataset.categoryId;
+              const housework_level = this.dataset.houseworkLevel;
+              const noti_flag = this.dataset.notiFlag;
+              const noti_time = this.dataset.notiTime;
+              const frequency = this.dataset.frequency;
+              const manual = this.dataset.manual;
+              const fixed_role = this.dataset.fixedRole;
+              const variable_role = this.dataset.variableRole;
               updateForm.submit();
             } else {
               window.alert("送信を取り消しました");
