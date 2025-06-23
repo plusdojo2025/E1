@@ -61,73 +61,84 @@
             <th>削除</th>
           </tr>
           <!--  <table>
-    <tr class="card_label">
-        <th>負担度</th>
-        <th>家事名</th>
-        <th>削除</th>
-    </tr>-->
+          <tr class="card_label">
+              <th>負担度</th>
+              <th>家事名</th>
+              <th>削除</th>
+          </tr>-->
 
           <!-- 取得した家事を一覧表示 -->
           <!--<div class="card_container">-->
-          <c:forEach var="e" items="${cardList}" varStatus="status">
-            <tr class="card">
-              <td class="housework_level">
-                <c:out value="${e.housework_level}" />
-                <input type="hidden" name="housework_level" value="${e.housework_level}">
-                <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
-              </td>
-              <td class="housework_name open-modal" data-housework-name="${e.housework_name}"
-                data-housework-id="${e.housework_id}" data-family-id="${e.family_id}"
-                data-category-id="${e.category_id}" data-housework-level="${e.housework_level}"
-                data-noti-flag="${e.noti_flag}" data-noti-time="${e.noti_time}" data-frequency="${e.frequency}"
-                data-manual="${e.manual}" data-fixed-role="${e.fixed_role}" data-variable-role="${e.variable_role}"
-                data-log="${e.log}">
+          <c:if test="${not empty cardList}">
+            <form id="openUpdateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
+              <c:forEach var="e" items="${cardList}" varStatus="status">
+                <tr class="card">
+                  <td class="housework_level">
+                    <c:out value="${e.housework_level}" />
+                    <input type="hidden" name="housework_level" value="${e.housework_level}">
+                    <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
+                  </td>
+                  <td class="housework_name open-update-modal" data-housework-name="${e.housework_name}"
+                    data-housework-id="${e.housework_id}" data-family-id="${e.family_id}"
+                    data-category-id="${e.category_id}" data-housework-level="${e.housework_level}"
+                    data-noti-flag="${e.noti_flag}" data-noti-time="${e.noti_time}" data-frequency="${e.frequency}"
+                    data-manual="${e.manual}" data-fixed-role="${e.fixed_role}" data-variable-role="${e.variable_role}"
+                    data-log="${e.log}">
 
-                <!--家事名押下時更新モーダル表示-->
-                <!-- <form id="updateForm" method="POST" onsubmit="return cancelsubmit()" action="<c:url value='/HWUpdateDeleteServlet' />">
+                    <!--家事名押下時更新モーダル表示-->
+                    <!-- <form id="updateForm" method="POST" onsubmit="return cancelsubmit()" action="<c:url value='/HWUpdateDeleteServlet' />">
 		           -->
-                <input type="hidden" name="housework_id" value="${e.housework_id}">
-                <input type="hidden" name="family_id" value="${e.family_id}">
-                <input type="hidden" name="category_id" value="${e.category_id}">
-                <input type="hidden" name="noti_flag" value="${e.noti_flag}">
-                <input type="hidden" name="noti_time" value="${e.noti_time}">
-                <input type="hidden" name="frequency" value="${e.frequency}">
-                <input type="hidden" name="manual" value="${e.manual}">
-                <input type="hidden" name="fixed_role" value="${e.fixed_role}">
-                <input type="hidden" name="variable_role" value="${e.variable_role}">
-                <input type="hidden" name="log" value="${e.log}">
+                    <input type="hidden" name="housework_id" value="${e.housework_id}">
+                    <input type="hidden" name="family_id" value="${e.family_id}">
+                    <input type="hidden" name="category_id" value="${e.category_id}">
+                    <input type="hidden" name="noti_flag" value="${e.noti_flag}">
+                    <input type="hidden" name="noti_time" value="${e.noti_time}">
+                    <input type="hidden" name="frequency" value="${e.frequency}">
+                    <input type="hidden" name="manual" value="${e.manual}">
+                    <input type="hidden" name="fixed_role" value="${e.fixed_role}">
+                    <input type="hidden" name="variable_role" value="${e.variable_role}">
+                    <input type="hidden" name="log" value="${e.log}">
 
-                <!-- 家事名のみ表示 -->
+                    <!-- 家事名のみ表示 -->
+                    <div class="open-update-modal" id="open-update-modal" data-housework-name="${e.housework_name}"
+                      data-housework-id="${e.housework_id}" data-family-id="${e.family_id}"
+                      data-category-id="${e.category_id}" data-housework-level="${e.housework_level}"
+                      data-noti-flag="${e.noti_flag}" data-noti-time="${e.noti_time}" data-frequency="${e.frequency}"
+                      data-manual="${e.manual}" data-fixed-role="${e.fixed_role}"
+                      data-variable-role="${e.variable_role}" data-log="${e.log}">
 
-                <c:out value="${e.housework_name}" />
-                <input type="hidden" name="housework_name" value="${e.housework_name}">
-                <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
-                <!-- </form> -->
-              </td>
-              <td class="delete">
-                <form method="POST" id="delete_form_${e.housework_id}" action="<c:url value='/HWUpdateDeleteServlet' />"
-                  style="display:none;">
-                  <input type="hidden" name="housework_id" value="${e.housework_id}">
-                  <input type="hidden" name="housework_name" value="${e.housework_name}">
-                  <input type="hidden" name="family_id" value="${e.family_id}">
-                  <input type="hidden" name="category_id" value="${e.category_id}">
-                  <input type="hidden" name="housework_level" value="${e.housework_level}">
-                  <input type="hidden" name="noti_flag" value="${e.noti_flag}">
-                  <input type="hidden" name="noti_time" value="${e.noti_time}">
-                  <input type="hidden" name="frequency" value="${e.frequency}">
-                  <input type="hidden" name="manual" value="${e.manual}">
-                  <input type="hidden" name="fixed_role" value="${e.fixed_role}">
-                  <input type="hidden" name="variable_role" value="${e.variable_role}">
-                  <input type="hidden" name="log" value="${e.log}">
-                  <input type="hidden" name="action_type" value="削除">
-                </form>
-                <button class="js-modal-button" data-id="${e.housework_id}">
-                  <img src="<c:url value='/img/trash.svg' />" alt="削除" width="24" height="24">
-                </button>
-              </td>
-              <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
-            </tr>
-          </c:forEach>
+                      <c:out value="${e.housework_name}" />
+                      <input type="hidden" name="housework_name" value="${e.housework_name}">
+                    </div>
+                    <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
+                    <!-- </form> -->
+                  </td>
+                  <td class="delete">
+                    <form method="POST" id="delete_form_${e.housework_id}"
+                      action="<c:url value='/HWUpdateDeleteServlet' />" style="display:none;">
+                      <input type="hidden" name="housework_id" value="${e.housework_id}">
+                      <input type="hidden" name="housework_name" value="${e.housework_name}">
+                      <input type="hidden" name="family_id" value="${e.family_id}">
+                      <input type="hidden" name="category_id" value="${e.category_id}">
+                      <input type="hidden" name="housework_level" value="${e.housework_level}">
+                      <input type="hidden" name="noti_flag" value="${e.noti_flag}">
+                      <input type="hidden" name="noti_time" value="${e.noti_time}">
+                      <input type="hidden" name="frequency" value="${e.frequency}">
+                      <input type="hidden" name="manual" value="${e.manual}">
+                      <input type="hidden" name="fixed_role" value="${e.fixed_role}">
+                      <input type="hidden" name="variable_role" value="${e.variable_role}">
+                      <input type="hidden" name="log" value="${e.log}">
+                      <input type="hidden" name="action_type" value="削除">
+                    </form>
+                    <button class="js-modal-button" data-id="${e.housework_id}">
+                      <img src="<c:url value='/img/trash.svg' />" alt="削除" width="24" height="24">
+                    </button>
+                  </td>
+                  <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
+                </tr>
+              </c:forEach>
+            </form>
+          </c:if>
           <!--</div>-->
         </table>
         <!-- 家事が追加されるごとに行を追加 -->
@@ -250,10 +261,6 @@
             <button id="confirmDeleteBtn">OK</button>
           </div>
         </div>
-
-        </div>
-
-
       </main>
       <!-- フッター -->
       <footer>
@@ -300,7 +307,6 @@
           // JSTLの変数をJavaScriptで使うために事前に定義しておく
           const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
 
-
           sortToggleBtn.addEventListener("click", function () {
             if (sortOrderInput.value === "asc") {
               sortOrderInput.value = "desc";
@@ -340,6 +346,7 @@
             } */
 
         //  家事名押下時のスクリプト 家事カードを押下時更新画面をモーダル表示 
+        console.log("clicked");
         document.addEventListener("DOMContentLoaded", function () {
           const updateModal = document.getElementById("updateModal");
           const closeBtn = updateModal.querySelector(".close-button");
@@ -347,7 +354,17 @@
           const updateTrigger = document.getElementById("updateTrigger");
           //const modalName = document.getElementById("modal-housework-name");
 
-          document.querySelectorAll(".open-modal").forEach(function (td) {
+          const openUpdateModalBtn = document.getElementById("open-update-modal");
+          openUpdateModalBtn.onclick = function() {
+            updateModal.style.display = "block";
+          }
+
+          //確認用
+          const targets = document.querySelectorAll(".openUpdateModal");
+          console.log("見つかった要素数：" + targets.length);
+
+          document.querySelectorAll(".openUpdateForm").forEach(function (td) {
+            //const openUpdateModalCheck = document.getElementById("openUpdateModal");
             td.addEventListener("click", function () {
               //const name = this.dataset.houseworkName;
               //modalName.value = "家事名: " + name;
@@ -385,33 +402,29 @@
               //document.getElementById("log").value = log;
               document.getElementById("housework-id").value = housework_id;
               updateModal.style.display = "block";
-
-
-
-
             });
           });
 
 
 
-          updateTrigger.addEventListener("click", function (event) {
-            const confirmedCheck = window.confirm("この情報で更新しますか？");
-            if (confirmedCheck === true) {
-              updateForm.submit();
-            } else {
-              window.alert("送信を取り消しました");
-              event.preventDefault();
-            }
-          });
+          // updateTrigger.addEventListener("click", function (event) {
+          //   const confirmedCheck = window.confirm("この情報で更新しますか？");
+          //   if (confirmedCheck === true) {
+          //     updateForm.submit();
+          //   } else {
+          //     window.alert("送信を取り消しました");
+          //     event.preventDefault();
+          //   }
+          // });
 
-          closeBtn.onclick = function () {
-            updateModal.style.display = "none";
-          };
-          window.onclick = function (event) {
-            if (event.target === updateModal) {
-              updateModal.style.display = "none";
-            }
-          };
+          // closeBtn.onclick = function () {
+          //   updateModal.style.display = "none";
+          // };
+          // window.onclick = function (event) {
+          //   if (event.target === updateModal) {
+          //     updateModal.style.display = "none";
+          //   }
+          // };
 
         });
 

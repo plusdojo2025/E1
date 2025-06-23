@@ -1,349 +1,553 @@
-package servlet;
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-import java.io.IOException;
-import java.util.List;
+    <!DOCTYPE html>
+    <html>
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+    <head>
+      <meta charset="UTF-8">
+      <title>家事一覧</title>
+      <link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_list.css' />">
+      <!-- ↑cssのパスを動的に取得 -->
+      <link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
+    </head>
 
-import dao.houseworkDAO;
-import dto.housework;
+    <body>
+      <!-- ヘッダー -->
+      <header>
+        <!-- ロゴ挿入 -->
+        <!-- navタグで通知とログアウトを入れる -->
 
-/**
- * Servlet implementation class HWSearchServlet
- */
-@WebServlet("/HWSearchServlet")
-public class HWSearchServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-//	private Object cardList;
+      </header>
+      <!-- メイン -->
+      <main class="housework_list_wrapper">
+        <h2>家事一覧</h2>
+        <!--家事タブを押したときはカテゴリごとに検索、表示 -->
+        <div class="tab_container">
+          <form method="GET" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
+            <input type="hidden" name="sortOrder" value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
+            <button type="submit" name="searchType" value="掃除">掃除</button>
+            <button type="submit" name="searchType" value="洗濯">洗濯</button>
+            <button type="submit" name="searchType" value="料理">料理</button>
+            <button type="submit" name="searchType" value="その他">その他</button>
+          </form>
+        </div>
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+        <!-- 家事一覧表示 -->
+        <!-- 負担度、家事名、消去ラベル表示 -->
+        <!-- 昇降順切替用フォーム -->
+        <form id="sortForm" method="GET" action="<c:url value='/HWSearchServlet' />">
+          <input type="hidden" name="sortOrder" id="sortOrderInput"
+            value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
+          <input type="hidden" name="searchType" value="${param.searchType != null ? param.searchType : ''}" />
+          <input type="hidden" name="housework_name" value="${housework_name}">
+          <input type="hidden" name="category_id" value="${category_id}">
+          <input type="hidden" name="noti_flag" value="${noti_flag}">
+          <input type="hidden" name="frequency" value="${frequency}">
+        </form>
 
-//		 もしもログインしていなかったらログインサーブレットにリダイレクトする
+        <!-- ソート切替ボタン付きテーブル -->
+        <table>
+          <tr class="card_label">
+            <th>
+              <button type="button" id="sortToggleBtn" class="sort-button" title="負担度で並び替え">
+                <img id="sortIcon" src="img/<c:out value='${param.sortOrder == " desc" ? "sort_down.svg" : "sort_up.svg"
+                  }' />"
+                alt="ソートアイコン" style="width:16px; height:16px; vertical-align:middle;">
+              </button>
+              負担度
+            </th>
+            <th>家事名</th>
+            <th>削除</th>
+          </tr>
+          <!--  <table>
+          <tr class="card_label">
+              <th>負担度</th>
+              <th>家事名</th>
+              <th>削除</th>
+          </tr>-->
 
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user_id") == null) {
-			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-			return;
-		}
+          <!-- 取得した家事を一覧表示 -->
+          <!--<div class="card_container">-->
+          <c:if test="${not empty cardList}">
+            <form id="openUpdateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
+              <c:forEach var="e" items="${cardList}" varStatus="status">
+                <tr class="card">
+                  <td class="housework_level">
+                    <c:out value="${e.housework_level}" />
+                    <input type="hidden" name="housework_level" value="${e.housework_level}">
+                    <!-- 家事負担度<input type="text" name="housework_level" value="${e.housework_level}"> -->
+                  </td>
+                  <td class="housework_name open-update-modal" data-housework-name="${e.housework_name}"
+                    data-housework-id="${e.housework_id}" data-family-id="${e.family_id}"
+                    data-category-id="${e.category_id}" data-housework-level="${e.housework_level}"
+                    data-noti-flag="${e.noti_flag}" data-noti-time="${e.noti_time}" data-frequency="${e.frequency}"
+                    data-manual="${e.manual}" data-fixed-role="${e.fixed_role}" data-variable-role="${e.variable_role}"
+                    data-log="${e.log}">
 
-	    
+                    <!--家事名押下時更新モーダル表示-->
+                    <!-- <form id="updateForm" method="POST" onsubmit="return cancelsubmit()" action="<c:url value='/HWUpdateDeleteServlet' />">
+		           -->
+                    <input type="hidden" name="housework_id" value="${e.housework_id}">
+                    <input type="hidden" name="family_id" value="${e.family_id}">
+                    <input type="hidden" name="category_id" value="${e.category_id}">
+                    <input type="hidden" name="noti_flag" value="${e.noti_flag}">
+                    <input type="hidden" name="noti_time" value="${e.noti_time}">
+                    <input type="hidden" name="frequency" value="${e.frequency}">
+                    <input type="hidden" name="manual" value="${e.manual}">
+                    <input type="hidden" name="fixed_role" value="${e.fixed_role}">
+                    <input type="hidden" name="variable_role" value="${e.variable_role}">
+                    <input type="hidden" name="log" value="${e.log}">
 
-		String family_Id = (String)session.getAttribute("family_id");
-		
-		//初期化
-		request.setCharacterEncoding("UTF-8");
-		/* 一旦コメントアウト 
-		//List<housework> cardList = null;
-		int housework_id = 0;
-		String housework_name = "";
-		String family_id = "";
-		int category_id = 0;
-		int housework_level = 0;
-		int noti_flag = 0;
-		String noti_time = "";
-		int frequency = 0;
-		String manual = "";
-		String fixed_role = "";
-		String variable_role = "";
-		int log = 0;
-		String role = "";
-		String searchType = request.getParameter("searchType");
+                    <!-- 家事名のみ表示 -->
+                    <div class="open-update-modal" data-housework-name="${e.housework_name}"
+                      data-housework-id="${e.housework_id}" data-family-id="${e.family_id}"
+                      data-category-id="${e.category_id}" data-housework-level="${e.housework_level}"
+                      data-noti-flag="${e.noti_flag}" data-noti-time="${e.noti_time}" data-frequency="${e.frequency}"
+                      data-manual="${e.manual}" data-fixed-role="${e.fixed_role}"
+                      data-variable-role="${e.variable_role}" data-log="${e.log}">
 
-		
-	
-		houseworkDAO hwDAO = new houseworkDAO();
-		
-		// 家事一覧を作成
-		//if ("掃除".equals(searchType)) {
-			// カテゴリが『掃除』のみを取得
-			//List<housework> cardList = hwDAO.searchclean();
-			
-			//houseworkDAO hwDao = new houseworkDAO();
+                      <c:out value="${e.housework_name}" />
+                      <input type="hidden" name="housework_name" value="${e.housework_name}">
+                    </div>
+                    <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
+                    <!-- </form> -->
+                  </td>
+                  <td class="delete">
+                    <form method="POST" id="delete_form_${e.housework_id}"
+                      action="<c:url value='/HWUpdateDeleteServlet' />" style="display:none;">
+                      <input type="hidden" name="housework_id" value="${e.housework_id}">
+                      <input type="hidden" name="housework_name" value="${e.housework_name}">
+                      <input type="hidden" name="family_id" value="${e.family_id}">
+                      <input type="hidden" name="category_id" value="${e.category_id}">
+                      <input type="hidden" name="housework_level" value="${e.housework_level}">
+                      <input type="hidden" name="noti_flag" value="${e.noti_flag}">
+                      <input type="hidden" name="noti_time" value="${e.noti_time}">
+                      <input type="hidden" name="frequency" value="${e.frequency}">
+                      <input type="hidden" name="manual" value="${e.manual}">
+                      <input type="hidden" name="fixed_role" value="${e.fixed_role}">
+                      <input type="hidden" name="variable_role" value="${e.variable_role}">
+                      <input type="hidden" name="log" value="${e.log}">
+                      <input type="hidden" name="action_type" value="削除">
+                    </form>
+                    <button class="js-modal-button" data-id="${e.housework_id}">
+                      <img src="<c:url value='/img/trash.svg' />" alt="削除" width="24" height="24">
+                    </button>
+                  </td>
+                  <!-- 負担度、家事名の範囲を押下時、家事更新画面をモーダル表示 -->
+                </tr>
+              </c:forEach>
+            </form>
+          </c:if>
+          <!--</div>-->
+        </table>
+        <!-- 家事が追加されるごとに行を追加 -->
+        <!-- 検索アイコン表示 -->
 
-			
-			List<housework>cardList = hwDAO.all();
-	//}
-		
+        <!-- 検索アイコン押下時モーダル画面を表示 -->
+        <button id="openModal">検索</button>
+        <!-- 検索モーダルの中身 -->
+        <div id="searchModal" class="modal" style="display: none;">
+          <div class="modal-content">
+            <!-- <span class="close-button">&times;</span> -->
+            <span class="close-button">&times;</span>
+            <h2>家事検索</h2>
+            <form id="userInput" method="GET" action="<c:url value='/HWSearchServlet' />">
+              <input type="hidden" name="housework_id" id="modal-housework-id" />
+              <input type="hidden" name="family_id" />
+              <input type="hidden" name="housework_level" />
+              <input type="hidden" name="noti_time" id="modal-noti-time" />
+              <input type="hidden" name="manual" />
+              <input type="hidden" name="fixd_role" />
+              <input type="hidden" name="variable_role" />
 
-		
-		
-				
-		// 結果をスコープに格納
-		request.setAttribute("cardList", cardList);*/
-	if (request.getParameter("search") == null) {
-		 // パラメータ取得
-		
-	    String searchType = request.getParameter("searchType");
-	    String sortOrder = request.getParameter("sortOrder");
-	    String housework_name = request.getParameter("housework_name");
-	    String category_id = request.getParameter("category_id");
-	    String noti_flag = request.getParameter("noti_flag");
-	    String frequency = request.getParameter("frequency");
-	    List<housework> cardList = null;  // これが大事
-	    // sortOrderがnullまたはasc/desc以外ならascにする
-	    if (sortOrder == null || (!sortOrder.equals("asc") && !sortOrder.equals("desc"))) {
-	        sortOrder = "asc";
-	    }
-	    
-	    if (noti_flag == null) {
+              <label>カテゴリー:</label>
+              <select name="category_id">
+                <option value="1">掃除</option>
+                <option value="2">洗濯</option>
+                <option value="3">料理</option>
+                <option value="4">その他</option>
+              </select><br>
 
-		    houseworkDAO hwsDao = new houseworkDAO();
-	
-		    // searchTypeによりカテゴリIDを決定
-		    int categoryId = 0;  // 0 = 全件取得
-	
-		    if ("掃除".equals(searchType)) {
-		        categoryId = 1;
-		    } else if ("洗濯".equals(searchType)) {
-		        categoryId = 2;
-		    } else if ("料理".equals(searchType)) {
-		        categoryId = 3;
-		    } else if ("その他".equals(searchType)) {
-		        categoryId = 4;
-		    } else {
-		        // 「一覧」やnullなどは全件取得
-		        categoryId = 0;
-		    }
-	
-		    // DAOからデータ取得（カテゴリ指定 or 全件）
-		    if (categoryId == 0) {
-		        cardList = hwsDao.selectAllSorted(sortOrder);
-		    } else {
-		        cardList = hwsDao.selectByCategorySorted(categoryId, sortOrder);
-		    }
-		    // 結果をリクエストスコープへ
-		    request.setAttribute("cardList", cardList);
-		    request.setAttribute("searchType", searchType);
-		    request.setAttribute("sortOrder", sortOrder);
-	
-			// 家事一覧ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
-			dispatcher.forward(request, response);
-	    } else {
-			houseworkDAO hwDao = new houseworkDAO();		
-//			cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-//					frequency, manual, fixed_role, variable_role, log));
-			// 検索処理
-	        cardList = hwDao.searchHouseworkSorted(category_id, housework_name, frequency, noti_flag, sortOrder);
-		   
-			// 検索結果をリクエストスコープに格納する
-		    
-	        request.setAttribute("housework_name", housework_name);
-	        request.setAttribute("category_id", category_id);
-	        request.setAttribute("noti_flag", noti_flag);
-	        request.setAttribute("frequency", frequency);
-			request.setAttribute("cardList", cardList);
-	    
-			// 家事一覧ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
-			dispatcher.forward(request, response);		
-		}
-			
-	} else {
-		request.setCharacterEncoding("UTF-8");
-		String searchType = request.getParameter("searchType");
-		//int housework_id = 0;
-		String housework_name = "";
-		//String family_id = "";
-		int category_id = 0;
-		//int housework_level = 0;
-		int noti_flag = 0;
-		//String noti_time = "";
-		int frequency = 0;
-		//String manual = "";
-		//String fixed_role = "";
-		//String variable_role = "";
-		//int log = 0;
-		//String role = "";
-		List<housework> cardList = null;  // これが大事
-		
-		// 押されたボタンのnameにより格納するカテゴリIDを変更
-		if ("掃除".equals(searchType)) {
-			//掃除のみ表示
-			category_id = 1;
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchclean(category_id);
+              <label>家事名:</label>
+              <input type="text" name="housework_name"><br>
 
+              <label>頻度:</label>
+              <select name="frequency">
+                <option value="0">毎日</option>
+                <option value="1">月</option>
+                <option value="2">火</option>
+                <option value="3">水</option>
+                <option value="4">木</option>
+                <option value="5">金</option>
+                <option value="6">土</option>
+                <option value="7">日</option>
+                <option value="8">不定期</option>
+              </select><br>
 
-		} else if ("洗濯".equals(searchType)) {
-			// 洗濯のみ表示
-			category_id = 2;
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchwash(category_id);
-			
-		} else if ("料理".equals(searchType)) {
-			// 料理のみ
-			category_id = 3;
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchcook(category_id);
+              <label>通知ON/OFF:</label>
+              <input type="radio" name="noti_flag" value="0" checked> OFF
+              <input type="radio" name="noti_flag" value="1"> ON<br>
 
-			
-		} else if ("その他".equals(searchType)) {
-			// その他
-			category_id = 4;
-			houseworkDAO hwDao = new houseworkDAO();
-			cardList = hwDao.searchother(category_id);
-
-			
-		} else if ("一覧".equals(searchType)) {
-			// 全件表示
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.all();
-
-		}
-		
-//		housework_id = Integer.parseInt(request.getParameter("housework_id"));
-		housework_name = request.getParameter("housework_name");
-		family_id = request.getParameter("family_id");
-		category_id = Integer.parseInt(request.getParameter("category_id"));
-//		housework_level = Integer.parseInt(request.getParameter("housework_level"));
-		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
-//		noti_time = request.getParameter("noti_time");
-		frequency = Integer.parseInt(request.getParameter("frequency"));
-//		manual = request.getParameter("manual");
-//		fixed_role = request.getParameter("fixed_role");
-//		variable_role = request.getParameter("variable_role");
-//		log = Integer.parseInt(request.getParameter("log"));
-
-		// 検索処理を行う
-//		List<housework> cardList = null;
-		houseworkDAO hwDao = new houseworkDAO();		
-//		cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-//				frequency, manual, fixed_role, variable_role, log));
-		// 検索処理
-        cardList = hwDao.searchHousework(family_Id, category_id, housework_name, frequency, noti_flag);
+              <input type="submit" name="search" value="検索">
+            </form>
+          </div>
+        </div>
 
 
-		// 検索結果をリクエストスコープに格納する
-        request.setAttribute("housework_name", housework_name);
-        request.setAttribute("family_id", family_id);
-        request.setAttribute("category_id", category_id);
-        request.setAttribute("noti_flag", noti_flag);
-        request.setAttribute("frequency", frequency);
-		request.setAttribute("cardList", cardList);
+        <!-- 更新モーダルの中身 -->
+        <div id="updateModal" class="modal modal-inner" style="display: none;">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>家事情報を編集</h2>
+            <!-- 更新フォームに渡す値 -->
+            <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
+              <!-- 家事ID非表示 -->
+              <label>家事ID：
+                <input type="text" name="housework_id" id="housework-id" value="" /></label><br>
+              <label>家事名：</label>
+              <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
+              <!-- ファミリーID非表示 -->
+              <input type="hidden" name="family_id" value="" />
+              <label>カテゴリID：</label>
+              <input type="number" name="category_id" id="modal-category-id" value="" /><br>
+              <label>家事負担度：</label>
+              <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
+              <label>通知有無：</label>
+              <!--ラジオボタンにしたい
+              <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
+              <input type="radio" name="noti_flag" id="modal-noti-flag" value="1"> ON
+              -->
+              <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
+              <label>通知時間：</label>
+              <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
+              <label>家事頻度：</label>
+              <input type="text" name="frequency" id="modal-frequency" value="" /><br>
+              <label>メモ（マニュアルなど）：</label>
+              <input type="text" name="manual" id="modal-manual" value="" /><br>
 
-		// 家事一覧ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
-		dispatcher.forward(request, response);		
-	}
-		
-	}
+              <label>固定担当者：</label>
+              <!-- 担当者と通知はラジオボタンにしたい
+              <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
+              <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
+              -->
+              <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br>
 
-//↓POST
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		    doGet(request, response);
-	}
+              <label>可変担当者：</label>
+              <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
+              <!-- ログ非表示 -->
+              <input type="hidden" name="log" id="modal-log" value="" />
 
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-//			return;
-//		}
-		
-		// リクエストパラメータを取得する
-		//初期化
-/*		request.setCharacterEncoding("UTF-8");
-		String searchType = request.getParameter("searchType");
-		int housework_id = 0;
-		String housework_name = "";
-		String family_id = "";
-		int category_id = 0;
-		int housework_level = 0;
-		int noti_flag = 0;
-		String noti_time = "";
-		int frequency = 0;
-		String manual = "";
-		String fixed_role = "";
-		String variable_role = "";
-		int log = 0;
-		String role = "";
-		
-		
-		// 押されたボタンのnameにより格納するカテゴリIDを変更
-		if ("掃除".equals(searchType)) {
-			//掃除のみ表示
-			category_id = 1;
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchclean(category_id);
+              <!--  <button type="button" id="updateTrigger">更新</button> -->
+              <input type="submit" id="updateTrigger" name="updateSubmit" value="更新" />
+            </form>
+          </div>
+        </div>
+        <!-- 更新確認モーダルの中身 -->
+        <div id="confirmModal" class="modal" style="display: none;">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p>この情報で更新しますか？</p>
+            <button id="confirmCancel">Cancel</button>
+            <button id="confirmOk">OK</button>
+          </div>
+        </div>
+        <!-- 削除確認モーダルの中身 -->
+        <div id="deleteConfirmModal" class="modal" style="display:none;">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p>本当に削除しますか？</p>
+            <button id="cancelDeleteBtn">Cancel</button>
+            <button id="confirmDeleteBtn">OK</button>
+          </div>
+        </div>
+      </main>
+      <!-- フッター -->
+      <footer>
+        <!-- 各コンテンツのアイコンを横に並べる -->
+        <div class="contents">
+          <form method="GET" id="contents_form" action="<c:url value='/HWSearchServlet' />">
+            <a>ホーム</a>
+            <input type="submit" name="searchType" value="一覧">
+            <a>登録</a>
+            <a>分析</a>
+            <a>くじ</a>
+          </form>
+        </div>
+      </footer>
+      <script>
+        'use strict';
+        // 負担度で昇順降順
+        /*document.addEventListener("DOMContentLoaded", function () {
+            const sortToggleBtn = document.getElementById("sortToggleBtn");
+            const sortOrderInput = document.getElementById("sortOrderInput");
+            const sortIcon = document.getElementById("sortIcon");
+      	
+            // JSTLの変数をJavaScriptで使うために事前に定義しておく
+            const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
+      	
+            sortToggleBtn.addEventListener("click", function () {
+                if (sortOrderInput.value === "asc") {
+                  sortOrderInput.value = "desc";
+                  sortIcon.src = contextPath + "/img/sort_down.svg";
+                } else {
+                  sortOrderInput.value = "asc";
+                  sortIcon.src = contextPath + "/img/sort_up.svg";
+                }
+      
+                // カテゴリ選択があれば保持してform送信
+                document.getElementById("sortForm").submit();
+              });*/
+        // 負担度で昇順降順
+        document.addEventListener("DOMContentLoaded", function () {
+          const sortToggleBtn = document.getElementById("sortToggleBtn");
+          const sortOrderInput = document.getElementById("sortOrderInput");
+          const sortIcon = document.getElementById("sortIcon");
+
+          // JSTLの変数をJavaScriptで使うために事前に定義しておく
+          const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
+
+          sortToggleBtn.addEventListener("click", function () {
+            if (sortOrderInput.value === "asc") {
+              sortOrderInput.value = "desc";
+              sortIcon.src = contextPath + "/img/sort_down.svg";
+            } else {
+              sortOrderInput.value = "asc";
+              sortIcon.src = contextPath + "/img/sort_up.svg";
+            }
+
+            document.getElementById("sortForm").submit();
+          });
+        });
+
+        // 検索画面をモーダル表示 	
+        const searchModal = document.getElementById("searchModal");
+        const openModalBtn = document.getElementById("openModal");
+        const closeBtn = document.querySelector(".close-button");
+        const submitBtn = document.getElementById("submitButton");
+        const userInput = document.getElementById("userInput");
+
+        openModalBtn.onclick = function () {
+          searchModal.style.display = "block";
+        }
+
+        closeBtn.onclick = function () {
+          searchModal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+          if (event.target === searchModal) {
+            searchModal.style.display = "none";
+          }
+        }
+
+        /*    submitBtn.onclick = function() {
+            alert("入力 " + userInput.value);
+            } */
+
+        //  家事名押下時のスクリプト 家事カードを押下時更新画面をモーダル表示 
+        console.log("clicked");
+        document.addEventListener("DOMContentLoaded", function () {
+          const updateModal = document.getElementById("updateModal");
+          const closeBtn = updateModal.querySelector(".close-button");
+          const updateForm = document.getElementById("updateForm");
+          const updateTrigger = document.getElementById("updateTrigger");
+          //const modalName = document.getElementById("modal-housework-name");
+
+          //確認用
+          const targets = document.querySelectorAll(".openUpdateModal");
+          console.log("見つかった要素数：" + targets.length);
+
+          document.querySelectorAll(".openUpdateForm").forEach(function (td) {
+            //const openUpdateModalCheck = document.getElementById("openUpdateModal");
+            td.addEventListener("click", function () {
+              //const name = this.dataset.houseworkName;
+              //modalName.value = "家事名: " + name;
+              //updateModal.style.display = "block";
+
+              // モーダル内に値を格納
+              const housework_name = this.dataset.houseworkName;
+              const housework_id = this.dataset.houseworkId;
+              // ここに情報を追加 
+              //const family_id = this.dataset.familyId;
+              const category_id = this.dataset.categoryId;
+              const housework_level = this.dataset.houseworkLevel;
+              const noti_flag = this.dataset.notiFlag;
+              const noti_time = this.dataset.notiTime;
+              const frequency = this.dataset.frequency;
+              const manual = this.dataset.manual;
+              const fixed_role = this.dataset.fixedRole;
+              const variable_role = this.dataset.variableRole;
+              //const log = this.dataset.log;
+
+              // 更新モーダルに値を表示
+              console.log(housework_level);
+              document.getElementById("modal-housework-name").value = housework_name;
+              //document.getElementById("modal-housework-id").value = housework_id;
+              console.log("housework_id:", housework_id);
+              //document.getElementById("modal-family-id").value = family_id; 
+              document.getElementById("modal-category-id").value = category_id;
+              document.getElementById("modal-housework-level").value = housework_level;
+              document.getElementById("modal-noti-flag").value = noti_flag;
+              document.getElementById("modal-noti-time").value = noti_time;
+              document.getElementById("modal-frequency").value = frequency;
+              document.getElementById("modal-manual").value = manual;
+              document.getElementById("modal-fixed-role").value = fixed_role;
+              document.getElementById("modal-variable-role").value = variable_role;
+              //document.getElementById("log").value = log;
+              document.getElementById("housework-id").value = housework_id;
+              updateModal.style.display = "block";
+            });
+          });
 
 
-		} else if ("洗濯".equals(searchType)) {
-			// 洗濯のみ表示
-			category_id = 2;
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchwash(category_id);
-			
-		} else if ("料理".equals(searchType)) {
-			// 料理のみ
-			category_id = 3;
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchcook(category_id);
 
-			
-		} else if ("その他".equals(searchType)) {
-			// その他
-			category_id = 4;
-			houseworkDAO hwDao = new houseworkDAO();
-			cardList = hwDao.searchother(category_id);
+          // updateTrigger.addEventListener("click", function (event) {
+          //   const confirmedCheck = window.confirm("この情報で更新しますか？");
+          //   if (confirmedCheck === true) {
+          //     updateForm.submit();
+          //   } else {
+          //     window.alert("送信を取り消しました");
+          //     event.preventDefault();
+          //   }
+          // });
 
-			
-		} else if ("一覧".equals(searchType)) {
-			// 全件表示
-			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.all();
+          // closeBtn.onclick = function () {
+          //   updateModal.style.display = "none";
+          // };
+          // window.onclick = function (event) {
+          //   if (event.target === updateModal) {
+          //     updateModal.style.display = "none";
+          //   }
+          // };
 
-		}
-		
-//		housework_id = Integer.parseInt(request.getParameter("housework_id"));
-		housework_name = request.getParameter("housework_name");
-//		family_id = request.getParameter("family_id");
-		category_id = Integer.parseInt(request.getParameter("category_id"));
-//		housework_level = Integer.parseInt(request.getParameter("housework_level"));
-		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
-//		noti_time = request.getParameter("noti_time");
-		frequency = Integer.parseInt(request.getParameter("frequency"));
-//		manual = request.getParameter("manual");
-//		fixed_role = request.getParameter("fixed_role");
-//		variable_role = request.getParameter("variable_role");
-//		log = Integer.parseInt(request.getParameter("log"));
+        });
 
-		// 検索処理を行う
-//		List<housework> cardList = null;
-		houseworkDAO hwDao = new houseworkDAO();		
-//		cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
-//				frequency, manual, fixed_role, variable_role, log));
-		// 検索処理
-        List<housework> cardList = hwDao.searchHousework(category_id, housework_name, frequency, noti_flag);
+        // function cancelsubmit() {
+        //   const confirmed = window.confirm("この情報で更新しますか？");      
+        //   if (confirmed) {
+        //     const updateForm = document.getElementById("updateForm"); // ← ここで再取得
+        //     console.log((new FormData(updateForm)));
+        //     updateForm.submit();
+        //   }
+        // }
 
 
-		// 検索結果をリクエストスコープに格納する
-		request.setAttribute("cardList", cardList);
 
-		// 家事一覧ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
-		dispatcher.forward(request, response);		
-		
-		
-		System.out.println("cardList size: " + ((List<housework>) cardList).size());
+        //  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
+        // ↓値確認用コンソール
 
-		// TODO Auto-generated method stub 自動生成
-		//doGet(request, response);
-	} */
 
-} 
+        // document.addEventListener("DOMContentLoaded", function () {
+        //   const updateTrigger = document.getElementById("updateTrigger");
+        //   const confirmModal = document.getElementById("confirmModal");
+        //   const confirmOk = document.getElementById("confirmOk");
+        //   const confirmCancel = document.getElementById("confirmCancel");
+        //   const updateForm = document.getElementById("updateForm");
+
+        //   // 更新ボタン押下時 → 確認モーダル表示
+        //   updateTrigger.addEventListener("click", function () {
+        //     confirmModal.style.display = "block";
+        //   });
+
+        //   // キャンセル → 確認モーダル非表示
+        //   confirmCancel.addEventListener("click", function () {
+        //     confirmModal.style.display = "none";
+        //   });
+
+        //   // OK → モーダル閉じてフォーム送信
+        //   confirmOk.addEventListener("click", function () {
+        //     confirmModal.style.display = "none";
+        //     updateForm.submit(); // 実際に送信
+        //   });
+
+        //   // 背景クリックで閉じる
+        //   window.addEventListener("click", function (event) {
+        //     if (event.target === confirmModal) {
+        //       confirmModal.style.display = "none";
+        //     }
+        //   });
+        // });
+
+
+        //ごみ箱アイコンを押下時消去確認モーダル表示
+        document.addEventListener("DOMContentLoaded", function () {
+          const modal = document.getElementById("deleteConfirmModal");
+          let currentForm = null;
+
+          // ごみ箱アイコンを押したらモーダルを開く
+          document.querySelectorAll(".js-modal-button").forEach(button => {
+            button.addEventListener("click", function () {
+              const houseworkId = this.getAttribute("data-id");
+              const formId = "delete_form_" + houseworkId;
+              currentForm = document.getElementById(formId);
+              if (currentForm) {
+                modal.style.display = "block";
+              } else {
+                console.error("フォームが見つかりません:", formId);
+              }
+            });
+          });
+
+          // Cancelボタンでモーダルを閉じる
+          document.getElementById("cancelDeleteBtn").addEventListener("click", function () {
+            modal.style.display = "none";
+            currentForm = null;
+          });
+
+          // OKボタンでフォーム送信
+          document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+            if (currentForm) {
+              currentForm.submit();
+            }
+          });
+
+          // ×（クローズボタン）で閉じる
+          const closeBtn = modal.querySelector(".close-button");
+          if (closeBtn) {
+            closeBtn.addEventListener("click", function () {
+              modal.style.display = "none";
+              currentForm = null;
+            });
+          }
+
+          // 背景クリックで閉じる
+          window.addEventListener("click", function (event) {
+            if (event.target === modal) {
+              modal.style.display = "none";
+              currentForm = null;
+            }
+          });
+        });
+
+
+        // 処理の結果表示
+        window.onload = function () {
+          // 更新
+          const update_message = "<c:out value='${update_message}' />";
+          const update_error = "<c:out value='${update_error}' />";
+
+          if (update_message && update_message.trim().length > 0) {
+            alert(update_message);
+          }
+
+          if (update_error && update_error.trim().length > 0) {
+            alert(update_error);
+          }
+
+          // 削除
+          const delete_message = "<c:out value='${delete_message}' />";
+          const delete_error = "<c:out value='${delete_error}' />";
+
+          if (delete_message && delete_message.trim().length > 0) {
+            alert(delete_message);
+          }
+
+          if (delete_error && delete_error.trim().length > 0) {
+            alert(delete_error);
+          }
+        };
+      </script>
+    </body>
+
+    </html>
