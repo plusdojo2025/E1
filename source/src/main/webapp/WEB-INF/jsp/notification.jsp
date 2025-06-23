@@ -4,17 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>通知</title>
 <link rel="stylesheet" href="css/notification.css">
-<link rel="stylesheet" href="css/common.css">
 </head>
 <body>
 <a href="#" onClick="history.back(); return false;"><img src="img/仮置き.png"></a>
-<h1 id=notititle>通知</h1>
-<hr>
+<h1 id="notititle">通知</h1>
+<hr id="notiline">
 <div id="allnoti">
 	<c:forEach var="e" items="${notiList}">
-		<div>
+		<div class="noti">
 			<h2>${e.noti_content}</h2><br>
 			<p>${e.noti_datetime}</p>
 			<hr>
