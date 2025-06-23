@@ -25,7 +25,7 @@ public class gachaDAO {
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			String sql = "SELECT user_id, user_name, share_goal FROM user WHERE family_id = '" + family_id + "'";
+			String sql = "SELECT user_id, share_goal FROM user WHERE family_id = '" + family_id + "'";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
