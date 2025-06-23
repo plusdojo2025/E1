@@ -5,12 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/webapp/css/notification.css">
+<link rel="stylesheet" href="/webapp/css/common.css">
 </head>
 <body>
 <a href="#" onClick="history.back(); return false;"><img src="仮置き.png"></a>
-<h1>通知</h1>
+<h1 id=notititle>通知</h1>
 <hr>
-<div>
+<div id="allnoti">
 	<c:forEach var="e" items="${notiList}">
 		<div>
 			<h2>${e.noti_content}</h2><br>
