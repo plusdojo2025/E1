@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログインページ</title>
+<title>ログイン</title>
 <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>

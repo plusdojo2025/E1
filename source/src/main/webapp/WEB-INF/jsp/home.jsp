@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/home.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/home2.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/home3.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" type="text/css" href="css/home.css">
+<link rel="stylesheet" type="text/css" href="css/home2.css">
+<link rel="stylesheet" type="text/css" href="css/home3.css">
+<link rel="stylesheet" type="text/css" href="css/common.css">
 <title>ホーム</title>
 </head>
 <body>
@@ -17,8 +17,8 @@
 	<header id="header">
 	
 		<h1 id="logo">
-	      <a href="<c:url value='/HomeServlet' />">
-	      <img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエール">
+	      <a href="${pageContext.request.contextPath}/HomeServlet">
+	      <img src="img/logo_lightblue.png" alt="カジミエール">
 	    </a>
 	    </h1>
 		
@@ -48,7 +48,7 @@
       </div>
       <div class="modal__contents3">
         <div class="modal__content3">
-        <form method="POST" action="<c:url value='/HomeServlet' />" id="form${status.index}">
+        <form method="POST" action="${pageContext.request.contextPath}/HomeServlet" id="form${status.index}">
 	 <input type="hidden" name="housework_id" value="${e.housework_id}">
 	 <h6>完了チェックを行いますか？</h6>
 	 <br>
@@ -78,7 +78,7 @@
 	      </div>
 	      <div class="modal__contents">
 	        <div class="modal__content">
-	          <form method="POST" action="<c:url value='/HomeServlet' />" id="form${status.index}">
+	          <form method="POST" action="${pageContext.request.contextPath}/HomeServlet" id="form${status.index}">
 				 <select name="housework_id">
 				 <c:forEach var="e" items="${irregular_houseworkList}" varStatus="status" >
 					<option value="${e.housework_id}"><c:out value="${e.housework_name}" /></option>
@@ -113,7 +113,7 @@
       </div>
       <div class="modal__contents2">
         <div class="modal__content2">
-          <form method="POST" action="<c:url value='/HomeServlet' />" id="form${status.index}">
+          <form method="POST" action="${pageContext.request.contextPath}/HomeServlet" id="form${status.index}">
 			<input type="text" name="memo" id="memo_new">
 			<input type="submit" name="submit" value="メモ追加" id="memo_submit">
 			 </form>
@@ -122,17 +122,17 @@
     </div>
   </div>
 </div>
-
+</div>
  </main>
  <!-- フッター（ここから） -->
 	<div id="footer">
 	  <nav class="navi">
 	    <ul>
-	      <li><a href="<c:url value='/HomeServlet' />"><img src="<c:url value='/img/home.svg' />" alt="ホーム"></a></li>
-	      <li><a href="<c:url value='/HWSearchServlet' />"><img src="<c:url value='/img/list.svg' />" alt="一覧"></a></li>
-	      <li><a href="<c:url value='/HWRegistServlet' />"><img src="<c:url value='/img/regist.svg' />" alt="登録"></a></li>
-	      <li><a href="<c:url value='/GachaServlet' />"><img src="<c:url value='/img/gacha.svg' />" alt="くじ"></a></li>
-	      <li><a href="<c:url value='/AnalysisServlet' />"><img src="<c:url value='/img/analysis.svg' />" alt="分析"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HomeServlet"><img src="img/home.svg" alt="ホーム"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWSearchServlet"><img src="img/list.svg" alt="一覧"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWRegistServlet"><img src="img/regist.svg" alt="登録"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/GachaServlet"><img src="img/gacha.svg" alt="くじ"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/AnalysisServlet"><img src="img/analysis.svg" alt="分析"></a></li>
 	    </ul>
 	  </nav>
 	</div>

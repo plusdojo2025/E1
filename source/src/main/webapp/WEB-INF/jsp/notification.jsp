@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/webapp/css/notification.css">
-<link rel="stylesheet" href="/webapp/css/common.css">
+<link rel="stylesheet" href="css/notification.css">
+<link rel="stylesheet" href="css/common.css">
 </head>
 <body>
-<a href="#" onClick="history.back(); return false;"><img src="仮置き.png"></a>
+<a href="#" onClick="history.back(); return false;"><img src="img/仮置き.png"></a>
 <h1 id=notititle>通知</h1>
 <hr>
 <div id="allnoti">

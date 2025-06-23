@@ -7,9 +7,9 @@
     <head>
       <meta charset="UTF-8">
       <title>家事一覧</title>
-      <link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_list.css' />">
+      <link rel="stylesheet" type="text/css" href="css/housework_list.css">
       <!-- ↑cssのパスを動的に取得 -->
-      <link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
+      <!--  <link rel="stylesheet" type="text/css" href="<css/common.css">-->
     </head>
 
     <body>
@@ -24,7 +24,7 @@
         <h2>家事一覧</h2>
         <!--家事タブを押したときはカテゴリごとに検索、表示 -->
         <div class="tab_container">
-          <form method="GET" id="tabsearch_form" action="<c:url value='/HWSearchServlet' />">
+          <form method="GET" id="tabsearch_form" action="${pageContext.request.contextPath}/HWSearchServlet">
             <input type="hidden" name="sortOrder" value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
             <button type="submit" name="searchType" value="掃除">掃除</button>
             <button type="submit" name="searchType" value="洗濯">洗濯</button>
@@ -36,7 +36,7 @@
         <!-- 家事一覧表示 -->
         <!-- 負担度、家事名、消去ラベル表示 -->
         <!-- 昇降順切替用フォーム -->
-        <form id="sortForm" method="GET" action="<c:url value='/HWSearchServlet' />">
+        <form id="sortForm" method="GET" action="${pageContext.request.contextPath}/HWSearchServlet">
           <input type="hidden" name="sortOrder" id="sortOrderInput"
             value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
           <input type="hidden" name="searchType" value="${param.searchType != null ? param.searchType : ''}" />
@@ -105,7 +105,7 @@
                 <!-- </form> -->
               </td>
               <td class="delete">
-                <form method="POST" id="delete_form_${e.housework_id}" action="<c:url value='/HWUpdateDeleteServlet' />"
+                <form method="POST" id="delete_form_${e.housework_id}" action="${pageContext.request.contextPath}/HWUpdateDeleteServlet"
                   style="display:none;">
                   <input type="hidden" name="housework_id" value="${e.housework_id}">
                   <input type="hidden" name="housework_name" value="${e.housework_name}">
@@ -141,7 +141,7 @@
             <!-- <span class="close-button">&times;</span> -->
             <span class="close-button">&times;</span>
             <h2>家事検索</h2>
-            <form id="userInput" method="GET" action="<c:url value='/HWSearchServlet' />">
+            <form id="userInput" method="GET" action="${pageContext.request.contextPath}/HWSearchServlet">
               <input type="hidden" name="housework_id" id="modal-housework-id" />
               <input type="hidden" name="family_id" />
               <input type="hidden" name="housework_level" />
@@ -190,7 +190,7 @@
             <span class="close-button">&times;</span>
             <h2>家事情報を編集</h2>
             <!-- 更新フォームに渡す値 -->
-            <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
+            <form id="updateForm" method="POST" action="${pageContext.request.contextPath}/HWUpdateDeleteServlet">
               <!-- 家事ID非表示 -->
               <label>家事ID：
                 <input type="text" name="housework_id" id="housework-id" value="" /></label><br>
@@ -251,7 +251,6 @@
           </div>
         </div>
 
-        </div>
 
 
       </main>
@@ -259,7 +258,7 @@
       <footer>
         <!-- 各コンテンツのアイコンを横に並べる -->
         <div class="contents">
-          <form method="GET" id="contents_form" action="<c:url value='/HWSearchServlet' />">
+          <form method="GET" id="contents_form" action="${pageContext.request.contextPath}/HWSearchServlet">
             <a>ホーム</a>
             <input type="submit" name="searchType" value="一覧">
             <a>登録</a>

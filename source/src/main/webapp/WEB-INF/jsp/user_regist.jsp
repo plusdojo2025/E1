@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/user_regist.css' />">
+<title>ユーザー登録</title>
+<link rel="stylesheet" type="text/css" href="css/user_regist.css">
 </head>
 <body>
-<img src="<c:url value='/img/kajilogo.png' />" alt="カジミエールのロゴ" id="kaji_logo">
-<img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエールのロゴ" id="kajimieru">
+<img src="img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="img/logo_lightblue.png" alt="カジミエールのロゴの文字" id="kajimieru">
 <span>${result}</span>
 <div id="container">
-<form method="POST"  id="user_regist_form" action="<c:url value='/UserRegistServlet' />">
+<form method="POST"  id="user_regist_form" action="${pageContext.request.contextPath}/UserRegistServlet">
 <h2>ユーザー登録</h2>
 	<table id="user_content">
 		<tr>
@@ -83,9 +83,9 @@
 		</tr>
 	</table>
 </form>
-<form action="<c:url value='/LoginServlet' />" method="get">
+<form action="${pageContext.request.contextPath}/LoginServlet" method="get">
     <button type="submit" >
-    <img src="<c:url value='/img/back.svg' />" alt="ログイン画面へ戻る" id="to_login">
+    <img src="img/back.svg" alt="ログイン画面へ戻る" id="to_login">
     </button>
 </form>
 </div>
