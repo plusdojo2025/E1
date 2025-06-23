@@ -10,7 +10,7 @@ html {
 
 /*負担度を表す星*/
 .star {
-  font-size: 2rem;
+  font-size: 4rem;
   color: lightgray;
   cursor: pointer;
   transition: color 0.2s;
@@ -88,7 +88,7 @@ html {
 	
 .form-wrapper {
   background-color: white;
-  padding: 30px;
+  padding: 45px;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 700px;
@@ -103,6 +103,7 @@ html {
   font-family: "Arial", sans-serif;
   background-color: #fff9f5;
   color: #333;
+	
 }
 
 .form-container h2 {
@@ -132,7 +133,7 @@ html {
 }
 
 label {
-  font-size: 1.1rem;
+  font-size: 1.8rem;
   font-weight: bold;
 }
 
@@ -188,5 +189,10 @@ label {
 .modal button:hover {
   background-color: #e66a00;
 }
-	
-    
+h2 {
+    padding-top:300px;
+    color: #FF7F00;
+    font-size: 32px;
+	text-align: center;
+    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+}	

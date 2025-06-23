@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <link rel="stylesheet" type="text/css" href="css/housework_regist.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <title>家事登録</title>
@@ -44,7 +44,7 @@
 		<!-- 家事名 -->
 		<div class="form-group">		
 		<label>家事名(必須)
-		<input type="text" name="housework_name"><br>
+		<input type="text" name="housework_name">
 		</label>
 		</div> 
 		 	
