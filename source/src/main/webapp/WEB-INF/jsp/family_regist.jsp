@@ -61,7 +61,7 @@
 
 </form> -->
 <button type="button" onclick="location.href='/e1/UserRegistServlet'" id="family_id">ファミリーIDをお持ちの方はこちら</button>
-<form action="/e1/LoginServlet" method="get">
+<form action=request.getContextPath() + "/LoginServlet" method="get">
     <button type="submit">戻る</button>
 </form>
 </div>

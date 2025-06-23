@@ -30,7 +30,7 @@ public class AnalysisServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			
 			// セッションにログイン情報がなければログイン画面へリダイレクト
-			/*if (session.getAttribute("id") == null) {
+			/*if (session.getAttribute("user_id") == null) {
 			    response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			    return;
 			}*/
@@ -111,7 +111,7 @@ public class AnalysisServlet extends HttpServlet {
 	        HttpSession session = request.getSession();
 	        
 			// セッションにログイン情報がなければログイン画面へリダイレクト
-			/*if (session.getAttribute("id") == null) {
+			/*if (session.getAttribute("user_id") == null) {
 			    response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			    return;
 			}*/

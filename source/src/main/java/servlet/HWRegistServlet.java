@@ -36,8 +36,8 @@ public class HWRegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		/*if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E1/LoginServlet");
+		/*if (session.getAttribute("user_id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}*/
 		
@@ -65,8 +65,8 @@ public class HWRegistServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		/*if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E1/LoginServlet");
+		/*if (session.getAttribute("user_id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}*/
 		
