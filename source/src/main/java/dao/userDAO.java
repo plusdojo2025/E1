@@ -116,7 +116,7 @@ public class userDAO {
     	
     	//登録画面用
 	    List<user> users = new ArrayList<>();
-	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1?"
     			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     			"root", "password")) {
 	        String sql = "SELECT user_id FROM user WHERE family_id = ?";
@@ -162,7 +162,7 @@ public class userDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1?"
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			

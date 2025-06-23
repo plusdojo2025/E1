@@ -392,10 +392,13 @@
         });
       });    
 
-      updateTrigger.addEventListener("click", function() {
-        const confirmed = confirm("この情報で更新しますか？");
-        if (confirmed) {
+      updateTrigger.addEventListener("click", function(event) {
+        const confirmedCheck = window.confirm("この情報で更新しますか？");
+        if (confirmedCheck === true) {
           updateForm.submit();
+        } else {
+        	window.alert("送信を取り消しました");
+        	event.preventDefault();}
         }
       });
  

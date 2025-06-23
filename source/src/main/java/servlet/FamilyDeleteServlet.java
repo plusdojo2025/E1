@@ -34,10 +34,10 @@ public class FamilyDeleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String user_id = request.getParameter("user_id");
+//		String user_id = request.getParameter("user_id");
 		String family_id = request.getParameter("family_id");
 		String fami_pass = request.getParameter("fami_pass");
-		String password = request.getParameter("password");
+//		String password = request.getParameter("password");
 
 		
 		// useridとPWが入力されているか確認

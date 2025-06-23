@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.houseworkDAO;
 import dto.housework;
@@ -28,11 +29,12 @@ public class HWSearchServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 //		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/E1/LoginServlet");
+//		if (session.getAttribute("user_id") == null) {
+//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 //			return;
 //		}
-
+	    HttpSession session = request.getSession();
+		String family_Id = (String)session.getAttribute("family_id");
 		
 		//初期化
 		request.setCharacterEncoding("UTF-8");
@@ -214,7 +216,7 @@ public class HWSearchServlet extends HttpServlet {
 //		cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
 //				frequency, manual, fixed_role, variable_role, log));
 		// 検索処理
-        cardList = hwDao.searchHousework(category_id, housework_name, frequency, noti_flag);
+        cardList = hwDao.searchHousework(family_Id, category_id, housework_name, frequency, noti_flag);
 
 
 		// 検索結果をリクエストスコープに格納する
@@ -243,8 +245,8 @@ public class HWSearchServlet extends HttpServlet {
 
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 //		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/E1/LoginServlet");
+//		if (session.getAttribute("user_id") == null) {
+//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 //			return;
 //		}
 		
