@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/family_regist.css' />">
+<title>ファミリー登録</title>
+<link rel="stylesheet" type="text/css" href="css/family_regist.css">
 </head>
 <body>
-<img src="<c:url value='/img/kajilogo.png' />" alt="カジミエールのロゴ" id="kaji_logo">
-<img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエールのロゴ" id="kajimieru">
+<img src="img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="img/logo_lightblue.png" alt="カジミエールのロゴの文字" id="kajimieru">
 <div id="container">
-<form method="POST"  id="family_regist_form" action="<c:url value='/FamilyRegistServlet' />">
+<form method="POST"  id="family_regist_form" action="${pageContext.request.contextPath}/FamilyRegistServlet">
 <h2>ファミリー登録</h2>
 	<table id="family_content">
 		<tr>
@@ -61,10 +61,8 @@
 
 </form> -->
 <button type="button" onclick="location.href='/e1/UserRegistServlet'" id="family_id">ファミリーIDをお持ちの方はこちら</button>
-<form action="<c:url value='/LoginServlet' />" method="get">
-    <button type="submit">
-    <img src="<c:url value='/img/back.svg' />" alt="ログイン画面へ戻る" id="to_login">
-    </button>
+<form action="${pageContext.request.contextPath}/LoginServlet" method="get">
+    <input type="image" src="img/back.svg" alt="ログイン画面へ戻る" id="to_login">
 </form>
 </div>
 </body>

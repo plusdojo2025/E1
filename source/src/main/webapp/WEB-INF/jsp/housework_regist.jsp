@@ -5,17 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_regist.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
-<title>登録</title>
+
+<link rel="stylesheet" type="text/css" href="css/housework_regist.css">
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<title>家事登録</title>
 </head>
 	
 	<!-- ヘッダー（ここから） -->
 	<header id="header">
 	
 		<h1 id="logo">
-	      <a href="<c:url value='/HomeServlet' />">
-	      <img src="<c:url value='/img/logo_lightblue.png' />"  alt="カジミエール">
+	      <a href="${pageContext.request.contextPath}/HomeServlet">
+	      <img src="img/logo_lightblue.png"  alt="カジミエール">
 	    </a>
 	    </h1>
 		
@@ -24,10 +25,10 @@
 	
 	<body>
 <!-- メイン（ここから） -->
-	<main class="form-wrapper">
+	
 		<h2>家事登録（新しい家事を入力してください）</h2>
-		<hr>
-		<form id="form" method="POST" action="<c:url value='/HWRegistServlet' />">
+		<main class="form-wrapper">
+		<form id="form" method="POST" action="${pageContext.request.contextPath}/HWRegistServlet">
 		 <!-- カテゴリ -->
 		 <div class="form-group">
 		<label>カテゴリ:
@@ -43,7 +44,7 @@
 		<!-- 家事名 -->
 		<div class="form-group">		
 		<label>家事名(必須)
-		<input type="text" name="housework_name"><br>
+		<input type="text" name="housework_name">
 		</label>
 		</div> 
 		 	

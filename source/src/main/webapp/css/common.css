@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
-/*モバイル対応*/
-@media(max-width: 767px){
+
 	
 	.wrapper {
     margin-top: 150px; /* ヘッダーにかぶらないように余白を取る */
@@ -76,4 +75,3 @@
 	
 	
 	
-}

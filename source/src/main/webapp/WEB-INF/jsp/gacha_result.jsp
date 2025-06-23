@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/gacha.css' />">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/gacha.css">
+<title>分担ガチャ結果</title>
 </head>
 <body>
 <c:forEach var="e" items="${role}">

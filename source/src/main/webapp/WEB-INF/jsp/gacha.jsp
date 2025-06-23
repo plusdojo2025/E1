@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/gacha.css' />">
+<link rel="stylesheet" type="text/css" href="css/gacha.css">
 <title>分担ガチャ</title>
 </head>
 
 <body>
-<form method="POST" action="<c:url value='/GachaServlet' />" id="gachaForm">
+<form method="POST" action="${pageContext.request.contextPath}/GachaServlet" id="gachaForm">
 <input type="hidden" name="click" value="on">
 </form>
 <div id="gacha">
@@ -135,7 +135,7 @@
 <script>
 $('#gacha').on('click', function(e) {	
 	const a = "${today_housework}";
-	if (a === null){
+	if (a === ""){
 	e.preventDefault();
 	  
 	  $('.toy').toggleClass('act');

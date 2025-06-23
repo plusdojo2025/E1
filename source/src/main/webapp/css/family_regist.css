@@ -69,7 +69,8 @@ h2 {
 
 #family_error {
     color: red;
-    font-size: 24px;
+    font-size: 20px;
+    margin-left: 140px;
 }
 
 #family_btn {
@@ -98,6 +99,13 @@ h2 {
     font: inherit;
     text-decoration: none; /* 下線を消したい場合 */
     margin-bottom: 40px;
-    margin-left:230px;
+    margin-left:200px;
     color: #FF7F00;
+    font-size: 20px;
+}
+#to_login {
+    width: 50px;
+    height: auto;
+    margin-left: 50px;
+    margin-bottom: 20px;
 }

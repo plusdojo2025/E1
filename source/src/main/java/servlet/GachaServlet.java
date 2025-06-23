@@ -49,11 +49,7 @@ public class GachaServlet extends HttpServlet {
 		 if (date / 100 != log /100) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);			
-		}else if (log == 0) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
-			dispatcher.forward(request, response);
-		}
-		
+		}else {
 		
 			
 			List<housework> roleList = gcDAO.select_role(family_id);
@@ -73,7 +69,7 @@ public class GachaServlet extends HttpServlet {
 			request.setAttribute("roleList",roleList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha_result.jsp");
 			dispatcher.forward(request, response);
-		
+		}
 	}
 
 	/**
@@ -118,7 +114,7 @@ public class GachaServlet extends HttpServlet {
 			Random rand = new Random();
 			while (i < vari_houseworkList.size()) {
 				int num = rand.nextInt(familyList.size());
-				if (familyList.get(num).getUser_level() >= 0) {
+				if (familyList.get(num).getUser_level() > 0) {
 					gcDAO.update(familyList.get(num),vari_houseworkList.get(i));
 					familyList.get(num).addUser_level(vari_houseworkList.get(i).getHousework_level());
 					i++;

@@ -36,10 +36,10 @@ public class HWRegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("user_id") == null) {
+		/*if (session.getAttribute("user_id") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
-		}
+		}*/
 		
 		// セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
