@@ -5,17 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>ログインページ</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login.css' />">
 </head>
 <body>
   <!-- ヘッダー（ここから） -->
   <!-- ヘッダー（ここまで） -->
   <!-- メイン（ここから） -->
-<img src="${pageContext.request.contextPath}/img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
-<img src="${pageContext.request.contextPath}/img/logo_lightblue.png" alt="カジミエールのロゴ" id="kajimieru">
+<img src="<c:url value='/img/kajilogo.png' />" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエールのロゴ" id="kajimieru">
 <div id="container">
 <h2 id="login_title">ログイン</h2>
-<form method="POST"  id="login_form" action="${pageContext.request.contextPath}/LoginServlet">
+<form method="POST"  id="login_form" action="<c:url value='/LoginServlet' />">
 	<table id="login_content">
 		<tr>
 			<td>
@@ -42,10 +42,10 @@
 		</tr>
 	</table>
 </form>
-<form method="GET" action="${pageContext.request.contextPath}/FamilyRegistServlet">
+<form method="GET" action="<c:url value='/FamilyRegistServlet' />">
         <input type="submit" value="IDをお持ちでない方はこちら" id="no_id">
 </form>
-<form method="GET" action="${pageContext.request.contextPath}/UserDeleteServlet">
+<form method="GET" action="<c:url value='/UserDeleteServlet' />">
         <input type="submit" value="アカウント削除はこちら" id="no_account">
 </form>
 </div>

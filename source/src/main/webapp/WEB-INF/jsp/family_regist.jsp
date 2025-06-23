@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/family_regist.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/family_regist.css' />">
 </head>
 <body>
-<img src="${pageContext.request.contextPath}/img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
-<img src="${pageContext.request.contextPath}/img/logo_lightblue.png" alt="カジミエールのロゴ" id="kajimieru">
+<img src="<c:url value='/img/kajilogo.png' />" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエールのロゴ" id="kajimieru">
 <div id="container">
-<form method="POST"  id="family_regist_form" action="${pageContext.request.contextPath}/FamilyRegistServlet">
+<form method="POST"  id="family_regist_form" action="<c:url value='/FamilyRegistServlet' />">
 <h2>ファミリー登録</h2>
 	<table id="family_content">
 		<tr>
@@ -61,7 +61,7 @@
 
 </form> -->
 <button type="button" onclick="location.href='/e1/UserRegistServlet'" id="family_id">ファミリーIDをお持ちの方はこちら</button>
-<form action="/e1/LoginServlet" method="get">
+<form action="<c:url value='/LoginServlet' />" method="get">
     <button type="submit">戻る</button>
 </form>
 </div>

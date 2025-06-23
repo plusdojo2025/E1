@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/user_regist.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/user_regist.css' />">
 </head>
 <body>
-<img src="${pageContext.request.contextPath}/img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
-<img src="${pageContext.request.contextPath}/img/logo_lightblue.png" alt="カジミエールのロゴ" id="kajimieru">
+<img src="<c:url value='/img/kajilogo.png' />" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエールのロゴ" id="kajimieru">
 <span>${result}</span>
 <div id="container">
-<form method="POST"  id="user_regist_form" action="${pageContext.request.contextPath}/UserRegistServlet">
+<form method="POST"  id="user_regist_form" action="<c:url value='/UserRegistServlet' />">
 <h2>ユーザー登録</h2>
 	<table id="user_content">
 		<tr>
@@ -83,7 +83,7 @@
 		</tr>
 	</table>
 </form>
-<form action="${pageContext.request.contextPath}/LoginServlet" method="get">
+<form action="<c:url value='/LoginServlet' />" method="get">
     <button type="submit">戻る</button>
 </form>
 </div>
