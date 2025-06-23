@@ -27,13 +27,12 @@ public class HWSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-//			return;
-//		}
-	    HttpSession session = request.getSession();
+//		 もしもログインしていなかったらログインサーブレットにリダイレクトする
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user_id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 		String family_Id = (String)session.getAttribute("family_id");
 		
 		//初期化
