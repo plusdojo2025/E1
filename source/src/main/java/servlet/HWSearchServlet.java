@@ -117,9 +117,9 @@ public class HWSearchServlet extends HttpServlet {
 	
 		    // DAOからデータ取得（カテゴリ指定 or 全件）
 		    if (categoryId == 0) {
-		        cardList = hwsDao.selectAllSorted(sortOrder);
+		        cardList = hwsDao.selectAllSorted(sortOrder, family_Id);
 		    } else {
-		        cardList = hwsDao.selectByCategorySorted(categoryId, sortOrder);
+		        cardList = hwsDao.selectByCategorySorted(categoryId, sortOrder, family_Id);
 		    }
 		    // 結果をリクエストスコープへ
 		    request.setAttribute("cardList", cardList);
@@ -134,7 +134,7 @@ public class HWSearchServlet extends HttpServlet {
 //			cardList = hwDao.select(new housework(housework_id, housework_name,  family_id, category_id, housework_level, noti_flag, noti_time, 
 //					frequency, manual, fixed_role, variable_role, log));
 			// 検索処理
-	        cardList = hwDao.searchHouseworkSorted(category_id, housework_name, frequency, noti_flag, sortOrder);
+	        cardList = hwDao.searchHouseworkSorted(category_id, housework_name, frequency, noti_flag, sortOrder, family_Id);
 		   
 			// 検索結果をリクエストスコープに格納する
 		    
@@ -172,33 +172,33 @@ public class HWSearchServlet extends HttpServlet {
 			//掃除のみ表示
 			category_id = 1;
 			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchclean(category_id);
+			cardList = hwDao.searchclean(category_id, family_Id);
 
 
 		} else if ("洗濯".equals(searchType)) {
 			// 洗濯のみ表示
 			category_id = 2;
 			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchwash(category_id);
+			cardList = hwDao.searchwash(category_id, family_Id);
 			
 		} else if ("料理".equals(searchType)) {
 			// 料理のみ
 			category_id = 3;
 			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.searchcook(category_id);
+			cardList = hwDao.searchcook(category_id, family_Id);
 
 			
 		} else if ("その他".equals(searchType)) {
 			// その他
 			category_id = 4;
 			houseworkDAO hwDao = new houseworkDAO();
-			cardList = hwDao.searchother(category_id);
+			cardList = hwDao.searchother(category_id, family_Id);
 
 			
 		} else if ("一覧".equals(searchType)) {
 			// 全件表示
 			houseworkDAO hwDao = new houseworkDAO();		
-			cardList = hwDao.all();
+			cardList = hwDao.all(family_Id);
 
 		}
 		
