@@ -33,8 +33,7 @@ public class GachaServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		//String familyId = (String) session.getAttribute("family_id");
-		String family_id = "1001";
+		String family_id = (String) session.getAttribute("family_id"); 
 		LocalDateTime nowDate = LocalDateTime.now();
 		DateTimeFormatter dtf =
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
@@ -84,8 +83,7 @@ public class GachaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
-		//String familyId = (String) session.getAttribute("family_id");
-		String family_id = "1001";
+		String family_id = (String) session.getAttribute("family_id"); 
 		LocalDateTime nowDate = LocalDateTime.now();
 		DateTimeFormatter dtf =
 				DateTimeFormatter.ofPattern("yyyyMMddHH");

@@ -152,19 +152,19 @@ public class HWSearchServlet extends HttpServlet {
 	} else {
 		request.setCharacterEncoding("UTF-8");
 		String searchType = request.getParameter("searchType");
-		int housework_id = 0;
+		//int housework_id = 0;
 		String housework_name = "";
-		String family_id = "";
+		//String family_id = "";
 		int category_id = 0;
-		int housework_level = 0;
+		//int housework_level = 0;
 		int noti_flag = 0;
-		String noti_time = "";
+		//String noti_time = "";
 		int frequency = 0;
-		String manual = "";
-		String fixed_role = "";
-		String variable_role = "";
-		int log = 0;
-		String role = "";
+		//String manual = "";
+		//String fixed_role = "";
+		//String variable_role = "";
+		//int log = 0;
+		//String role = "";
 		List<housework> cardList = null;  // これが大事
 		
 		// 押されたボタンのnameにより格納するカテゴリIDを変更

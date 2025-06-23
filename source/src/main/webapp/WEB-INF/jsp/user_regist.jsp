@@ -84,7 +84,9 @@
 	</table>
 </form>
 <form action="<c:url value='/LoginServlet' />" method="get">
-    <button type="submit">戻る</button>
+    <button type="submit" >
+    <img src="<c:url value='/img/back.svg' />" alt="ログイン画面へ戻る" id="to_login">
+    </button>
 </form>
 </div>
 </body>
