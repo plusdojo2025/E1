@@ -24,7 +24,7 @@ public class FamilyDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -43,7 +43,7 @@ public class FamilyDeleteServlet extends HttpServlet {
 		// useridとPWが入力されているか確認
 		if (family_id == null || family_id.isEmpty() || fami_pass == null || fami_pass.isEmpty()) {
 	            request.setAttribute("UserErrorMessage", "ファミリーIDとあいことばは必須入力です。");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_delete.jsp");
 	            dispatcher.forward(request, response);
 	            return; // これ以上処理を進めない
 		}
@@ -52,7 +52,7 @@ public class FamilyDeleteServlet extends HttpServlet {
         if (hashedfami_pass == null) {
             // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
             request.setAttribute("errorMessage", "システムエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
@@ -68,7 +68,7 @@ public class FamilyDeleteServlet extends HttpServlet {
         	request.setAttribute("result", "ファミリーID削除に失敗しました。あいことばが間違えているか、ファミリーIDにユーザーが登録されている可能性があります。");
         }
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_delete.jsp");
 			dispatcher.forward(request, response);
 		}
 }

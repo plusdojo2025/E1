@@ -42,7 +42,7 @@ public class NotificationServlet extends HttpServlet {
 		request.setAttribute("notiList", notiList);
 		
 		// 通知ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/notification.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/notification.jsp");
 		dispatcher.forward(request, response);
 	}
 

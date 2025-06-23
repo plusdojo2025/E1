@@ -24,7 +24,7 @@ public class FamilyRegistServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/family_regist.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -41,21 +41,21 @@ public class FamilyRegistServlet extends HttpServlet {
 		// familyidとあいことばが入力されているか確認
 		if (family_id == null || family_id.isEmpty() || fami_pass == null || fami_pass.isEmpty()) {
 	            request.setAttribute("FamilyErrorMessage", "ファミリーIDとあいことばは必須入力です。");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 	            dispatcher.forward(request, response);
 	            return; // これ以上処理を進めない
 	    }
 		// あいことばと確認用あいことばが一致しているか確認
         if (!fami_pass.equals(confirm_fami_pass)) {
             request.setAttribute("FamilyErrorMessage", "あいことばと確認用あいことばが一致しません。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/family_regist.jsp");
             dispatcher.forward(request, response);
             return;
         }
         //あいことばが文字数の条件を満たしているか確認
 		if (fami_pass.length() < 8 || fami_pass.length() > 20) {
             request.setAttribute("FamilyErrorMessage", "あいことばは8文字以上20文字以下で入力してください。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/family_regist.jsp");
             dispatcher.forward(request, response);
             return;
 		}
@@ -64,7 +64,7 @@ public class FamilyRegistServlet extends HttpServlet {
         if (hashedFami_Pass == null) {
             // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
             request.setAttribute("errorMessage", "システムエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
@@ -75,12 +75,12 @@ public class FamilyRegistServlet extends HttpServlet {
 		if (fDao.insertFami(new family(family_id, hashedFami_Pass))) { // 登録成功
 //			request.setAttribute("result", "登録できました");
 			// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp");
 			dispatcher.forward(request, response);
 		} else { // 登録失敗
 			request.setAttribute("result","登録できませんでした。ファミリーIDが存在している可能性があります。");
 			// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/family_regist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/family_regist.jsp");
 			dispatcher.forward(request, response);
 		}
 

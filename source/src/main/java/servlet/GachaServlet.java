@@ -33,7 +33,8 @@ public class GachaServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		String family_id = (String) session.getAttribute("family_id"); 
+		//String familyId = (String) session.getAttribute("family_id");
+		String family_id = "1001";
 		LocalDateTime nowDate = LocalDateTime.now();
 		DateTimeFormatter dtf =
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
@@ -47,10 +48,10 @@ public class GachaServlet extends HttpServlet {
 		}
 		
 		 if (date / 100 != log /100) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);			
 		}else if (log == 0) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);
 		}
 		
@@ -59,7 +60,7 @@ public class GachaServlet extends HttpServlet {
 			List<housework> roleList = gcDAO.select_role(family_id);
 			if (roleList.size() == 0) {
 				request.setAttribute("today_housework", "none");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 				dispatcher.forward(request, response);
 			}
 			List<String> role = new ArrayList<String>();
@@ -71,7 +72,7 @@ public class GachaServlet extends HttpServlet {
 			
 			request.setAttribute("role", role);
 			request.setAttribute("roleList",roleList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gacha_result.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha_result.jsp");
 			dispatcher.forward(request, response);
 		
 	}
@@ -83,7 +84,8 @@ public class GachaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
-		String family_id = (String) session.getAttribute("family_id"); 
+		//String familyId = (String) session.getAttribute("family_id");
+		String family_id = "1001";
 		LocalDateTime nowDate = LocalDateTime.now();
 		DateTimeFormatter dtf =
 				DateTimeFormatter.ofPattern("yyyyMMddHH");

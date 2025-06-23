@@ -36,10 +36,10 @@ public class HWRegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		/*if (session.getAttribute("user_id") == null) {
+		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
-		}*/
+		}
 		
 		// セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
@@ -52,7 +52,7 @@ public class HWRegistServlet extends HttpServlet {
 	    request.setAttribute("userList", userList);
 		
 		// 登録ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_regist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_regist.jsp");
 		dispatcher.forward(request, response);
 			
 	}
@@ -127,7 +127,7 @@ public class HWRegistServlet extends HttpServlet {
 				    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
 				    request.setAttribute("userList", userList);
 				    // 登録ページにフォワードしてエラーメッセージを表示し、処理を終了
-				    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_regist.jsp");
+				    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_regist.jsp");
 				    dispatcher.forward(request, response);
 				    return; // ここで処理を終了し、DB登録に進まないようにする
 				}
@@ -156,7 +156,7 @@ public class HWRegistServlet extends HttpServlet {
 					
 					if (hDao.insert(hw)) { // 登録成功
 						// 一覧ページにフォワードする
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+						RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 			 	dispatcher.forward(request, response);
 					} else { // 登録失敗 (DBエラーなど)
 					    // 登録失敗時もエラーメッセージを表示してJSPに戻す
@@ -165,7 +165,7 @@ public class HWRegistServlet extends HttpServlet {
 					    // userListを再度取得してリクエスト属性に設定 (JSPでプルダウンを表示するため)
 					    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
 					    request.setAttribute("userList", userList);
-					    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_regist.jsp");
+					    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_regist.jsp");
 					    dispatcher.forward(request, response);
 					}
 				}}

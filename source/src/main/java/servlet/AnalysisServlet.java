@@ -30,10 +30,10 @@ public class AnalysisServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			
 			// セッションにログイン情報がなければログイン画面へリダイレクト
-			/*if (session.getAttribute("user_id") == null) {
+			if (session.getAttribute("user_id") == null) {
 			    response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			    return;
-			}*/
+			}
 			
 			//現在日時を取得し、yyyymmのフォーマットに変換
 			/*LocalDateTime nowDate = LocalDateTime.now();
@@ -99,7 +99,7 @@ public class AnalysisServlet extends HttpServlet {
 					}*/
 		
 		// 分析画面（analysis.jsp）にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/analysis.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/analysis.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -144,14 +144,14 @@ public class AnalysisServlet extends HttpServlet {
 		        } else {
 		            // 一部失敗 → エラーメッセージをセットしてJSPに戻す
 		            request.setAttribute("errorMessage", "一部のユーザーの分担目標更新に失敗しました。");
-		            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/analysis.jsp");
+		            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/analysis.jsp");
 		            dispatcher.forward(request, response);
 		        }
 	        	
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            request.setAttribute("errorMessage", "予期せぬエラーが発生しました。");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/analysis.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/analysis.jsp");
 	            dispatcher.forward(request, response);
 	        }
 	    }

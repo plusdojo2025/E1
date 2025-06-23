@@ -27,12 +27,17 @@ public class HWSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 //		 もしもログインしていなかったらログインサーブレットにリダイレクトする
+
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
+
+	    
+
 		String family_Id = (String)session.getAttribute("family_id");
 		
 		//初期化
@@ -122,7 +127,7 @@ public class HWSearchServlet extends HttpServlet {
 		    request.setAttribute("sortOrder", sortOrder);
 	
 			// 家事一覧ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 			dispatcher.forward(request, response);
 	    } else {
 			houseworkDAO hwDao = new houseworkDAO();		
@@ -138,10 +143,11 @@ public class HWSearchServlet extends HttpServlet {
 	        request.setAttribute("noti_flag", noti_flag);
 	        request.setAttribute("frequency", frequency);
 			request.setAttribute("cardList", cardList);
-	    }
+	    
 			// 家事一覧ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 			dispatcher.forward(request, response);		
+		}
 			
 	} else {
 		request.setCharacterEncoding("UTF-8");
@@ -226,7 +232,7 @@ public class HWSearchServlet extends HttpServlet {
 		request.setAttribute("cardList", cardList);
 
 		// 家事一覧ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);		
 	}
 		

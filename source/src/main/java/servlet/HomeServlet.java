@@ -31,6 +31,10 @@ public class HomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// セッションを取得
 		HttpSession session = request.getSession();
+		/*if (session.getAttribute("user_id") == null) {
+		    response.sendRedirect(request.getContextPath() + "/LoginServlet");
+		    return;
+		}*/
 		
 		request.setCharacterEncoding("UTF-8");
 		LocalDateTime nowDate = LocalDateTime.now();
@@ -64,7 +68,7 @@ public class HomeServlet extends HttpServlet {
 			List<Integer> idList = td_hwDAO.selectachive(formatNowDate1, family_id);
 			request.setAttribute("idList", idList);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/home.jsp");
 			dispatcher.forward(request, response); 
 		 
 		 
