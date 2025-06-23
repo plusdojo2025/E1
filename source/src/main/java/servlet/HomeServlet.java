@@ -64,7 +64,7 @@ public class HomeServlet extends HttpServlet {
 			List<Integer> idList = td_hwDAO.selectachive(formatNowDate1, family_id);
 			request.setAttribute("idList", idList);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/home.jsp");
 			dispatcher.forward(request, response); 
 		 
 		 

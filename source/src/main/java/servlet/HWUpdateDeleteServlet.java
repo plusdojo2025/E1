@@ -26,14 +26,14 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		//開発中なので一旦非公開
-		/*if (session.getAttribute("user_id") == null) {
+		
+		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
-		}*/
+		}
 		
 		// 検索ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -53,7 +53,7 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 	    if (houseworkIdStr == null || houseworkIdStr.isEmpty()) {
 	        // エラーハンドリング: 必須パラメータが不足している
 	        request.setAttribute("update_error", "家事IDが指定されていません。");
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 	        dispatcher.forward(request, response);
 	        return;
 	    }
@@ -111,7 +111,7 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 	    }
 
 	    // 結果ページにフォワードする
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 	    dispatcher.forward(request, response);
 	}
 

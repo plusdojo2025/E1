@@ -1,32 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<<<<<<< HEAD
     <!DOCTYPE html>
     <html>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>家事一覧</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_list.css' />">
-<!-- ↑cssのパスを動的に取得 -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
-</head>
-<body>
-<!-- ヘッダー -->
-<header>
-    <!-- ロゴ挿入 -->
-    <!-- navタグで通知とログアウトを入れる -->
->>>>>>> 74a6b625eaf670303bd2e27d8bfde2f61c74b402
 
     <head>
       <meta charset="UTF-8">
       <title>家事一覧</title>
-      <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/housework_list.css">
+      <link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_list.css' />">
       <!-- ↑cssのパスを動的に取得 -->
-      <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
+      <link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
     </head>
 
     <body>
@@ -68,8 +51,8 @@
           <tr class="card_label">
             <th>
               <button type="button" id="sortToggleBtn" class="sort-button" title="負担度で並び替え">
-                <img id="sortIcon" src="${pageContext.request.contextPath}/img/<c:out value='${param.sortOrder == "
-                  desc" ? "sort_down.svg" : "sort_up.svg" }' />"
+                <img id="sortIcon" src="img/<c:out value='${param.sortOrder == " desc" ? "sort_down.svg" : "sort_up.svg"
+                  }' />"
                 alt="ソートアイコン" style="width:16px; height:16px; vertical-align:middle;">
               </button>
               負担度
@@ -198,74 +181,75 @@
               <input type="submit" name="search" value="検索">
             </form>
           </div>
+        </div>
 
 
-          <!-- 更新モーダルの中身 -->
-          <div id="updateModal" class="modal modal-inner" style="display: none;">
-            <div class="modal-content">
-              <span class="close-button">&times;</span>
-              <h2>家事情報を編集</h2>
-              <!-- 更新フォームに渡す値 -->
-              <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
-                <!-- 家事ID非表示 -->
-                <label>家事ID：
-                  <input type="text" name="housework_id" id="housework-id" value="" /></label><br>
-                <label>家事名：</label>
-                <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
-                <!-- ファミリーID非表示 -->
-                <input type="hidden" name="family_id" value="" />
-                <label>カテゴリID：</label>
-                <input type="number" name="category_id" id="modal-category-id" value="" /><br>
-                <label>家事負担度：</label>
-                <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
-                <label>通知有無：</label>
-                <!--ラジオボタンにしたい
-      <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
-   	  <input type="radio" name="noti_flag" id="modal-noti-flag" value="1"> ON
-   	  -->
-                <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
-                <label>通知時間：</label>
-                <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
-                <label>家事頻度：</label>
-                <input type="text" name="frequency" id="modal-frequency" value="" /><br>
-                <label>メモ（マニュアルなど）：</label>
-                <input type="text" name="manual" id="modal-manual" value="" /><br>
+        <!-- 更新モーダルの中身 -->
+        <div id="updateModal" class="modal modal-inner" style="display: none;">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>家事情報を編集</h2>
+            <!-- 更新フォームに渡す値 -->
+            <form id="updateForm" method="POST" action="<c:url value='/HWUpdateDeleteServlet' />">
+              <!-- 家事ID非表示 -->
+              <label>家事ID：
+                <input type="text" name="housework_id" id="housework-id" value="" /></label><br>
+              <label>家事名：</label>
+              <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
+              <!-- ファミリーID非表示 -->
+              <input type="hidden" name="family_id" value="" />
+              <label>カテゴリID：</label>
+              <input type="number" name="category_id" id="modal-category-id" value="" /><br>
+              <label>家事負担度：</label>
+              <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
+              <label>通知有無：</label>
+              <!--ラジオボタンにしたい
+              <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
+              <input type="radio" name="noti_flag" id="modal-noti-flag" value="1"> ON
+              -->
+              <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
+              <label>通知時間：</label>
+              <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
+              <label>家事頻度：</label>
+              <input type="text" name="frequency" id="modal-frequency" value="" /><br>
+              <label>メモ（マニュアルなど）：</label>
+              <input type="text" name="manual" id="modal-manual" value="" /><br>
 
-                <label>固定担当者：</label>
-                <!-- 担当者と通知はラジオボタンにしたい
-      <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
-   	  <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
-   	  -->
-                <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br>
+              <label>固定担当者：</label>
+              <!-- 担当者と通知はラジオボタンにしたい
+              <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
+              <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
+              -->
+              <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br>
 
-                <label>可変担当者：</label>
-                <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
-                <!-- ログ非表示 -->
-                <input type="hidden" name="log" id="modal-log" value="" />
+              <label>可変担当者：</label>
+              <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
+              <!-- ログ非表示 -->
+              <input type="hidden" name="log" id="modal-log" value="" />
 
-                <!--  <button type="button" id="updateTrigger">更新</button> -->
-                <input type="submit" id="updateTrigger" name="updateSubmit" value="更新" />
-              </form>
-            </div>
+              <!--  <button type="button" id="updateTrigger">更新</button> -->
+              <input type="submit" id="updateTrigger" name="updateSubmit" value="更新" />
+            </form>
           </div>
-          <!-- 更新確認モーダルの中身 -->
-          <div id="confirmModal" class="modal" style="display: none;">
-            <div class="modal-content">
-              <span class="close-button">&times;</span>
-              <p>この情報で更新しますか？</p>
-              <button id="confirmCancel">Cancel</button>
-              <button id="confirmOk">OK</button>
-            </div>
+        </div>
+        <!-- 更新確認モーダルの中身 -->
+        <div id="confirmModal" class="modal" style="display: none;">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p>この情報で更新しますか？</p>
+            <button id="confirmCancel">Cancel</button>
+            <button id="confirmOk">OK</button>
           </div>
-          <!-- 削除確認モーダルの中身 -->
-          <div id="deleteConfirmModal" class="modal" style="display:none;">
-            <div class="modal-content">
-              <span class="close-button">&times;</span>
-              <p>本当に削除しますか？</p>
-              <button id="cancelDeleteBtn">Cancel</button>
-              <button id="confirmDeleteBtn">OK</button>
-            </div>
+        </div>
+        <!-- 削除確認モーダルの中身 -->
+        <div id="deleteConfirmModal" class="modal" style="display:none;">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p>本当に削除しますか？</p>
+            <button id="cancelDeleteBtn">Cancel</button>
+            <button id="confirmDeleteBtn">OK</button>
           </div>
+        </div>
 
         </div>
 
@@ -315,6 +299,7 @@
 
           // JSTLの変数をJavaScriptで使うために事前に定義しておく
           const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
+
 
           sortToggleBtn.addEventListener("click", function () {
             if (sortOrderInput.value === "asc") {
@@ -428,7 +413,7 @@
             }
           };
 
-        }); 
+        });
 
         // function cancelsubmit() {
         //   const confirmed = window.confirm("この情報で更新しますか？");      

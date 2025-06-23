@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ログインページ</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login.css' />">
+<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
   <!-- ヘッダー（ここから） -->
   <!-- ヘッダー（ここまで） -->
   <!-- メイン（ここから） -->
-<img src="<c:url value='/img/kajilogo.png' />" alt="カジミエールのロゴ" id="kaji_logo">
-<img src="<c:url value='/img/logo_lightblue.png' />" alt="カジミエールのロゴ" id="kajimieru">
+<img src="img/kajilogo.png" alt="カジミエールのロゴ" id="kaji_logo">
+<img src="img/logo_lightblue.png" alt="カジミエールのロゴ文字" id="kajimieru">
 <div id="container">
 <h2 id="login_title">ログイン</h2>
-<form method="POST"  id="login_form" action="<c:url value='/LoginServlet' />">
+<form method="POST"  id="login_form" action="${pageContext.request.contextPath}/LoginServlet">
 	<table id="login_content">
 		<tr>
 			<td>
@@ -42,10 +43,10 @@
 		</tr>
 	</table>
 </form>
-<form method="GET" action="<c:url value='/FamilyRegistServlet' />">
+<form method="GET" action="${pageContext.request.contextPath}/FamilyRegistServlet">
         <input type="submit" value="IDをお持ちでない方はこちら" id="no_id">
 </form>
-<form method="GET" action="<c:url value='/UserDeleteServlet' />">
+<form method="GET" action="${pageContext.request.contextPath}/UserDeleteServlet">
         <input type="submit" value="アカウント削除はこちら" id="no_account">
 </form>
 </div>
