@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// ログインページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 		// useridとPWが入力されているか確認
 		if (user_id == null || user_id.isEmpty() || password == null || password.isEmpty()) {
 	            request.setAttribute("errorMessage", "ユーザーIDとパスワードは必須入力です。");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 	            dispatcher.forward(request, response);
 	            return; // これ以上処理を進めない
 	    }
@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
         if (hashedPassword == null) {
             // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
             request.setAttribute("errorMessage", "システムエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 			} else { // ログイン失敗
 			request.setAttribute("errorMessage", "ユーザー名またはパスワードが正しくありません。"); // エラーメッセージをリクエストスコープに設定
 
-			 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp"); // 元のログインページ（login.jsp）を指定
+			 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp"); // 元のログインページ（login.jsp）を指定
 	         dispatcher.forward(request, response); // login.jsp に「フォワード」する
 		}
 	}

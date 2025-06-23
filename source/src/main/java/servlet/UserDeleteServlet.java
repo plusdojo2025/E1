@@ -24,7 +24,7 @@ public class UserDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_delete.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -43,7 +43,7 @@ public class UserDeleteServlet extends HttpServlet {
 		// useridとPWが入力されているか確認
 		if (user_id == null || user_id.isEmpty() || password == null || password.isEmpty()) {
 	            request.setAttribute("UserErrorMessage", "ユーザーIDとパスワードは必須入力です。");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_delete.jsp");
 	            dispatcher.forward(request, response);
 	            return; // これ以上処理を進めない
 		}
@@ -52,7 +52,7 @@ public class UserDeleteServlet extends HttpServlet {
         if (hashedPassword == null) {
             // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
             request.setAttribute("errorMessage", "システムエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
@@ -68,7 +68,7 @@ public class UserDeleteServlet extends HttpServlet {
         	request.setAttribute("result", "ユーザー削除に失敗しました。");
         }
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_delete.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_delete.jsp");
 		dispatcher.forward(request, response);
 	}
 }

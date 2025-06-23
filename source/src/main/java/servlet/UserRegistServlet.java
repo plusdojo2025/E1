@@ -26,7 +26,7 @@ public class UserRegistServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -46,21 +46,21 @@ public class UserRegistServlet extends HttpServlet {
 		// useridとPWが入力されているか確認
 		if (user_id == null || user_id.isEmpty() || password == null || password.isEmpty()) {
 	            request.setAttribute("UserErrorMessage", "ユーザーIDとパスワードは必須入力です。");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp");
 	            dispatcher.forward(request, response);
 	            return; // これ以上処理を進めない
 	    }
 		// パスワードと確認用パスワードが一致しているか確認
         if (!password.equals(confirmPassword)) {
             request.setAttribute("UserErrorMessage", "パスワードと確認用パスワードが一致しません。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp");
             dispatcher.forward(request, response);
             return;
         }
 		 //パスワードが文字数の条件を満たしているか確認
         if (password.length() < 8 || password.length() > 20) {
             request.setAttribute("UserErrorMessage", "パスワードは8文字以上20文字以下で入力してください。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_regist.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp");
             dispatcher.forward(request, response);
             return;
         }
@@ -69,7 +69,7 @@ public class UserRegistServlet extends HttpServlet {
         if (hashedPassword == null) {
             // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
             request.setAttribute("errorMessage", "システムエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
@@ -79,7 +79,7 @@ public class UserRegistServlet extends HttpServlet {
         if (hashedFami_Pass == null) {
             // ハッシュ化に失敗した場合の処理（エラーページへフォワードするなど）
             request.setAttribute("errorMessage", "システムエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return; // 処理を中断
         }
@@ -98,7 +98,7 @@ public class UserRegistServlet extends HttpServlet {
 			request.setAttribute("result", "家族認証でエラーが発生しました");
 		}
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 	}
 }
