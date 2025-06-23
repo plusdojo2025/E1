@@ -58,7 +58,7 @@ public class ReminderServlet extends HttpServlet {
 		try {
 			// データベースとの接続の確立
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/e1_db";
+			String url = "jdbc:mysql://localhost:3306/e1";
 			Connection con = DriverManager.getConnection(url, "root", "password");
 
 
