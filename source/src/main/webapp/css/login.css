@@ -52,7 +52,7 @@ html {
     width: 700px;
     height: auto;
     border: #5e5e5e;
-    border-radius: 6px;
+    border-radius: 100px;
     background: #fefefe;
 }
 
@@ -73,7 +73,47 @@ html {
 }
 #login_btn {
     margin-top: 50px;
-    margin-left: 117px;
+    margin-left: 123px;
+    margin-bottom:50px;
+    text-align: center;
+    background: #FF7F00;
+    border-radius: 50px;
+    border-color: #A6CAEC;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 260px;
+    padding: 10px 25px;
+    color: #FFFFFF;
+    transition: 0.3s ease-in-out;
+    font-weight: 500;
+}
+#no_id {
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    margin-bottom: 20px;
+    margin-left:250px;
+    color: #FF7F00;
+}
+#no_account {
+    all: unset;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    margin-bottom: 50px;
+    margin-left:265px;
+    color: #FF7F00;
+}
+#togglePasswordIcon {
+	position: absolute;
+	margin-left: 330px;
+	top: 49%;
+	transform: translateY(-50%);
+	width: 24px;
+	height: 24px;
 }
 
 

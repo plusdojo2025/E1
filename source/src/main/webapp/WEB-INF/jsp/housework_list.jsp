@@ -51,8 +51,7 @@
           <tr class="card_label">
             <th>
               <button type="button" id="sortToggleBtn" class="sort-button" title="負担度で並び替え">
-                <img id="sortIcon" src="img/<c:out value='${param.sortOrder == " desc" ? "sort_down.svg" : "sort_up.svg"
-                  }' />"
+                <img id="sortIcon" src="img/<c:out value='${param.sortOrder == " desc" ? "sort_down.svg" : "sort_up.svg"}' />"
                 alt="ソートアイコン" style="width:16px; height:16px; vertical-align:middle;">
               </button>
               負担度

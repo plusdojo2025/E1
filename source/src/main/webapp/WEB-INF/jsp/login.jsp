@@ -30,7 +30,7 @@
 			<td>
 				<label>パスワード<br>
 				<input type="password" id="password" name="password" class="login_input" minlength=8 maxlength=20>
-				 <button type="button" onclick="togglePassword()">表示</button>
+				 <img src="img/eye_slash.svg" id="togglePasswordIcon" onclick="togglePassword()" alt="表示切替">
 				</label>
 			</td>
 		</tr>
@@ -53,15 +53,18 @@
   <!-- メイン（ここまで） -->
   <!-- フッター（ここから） -->
 <script>
-  function togglePassword() {
+function togglePassword() {
     const pwd = document.getElementById("password");
-    const btn = event.target;
+    const icon = document.getElementById("togglePasswordIcon");
+
     if (pwd.type === "password") {
       pwd.type = "text";
-      btn.textContent = "非表示";
+      icon.src = "img/eye.svg";
+      icon.alt = "非表示にする";
     } else {
       pwd.type = "password";
-      btn.textContent = "表示";
+      icon.src = "img/eye_slash.svg";
+      icon.alt = "表示する";
     }
   }
 </script>
