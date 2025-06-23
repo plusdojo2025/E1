@@ -21,12 +21,16 @@
 	<div id="bar">
 	<img src="img/bar.png" alt="" id="bar_img">
 	</div>
+	<div id="to_noti">
+	<a href="${pageContext.request.contextPath}/NotificationServlet">
+	<img src="img/noti.svg" alt="通知" id="noti_img">
+	</a>
+	</div>
 </header>
 <!-- ヘッダー（ここまで） -->
 
 <main>
-
-<div id="housework">
+<div id="housework_container">
 <div id="housework_list">
 	<h2>本日の家事</h2>
 	 <c:forEach var="e" items="${houseworkList}" varStatus="status" >
