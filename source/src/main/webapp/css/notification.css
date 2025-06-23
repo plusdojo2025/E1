@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+*{
+	background-color: #F5DEB3;
+}
+
 #allnoti{
 	padding: 0.5em 1em;
     margin: 2em 0;
@@ -13,4 +17,8 @@
 
 #notititle{
 	text-align:center;
+}
+
+.noti,.noti h2,p{
+	background-color:#FFFFFF;
 }
