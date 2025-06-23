@@ -62,9 +62,7 @@
 </form> -->
 <button type="button" onclick="location.href='/e1/UserRegistServlet'" id="family_id">ファミリーIDをお持ちの方はこちら</button>
 <form action="${pageContext.request.contextPath}/LoginServlet" method="get">
-    <button type="submit">
-    <img src="img/back.svg" alt="ログイン画面へ戻る" id="to_login">
-    </button>
+    <input type="image" src="img/back.svg" alt="ログイン画面へ戻る" id="to_login">
 </form>
 </div>
 </body>
