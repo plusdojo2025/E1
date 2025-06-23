@@ -137,10 +137,11 @@ public class HWSearchServlet extends HttpServlet {
 	        request.setAttribute("noti_flag", noti_flag);
 	        request.setAttribute("frequency", frequency);
 			request.setAttribute("cardList", cardList);
-	    }
+	    
 			// 家事一覧ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/housework_list.jsp");
 			dispatcher.forward(request, response);		
+		}
 			
 	} else {
 		request.setCharacterEncoding("UTF-8");
