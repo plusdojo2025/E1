@@ -135,7 +135,7 @@
 <script>
 $('#gacha').on('click', function(e) {	
 	const a = "${today_housework}";
-	if (a === null){
+	if (a === ""){
 	e.preventDefault();
 	  
 	  $('.toy').toggleClass('act');

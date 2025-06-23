@@ -114,7 +114,7 @@ public class GachaServlet extends HttpServlet {
 			Random rand = new Random();
 			while (i < vari_houseworkList.size()) {
 				int num = rand.nextInt(familyList.size());
-				if (familyList.get(num).getUser_level() >= 0) {
+				if (familyList.get(num).getUser_level() > 0) {
 					gcDAO.update(familyList.get(num),vari_houseworkList.get(i));
 					familyList.get(num).addUser_level(vari_houseworkList.get(i).getHousework_level());
 					i++;
