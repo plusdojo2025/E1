@@ -65,7 +65,7 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="hidden" name="share_goal" value="0.5">
+				<input type="hidden" name="share_goal">
         		<p>※あなたの分担目標はデフォルトで50%に設定されます。</p>
         	</td>
         </tr>
