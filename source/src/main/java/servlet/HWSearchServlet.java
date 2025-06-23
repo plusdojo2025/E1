@@ -204,7 +204,7 @@ public class HWSearchServlet extends HttpServlet {
 		
 //		housework_id = Integer.parseInt(request.getParameter("housework_id"));
 		housework_name = request.getParameter("housework_name");
-//		family_id = request.getParameter("family_id");
+		family_id = request.getParameter("family_id");
 		category_id = Integer.parseInt(request.getParameter("category_id"));
 //		housework_level = Integer.parseInt(request.getParameter("housework_level"));
 		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
@@ -226,6 +226,7 @@ public class HWSearchServlet extends HttpServlet {
 
 		// 検索結果をリクエストスコープに格納する
         request.setAttribute("housework_name", housework_name);
+        request.setAttribute("family_id", family_id);
         request.setAttribute("category_id", category_id);
         request.setAttribute("noti_flag", noti_flag);
         request.setAttribute("frequency", frequency);
