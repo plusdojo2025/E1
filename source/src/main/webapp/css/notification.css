@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+*{
+	background-color: rgba(255,229,204,.3);
+	font-family: "けいふぉんと";
+}
+
 #allnoti{
 	padding: 0.5em 1em;
     margin: 2em 0;
@@ -13,4 +18,34 @@
 
 #notititle{
 	text-align:center;
+	font-family:sans-elif;
+    color: #FF7F00;
+    font-size: 32px;
+    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+}
+
+.noti,.noti h2,p{
+	background-color:#FFFFFF;
+}
+
+.noti h2{
+	font-size:24px;
+	text-shadow:1px 1px 0 rgba(255,229,204,.3),-1px 1px 0 rgba(255,229,204,.3),1px -1px 0 rgba(255,229,204,.3),-1px -1px 0 rgba(255,229,204,.3);
+}
+
+.noti p{
+	font-family:sans-elif;
+}
+
+#notiline{
+	border-top:5px double #FF7F00;
+}
+
+#backimg{
+	position: absolute;
+	margin-left: 50px;
+	top: 5%;
+	transform: translateY(-40%);
+	width: 50px;
+	height: 50px;
 }
