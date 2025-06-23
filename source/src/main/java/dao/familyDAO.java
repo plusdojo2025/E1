@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import dto.family; // DTOのfamilyクラスをインポート
 
 public class familyDAO {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/e1?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password";
     

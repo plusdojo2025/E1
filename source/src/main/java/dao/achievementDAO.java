@@ -24,7 +24,7 @@ public class achievementDAO {
             
             // データベースに接続する
             conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/e1_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+                "jdbc:mysql://localhost:3306/e1?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
                 "root", "password");
 
             // SQL文を準備する

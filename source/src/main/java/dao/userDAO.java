@@ -11,7 +11,7 @@ import java.util.List;
 import dto.user; // DTOのuserクラスをインポート
 
 public class userDAO {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/e1_db?"
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/e1?"
             + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password";
