@@ -636,7 +636,7 @@ public class houseworkDAO {
 //	個別SQL
 
 	// 全件のデータだけを表示したい
-	public List<housework> all(housework card) {
+	public List<housework> all(String family_Id) {
 	    Connection conn = null;
 	    List<housework> cardList = new ArrayList<>();
 
@@ -654,8 +654,10 @@ public class houseworkDAO {
 	        
 	        //String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log FROM housework ORDER BY housework_id ASC";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
-			if (card.getFamily_id() != null) {
-				stmt.setString(1, card.getFamily_id());}
+	        stmt.setString(1, family_Id);
+/*		if (card.getFamily_id() != null) {
+				stmt.setString(1, card.getFamily_id());
+				} */
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
@@ -689,7 +691,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchclean(int category_id) {
+	public List<housework> searchclean(int category_id, String family_Id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『掃除』のデータだけを表示したい
 	    Connection conn = null;
@@ -702,8 +704,9 @@ public class houseworkDAO {
 	            "root", "password"
 	        );
 
-	        String sql = "SELECT * FROM housework WHERE category_id = 1;";
+	        String sql = "SELECT * FROM housework WHERE family_id = ? AND category_id = 1;";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, family_Id);
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
@@ -736,7 +739,7 @@ public class houseworkDAO {
 	    }	    
 	    return cardList;  
 	}
-	public List<housework> searchwash(int category_id) {
+	public List<housework> searchwash(int category_id, String family_Id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『洗濯』のデータだけを表示したい
 	    Connection conn = null;
@@ -749,8 +752,9 @@ public class houseworkDAO {
 	            "root", "password"
 	        );
 
-	        String sql = "SELECT * FROM housework WHERE category_id = 2";
+	        String sql = "SELECT * FROM housework WHERE faimly_id = ? AND category_id = 2";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, family_Id);
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
@@ -784,7 +788,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchcook(int category_id) {
+	public List<housework> searchcook(int category_id, String family_Id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『料理』のデータだけを表示したい
 	    Connection conn = null;
@@ -797,8 +801,9 @@ public class houseworkDAO {
 	            "root", "password"
 	        );
 
-	        String sql = "SELECT * FROM housework WHERE category_id = 3";
+	        String sql = "SELECT * FROM housework WHERE family_id = ? AND category_id = 3";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, family_Id);
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
@@ -832,7 +837,7 @@ public class houseworkDAO {
 	    return cardList;  
 	}
 
-	public List<housework> searchother(int category_id) {
+	public List<housework> searchother(int category_id, String family_Id) {
 		// TODO 自動生成されたメソッド・スタブ
 		// カテゴリが『その他』のデータだけを表示したい
 	    Connection conn = null;
@@ -845,8 +850,9 @@ public class houseworkDAO {
 	            "root", "password"
 	        );
 
-	        String sql = "SELECT * FROM housework WHERE category_id = 4";
+	        String sql = "SELECT * FROM housework WHERE family_id = ? AND category_id = 4";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, family_Id);
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
