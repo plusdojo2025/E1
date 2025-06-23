@@ -37,7 +37,7 @@ public class Test2Servlet extends HttpServlet {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1?"
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1_db?"
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 			"root", "password");
 			
@@ -72,6 +72,9 @@ public class Test2Servlet extends HttpServlet {
 		request.setAttribute("notiList", notiList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/test.jsp");
 		dispatcher.forward(request, response); 
+		
+		
+		
 	}
-
+	
 }

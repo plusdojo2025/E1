@@ -64,7 +64,7 @@ const getData = () =>{
 	 }
 	let housework = document.getElementById("housework_id").value;
 	request.type = "json";
-	  request.open('GET', 'http://localhost:8080/E1/TestServlet?housework_id=' + housework, true);
+	  request.open('GET', 'http://localhost:8080/e1/TestServlet?housework_id=' + housework, true);
 	  request.send();
 }
 

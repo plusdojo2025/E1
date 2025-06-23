@@ -296,6 +296,7 @@
           // JSTLの変数をJavaScriptで使うために事前に定義しておく
           const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
 
+
           sortToggleBtn.addEventListener("click", function () {
             if (sortOrderInput.value === "asc") {
               sortOrderInput.value = "desc";

@@ -62,7 +62,9 @@
 </form> -->
 <button type="button" onclick="location.href='/e1/UserRegistServlet'" id="family_id">ファミリーIDをお持ちの方はこちら</button>
 <form action="<c:url value='/LoginServlet' />" method="get">
-    <button type="submit">戻る</button>
+    <button type="submit">
+    <img src="<c:url value='/img/back.svg' />" alt="ログイン画面へ戻る" id="to_login">
+    </button>
 </form>
 </div>
 </body>

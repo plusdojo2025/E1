@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/analysis.css' />">
+<link rel="stylesheet" type="text/css" href="css/analysis.css">
 <title>分析</title>
 </head>
 <body>
 <div id="share_goal">
   <h2>分担目標</h2>
-  <form method="POST" action="<c:url value='/AnalysisServlet' />" id="form${status.index}" onsubmit="return validateGoals();">
+  <form method="POST" action="${pageContext.request.contextPath}/AnalysisServlet" id="form${status.index}" onsubmit="return validateGoals();">
 	  <c:forEach var="e" items="${userList}" varStatus="status">
 	      <label for="goal${status.index}"><c:out value="${e.user_id}" />の分担割合</label>
 	      <input type="text" name="goal" class="goal_input" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
