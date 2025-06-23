@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/housework_regist.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <title>家事登録</title>
@@ -24,9 +25,9 @@
 	
 	<body>
 <!-- メイン（ここから） -->
-	<main class="form-wrapper">
+	
 		<h2>家事登録（新しい家事を入力してください）</h2>
-		<hr>
+		<main class="form-wrapper">
 		<form id="form" method="POST" action="${pageContext.request.contextPath}/HWRegistServlet">
 		 <!-- カテゴリ -->
 		 <div class="form-group">
