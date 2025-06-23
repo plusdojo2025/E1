@@ -43,9 +43,9 @@ public class HWRegistServlet extends HttpServlet {
 		
 		// セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
-		//if (familyId == null) {
+		if (familyId == null) {
 			familyId = "sato0611"; // テスト用の固定値
-			//	}
+				}
 		
 		// userDAOを使用してuserListを取得し、リクエスト属性に設定する
 	    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
@@ -72,10 +72,10 @@ public class HWRegistServlet extends HttpServlet {
 		
 		
 		// セッションからfamily_idを取得
-		//String familyId = (String) session.getAttribute("family_id");
-		//if (familyId == null) {
-			String familyId = "sato0611"; // テスト用の固定値
-		//}
+		String familyId = (String) session.getAttribute("family_id");
+		if (familyId == null) {
+			familyId = "sato0611"; // テスト用の固定値
+		}
 		
 		// **バリデーションフラグ**
 				boolean hasValidationError = false;
