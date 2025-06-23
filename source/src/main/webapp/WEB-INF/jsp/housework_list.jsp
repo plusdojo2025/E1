@@ -1,8 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<<<<<<< HEAD
     <!DOCTYPE html>
     <html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>家事一覧</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/housework_list.css' />">
+<!-- ↑cssのパスを動的に取得 -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css' />">
+</head>
+<body>
+<!-- ヘッダー -->
+<header>
+    <!-- ロゴ挿入 -->
+    <!-- navタグで通知とログアウトを入れる -->
+>>>>>>> 74a6b625eaf670303bd2e27d8bfde2f61c74b402
 
     <head>
       <meta charset="UTF-8">

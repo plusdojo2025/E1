@@ -27,8 +27,8 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		//開発中なので一旦非公開
-		/*if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E1/LoginServlet");
+		/*if (session.getAttribute("user_id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}*/
 		

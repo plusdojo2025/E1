@@ -14,8 +14,8 @@
 	<header id="header">
 	
 		<h1 id="logo">
-	      <a href="/E1/HomeServlet">
-	      <img src="img/logo_lightblue.png"  alt="カジミエール">
+	      <a href="<c:url value='/HomeServlet' />">
+	      <img src="<c:url value='/img/logo_lightblue.png' />"  alt="カジミエール">
 	    </a>
 	    </h1>
 		
@@ -27,7 +27,7 @@
 	<main class="form-wrapper">
 		<h2>家事登録（新しい家事を入力してください）</h2>
 		<hr>
-		<form id="form" method="POST" action="/E1/HWRegistServlet">
+		<form id="form" method="POST" action="<c:url value='/HWRegistServlet' />">
 		 <!-- カテゴリ -->
 		 <div class="form-group">
 		<label>カテゴリ:
