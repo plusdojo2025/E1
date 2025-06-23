@@ -7,26 +7,25 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" type="text/css" href="css/home.css">
-<link rel="stylesheet" type="text/css" href="css/home2.css">
-<link rel="stylesheet" type="text/css" href="css/home3.css">
-<link rel="stylesheet" type="text/css" href="css/common.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
 <title>ホーム</title>
 </head>
 <body>
 <!-- ヘッダー（ここから） -->
-	<header id="header">
-	
-		<h1 id="logo">
-	      <a href="${pageContext.request.contextPath}/HomeServlet">
-	      <img src="img/logo_lightblue.png" alt="カジミエール">
-	    </a>
-	    </h1>
-		
-	</header>
+<header>
+	<div id="logo">
+		<a href="${pageContext.request.contextPath}/HomeServlet">
+		<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
+		</a>
+	</div>
+	<div id="bar">
+	<img src="img/bar.png" alt="" id="bar_img">
+	</div>
+</header>
 <!-- ヘッダー（ここまで） -->
 
 <main>
-<div class="wrapper">
+
 <div id="housework">
 <div id="housework_list">
 	<h2>本日の家事</h2>
