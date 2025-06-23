@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@font-face {
+  font-family: 'けいふぉんと';
+      src: url('../fonts/Keifont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html {
 	font-size: 16px;
     font-family: "けいふぉんと";
@@ -17,9 +24,18 @@ html {
 }
 
 /*本日の家事のcss*/
-#housework{
-	margin:10px 0;
-	height: 300px;
+#housework_container {
+	position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 700px;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
 }
 #housework_list{
 	text-align:center;
