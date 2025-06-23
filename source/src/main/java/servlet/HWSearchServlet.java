@@ -152,19 +152,19 @@ public class HWSearchServlet extends HttpServlet {
 	} else {
 		request.setCharacterEncoding("UTF-8");
 		String searchType = request.getParameter("searchType");
-		int housework_id = 0;
+		//int housework_id = 0;
 		String housework_name = "";
-		String family_id = "";
+		//String family_id = "";
 		int category_id = 0;
-		int housework_level = 0;
+		//int housework_level = 0;
 		int noti_flag = 0;
-		String noti_time = "";
+		//String noti_time = "";
 		int frequency = 0;
-		String manual = "";
-		String fixed_role = "";
-		String variable_role = "";
-		int log = 0;
-		String role = "";
+		//String manual = "";
+		//String fixed_role = "";
+		//String variable_role = "";
+		//int log = 0;
+		//String role = "";
 		List<housework> cardList = null;  // これが大事
 		
 		// 押されたボタンのnameにより格納するカテゴリIDを変更
@@ -204,7 +204,7 @@ public class HWSearchServlet extends HttpServlet {
 		
 //		housework_id = Integer.parseInt(request.getParameter("housework_id"));
 		housework_name = request.getParameter("housework_name");
-//		family_id = request.getParameter("family_id");
+		family_id = request.getParameter("family_id");
 		category_id = Integer.parseInt(request.getParameter("category_id"));
 //		housework_level = Integer.parseInt(request.getParameter("housework_level"));
 		noti_flag = Integer.parseInt(request.getParameter("noti_flag"));
@@ -226,6 +226,7 @@ public class HWSearchServlet extends HttpServlet {
 
 		// 検索結果をリクエストスコープに格納する
         request.setAttribute("housework_name", housework_name);
+        request.setAttribute("family_id", family_id);
         request.setAttribute("category_id", category_id);
         request.setAttribute("noti_flag", noti_flag);
         request.setAttribute("frequency", frequency);

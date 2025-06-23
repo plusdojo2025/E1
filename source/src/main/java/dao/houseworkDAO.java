@@ -636,7 +636,7 @@ public class houseworkDAO {
 //	個別SQL
 
 	// 全件のデータだけを表示したい
-	public List<housework> all() {
+	public List<housework> all(housework card) {
 	    Connection conn = null;
 	    List<housework> cardList = new ArrayList<>();
 
@@ -648,9 +648,14 @@ public class houseworkDAO {
 	            "root", "password"
 	        );
 
-	        String sql = "SELECT * FROM housework ORDER BY housework_id ASC";
+	        // ログイン時の家族IDと等しいもののみ表示に変更する
+	        //String sql = "SELECT * FROM housework ORDER BY housework_id ASC";
+	        String sql = "SELECT * FROM housework WHERE family_id LIKE ? ORDER BY housework_id ASC";
+	        
 	        //String sql = "SELECT housework_id, housework_name, family_id, category_id, housework_level, noti_flag, noti_time, frequency, manual, fixed_role, variable_role, log FROM housework ORDER BY housework_id ASC";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
+			if (card.getFamily_id() != null) {
+				stmt.setString(1, card.getFamily_id());}
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
