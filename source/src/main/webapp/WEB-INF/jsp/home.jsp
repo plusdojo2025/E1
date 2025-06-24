@@ -13,26 +13,24 @@
 <body>
 <!-- ヘッダー（ここから） -->
 <header>
-	<div id="logo">
-		<a href="${pageContext.request.contextPath}/HomeServlet">
-		<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
-		</a>
-	</div>
-	<div id="bar">
-	<img src="img/bar.png" alt="" id="bar_img">
-	</div>
-	<div id="to_noti">
+<div id="top_nav">
+	<a href="${pageContext.request.contextPath}/HomeServlet">
+	<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
+	</a>
 	<a href="${pageContext.request.contextPath}/NotificationServlet">
 	<img src="img/noti.svg" alt="通知" id="noti_img">
 	</a>
-	</div>
+</div>
+<div id="bar">
+<img src="img/bar.png" alt="" id="bar_img">
+</div>
 </header>
 <!-- ヘッダー（ここまで） -->
 
 <main>
 <div id="housework_container">
 <div id="housework_list">
-	<h2>本日の家事</h2>
+	<h2 id="today_housework">本日の家事</h2>
 	 <c:forEach var="e" items="${houseworkList}" varStatus="status" >
 	 <div class="housework">
 	 <button value="完了" class="button3 js-modal-button3" id="complete${e.housework_id}">完了</button>
@@ -94,14 +92,15 @@
 	    </div>
 	  </div>
 	</div>
-	
+<div id="memo_container">
  <div id="memo">
+ 	<h3 id="today_memo">memo</h3>
 	 <c:forEach var="e" items="${memoList}" varStatus="status" >
 	 <c:out value="${e.memo}" />
 	 <br>
 	 </c:forEach>
 	 <div id="memo_add">
-	<button class="button2 js-modal-button2">+</button>
+	<button class="button js-modal-button2">+</button>
 	</div>
 </div>
 
@@ -128,17 +127,20 @@
 </div>
  </main>
  <!-- フッター（ここから） -->
-	<div id="footer">
-	  <nav class="navi">
+<div id="footer">
+	<div id="bottom_bar">
+	<img src="img/bar.png" alt="" id="bottom_bar_img">
+	</div>
+	  <nav class="bottom_nav">
 	    <ul>
-	      <li><a href="${pageContext.request.contextPath}/HomeServlet"><img src="img/home.svg" alt="ホーム"></a></li>
-	      <li><a href="${pageContext.request.contextPath}/HWSearchServlet"><img src="img/list.svg" alt="一覧"></a></li>
-	      <li><a href="${pageContext.request.contextPath}/HWRegistServlet"><img src="img/regist.svg" alt="登録"></a></li>
-	      <li><a href="${pageContext.request.contextPath}/GachaServlet"><img src="img/gacha.svg" alt="くじ"></a></li>
-	      <li><a href="${pageContext.request.contextPath}/AnalysisServlet"><img src="img/analysis.svg" alt="分析"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HomeServlet"><img src="img/home.svg" alt="ホーム" id="home_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWSearchServlet"><img src="img/list.svg" alt="一覧" id="list_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWRegistServlet"><img src="img/regist.svg" alt="登録" id="regist_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/GachaServlet"><img src="img/circle.svg" alt="くじ" id="gacha_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/AnalysisServlet"><img src="img/analysis.svg" alt="分析" id="analysis_img"></a></li>
 	    </ul>
 	  </nav>
-	</div>
+</div>
 
 
 <!-- フッター（ここまで） -->
