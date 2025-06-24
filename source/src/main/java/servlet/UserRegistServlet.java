@@ -119,12 +119,16 @@ public class UserRegistServlet extends HttpServlet {
 	//			request.setAttribute("result", "登録処理が完了しました");
 			} else { // 登録失敗
 				request.setAttribute("result", "登録でエラーが発生しました");
-			} 
+			}
+			// 結果ページにフォワードする 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
         } else {
-			request.setAttribute("result", "家族認証でエラーが発生しました");
-		}
-		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-		dispatcher.forward(request, response);
+			request.setAttribute("errorMessage", "ファミリーIDまたはあいことばが違います");
+			// 結果ページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp");
+			dispatcher.forward(request, response);
+        }
+		
 	}
 }
