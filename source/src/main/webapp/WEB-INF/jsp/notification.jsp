@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="css/notification.css">
 </head>
 <body>
-<a href="#" onClick="history.back(); return false;"><img src="img/仮置き.png"></a>
+<a href="#" onClick="history.back(); return false;"><img src="img/chevron-left-solid.svg"></a>
 <h1 id="notititle">通知</h1>
 <hr id="notiline">
 <div id="allnoti">
