@@ -216,8 +216,13 @@
                 <option value="5">5</option>
               </select><br>
 
-              <label>元データ通知有無：</label>
-              <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
+              <label>通知：</label>
+              <!-- <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br> -->
+
+              <select name="noti_flag" id="modal-noti-flag">
+                <option value="0">OFF</option>
+                <option value="1">ON</option>
+              </select>
 
               <!--ラジオボタンにしたい
               <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
@@ -234,7 +239,7 @@
               <input type="time" id="noti_time" name="noti_time" class="noti-hidden">
               </label> -->
 
-              <label>元データ通知時間：</label>
+              <label>通知時間：</label>
               <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
 
               <!-- セレクトにしたい -->
@@ -248,7 +253,7 @@
                   <option value="8">不定期</option> 
                   -->
 
-                  <!-- 応急処置としてプルダウンから選択できるようにしておきます -->
+                  <!-- 応急処置としてプルダウンからの選択にしてあります -->
                   <option value="0">毎日</option>
                   <option value="1">月曜日</option>
                   <option value="2">火曜日</option>
@@ -304,7 +309,12 @@
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
               -->
-              <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br>
+              <!-- <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br> -->
+
+              <select name="fixed_role" id="modal-fixed-role">
+                <option value="0">決定しない</option>
+                <option value="1">決定する</option>
+              </select><br>
 
               <label>可変担当者：</label>
               <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
