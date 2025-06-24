@@ -369,7 +369,16 @@ public class houseworkDAO {
 	public List<housework> searchHousework(String family_Id, int category_id, String housework_name, int frequency, int noti_flag) {
 	    List<housework> cardList2 = new ArrayList<>();
 
-	    String sql = "SELECT * FROM housework WHERE category_id = ? AND housework_name LIKE ? AND frequency LIKE ? AND noti_flag = ? AND family_id = ?";
+	    String sql = "SELECT * FROM housework WHERE housework_name LIKE ? AND family_id = ?";
+	    	if (frequency != -1) {
+	    		sql += " AND frequency LIKE ?";
+	    	}
+	    	if (noti_flag != -1) {
+	    	    sql += " AND noti_flag = ?";
+	    	};
+	    	if (category_id != 0) {
+	    		sql += " AND category_id = ?";
+	    	}
 		Connection conn = null;
 		
 		try {
@@ -381,16 +390,22 @@ public class houseworkDAO {
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 			"root", "password");
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-
-	        pstmt.setInt(1, category_id);
+		    int index = 1;
 			if (housework_name == null) {
-			    pstmt.setString(2, "%"); // 全ての housework を取得
+			    pstmt.setString(index++, "%"); // 全ての housework を取得
 			} else {
-			    pstmt.setString(2, "%" + housework_name + "%"); // 部分一致検索
+			    pstmt.setString(index++, "%" + housework_name + "%"); // 部分一致検索
 			}
-	        pstmt.setString(3, "%" + frequency + "%");
-	        pstmt.setInt(4, noti_flag);
-	        pstmt.setString(5, family_Id);
+	        pstmt.setString(index++, family_Id);
+	        if (frequency != -1) {
+	        pstmt.setString(index++, "%" + frequency + "%");
+	        }
+	        if (noti_flag != -1) {
+	            pstmt.setInt(index++, noti_flag);
+	        }
+	        if (category_id != 0) {
+	        	pstmt.setInt(index++, category_id);
+	        }
 
 	        try (ResultSet rs = pstmt.executeQuery()) {
 	            while (rs.next()) {
@@ -420,22 +435,47 @@ public class houseworkDAO {
 	public List<housework> searchHouseworkSorted(String category_id, String housework_name, String frequency, String noti_flag, String sortOrder, String family_Id) {
 	    List<housework> cardList = new ArrayList<>();
 	    Connection conn = null;
+	    int Frequency = Integer.parseInt(frequency);
+	    int Noti_flag = Integer.parseInt(noti_flag);
+	    int Category_id = Integer.parseInt(category_id);
 
 	    try {
 	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1?"
 	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 	            "root", "password");
 
-	        String sql = "SELECT * FROM housework WHERE category_id = ? AND housework_name LIKE ? AND frequency LIKE ? AND noti_flag = ?"
-	                   + " ORDER BY housework_level " + ("desc".equalsIgnoreCase(sortOrder) ? "DESC" : "ASC");
+	        String sql = "SELECT * FROM housework WHERE housework_name LIKE ? AND family_id = ?";
+				if (Frequency != -1) {
+					sql += " AND frequency LIKE ?";
+				}
+				if (Noti_flag != -1) {
+				    sql += " AND noti_flag = ?";
+				}
+				if (Category_id != 0) {
+					sql += " AND category_id = ?";
+				}
 
+	        sql += " ORDER BY housework_level " + ("desc".equalsIgnoreCase(sortOrder) ? "DESC" : "ASC");
+	        		
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1,Integer.parseInt(category_id));
-	        pstmt.setString(2, "%" + (housework_name == null ? "" : housework_name) + "%");
-	        pstmt.setString(3, "%" + frequency + "%");
-	        pstmt.setInt(4, Integer.parseInt(noti_flag));
-	        pstmt.setString(5, family_Id);
+	        int index = 1;
 
+			if (housework_name == null) {
+			    pstmt.setString(index++, "%"); // 全ての housework を取得
+			} else {
+			    pstmt.setString(index++, "%" + housework_name + "%"); // 部分一致検索
+			}
+	        pstmt.setString(index++, family_Id);
+	        if (Frequency != -1) {
+	        pstmt.setString(index++, "%" + frequency + "%");
+	        }
+	        if (Noti_flag != -1) {
+	            pstmt.setInt(index++, Noti_flag);
+	        }
+	        if (Category_id != 0) {
+	        	pstmt.setInt(index++, Category_id);
+	        }
+	        
 	        ResultSet rs = pstmt.executeQuery();
 	        while (rs.next()) {
 	            cardList.add(new housework(
