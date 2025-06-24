@@ -98,10 +98,11 @@
 <div id="memo_container">
  <div id="memo">
  	<h3 id="today_memo">memo</h3>
-	 <c:forEach var="e" items="${memoList}" varStatus="status" >
-	 <c:out value="${e.memo}" />
-	 <br>
+ 	<ul>
+	 <c:forEach var="e" items="${memoList}" varStatus="status" >	 
+	 <li>・<c:out value="${e.memo}" /></li>
 	 </c:forEach>
+	 </ul>
 	 <div id="memo_add">
 	<button class="button js-modal-button2">+</button>
 	</div>
@@ -185,7 +186,7 @@
  const modalButton3 = document.querySelectorAll('.js-modal-button3'); // button要素に付与したjs-modal-buttonクラスを取得し、変数に格納
 
  // 追記
- const modalClose3 = document.querySelectorAll('.js-close-button3');　// xボタンのjs-close-buttonを取得し変数に格納
+ const modalClose3 = document.querySelectorAll('.js-close-button3');// xボタンのjs-close-buttonを取得し変数に格納
 
  modalButton3.forEach((button, index) => {
 	 button.addEventListener('click', () => {

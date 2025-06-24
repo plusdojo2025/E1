@@ -28,12 +28,12 @@ public class NotificationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session=request.getSession(false);
-		
+		String user_id = (String) session.getAttribute("user_id");
 		// 通知表示処理を行う
-		Object attribute=session.getAttribute("user_id");
+		//Object attribute=session.getAttribute("user_id");
 		//loginuser loginuser=(loginuser) attribute; 
 		//String user_id=loginuser.getUser_id();
-		String user_id=attribute.toString();
+		//String user_id=attribute.toString();
 		notificationDAO notiDao = new notificationDAO();
 		//notiDao.delete();
 		List<notification> notiList = notiDao.select(user_id);
