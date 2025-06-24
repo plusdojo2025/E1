@@ -5,11 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" type="text/css" href="css/analysis.css">
 <title>分析</title>
 </head>
 <body>
+<header>
+<div id="top_nav">
+	<a href="${pageContext.request.contextPath}/HomeServlet">
+	<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
+	</a>
+	<a href="${pageContext.request.contextPath}/NotificationServlet">
+	<img src="img/noti.svg" alt="通知" id="noti_img">
+	</a>
+</div>
+<div id="bar">
+<img src="img/bar.png" alt="" id="bar_img">
+</div>
+</header>
+<main>
 <div id="share_goal">
   <h2>分担目標</h2>
   <form method="POST" action="${pageContext.request.contextPath}/AnalysisServlet" id="form${status.index}" onsubmit="return validateGoals();">
@@ -37,47 +52,7 @@
     </c:when>
     <c:otherwise>
       <canvas id="daily_chart_Canvas"></canvas>
-      <script>
-      'use strict';
-        const yesterdayList = [
-          <c:forEach var="a" items="${yesterdayList}" varStatus="status">
-          {
-            user_id: "<c:out value='${a.user_id}'/>",
-            daily_score: ${a.achieve_history}
-          }<c:if test="${!status.last}">,</c:if>
-          </c:forEach>
-        ];
-
-        const labels = yesterdayList.map(item => item.user_id);
-        const data = yesterdayList.map(item => item.daily_score);
-
-        new Chart(document.getElementById('daily_chart_Canvas'), {
-          type: 'pie',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: '前日の負担割合',
-              data: data,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)'
-              ]
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              title: {
-                display: true,
-                text: '前日の負担割合'
-              }
-            }
-          }
-        });
-      </script>
+      
     </c:otherwise>
   </c:choose>
 </div>
@@ -89,96 +64,151 @@
     </c:when>
     <c:otherwise>
       <canvas id="monthly_chart_Canvas"></canvas>
-      <script>
-      'use strict';
-        const yearList = [
-          <c:forEach var="a" items="${yearList}" varStatus="status">
-          {
-            user_id: "<c:out value='${a.user_id}'/>",
-            month: "<c:out value='${a.date}'/>",
-            monthly_score: ${a.achieve_history}
-          }<c:if test="${!status.last}">,</c:if>
-          </c:forEach>
-        ];
+ 
+    </c:otherwise>
+  </c:choose>
+</div>
+</main>
+ <!-- フッター（ここから） -->
+<div id="footer">
+	<div id="bottom_bar">
+	<img src="img/bar.png" alt="" id="bottom_bar_img">
+	</div>
+	  <nav class="bottom_nav">
+	    <ul>
+	      <li><a href="${pageContext.request.contextPath}/HomeServlet"><img src="img/home.svg" alt="ホーム" id="home_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWSearchServlet"><img src="img/list.svg" alt="一覧" id="list_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWRegistServlet"><img src="img/regist.svg" alt="登録" id="regist_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/GachaServlet"><img src="img/circle.svg" alt="くじ" id="gacha_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/AnalysisServlet"><img src="img/analysis.svg" alt="分析" id="analysis_img"></a></li>
+	    </ul>
+	  </nav>
+</div>
+<!-- フッター（ここまで） -->
+<script>
+'use strict';
+  const yesterdayList = [
+    <c:forEach var="a" items="${yesterdayList}" varStatus="status">
+    {
+      user_id: "<c:out value='${a.user_id}'/>",
+      daily_score: ${a.achieve_history}
+    }<c:if test="${!status.last}">,</c:if>
+    </c:forEach>
+  ];
 
-        const months = [...new Set(yearList.map(item => item.month))].sort();
-        const users = [...new Set(yearList.map(item => item.user_id))];
+  const labels = yesterdayList.map(item => item.user_id);
+  const data = yesterdayList.map(item => item.daily_score);
 
-        const totalByMonth = {};
-        months.forEach(month => {
-          totalByMonth[month] = yearList
-            .filter(item => item.month === month)
-            .reduce((sum, item) => sum + item.monthly_score, 0);
-        });
-
-        const colorPalette = [
+  new Chart(document.getElementById('daily_chart_Canvas'), {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '前日の負担割合',
+        data: data,
+        backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
           'rgba(54, 162, 235, 0.6)',
           'rgba(255, 206, 86, 0.6)',
           'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)',
-          'rgba(255, 159, 64, 0.6)',
-          'rgba(100, 200, 255, 0.6)'
-        ];
-
-        function getColor(index) {
-          return colorPalette[index % colorPalette.length];
+          'rgba(153, 102, 255, 0.6)'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: '前日の負担割合'
         }
+      }
+    }
+  });
+  
+    const yearList = [
+      <c:forEach var="a" items="${yearList}" varStatus="status">
+      {
+        user_id: "<c:out value='${a.user_id}'/>",
+        month: "<c:out value='${a.date}'/>",
+        monthly_score: ${a.achieve_history}
+      }<c:if test="${!status.last}">,</c:if>
+      </c:forEach>
+    ];
 
-        const datasets = users.map((userId, idx) => {
-          const data = months.map(month => {
-            const record = yearList.find(item => item.user_id === userId && item.month === month);
-            const total = totalByMonth[month];
-            return record && total > 0 ? (record.monthly_score / total * 100).toFixed(2) : 0;
-          });
+    const months = [...new Set(yearList.map(item => item.month))].sort();
+    const users = [...new Set(yearList.map(item => item.user_id))];
 
-          return {
-            label: userId,
-            data: data,
-            borderColor: getColor(idx),
-            backgroundColor: getColor(idx),
-            tension: 0.3
-          };
-        });
+    const totalByMonth = {};
+    months.forEach(month => {
+      totalByMonth[month] = yearList
+        .filter(item => item.month === month)
+        .reduce((sum, item) => sum + item.monthly_score, 0);
+    });
 
-        new Chart(document.getElementById('monthly_chart_Canvas'), {
-          type: 'line',
-          data: {
-            labels: months,
-            datasets: datasets
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              title: {
-                display: true,
-                text: '月ごとの家事負担割合の推移（%）'
-              }
+    const colorPalette = [
+      'rgba(255, 99, 132, 0.6)',
+      'rgba(54, 162, 235, 0.6)',
+      'rgba(255, 206, 86, 0.6)',
+      'rgba(75, 192, 192, 0.6)',
+      'rgba(153, 102, 255, 0.6)',
+      'rgba(255, 159, 64, 0.6)',
+      'rgba(100, 200, 255, 0.6)'
+    ];
+
+    function getColor(index) {
+      return colorPalette[index % colorPalette.length];
+    }
+
+    const datasets = users.map((userId, idx) => {
+      const data = months.map(month => {
+        const record = yearList.find(item => item.user_id === userId && item.month === month);
+        const total = totalByMonth[month];
+        return record && total > 0 ? (record.monthly_score / total * 100).toFixed(2) : 0;
+      });
+
+      return {
+        label: userId,
+        data: data,
+        borderColor: getColor(idx),
+        backgroundColor: getColor(idx),
+        tension: 0.3
+      };
+    });
+
+    new Chart(document.getElementById('monthly_chart_Canvas'), {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: '月ごとの家事負担割合の推移（%）'
+          }
+        },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: '負担割合 (%)'
             },
-            scales: {
-              y: {
-                title: {
-                  display: true,
-                  text: '負担割合 (%)'
-                },
-                beginAtZero: true,
-                max: 100
-              },
-              x: {
-                title: {
-                  display: true,
-                  text: '月'
-                }
-              }
+            beginAtZero: true,
+            max: 100
+          },
+          x: {
+            title: {
+              display: true,
+              text: '月'
             }
           }
-        });
-      </script>
-    </c:otherwise>
-  </c:choose>
-</div>
-<script>
-'use strict';
+        }
+      }
+    });
+
 function validateGoals() {
 	  const inputs = document.querySelectorAll('.goal_input');
 	  const errorEl = document.getElementById('error_message');
