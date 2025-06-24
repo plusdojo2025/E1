@@ -38,6 +38,24 @@ public class FamilyRegistServlet extends HttpServlet {
 		String fami_pass = request.getParameter("fami_pass");
 		String confirm_fami_pass = request.getParameter("confirm_fami_pass");
 		
+		String pattern = "^[a-zA-Z0-9!@#$%^&*()_+=\\-]+$";
+		String errorMessage = "";
+
+		// ファミリーIDのチェック
+		if (family_id == null || !family_id.matches(pattern)) {
+		    errorMessage = "ファミリーIDに使用できない文字が含まれています";
+		}
+		// あいことばのチェック
+		else if (fami_pass == null || !fami_pass.matches(pattern)) {
+		    errorMessage = "あいことばに使用できない文字が含まれています";
+		}
+		
+		if (!errorMessage.isEmpty()) {
+		    request.setAttribute("FamilyErrorMessage", errorMessage);
+		    request.getRequestDispatcher("WEB-INF/jsp/family_regist.jsp").forward(request, response);
+		    return;
+		}
+		
 		// familyidとあいことばが入力されているか確認
 		if (family_id == null || family_id.isEmpty() || fami_pass == null || fami_pass.isEmpty()) {
 	            request.setAttribute("FamilyErrorMessage", "ファミリーIDとあいことばは必須入力です。");

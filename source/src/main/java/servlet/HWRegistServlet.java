@@ -164,8 +164,7 @@ public class HWRegistServlet extends HttpServlet {
 					
 					if (hDao.insert(hw)) { // 登録成功
 						// 一覧ページにフォワードする
-						RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
-			 	dispatcher.forward(request, response);
+						response.sendRedirect(request.getContextPath() + "/HWSearchServlet");
 					} else { // 登録失敗 (DBエラーなど)
 					    // 登録失敗時もエラーメッセージを表示してJSPに戻す
 					    request.setAttribute("errorMessage", "家事の登録に失敗しました。再度お試しください。");

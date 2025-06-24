@@ -26,7 +26,7 @@
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="fami_pass" class="user_input" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="fami_pass" class="user_input" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
 				</label>
 			</td>
 		</tr>
@@ -37,13 +37,13 @@
 				</label>
 			</td>
 		</tr>
-		<tr>
+	<!-- <tr>
 			<td>
 				<label>ニックネーム
 				<input type="text" name="user_name" class="user_input" placeholder="10文字以内" maxlength=10 required>
 				</label>
 			</td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td>
 				<label>パスワード
@@ -66,8 +66,8 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="hidden" name="share_goal">
-        		<p>※あなたの分担目標はデフォルトで50%に設定されます。</p>
+				<input type="hidden" name="share_goal" value="0">
+        		<p>※分担目標はデフォルトでは設定されません。</p>
         	</td>
         </tr>
         <tr>

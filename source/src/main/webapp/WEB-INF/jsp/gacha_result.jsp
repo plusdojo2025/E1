@@ -9,9 +9,9 @@
 <title>分担ガチャ結果</title>
 </head>
 <body>
-<c:forEach var="e" items="${role}">
-<c:set var="role" value="${e}" />
-<c:out value="${e}" />
+<c:forEach var="e" items="${familyList}">
+<c:set var="role" value="${e.user_id}" />
+<c:out value="${e.user_id}" />
 <c:forEach var="e" items="${roleList}">
 <c:if test="${role == e.role}">
 <ul>

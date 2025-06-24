@@ -5,11 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="css/gacha.css">
 <title>分担ガチャ</title>
 </head>
 
 <body>
+<!-- ヘッダー（ここから） -->
+<header>
+<div id="top_nav">
+	<a href="${pageContext.request.contextPath}/HomeServlet">
+	<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
+	</a>
+	<a href="${pageContext.request.contextPath}/NotificationServlet">
+	<img src="img/noti.svg" alt="通知" id="noti_img">
+	</a>
+</div>
+<div id="bar">
+<img src="img/bar.png" alt="" id="bar_img">
+</div>
+</header>
+<!-- ヘッダー（ここまで） -->
+<main>
 <form method="POST" action="${pageContext.request.contextPath}/GachaServlet" id="gachaForm">
 <input type="hidden" name="click" value="on">
 </form>
@@ -129,6 +146,23 @@
 </section>
 </div>
 <p id="none"></p>
+</main>
+ <!-- フッター（ここから） -->
+<div id="footer">
+	<div id="bottom_bar">
+	<img src="img/bar.png" alt="" id="bottom_bar_img">
+	</div>
+	  <nav class="bottom_nav">
+	    <ul>
+	      <li><a href="${pageContext.request.contextPath}/HomeServlet"><img src="img/home.svg" alt="ホーム" id="home_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWSearchServlet"><img src="img/list.svg" alt="一覧" id="list_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWRegistServlet"><img src="img/regist.svg" alt="登録" id="regist_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/GachaServlet"><img src="img/circle.svg" alt="くじ" id="gacha_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/AnalysisServlet"><img src="img/analysis.svg" alt="分析" id="analysis_img"></a></li>
+	    </ul>
+	  </nav>
+</div>
+<!-- フッター（ここまで） -->
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
 </script>
@@ -136,7 +170,7 @@
 $('#gacha').on('click', function(e) {	
 	const a = "${today_housework}";
 	if (a !== ""){
-		document.getElementById("none").textContent = ("今日の家事が登録されていません");
+		document.getElementById("none").textContent = ("今日の家事が登録されていません。");
 	}else if ("${msg}" !== "") {
 		if (!alert("${msg}")) {
 			window.location.href = '${pageContext.request.contextPath}/AnalysisServlet';

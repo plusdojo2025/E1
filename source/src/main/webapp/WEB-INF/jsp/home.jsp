@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="css/home.css">
 <!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
 <title>ホーム</title>
@@ -20,6 +20,9 @@
 	<a href="${pageContext.request.contextPath}/NotificationServlet">
 	<img src="img/noti.svg" alt="通知" id="noti_img">
 	</a>
+	<a href="${pageContext.request.contextPath}/LogoutServlet" id="logout_link" title="ログアウト">
+	<img src="img/user.svg" alt="ログアウト" id="user_img">
+	</a>
 </div>
 <div id="bar">
 <img src="img/bar.png" alt="" id="bar_img">
@@ -33,8 +36,7 @@
 	<h2 id="today_housework">本日の家事</h2>
 	 <c:forEach var="e" items="${houseworkList}" varStatus="status" >
 	 <div class="housework">
-	 <button value="完了" class="button3 js-modal-button3" id="complete${e.housework_id}">完了</button>
-	 <div id="task${e.housework_id}">
+	 <button value="完了" class="button3 js-modal-button3" id="complete${e.housework_id}">完了</button><div id="task${e.housework_id}">
 	 <c:out value="${e.housework_name}" /> 
 	</div>
 	</div>
@@ -98,10 +100,11 @@
 <div id="memo_container">
  <div id="memo">
  	<h3 id="today_memo">memo</h3>
-	 <c:forEach var="e" items="${memoList}" varStatus="status" >
-	 <c:out value="${e.memo}" />
-	 <br>
+ 	<ul>
+	 <c:forEach var="e" items="${memoList}" varStatus="status" >	 
+	 <li>・<c:out value="${e.memo}" /></li>
 	 </c:forEach>
+	 </ul>
 	 <div id="memo_add">
 	<button class="button js-modal-button2">+</button>
 	</div>
@@ -146,8 +149,6 @@
 	    </ul>
 	  </nav>
 </div>
-
-
 <!-- フッター（ここまで） -->
  <script>
  //モーダルのスクリプト
@@ -185,7 +186,7 @@
  const modalButton3 = document.querySelectorAll('.js-modal-button3'); // button要素に付与したjs-modal-buttonクラスを取得し、変数に格納
 
  // 追記
- const modalClose3 = document.querySelectorAll('.js-close-button3');　// xボタンのjs-close-buttonを取得し変数に格納
+ const modalClose3 = document.querySelectorAll('.js-close-button3');// xボタンのjs-close-buttonを取得し変数に格納
 
  modalButton3.forEach((button, index) => {
 	 button.addEventListener('click', () => {
@@ -227,7 +228,7 @@
 	 const housework = document.getElementById("irreguular").value;
 	 if (housework === ""){
 		 event.preventDefault();
-		 document.getElementById("housework_error").textContent = ("頻度が不定期の家事がありません");
+		 document.getElementById("housework_error").textContent = ("頻度が不定期の家事がありません。");
 	 }
  })
  
@@ -235,9 +236,18 @@
 	 const memo = document.getElementById("memo_new").value;
 	 if (memo === ""){
 		 event.preventDefault();
-		 document.getElementById("memo_error").textContent = ("未入力です");
+		 document.getElementById("memo_error").textContent = ("未入力です。");
 	 }
  })
+ 
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("logout_link").addEventListener("click", function (e) {
+      if (!confirm("本当にログアウトしますか？")) {
+        e.preventDefault(); 
+      }
+    });
+  });
+
  </script>
  </body>
 </html>

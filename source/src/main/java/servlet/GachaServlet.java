@@ -44,6 +44,8 @@ public class GachaServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
 					int date = Integer.parseInt(dtf.format(nowDate));
 		gachaDAO gcDAO = new gachaDAO();
+		List<user> familyList = gcDAO.select(family_id);
+		
 		float sum_goal = gcDAO.sum_goal(family_id);
 		int log = 0;
 		try {
@@ -56,7 +58,7 @@ public class GachaServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);			
 		}else if (sum_goal < 1 || sum_goal > 1.1){
-			request.setAttribute("msg", "分担目標を設定してください");
+			request.setAttribute("msg", "分担目標を設定してください。");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);
 		}else {
@@ -73,6 +75,7 @@ public class GachaServlet extends HttpServlet {
 				}
 			}
 			
+			request.setAttribute("familyList", familyList);
 			request.setAttribute("role", role);
 			request.setAttribute("roleList",roleList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha_result.jsp");
