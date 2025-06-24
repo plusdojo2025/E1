@@ -44,6 +44,8 @@ public class GachaServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
 					int date = Integer.parseInt(dtf.format(nowDate));
 		gachaDAO gcDAO = new gachaDAO();
+		List<user> familyList = gcDAO.select(family_id);
+		
 		float sum_goal = gcDAO.sum_goal(family_id);
 		int log = 0;
 		try {
@@ -73,6 +75,7 @@ public class GachaServlet extends HttpServlet {
 				}
 			}
 			
+			request.setAttribute("familyList", familyList);
 			request.setAttribute("role", role);
 			request.setAttribute("roleList",roleList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha_result.jsp");
