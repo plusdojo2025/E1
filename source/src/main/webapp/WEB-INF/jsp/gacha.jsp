@@ -136,7 +136,7 @@
 $('#gacha').on('click', function(e) {	
 	const a = "${today_housework}";
 	if (a !== ""){
-		document.getElementById("none").textContent = ("今日の家事が登録されていません");
+		document.getElementById("none").textContent = ("今日の家事が登録されていません。");
 	}else if ("${msg}" !== "") {
 		if (!alert("${msg}")) {
 			window.location.href = '${pageContext.request.contextPath}/AnalysisServlet';

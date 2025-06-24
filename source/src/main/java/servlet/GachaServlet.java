@@ -58,7 +58,7 @@ public class GachaServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);			
 		}else if (sum_goal < 1 || sum_goal > 1.1){
-			request.setAttribute("msg", "分担目標を設定してください");
+			request.setAttribute("msg", "分担目標を設定してください。");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);
 		}else {

@@ -228,7 +228,7 @@
 	 const housework = document.getElementById("irreguular").value;
 	 if (housework === ""){
 		 event.preventDefault();
-		 document.getElementById("housework_error").textContent = ("頻度が不定期の家事がありません");
+		 document.getElementById("housework_error").textContent = ("頻度が不定期の家事がありません。");
 	 }
  })
  
@@ -236,7 +236,7 @@
 	 const memo = document.getElementById("memo_new").value;
 	 if (memo === ""){
 		 event.preventDefault();
-		 document.getElementById("memo_error").textContent = ("未入力です");
+		 document.getElementById("memo_error").textContent = ("未入力です。");
 	 }
  })
  </script>
