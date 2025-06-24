@@ -80,13 +80,16 @@
 	      <div class="modal__contents">
 	        <div class="modal__content">
 	          <form method="POST" action="${pageContext.request.contextPath}/HomeServlet" id="form${status.index}">
-				 <select name="housework_id">
+				 <select name="housework_id" id="irreguular">
 				 <c:forEach var="e" items="${irregular_houseworkList}" varStatus="status" >
 					<option value="${e.housework_id}"><c:out value="${e.housework_name}" /></option>
 				</c:forEach>
 					</select>
-					<input type="submit" name="submit" value="家事追加">
+					<input type="submit" name="submit" value="家事追加" id="housework_submit">
+					
 				 </form>
+				 <br>
+					<div id="housework_error"></div>
 	        </div>
 	      </div>
 	    </div>
@@ -119,6 +122,8 @@
 			<input type="text" name="memo" id="memo_new">
 			<input type="submit" name="submit" value="メモ追加" id="memo_submit">
 			 </form>
+			 <br>
+			 <div id="memo_error"></div>
         </div>
       </div>
     </div>
@@ -217,6 +222,22 @@
 	      text.classList.add('complete_task');
 	    }
 	  });
+ 
+ document.getElementById("housework_submit").addEventListener('click', function(event){
+	 const housework = document.getElementById("irreguular").value;
+	 if (housework === ""){
+		 event.preventDefault();
+		 document.getElementById("housework_error").textContent = ("頻度が不定期の家事がありません");
+	 }
+ })
+ 
+ document.getElementById("memo_submit").addEventListener('click', function(event){
+	 const memo = document.getElementById("memo_new").value;
+	 if (memo === ""){
+		 event.preventDefault();
+		 document.getElementById("memo_error").textContent = ("未入力です");
+	 }
+ })
  </script>
  </body>
 </html>
