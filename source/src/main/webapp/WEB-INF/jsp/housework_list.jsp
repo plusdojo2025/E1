@@ -67,6 +67,8 @@
 
           <!-- 取得した家事を一覧表示 -->
           <!--<div class="card_container">-->
+            
+
           <c:forEach var="e" items="${cardList}" varStatus="status">
             <tr class="card">
               <td class="housework_level">
@@ -130,7 +132,7 @@
         <!-- 家事が追加されるごとに行を追加 -->
 
         <!-- 検索アイコン押下時モーダル画面を表示 -->
-        <button id="openModal">検索</button>
+        <button id="openSearchModal">検索</button>
         <!-- 検索モーダルの中身 -->
         <div id="searchModal" class="modal" style="display: none;">
           <div class="modal-content">
@@ -148,7 +150,6 @@
 
               <label>カテゴリー:</label>
               <select name="category_id">
-              	<option value="0">すべて</option>
                 <option value="1">掃除</option>
                 <option value="2">洗濯</option>
                 <option value="3">料理</option>
@@ -160,7 +161,6 @@
 
               <label>頻度:</label>
               <select name="frequency">
-				<option value="-1">すべて</option>
                 <option value="0">毎日</option>
                 <option value="1">月</option>
                 <option value="2">火</option>
@@ -173,8 +173,7 @@
               </select><br>
 
               <label>通知ON/OFF:</label>
-              <input type="radio" name="noti_flag" value="-1" checked> すべて
-              <input type="radio" name="noti_flag" value="0"> OFF
+              <input type="radio" name="noti_flag" value="0" checked> OFF
               <input type="radio" name="noti_flag" value="1"> ON<br>
               <input type="submit" name="search" value="検索">
             </form>
@@ -207,14 +206,35 @@
               </select><br>
 
               <label>家事負担度（必須）：</label>
-              <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
-              <label>通知有無：</label>
+              <!-- <input type="text" name="housework_level" id="modal-housework-level" value="" /><br> -->
+
+              <select name="housework_level" id="modal-housework-level">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select><br>
+
+              <label>元データ通知有無：</label>
+              <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
+
               <!--ラジオボタンにしたい
               <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
               <input type="radio" name="noti_flag" id="modal-noti-flag" value="1"> ON
               -->
-              <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
-              <label>通知時間：</label>
+
+              <!-- 通知 -->
+              <!-- <label>通知</label>
+              <input type="radio" name="noti_flag" value=0 checked id="noti-off">off
+              <input type="radio" name="noti_flag" value=1 id="noti-on">on
+
+              <br>
+              <label for="noti_time"></label>
+              <input type="time" id="noti_time" name="noti_time" class="noti-hidden">
+              </label> -->
+
+              <label>元データ通知時間：</label>
               <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
 
               <!-- セレクトにしたい -->
@@ -222,9 +242,23 @@
                 <label>家事頻度（必須）：</label>
                 <!-- <input type="text" name="frequency" id="modal-frequency" value="" /><br> -->
                 <select name="frequency" id="modal-frequency">
-                  <option value="1">曜日を選択</option>
+                  <!-- 曜日チェックボックスが使えるならこっちを採用
                   <option value="0">毎日</option>
+                  <option value="1">曜日を選択</option>
+                  <option value="8">不定期</option> 
+                  -->
+
+                  <!-- 応急処置としてプルダウンから選択できるようにしておきます -->
+                  <option value="0">毎日</option>
+                  <option value="1">月曜日</option>
+                  <option value="2">火曜日</option>
+                  <option value="3">水曜日</option>
+                  <option value="4">木曜日</option>
+                  <option value="5">金曜日</option>
+                  <option value="6">土曜日</option>
+                  <option value="7">日曜日</option>
                   <option value="8">不定期</option>
+
                 </select><br>
                 <!-- 曜日チェック（最初は非表示） -->
                 <div id="daysContainer" class="days-container">
@@ -245,8 +279,25 @@
                 </div>
               </div>
 
-              <label>メモ（マニュアルなど）：</label>
-              <input type="text" name="manual" id="modal-manual" value="" /><br>
+              <!-- <label>メモ（マニュアルなど）：</label>
+              <input type="text" name="manual" id="modal-manual" value="" /><br> -->
+
+              <!-- メモ -->
+              <label>マニュアル</label>
+              <!-- メモ記入用のモーダル -->
+              <div id="memoModal" class="modal"
+                style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, 0); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+                <h3>メモを入力</h3>
+                <textarea id="modal-manual" name="manual" rows="10" cols="40"></textarea><br>
+                <button type="button" onclick="saveMemo()">保存</button>
+                <button type="button" onclick="closeModal()">キャンセル</button>
+              </div>
+              <!-- モーダルを開くボタン -->
+              <button type="button" onclick="openModal()">マニュアルを書く</button>
+              <!-- 実際のフォームの中に隠しフィールドとして保持 -->
+              <input type="hidden" name="manual" id="manual">
+              <br>
+
 
               <label>固定担当者：</label>
               <!-- 担当者と通知はラジオボタンにしたい
@@ -345,7 +396,7 @@
 
         // 検索画面をモーダル表示 	
         const searchModal = document.getElementById("searchModal");
-        const openModalBtn = document.getElementById("openModal");
+        const openModalBtn = document.getElementById("openSearchModal");
         const closeBtn = document.querySelector(".close-button");
         const submitBtn = document.getElementById("submitButton");
         const userInput = document.getElementById("userInput");
@@ -604,8 +655,8 @@
           }
         });
 
-        document.getElementById('form').addEventListener('submit', function (event) {
-          const daySelection = document.getElementById('modal-frequency').value;
+        document.getElementById('updateForm').addEventListener('submit', function (event) {
+          const daySelection = document.getElementById('modal-freqency').value;
           const frequencyInput = document.getElementById('frequency');
           if (daySelection === "0" || daySelection === "8") {
             frequencyInput.value = daySelection;
@@ -615,6 +666,93 @@
             frequencyInput.value = selectedDays.join(",");
           }
         });
+        // フォーム送信時の処理
+        document.getElementById('updateForm').addEventListener('submit', function (event) {
+          const selectedDays = Array.from(document.querySelectorAll('.day-checkbox:checked'))
+            .map(checkbox => checkbox.value);
+          const daySelection = document.getElementById('modal-frequency').value;
+          console.log('選択タイプ:', daySelection);
+          console.log('選択された曜日:', selectedDays);
+        });
+
+        // メモモーダル
+        function openModal() {
+          document.getElementById('memoModal').style.display = 'block';
+        }
+        function closeModal() {
+          document.getElementById('memoModal').style.display = 'none';
+        }
+        function saveMemo() {
+          var memo = document.getElementById('modal-manual').value;
+          document.getElementById('manual').value = memo;
+          closeModal();
+        }
+
+        // 通知スクリプト
+        // 通知ON/OFFで時間入力を有効・無効にする
+        // document.getElementById("noti-off").addEventListener("change", function () {
+        //   document.getElementById("noti_time").classList.add("noti-hidden");
+        // });
+        // document.getElementById("noti-on").addEventListener("change", function () {
+        //   document.getElementById("noti_time").classList.remove("noti-hidden");
+        // });
+        // // ページ読み込み時に状態を正しく初期化（特に戻ってきたとき対策）
+        // window.addEventListener("DOMContentLoaded", () => {
+        //   const isNotiOn = document.getElementById("noti-on").checked;
+        //   document.getElementById("noti_time").classList.toggle("noti-hidden", !isNotiOn);
+        // });
+        // // 通知ON/OFFに応じて通知時間の表示切替
+        // document.querySelectorAll('input[name="noti_flag"]').forEach(radio => {
+        //   radio.addEventListener('change', () => {
+        //     const timeInput = document.getElementById('noti_time');
+        //     if (document.querySelector('input[name="noti_flag"]:checked').value === '1') {
+        //       timeInput.classList.remove('noti-hidden');
+        //     } else {
+        //       timeInput.classList.add('noti-hidden');
+        //     }
+        //   });
+        // });
+        // // 初期状態の制御（ページ読み込み時）
+        // window.addEventListener("DOMContentLoaded", () => {
+        //   const timeInput = document.getElementById('noti_time');
+        //   const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
+        //   timeInput.classList.toggle('noti-hidden', !isOn);
+        // });
+
+
+        // window.addEventListener("DOMContentLoaded", () => {
+        //   const timeInput = document.getElementById("modal-noti-time");
+        //   const radios = document.querySelectorAll('input[name="noti_flag"]');
+
+        //   // 初期表示
+        //   const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
+        //   timeInput.classList.toggle("noti-hidden", !isOn);
+
+        //   // ラジオ変更時
+        //   radios.forEach(radio => {
+        //     radio.addEventListener("change", () => {
+        //       const isNowOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
+        //       timeInput.classList.toggle("noti-hidden", !isNowOn);
+        //     });
+        //   });
+        // });
+
+        // 初期状態の制御（ページ読み込み時）
+        window.addEventListener("DOMContentLoaded", () => {
+          const timeInput = document.getElementById('noti_time');
+          const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
+          timeInput.classList.toggle('noti-hidden', !isOn);
+        });
+
+
+        window.addEventListener("load", function () {
+          if (!localStorage.getItem("loaded")) {
+            localStorage.setItem("loaded", "true");
+            window.location.reload();
+          }
+        });
+
+
 
       </script>
     </body>
