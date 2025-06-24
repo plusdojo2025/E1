@@ -20,6 +20,9 @@
 	<a href="${pageContext.request.contextPath}/NotificationServlet">
 	<img src="img/noti.svg" alt="通知" id="noti_img">
 	</a>
+	<a href="${pageContext.request.contextPath}/LogoutServlet">
+	ログアウト
+	</a>
 </div>
 <div id="bar">
 <img src="img/bar.png" alt="" id="bar_img">
