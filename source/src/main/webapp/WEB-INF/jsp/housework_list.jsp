@@ -193,8 +193,16 @@
               <!-- ファミリーID非表示 hidden-->
               <label>ファミリーID（最終はhidden）：</label>
               <input type="text" name="family_id" id="family-id" value="" /><br>
-              <label>カテゴリID：</label>
-              <input type="number" name="category_id" id="modal-category-id" value="" /><br>
+              
+              <label>カテゴリ：</label>
+              <!-- <input type="hidden" name="category_id" id="modal-category-id" value="" /><br> -->
+              <select name="category_id" id="modal-category-id">
+                <option value="1">掃除</option>
+                <option value="2">洗濯</option>
+                <option value="3">料理</option>
+                <option value="4">その他</option>
+              </select><br>
+              
               <label>家事負担度（必須）：</label>
               <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
               <label>通知有無：</label>
