@@ -14,28 +14,51 @@ html {
 	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
 }
 /* ヘッダー　*/
+#top_nav {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+#logo {
+	list-style: none;
+}
+#to_noti {
+	list-style: none;
+}
 #logo_img {
 	width: 1000px;
 	margin-left: 220px;
+}#noti_img {
+  width: 150px;
+	margin-left: 60px;
 }
 #bar_img {
 	height: 40px;
 	width: auto;
 }
 
-/*本日の家事のcss*/
+/*本日の家事*/
 #housework_container {
 	position: relative;
     top: 50px;
     left: 0;
     right: 0;
     bottom: 0;
-    margin: auto;
-    width: 700px;
+    margin-top: 20px;
+	margin-left: 140px;
+    width: 1200px;
     height: auto;
     border: #5e5e5e;
     border-radius: 100px;
     background: #fefefe;
+}
+#today_housework {
+	padding-top: 50px;
+	color: #FF7F00;
+    font-size: 32px;
+    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
 }
 #housework_list{
 	text-align:center;
@@ -51,8 +74,34 @@ html {
 	gap:5px;
 	column-width: 300px;
 }
-
-/*完了ボタンのcss*/
+/* メモ */
+#memo_container {
+	position: relative;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 20px;
+	margin-left: 140px;
+    width: 1200px;
+    height: auto;
+    border: #5e5e5e;
+    border-radius: 100px;
+    background: #fefefe;
+}
+#today_memo {
+	padding-top: 30px;
+	margin-left: 50px;
+	color: #FF7F00;
+    font-size: 24px;
+    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+}
+#memo_add{
+	text-align:right;
+	margin-right:30px;
+	margin-bottom:10px;
+}
+/* 完了ボタン */
 .complete{
   background: gray;
   border-radius: 50%;
@@ -66,12 +115,10 @@ html {
   cursor: pointer;
   margin-left: 10px
 }
-
 .complete_task{
 	text-decoration: line-through;
 }
-
-/*家事追加モーダルのcss*/
+/*家事追加モーダル*/
 .layer {
   background: rgba(0, 0, 0, .2);
   width: 100%;
@@ -85,18 +132,15 @@ html {
   opacity: 0;
   visibility: hidden;
 }
-
 .layer.is-open {
   z-index: 999;
   opacity: 1;
   visibility: visible;
 }
-
 .layer.is-open .modal{
   opacity: 1;
   visibility: visible;
 }
-
 .modal {
   position: relative;
   margin-right: auto;
@@ -109,20 +153,18 @@ html {
   visibility: hidden;
 }
 .button {
-  background: rgb(255,127,0);
-  border-radius: 50%;
-  box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, .24);
-  border: 1px solid rgb(255,127,0);
-  font-size: 16px;
-  line-height: 1.6;
-  padding: 9px 15px;
-  color: #fff;
-  text-align: right;
-  cursor: pointer;
-  margin-right: 0px;
-	margin-top: 165px
+	background: rgb(255,127,0);
+	border-radius: 50%;
+	border: 1px solid rgb(255,127,0);
+	font-size: 16px;
+	line-height: 1.6;
+	padding: 9px 15px;
+	color: #fff;
+	text-align: right;
+	cursor: pointer;
+	margin-right: 30px;
+	margin-bottom: 30px;
 }
-
 /* グレー背景 */
 .layer {
   background: rgba(0, 0, 0, .2); /* 背景を薄くする *
@@ -132,7 +174,6 @@ html {
   top: 0;
   left: 0;
 }
-
 /* モーダルコンテンツ */
 .modal {
   position: relative;
@@ -142,7 +183,6 @@ html {
   width: 40%;
   min-width: 300px;
 }
-
 .modal__inner {
   margin-top: 125px;
   margin-bottom: 125px;
@@ -156,22 +196,16 @@ html {
   padding: 21px 8px 21px;
   height: auto;
 }
-
 .modal__content {
   padding-top: 15px;
   padding-bottom: 23px;
 }
-
-
-
-
 .modal__button-wrap {
   position: absolute;
   right: 10px;
   top: -28px;
   display: inline-flex;
 }
-
 .close-button {
   position: relative;
   width: 39px;
@@ -182,7 +216,6 @@ html {
   border: transparent;
   cursor: pointer;
 }
-
 .close-button span {
   width: 25px;
   height: 2px;
@@ -193,11 +226,148 @@ html {
   top: 50%;
   border-radius: 20px;
 }
-
 .close-button span:nth-child(1) {
   transform: rotate(45deg) translate(-1px, -1px);
 }
-
 .close-button span:nth-child(2) {
   transform: rotate(-45deg) translate(1px, -1px);
+}
+/*メモ追加モーダル*/
+.layer2 {
+  background: rgba(0, 0, 0, .2);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* 追記 */
+  z-index: -1; 
+  opacity: 0;
+  visibility: hidden;
+}
+.layer2.is-open2 {
+  z-index: 999;
+  opacity: 1;
+  visibility: visible;
+}
+.layer2.is-open2 .modal2{
+  opacity: 1;
+  visibility: visible;
+}
+.modal2 {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
+  min-width: 440px;
+
+  /* 追記 */
+  opacity: 0;
+  visibility: hidden;
+}
+.button2 {
+	background: rgb(255,127,0);
+	border-radius: 50%;
+	border: 1px solid rgb(255,127,0);
+	font-size: 16px;
+	line-height: 1.6;
+	padding: 9px 15px;
+	color: #fff;
+	text-align: right;
+	cursor: pointer;
+	margin-right: 30px;
+	margin-bottom: 30px;
+}
+/* グレー背景 */
+.layer2 {
+  background: rgba(0, 0, 0, .2); /* 背景を薄くする *
+  width: 100%;
+  height: 100%;
+  position: fixed; /* 画面に固定するために指定 */
+  top: 0;
+  left: 0;
+}
+/* モーダルコンテンツ */
+.modal2 {
+  position: relative;
+  top:7%;
+  margin-right: auto;
+  margin-left: auto;
+  width: 40%;
+  min-width: 300px;
+}
+.modal__inner2 {
+  margin-top: 125px;
+  margin-bottom: 125px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);/* モーダルにシャドウをかける */
+  border-radius: 13px; /* モーダルの角を丸める */
+  display: block;
+  padding: 21px 8px 21px;
+  height: auto;
+}
+.modal__content2 {
+  padding-top: 15px;
+  padding-bottom: 23px;
+}
+.modal__button-wrap2 {
+  position: absolute;
+  right: 10px;
+  top: -28px;
+  display: inline-flex;
+}
+.close-button2 {
+  position: relative;
+  width: 39px;
+  height: 39px;
+  background: rgb(255,127,0);
+  border-radius: 50%;
+  padding: 0;
+  border: transparent;
+  cursor: pointer;
+}
+.close-button2 span {
+  width: 25px;
+  height: 2px;
+  background: #fff;
+  display: inline-block;
+  position: absolute;
+  left: calc(50% - 12px);
+  top: 50%;
+  border-radius: 20px;
+}
+.close-button2 span:nth-child(1) {
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+.close-button2 span:nth-child(2) {
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+#bottom_nav {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+ul {
+	list-style: none;
+}
+#home_img {
+	width: 150px;
+}
+#list_img {
+	width: 150px;
+}
+#regist_img {
+	width: 150px;
+}
+#gacha_img {
+	width: 150px;
+}
+#analysis_img {
+	width: 150px;
 }

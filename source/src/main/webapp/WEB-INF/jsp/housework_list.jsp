@@ -15,9 +15,7 @@
     <body>
       <!-- ヘッダー -->
       <header>
-        <!-- ロゴ挿入 -->
-        <!-- navタグで通知とログアウトを入れる -->
-
+        <!-- 通知とログアウトを入れる -->
       </header>
       <!-- メイン -->
       <main class="housework_list_wrapper">
@@ -98,7 +96,6 @@
                 <input type="hidden" name="log" value="${e.log}">
 
                 <!-- 家事名のみ表示 -->
-
                 <c:out value="${e.housework_name}" />
                 <input type="hidden" name="housework_name" value="${e.housework_name}">
                 <!-- 家事名<input type="text" name="housework_name" value="${e.housework_name}"> -->
@@ -131,7 +128,6 @@
           <!--</div>-->
         </table>
         <!-- 家事が追加されるごとに行を追加 -->
-        <!-- 検索アイコン表示 -->
 
         <!-- 検索アイコン押下時モーダル画面を表示 -->
         <button id="openModal">検索</button>
@@ -177,12 +173,10 @@
               <label>通知ON/OFF:</label>
               <input type="radio" name="noti_flag" value="0" checked> OFF
               <input type="radio" name="noti_flag" value="1"> ON<br>
-
               <input type="submit" name="search" value="検索">
             </form>
           </div>
         </div>
-
 
         <!-- 更新モーダルの中身 -->
         <div id="updateModal" class="modal modal-inner" style="display: none;">
@@ -191,16 +185,17 @@
             <h2>家事情報を編集</h2>
             <!-- 更新フォームに渡す値 -->
             <form id="updateForm" method="POST" action="${pageContext.request.contextPath}/HWUpdateDeleteServlet">
-              <!-- 家事ID非表示 -->
-              <label>家事ID：
+              <!-- 家事ID非表示 hidden-->
+              <label>家事ID（最終はhidden）：
                 <input type="text" name="housework_id" id="housework-id" value="" /></label><br>
-              <label>家事名：</label>
+              <label>家事名（必須）：</label>
               <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
-              <!-- ファミリーID非表示 -->
-              <input type="hidden" name="family_id" value="" />
+              <!-- ファミリーID非表示 hidden-->
+              <label>ファミリーID（最終はhidden）：</label>
+              <input type="text" name="family_id" id="family-id" value="" /><br>
               <label>カテゴリID：</label>
               <input type="number" name="category_id" id="modal-category-id" value="" /><br>
-              <label>家事負担度：</label>
+              <label>家事負担度（必須）：</label>
               <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
               <label>通知有無：</label>
               <!--ラジオボタンにしたい
@@ -210,7 +205,7 @@
               <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
               <label>通知時間：</label>
               <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
-              <label>家事頻度：</label>
+              <label>家事頻度（必須）：</label>
               <input type="text" name="frequency" id="modal-frequency" value="" /><br>
               <label>メモ（マニュアルなど）：</label>
               <input type="text" name="manual" id="modal-manual" value="" /><br>
@@ -224,8 +219,12 @@
 
               <label>可変担当者：</label>
               <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
-              <!-- ログ非表示 -->
-              <input type="hidden" name="log" id="modal-log" value="" />
+              <!-- ログ非表示 hidden-->
+              <label>ログ：</label>
+              <input type="text" name="log" id="modal-log" value="" /><br>
+
+              <!-- エラーメッセージ表示エリア -->
+              <span id="update_error_message">※必須項目</span><br>
 
               <!--  <button type="button" id="updateTrigger">更新</button> -->
               <input type="submit" id="updateTrigger" name="submit" value="更新" />
@@ -250,10 +249,8 @@
             <button id="confirmDeleteBtn">OK</button>
           </div>
         </div>
-
-
-
       </main>
+
       <!-- フッター -->
       <footer>
         <!-- 各コンテンツのアイコンを横に並べる -->
@@ -273,11 +270,9 @@
         /*document.addEventListener("DOMContentLoaded", function () {
             const sortToggleBtn = document.getElementById("sortToggleBtn");
             const sortOrderInput = document.getElementById("sortOrderInput");
-            const sortIcon = document.getElementById("sortIcon");
-      	
+            const sortIcon = document.getElementById("sortIcon");      	
             // JSTLの変数をJavaScriptで使うために事前に定義しておく
-            const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
-      	
+            const contextPath = "<c:out value='${pageContext.request.contextPath}' />";      	
             sortToggleBtn.addEventListener("click", function () {
                 if (sortOrderInput.value === "asc") {
                   sortOrderInput.value = "desc";
@@ -285,8 +280,7 @@
                 } else {
                   sortOrderInput.value = "asc";
                   sortIcon.src = contextPath + "/img/sort_up.svg";
-                }
-      
+                }      
                 // カテゴリ選択があれば保持してform送信
                 document.getElementById("sortForm").submit();
               });*/
@@ -299,7 +293,6 @@
           // JSTLの変数をJavaScriptで使うために事前に定義しておく
           const contextPath = "<c:out value='${pageContext.request.contextPath}' />";
 
-
           sortToggleBtn.addEventListener("click", function () {
             if (sortOrderInput.value === "asc") {
               sortOrderInput.value = "desc";
@@ -308,7 +301,6 @@
               sortOrderInput.value = "asc";
               sortIcon.src = contextPath + "/img/sort_up.svg";
             }
-
             document.getElementById("sortForm").submit();
           });
         });
@@ -323,11 +315,9 @@
         openModalBtn.onclick = function () {
           searchModal.style.display = "block";
         }
-
         closeBtn.onclick = function () {
           searchModal.style.display = "none";
         }
-
         window.onclick = function (event) {
           if (event.target === searchModal) {
             searchModal.style.display = "none";
@@ -348,6 +338,9 @@
 
           document.querySelectorAll(".open-modal").forEach(function (td) {
             td.addEventListener("click", function () {
+              // エラーメッセージの初期化
+              document.getElementById("update_error_message").textContent = "※必須項目";
+
               //const name = this.dataset.houseworkName;
               //modalName.value = "家事名: " + name;
               //updateModal.style.display = "block";
@@ -355,8 +348,7 @@
               // モーダル内に値を格納
               const housework_name = this.dataset.houseworkName;
               const housework_id = this.dataset.houseworkId;
-              // ここに情報を追加 
-              //const family_id = this.dataset.familyId;
+              const family_id = this.dataset.familyId;
               const category_id = this.dataset.categoryId;
               const housework_level = this.dataset.houseworkLevel;
               const noti_flag = this.dataset.notiFlag;
@@ -365,14 +357,15 @@
               const manual = this.dataset.manual;
               const fixed_role = this.dataset.fixedRole;
               const variable_role = this.dataset.variableRole;
-              //const log = this.dataset.log;
+              const log = this.dataset.log;
 
               // 更新モーダルに値を表示
               console.log(housework_level);
               document.getElementById("modal-housework-name").value = housework_name;
+              // ↓なぜかmoodal-を付けたら動かない
               //document.getElementById("modal-housework-id").value = housework_id;
               console.log("housework_id:", housework_id);
-              //document.getElementById("modal-family-id").value = family_id; 
+              document.getElementById("family-id").value = family_id;
               document.getElementById("modal-category-id").value = category_id;
               document.getElementById("modal-housework-level").value = housework_level;
               document.getElementById("modal-noti-flag").value = noti_flag;
@@ -381,25 +374,46 @@
               document.getElementById("modal-manual").value = manual;
               document.getElementById("modal-fixed-role").value = fixed_role;
               document.getElementById("modal-variable-role").value = variable_role;
-              //document.getElementById("log").value = log;
+              document.getElementById("modal-log").value = log;
               document.getElementById("housework-id").value = housework_id;
               updateModal.style.display = "block";
-
-
-
-
             });
           });
 
-
-
           updateTrigger.addEventListener("click", function (event) {
+            //必須項目の入力チェック
+            const updateErrorCheck1 = document.getElementById("modal-housework-name").value.trim();
+            const updateErrorCheck2 = document.getElementById("family-id").value.trim();
+            const updateErrorCheck3 = document.getElementById("modal-category-id").value.trim();
+            const updateErrorCheck4 = document.getElementById("modal-housework-level").value.trim();
+            const updateErrorCheck5 = document.getElementById("modal-noti-flag").value.trim();
+            const updateErrorCheck6 = document.getElementById("modal-frequency").value.trim();
+            const updateErrorCheck7 = document.getElementById("modal-fixed-role").value.trim();
+            const updateErrorCheck8 = document.getElementById("housework-id").value.trim();
+            // const updateErrorCheck9 = document.getElementById("").value.trim();
+            // const updateErrorCheck10 = document.getElementById("").value.trim();
+            // const updateErrorCheck11 = document.getElementById("").value.trim();
+            // const updateErrorCheck12 = document.getElementById("").value.trim();
+
+            if (updateErrorCheck1 === '' ||
+              updateErrorCheck2 === '' ||
+              updateErrorCheck3 === '' ||
+              updateErrorCheck4 === '' ||
+              updateErrorCheck5 === '' ||
+              updateErrorCheck6 === '' ||
+              updateErrorCheck7 === '' ||
+              updateErrorCheck8 === ''
+            ) {
+              document.getElementById("update_error_message").textContent = "必須項目が未入力です";
+              event.preventDefault();
+              return;
+            }
+
             const confirmedCheck = window.confirm("この情報で更新しますか？");
             if (confirmedCheck === true) {
               const housework_name = this.dataset.houseworkName;
               const housework_id = this.dataset.houseworkId;
-              // ここに情報を追加 
-              //const family_id = this.dataset.familyId;
+              const family_id = this.dataset.familyId;
               const category_id = this.dataset.categoryId;
               const housework_level = this.dataset.houseworkLevel;
               const noti_flag = this.dataset.notiFlag;
@@ -408,13 +422,13 @@
               const manual = this.dataset.manual;
               const fixed_role = this.dataset.fixedRole;
               const variable_role = this.dataset.variableRole;
+              const log = this.dataset.log
               updateForm.submit();
             } else {
               window.alert("送信を取り消しました");
               event.preventDefault();
             }
           });
-
           closeBtn.onclick = function () {
             updateModal.style.display = "none";
           };
@@ -423,47 +437,21 @@
               updateModal.style.display = "none";
             }
           };
-
         });
-
-        // function cancelsubmit() {
-        //   const confirmed = window.confirm("この情報で更新しますか？");      
-        //   if (confirmed) {
-        //     const updateForm = document.getElementById("updateForm"); // ← ここで再取得
-        //     console.log((new FormData(updateForm)));
-        //     updateForm.submit();
-        //   }
-        // }
-
-
-
-        //  更新ボタンを押下時、更新確認モーダルを表示 スクリプト
-        // ↓値確認用コンソール
-
-
-        // document.addEventListener("DOMContentLoaded", function () {
-        //   const updateTrigger = document.getElementById("updateTrigger");
-        //   const confirmModal = document.getElementById("confirmModal");
-        //   const confirmOk = document.getElementById("confirmOk");
-        //   const confirmCancel = document.getElementById("confirmCancel");
-        //   const updateForm = document.getElementById("updateForm");
 
         //   // 更新ボタン押下時 → 確認モーダル表示
         //   updateTrigger.addEventListener("click", function () {
         //     confirmModal.style.display = "block";
         //   });
-
         //   // キャンセル → 確認モーダル非表示
         //   confirmCancel.addEventListener("click", function () {
         //     confirmModal.style.display = "none";
         //   });
-
         //   // OK → モーダル閉じてフォーム送信
         //   confirmOk.addEventListener("click", function () {
         //     confirmModal.style.display = "none";
         //     updateForm.submit(); // 実際に送信
         //   });
-
         //   // 背景クリックで閉じる
         //   window.addEventListener("click", function (event) {
         //     if (event.target === confirmModal) {
@@ -471,7 +459,6 @@
         //     }
         //   });
         // });
-
 
         //ごみ箱アイコンを押下時消去確認モーダル表示
         document.addEventListener("DOMContentLoaded", function () {
@@ -522,7 +509,6 @@
             }
           });
         });
-
 
         // 処理の結果表示
         window.onload = function () {
