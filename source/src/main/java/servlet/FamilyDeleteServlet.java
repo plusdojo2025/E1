@@ -65,7 +65,7 @@ public class FamilyDeleteServlet extends HttpServlet {
         if (isDeleted) {
         	request.setAttribute("result", "ファミリーID削除に成功しました。");
         } else {
-        	request.setAttribute("result", "ファミリーID削除に失敗しました。あいことばが間違えているか、ファミリーIDにユーザーが登録されている可能性があります。");
+        	request.setAttribute("result", "ファミリーID削除に失敗しました。\nファミリーIDまたはあいことばが間違えているか、\nファミリーIDにユーザーが登録されている可能性があります。");
         }
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/user_delete.jsp");
