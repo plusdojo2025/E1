@@ -31,6 +31,11 @@ public class HomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// セッションを取得
 		HttpSession session = request.getSession();
+		// セッションにログイン情報がなければログイン画面へリダイレクト
+		if (session.getAttribute("user_id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 		
 		request.setCharacterEncoding("UTF-8");
 		LocalDateTime nowDate = LocalDateTime.now();

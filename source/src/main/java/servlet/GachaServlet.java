@@ -32,6 +32,11 @@ public class GachaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		// セッションにログイン情報がなければログイン画面へリダイレクト
+		if (session.getAttribute("user_id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 		
 		String family_id = (String) session.getAttribute("family_id"); 
 		LocalDateTime nowDate = LocalDateTime.now();
