@@ -6,12 +6,12 @@
 }
 
 #allnoti{
-	padding: 0.5em 1em;
+	padding: 1.5em 3em;
     margin: 2em 0;
     font-weight: bold;
-    /*color: #6091d3;/*文字色*/
+    color: #003366;
     background: #FFF;
-    border-top: solid 3px #FF7F00;/*線*/
+    border-top: solid 8px #FF7F00;/*線*/
     border-radius: 10px;/*角の丸み*/
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);/*影*/
 }
@@ -20,7 +20,7 @@
 	text-align:center;
 	font-family:sans-elif;
     color: #FF7F00;
-    font-size: 32px;
+    font-size: 75px;
     text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
 }
 
@@ -29,12 +29,13 @@
 }
 
 .noti h2{
-	font-size:24px;
+	font-size:60px;
 	text-shadow:1px 1px 0 rgba(255,229,204,.3),-1px 1px 0 rgba(255,229,204,.3),1px -1px 0 rgba(255,229,204,.3),-1px -1px 0 rgba(255,229,204,.3);
 }
 
 .noti p{
 	font-family:sans-elif;
+	font-size:40px;
 }
 
 #notiline{
@@ -44,8 +45,8 @@
 #backimg{
 	position: absolute;
 	margin-left: 50px;
-	top: 5%;
+	top: 100px;
 	transform: translateY(-40%);
-	width: 50px;
-	height: 50px;
+	width: 100px;
+	height: 100px;
 }

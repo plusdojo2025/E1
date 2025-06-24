@@ -24,4 +24,5 @@
 	</c:if>
 </div>
 </body>
+<script src="js/notification.js"></script>
 </html>
