@@ -135,30 +135,34 @@
 <script>
 $('#gacha').on('click', function(e) {	
 	const a = "${today_housework}";
-	if (a === ""){
-	e.preventDefault();
-	  
-	  $('.toy').toggleClass('act');
-	  const $form = $('#gachaForm');
-	  const duration = parseFloat($('.toy').css('transition-duration')) * 1000;
-	  const wait = duration + 1500;
-	  let called = false;
-
-	  $('.toy').one('transitionend', function(e) {
-	    if (!called) {
-	      called = true;
-	      $form.submit();
-	    }
-	  });
-
-	  setTimeout(() => {
-	    if (!called) {
-	      called = true;
-	      $form.submit();
-	    }
-	  }, wait);
+	if (a !== ""){
+		document.getElementById("none").textContent = ("今日の家事が登録されていません");
+	}else if ("${msg}" !== "") {
+		if (!alert("${msg}")) {
+			window.location.href = '${pageContext.request.contextPath}/AnalysisServlet';
+		}
 	}else{
-		document.getElementById("none").textContent　= ("今日の家事が登録されていません");
+		e.preventDefault();
+		  
+		  $('.toy').toggleClass('act');
+		  const $form = $('#gachaForm');
+		  const duration = parseFloat($('.toy').css('transition-duration')) * 1000;
+		  const wait = duration + 1500;
+		  let called = false;
+
+		  $('.toy').one('transitionend', function(e) {
+		    if (!called) {
+		      called = true;
+		      $form.submit();
+		    }
+		  });
+
+		  setTimeout(() => {
+		    if (!called) {
+		      called = true;
+		      $form.submit();
+		    }
+		  }, wait);
 	}
 	});
 

@@ -147,6 +147,14 @@ public class HWRegistServlet extends HttpServlet {
 		                finalFrequencyValueForDB = "";
 		            }
 				}
+				// DTOに渡す担当者の値
+				if ("0".equals(fixed_role)) {
+					fixed_role = "";
+					variable_role = "";
+				}else {
+					fixed_role = variable_role;
+					variable_role = "";
+				}
 				 // DTOにセット
 					// finalFrequencyValueForDB を渡す
 					housework hw = new housework(0, housework_name, familyId, category_id, housework_level,
