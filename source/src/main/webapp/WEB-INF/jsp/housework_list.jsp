@@ -196,8 +196,16 @@
               <!-- ファミリーID非表示 hidden-->
               <label>ファミリーID（最終はhidden）：</label>
               <input type="text" name="family_id" id="family-id" value="" /><br>
-              <label>カテゴリID：</label>
-              <input type="number" name="category_id" id="modal-category-id" value="" /><br>
+
+              <label>カテゴリ：</label>
+              <!-- <input type="hidden" name="category_id" id="modal-category-id" value="" /><br> -->
+              <select name="category_id" id="modal-category-id">
+                <option value="1">掃除</option>
+                <option value="2">洗濯</option>
+                <option value="3">料理</option>
+                <option value="4">その他</option>
+              </select><br>
+
               <label>家事負担度（必須）：</label>
               <input type="text" name="housework_level" id="modal-housework-level" value="" /><br>
               <label>通知有無：</label>
@@ -208,8 +216,35 @@
               <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br>
               <label>通知時間：</label>
               <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
-              <label>家事頻度（必須）：</label>
-              <input type="text" name="frequency" id="modal-frequency" value="" /><br>
+
+              <!-- セレクトにしたい -->
+              <div class="form-group">
+                <label>家事頻度（必須）：</label>
+                <!-- <input type="text" name="frequency" id="modal-frequency" value="" /><br> -->
+                <select name="frequency" id="modal-frequency">
+                  <option value="1">曜日を選択</option>
+                  <option value="0">毎日</option>
+                  <option value="8">不定期</option>
+                </select><br>
+                <!-- 曜日チェック（最初は非表示） -->
+                <div id="daysContainer" class="days-container">
+                  <input type="checkbox" id="mon" name="days" value="1" class="day-checkbox">
+                  <label for="mon" class="day-label">月</label>
+                  <input type="checkbox" id="tue" name="days" value="2" class="day-checkbox">
+                  <label for="tue" class="day-label">火</label>
+                  <input type="checkbox" id="wed" name="days" value="3" class="day-checkbox">
+                  <label for="wed" class="day-label">水</label>
+                  <input type="checkbox" id="thu" name="days" value="4" class="day-checkbox">
+                  <label for="thu" class="day-label">木</label>
+                  <input type="checkbox" id="fri" name="days" value="5" class="day-checkbox">
+                  <label for="fri" class="day-label">金</label>
+                  <input type="checkbox" id="sat" name="days" value="6" class="day-checkbox">
+                  <label for="sat" class="day-label">土</label>
+                  <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
+                  <label for="sun" class="day-label">日</label>
+                </div>
+              </div>
+
               <label>メモ（マニュアルなど）：</label>
               <input type="text" name="manual" id="modal-manual" value="" /><br>
 
@@ -539,6 +574,48 @@
             alert(delete_error);
           }
         };
+
+
+        // 曜日選択プルダウン
+        // プルダウンの選択に応じて曜日ボタンを制御
+        document.getElementById('modal-frequency').addEventListener('change', function () {
+          const selection = this.value;
+          const daysContainer = document.getElementById('daysContainer');
+          const checkboxes = document.querySelectorAll('.day-checkbox');
+
+          if (selection === '1') {
+            // 「曜日を選択」の場合：ボタンを表示し、選択状態をリセット
+            daysContainer.classList.remove('hidden');
+            checkboxes.forEach(checkbox => {
+              checkbox.checked = false;
+            });
+          } else if (selection === '0') {
+            // 「毎日」の場合：ボタンを表示し、すべて選択
+            daysContainer.classList.remove('hidden');
+            checkboxes.forEach(checkbox => {
+              checkbox.checked = true;
+            });
+          } else if (selection === '8') {
+            // 「不定期」の場合：ボタンを非表示にし、選択状態をリセット
+            daysContainer.classList.add('hidden');
+            checkboxes.forEach(checkbox => {
+              checkbox.checked = false;
+            });
+          }
+        });
+
+        document.getElementById('form').addEventListener('submit', function (event) {
+          const daySelection = document.getElementById('modal-frequency').value;
+          const frequencyInput = document.getElementById('frequency');
+          if (daySelection === "0" || daySelection === "8") {
+            frequencyInput.value = daySelection;
+          } else if (daySelection === "1") {
+            const selectedDays = Array.from(document.querySelectorAll('.day-checkbox:checked'))
+              .map(cb => cb.value);
+            frequencyInput.value = selectedDays.join(",");
+          }
+        });
+
       </script>
     </body>
 

@@ -32,6 +32,11 @@ public class GachaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		// セッションにログイン情報がなければログイン画面へリダイレクト
+		if (session.getAttribute("user_id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 		
 		String family_id = (String) session.getAttribute("family_id"); 
 		LocalDateTime nowDate = LocalDateTime.now();
@@ -39,6 +44,7 @@ public class GachaServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
 					int date = Integer.parseInt(dtf.format(nowDate));
 		gachaDAO gcDAO = new gachaDAO();
+		float sum_goal = gcDAO.sum_goal(family_id);
 		int log = 0;
 		try {
 			log = gcDAO.select_log(family_id);
@@ -49,9 +55,11 @@ public class GachaServlet extends HttpServlet {
 		 if (date / 100 != log /100) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);			
+		}else if (sum_goal < 1 || sum_goal > 1.1){
+			request.setAttribute("msg", "分担目標を設定してください");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
+			dispatcher.forward(request, response);
 		}else {
-		
-			
 			List<housework> roleList = gcDAO.select_role(family_id);
 			if (roleList.size() == 0) {
 				request.setAttribute("today_housework", "none");
