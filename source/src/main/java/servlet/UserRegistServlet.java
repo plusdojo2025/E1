@@ -43,6 +43,32 @@ public class UserRegistServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 		float share_goal = Float.parseFloat(request.getParameter("share_goal"));
 		
+		String pattern = "^[a-zA-Z0-9!@#$%^&*()_+=\\-]+$";
+		String errorMessage = "";
+
+		// ファミリーIDのチェック
+		if (family_id == null || !family_id.matches(pattern)) {
+		    errorMessage = "ファミリーIDに使用できない文字が含まれています";
+		}
+		// あいことばのチェック
+		else if (fami_pass == null || !fami_pass.matches(pattern)) {
+		    errorMessage = "あいことばに使用できない文字が含まれています";
+		}
+		// ユーザーIDのチェック
+		else if (user_id == null || !user_id.matches(pattern)) {
+		    errorMessage = "ユーザーIDに使用できない文字が含まれています";
+		}
+		// パスワードのチェック
+		else if (password == null || !password.matches(pattern)) {
+		    errorMessage = "パスワードに使用できない文字が含まれています";
+		}
+		
+		if (!errorMessage.isEmpty()) {
+		    request.setAttribute("UserErrorMessage", errorMessage);
+		    request.getRequestDispatcher("WEB-INF/jsp/user_regist.jsp").forward(request, response);
+		    return;
+		}
+		
 		// useridとPWが入力されているか確認
 		if (user_id == null || user_id.isEmpty() || password == null || password.isEmpty()) {
 	            request.setAttribute("UserErrorMessage", "ユーザーIDとパスワードは必須入力です。");
