@@ -31,7 +31,7 @@ public class notificationDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql="select noti_id,notification.user_id,noti_datetime,noti_content from notification join user on notification.user_id=user.user_id where family_id=(select family_id from user where user_id=?) and notification.user_id<>? and convert(noti_datetime,date)=?;";
+			String sql="select noti_id,notification.user_id,noti_datetime,noti_content from notification join user on notification.user_id=user.user_id where family_id=(select family_id from user where user_id=?) and notification.user_id<>? and convert(noti_datetime,date)=? order by noti_datetime desc;";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
