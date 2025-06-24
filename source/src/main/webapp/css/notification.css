@@ -1,52 +1,103 @@
 @charset "UTF-8";
 
-*{
-	background-color: rgba(255,229,204,.3);
-	font-family: "けいふぉんと";
+@font-face {
+  font-family: 'けいふぉんと';
+  src: url('../fonts/Keifont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-#allnoti{
-	padding: 1.5em 3em;
-    margin: 2em 0;
-    font-weight: bold;
-    color: #003366;
-    background: #FFF;
-    border-top: solid 8px #FF7F00;/*線*/
-    border-radius: 10px;/*角の丸み*/
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);/*影*/
+/* グローバル設定 */
+* {
+  box-sizing: border-box;
 }
 
-#notititle{
-	text-align:center;
-	font-family:sans-elif;
-    color: #FF7F00;
-    font-size: 75px;
-    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+html {
+  font-size: 16px;
+  font-family: "けいふぉんと";
+  color: #003366;
+  background-color: rgba(255,229,204,.3);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
-.noti,.noti h2,p{
-	background-color:#FFFFFF;
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
 }
 
-.noti h2{
-	font-size:60px;
-	text-shadow:1px 1px 0 rgba(255,229,204,.3),-1px 1px 0 rgba(255,229,204,.3),1px -1px 0 rgba(255,229,204,.3),-1px -1px 0 rgba(255,229,204,.3);
+#back_img {
+  width: 10%;
+  height: auto;
+  position: absolute;  /* 追加 */
+  left: 20px;  /* 追加 */
+  top: 7.5%;  /* 追加 */
+  transform: translateY(-50%);  /* 追加 */
+}
+
+h2 {
+  padding-top: 30px ;
+  padding-bottom: 10px;
+  color: #FF7F00;
+  font-size: 2.5rem;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  text-align: center;
+  margin: 0;
+  font-weight: 100;
+}
+
+
+#bar {
+  width: 100%;
+  overflow: hidden;
+}
+
+#bar_img {
+  height: 20px;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+#noti_container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 30px;
+  background: #fefefe;
+  padding: 0 10px;
+}
+.noti h3{
+	font-size: 2rem;
+	text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
 }
 
 .noti p{
-	font-family:sans-elif;
-	font-size:40px;
+	font-size: 1.5rem;
 }
 
-#notiline{
-	border-top:5px double #FF7F00;
-}
+@media screen and (max-width: 768px) {
+  h2 {
+    font-size: 2rem;
+  }
 
-#backimg{
-	position: absolute;
-	margin-left: 50px;
-	top: 100px;
-	transform: translateY(-40%);
-	width: 100px;
-	height: 100px;
+  .noti h3 {
+    font-size: 1.5rem;
+  }
+
+  .noti p {
+    font-size: 1rem;
+  }
+
+  #back_img {
+    width: 10%;
+    top: 7%;
+  }
+
+  #noti_container {
+    width: 95%;
+    padding: 10px;
+  }
 }

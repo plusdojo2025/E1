@@ -1,105 +1,164 @@
 @charset "UTF-8";
+
 @font-face {
   font-family: 'けいふぉんと';
-      src: url('../fonts/Keifont.woff2') format('woff2');
+  src: url('../fonts/Keifont.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
+/* グローバル設定 */
+* {
+  box-sizing: border-box;
+}
+
 html {
-	font-size: 16px;
-    font-family: "けいふぉんと";
-    color: #003366;
-    background-color: rgba(255,229,204,.3);
-	scroll-behavior: smooth;/*スムーズスクロールを有効にする*/
+  font-size: 16px;
+  font-family: "けいふぉんと";
+  color: #003366;
+  background-color: rgba(255,229,204,.3);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
 }
 
 #kaji_logo {
-    width: 20%;
-    height: auto;
-    margin-top: 200px;
-    margin-left: 390px;
+  width: 20%;
+  height: auto;
+  margin-top: 50px;
+  margin-left: 155px;
 }
 
 #kajimieru {
-    width: 50%;
-    height: auto;
-    margin-top: 0px;
-    margin-left: 240px;
+  width: 50%;
+  height: auto;
+  margin-top: 0px;
+  margin-left: 90px;
 }
 
 #container {
-    position: relative;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 700px;
-    height: auto;
-    border: #5e5e5e;
-    border-radius: 100px;
-    background: #fefefe;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 30px;
+  background: #fefefe;
+  padding: 0 10px;
 }
 
 h2 {
-    text-align: center;
-    padding-top: 80px;
-    color: #FF7F00;
-    font-size: 32px;
-    text-shadow:1px 1px 0 #A6CAEC,-1px 1px 0 #A6CAEC,1px -1px 0 #A6CAEC,-1px -1px 0 #A6CAEC;
+  padding: 20px 0;
+  color: #FF7F00;
+  font-size: 1.5rem;
+  text-align: center;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  margin: 0;
 }
 
-#user_content {
-    margin-left: 160px;
+#content {
+  margin: auto;
+  width: 95%;
 }
 
-.user_input {
-    text-decoration: none;
-    position: relative;
-    width: 350px;
-    display: block;
-    margin-top: 9px;
-    margin-bottom: 9px;
-    font-size: 17px;
-    color: #5e5e5e;
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    background: rgba(255,229,204,.7);
-    transition: all 0.2s ease-in-out;
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  margin: 5px 0;
+  font-size: 17px;
+  color: #5e5e5e;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255,229,204,.7);
+  transition: all 0.2s ease-in-out;
+  display: block;
 }
 
-#error_message {
-    color: red;
+.input_with_icon {
+  position: relative;
+  max-width: 300px;
 }
 
-#user_error {
-    color: red;
-    font-size: 24px;
+.input_with_icon input {
+  width: 100%;
+  padding-right: 40px; /* アイコン分の余白を確保 */
 }
 
-#user_btn {
-    margin-top: 50px;
-    margin-left: 150px;
-    margin-bottom:50px;
-    text-align: center;
-    background: #FF7F00;
-    border-radius: 50px;
-    border-color: #A6CAEC;
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 260px;
-    padding: 10px 25px;
-    color: #FFFFFF;
-    transition: 0.3s ease-in-out;
-    font-weight: 500;
+.togglePasswordIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
+
+.delete_btn {
+  margin: auto;
+  text-align: center;
+  background: #FF7F00;
+  border-radius: 50px;
+  border-color: #A6CAEC;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 260px;
+  padding: 10px 25px;
+  color: #FFFFFF;
+  transition: 0.3s ease-in-out;
+  font-weight: 500;
+}
+
 #to_login {
-    width: 50px;
+    width: 15%;
     height: auto;
-    margin-left: 50px;
-    margin-bottom: 20px;
+}
+
+/* ===== モバイル対応（768px以下） ===== */
+@media screen and (max-width: 768px) {
+  #kaji_logo {
+    width: 20%;
+    margin: 30px auto 0 auto;
+    display: block;
+  }
+
+  #kajimieru {
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  #container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    max-width: 100%;
+    font-size: 1rem;
+  }
+
+  .input_with_icon {
+    max-width: 100%;
+  }
+
+  #to_login {
+    width: 15%;
+    display: block;
+  }
+ 
 }

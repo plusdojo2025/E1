@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ユーザー登録</title>
 <link rel="stylesheet" type="text/css" href="css/user_regist.css">
 </head>
@@ -26,7 +27,8 @@
 		<tr>
 			<td>
 				<label>あいことば
-				<input type="password" name="fami_pass" class="user_input" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="fami_pass" id="fami_pass" class="user_input" placeholder="半角英数8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<img src="img/eye_slash.svg" class="togglePasswordIcon" data-target="fami_pass" alt="表示切替">
 				</label>
 			</td>
 		</tr>
@@ -47,20 +49,22 @@
 		<tr>
 			<td>
 				<label>パスワード
-				<input type="password" name="password" class="user_input" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="password" id="password" class="user_input" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<img src="img/eye_slash.svg" class="togglePasswordIcon" data-target="password" alt="表示切替">
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード(確認)
-				<input type="password" name="confirmPassword" class="user_input" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<input type="password" name="confirmPassword" id="password_a" class="user_input" placeholder="半角英数記号8文字以上20文字以内" minlength=8 maxlength=20 pattern="^[a-zA-Z0-9!@#$%^&*()_+=-]+$" required>
+				<img src="img/eye_slash.svg" class="togglePasswordIcon" data-target="password_a" alt="表示切替">
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>使用可能記号　! @ # $ % ^ & * ( ) _ + = -
+				<label id="usable">使用可能記号　! @ # $ % ^ & * ( ) _ + = -
 				</label>
 			</td>
 		</tr>
@@ -72,13 +76,13 @@
         </tr>
         <tr>
         	<td>
-        		<span>${result}</span>
+        		<span class="message ${not empty result ? 'visible' : ''}">${result}</span>
         	</td>
         </tr>
 		<tr>
 			<td>
-				<span id="error_message">${errorMessage}</span>
-				<span id="user_error">${UserErrorMessage}</span>
+				<span id="error_message" class="message ${not empty errorMessage ? 'visible' : ''}">${errorMessage}</span>
+				<span id="user_error" class="message ${not empty UserErrorMessage ? 'visible' : ''}">${UserErrorMessage}</span>
 				<input type="submit" name="submit" value="登録" id="user_btn">
 			</td>
 		</tr>
@@ -88,5 +92,24 @@
     <input type="image" src="img/back.svg" alt="ログイン画面へ戻る" id="to_login">
 </form>
 </div>
+<!-- パスワード切り替えスクリプト -->
+<script>
+'use strict';
+  document.querySelectorAll(".togglePasswordIcon").forEach(icon => {
+    icon.addEventListener("click", () => {
+      const inputId = icon.getAttribute("data-target");
+      const input = document.getElementById(inputId);
+      if (input.type === "password") {
+        input.type = "text";
+        icon.src = "img/eye.svg";
+        icon.alt = "非表示にする";
+      } else {
+        input.type = "password";
+        icon.src = "img/eye_slash.svg";
+        icon.alt = "表示する";
+      }
+    });
+  });
+</script>
 </body>
 </html>

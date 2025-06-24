@@ -14,6 +14,9 @@
 <!-- ヘッダー（ここから） -->
 <header>
 <div id="top_nav">
+	<a href="${pageContext.request.contextPath}/LogoutServlet" id="logout_link" title="ログアウト">
+	<img src="img/user.svg" alt="ログアウト" id="user_img">
+	</a>
 	<a href="${pageContext.request.contextPath}/HomeServlet">
 	<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
 	</a>

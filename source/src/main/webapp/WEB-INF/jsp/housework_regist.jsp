@@ -5,29 +5,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="css/housework_regist.css">
-<link rel="stylesheet" type="text/css" href="css/common.css">
 <title>家事登録</title>
 </head>
-	
-	<!-- ヘッダー（ここから） -->
-	<header id="header">
-	
-		<h1 id="logo">
-	      <a href="${pageContext.request.contextPath}/HomeServlet">
-	      <img src="img/logo_lightblue.png"  alt="カジミエール">
-	    </a>
-	    </h1>
-		
-	</header>
+<body>
+<!-- ヘッダー（ここから） -->
+<header>
+<div id="top_nav">
+	<a href="${pageContext.request.contextPath}/LogoutServlet" id="logout_link" title="ログアウト">
+	<img src="img/user.svg" alt="ログアウト" id="user_img">
+	</a>
+	<a href="${pageContext.request.contextPath}/HomeServlet">
+	<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
+	</a>
+	<a href="${pageContext.request.contextPath}/NotificationServlet">
+	<img src="img/noti.svg" alt="通知" id="noti_img">
+	</a>
+</div>
+<div id="bar">
+<img src="img/bar.png" alt="" id="bar_img">
+</div>
+</header>
 <!-- ヘッダー（ここまで） -->
-	
-	<body>
 <!-- メイン（ここから） -->
-	
-		<h2>家事登録（新しい家事を入力してください）</h2>
-		<main class="form-wrapper">
+	<main class="form-wrapper">
+		<h2>家事登録</h2>
+		<h3>（新しい家事を入力してください）</h3>
 		<form id="form" method="POST" action="${pageContext.request.contextPath}/HWRegistServlet">
 		 <!-- カテゴリ -->
 		 <div class="form-group">
@@ -150,6 +154,22 @@
 		</div>		
 		</form>
 		</main>
+		<!-- フッター（ここから） -->
+<div id="footer">
+	<div id="bottom_bar">
+	<img src="img/bar.png" alt="" id="bottom_bar_img">
+	</div>
+	  <nav class="bottom_nav">
+	    <ul>
+	      <li><a href="${pageContext.request.contextPath}/HomeServlet"><img src="img/home.svg" alt="ホーム" id="home_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWSearchServlet"><img src="img/list.svg" alt="一覧" id="list_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWRegistServlet"><img src="img/regist.svg" alt="登録" id="regist_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/GachaServlet"><img src="img/circle.svg" alt="くじ" id="gacha_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/AnalysisServlet"><img src="img/analysis.svg" alt="分析" id="analysis_img"></a></li>
+	    </ul>
+	  </nav>
+</div>
+<!-- フッター（ここまで） -->
 	<script>
 	'use strict'
 		//負担度を表す星
