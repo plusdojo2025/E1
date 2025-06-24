@@ -29,7 +29,6 @@
     <button type="submit">戻る</button>
 </form>
 <pre>${result}</pre>
-
 <script>
 'use strict'
   // ユーザー削除確認

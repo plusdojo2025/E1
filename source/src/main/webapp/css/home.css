@@ -115,7 +115,7 @@ main {
 
 .housework {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   gap: 10px;
   margin: 10px 0;
@@ -153,7 +153,7 @@ main {
 }
 
 /* ボタン共通 */
-.button, .button2, .button3 {
+.button, .button2 {
   background: rgb(255,127,0);
   border-radius: 50%;
   border: 2px solid rgb(166,202,236);
@@ -164,11 +164,15 @@ main {
   text-align: center;
   cursor: pointer;
 }
-
 .button3 {
+  background: rgb(255,127,0);
+  border: 2px solid rgb(166,202,236);
   font-size: 12px;
-  padding: 5px 9px;
-  margin: 5px;
+  line-height: 1.6;
+  padding: 9px 15px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
 }
 
 /* 完了ボタン */

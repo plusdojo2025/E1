@@ -33,8 +33,7 @@
 	<h2 id="today_housework">本日の家事</h2>
 	 <c:forEach var="e" items="${houseworkList}" varStatus="status" >
 	 <div class="housework">
-	 <button value="完了" class="button3 js-modal-button3" id="complete${e.housework_id}">完了</button>
-	 <div id="task${e.housework_id}">
+	 <button value="完了" class="button3 js-modal-button3" id="complete${e.housework_id}">完了</button><div id="task${e.housework_id}">
 	 <c:out value="${e.housework_name}" /> 
 	</div>
 	</div>

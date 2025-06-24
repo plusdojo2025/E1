@@ -30,10 +30,10 @@ public class AnalysisServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			
 			// セッションにログイン情報がなければログイン画面へリダイレクト
-			/*if (session.getAttribute("user_id") == null) {
+			if (session.getAttribute("user_id") == null) {
 			    response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			    return;
-			}*/
+			}
 			
 			//現在日時を取得し、yyyymmのフォーマットに変換
 			/*LocalDateTime nowDate = LocalDateTime.now();
