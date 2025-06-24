@@ -156,4 +156,8 @@ button.js-modal-button {
 .tab_container button:hover {
   background-color: #ff9f33;
 }
-	
+
+/* 家事名ホバー時のマウス形変更 */
+td.housework_name:hover {
+  cursor: pointer;
+}

@@ -11,11 +11,7 @@ import java.util.List;
 import dto.housework;
 
 
-public class houseworkDAO {
-	
-	
-	
-	
+public class houseworkDAO {	
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(housework card) {
 		Connection conn = null;
@@ -383,8 +379,7 @@ public class houseworkDAO {
 		
 		try {
 			// JDBCドライバを読み込む
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-			
+//			Class.forName("com.mysql.cj.jdbc.Driver");			
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1?"
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
@@ -602,8 +597,6 @@ public class houseworkDAO {
 				} else {
 					// 変更不可 必須項目
 				}
-
-
 				// SQL文を実行する
 				if (pStmt.executeUpdate() == 1) {
 					result = true;
@@ -667,14 +660,12 @@ public class houseworkDAO {
 				}
 			}
 		}
-
 		// 結果を返す
 		return result;
 // 削除ここまで
 	}
 	
 //	個別SQL
-
 	// 全件のデータだけを表示したい
 	public List<housework> all(String family_Id) {
 	    Connection conn = null;
@@ -925,5 +916,4 @@ public class houseworkDAO {
 	    }
 	    return cardList;  
 	}
-
 }
