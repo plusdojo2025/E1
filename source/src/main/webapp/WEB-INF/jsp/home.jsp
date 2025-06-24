@@ -20,8 +20,8 @@
 	<a href="${pageContext.request.contextPath}/NotificationServlet">
 	<img src="img/noti.svg" alt="通知" id="noti_img">
 	</a>
-	<a href="${pageContext.request.contextPath}/LogoutServlet">
-	ログアウト
+	<a href="${pageContext.request.contextPath}/LogoutServlet" id="logout_link" title="ログアウト">
+	<img src="img/user.svg" alt="ログアウト" id="user_img">
 	</a>
 </div>
 <div id="bar">
@@ -240,6 +240,15 @@
 		 document.getElementById("memo_error").textContent = ("未入力です。");
 	 }
  })
+ 
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("logout_link").addEventListener("click", function (e) {
+      if (!confirm("本当にログアウトしますか？")) {
+        e.preventDefault(); 
+      }
+    });
+  });
+
  </script>
  </body>
 </html>
