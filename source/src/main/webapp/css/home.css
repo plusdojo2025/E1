@@ -52,6 +52,7 @@ header {
   top: 50%;  /* 追加 */
   transform: translateY(-50%);  /* 追加 */
 }
+
 #logo_img {
   width: 100%;
   max-width: 200px;
@@ -140,7 +141,7 @@ main {
 #memo_container {
   position: relative;
   margin: 20px auto;
-  width: 95%;
+  width: 90%;
   max-width: 1200px;
   height: auto;
   border: #5e5e5e;
@@ -151,6 +152,7 @@ main {
 
 #memo {
   padding: 0 20px;
+  line-height: 1.5rem;
 }
 
 #today_memo {
@@ -162,16 +164,14 @@ main {
 
 #memo_add {
   text-align: right;
-  margin-right: 20px;
   margin-bottom: 10px;
   padding-bottom: 20px;
 }
 
-/* ボタン共通 */
-.button, .button2, .button3 {
+.button, .button2 {
   background: rgb(255,127,0);
   border-radius: 50%;
-  border: 1px solid rgb(255,127,0);
+  border: 2px solid rgb(166,202,236);
   font-size: 16px;
   line-height: 1.6;
   padding: 9px 15px;
@@ -179,7 +179,6 @@ main {
   text-align: center;
   cursor: pointer;
 }
-
 .button3 {
   background: rgb(255,127,0);
   border: 2px solid rgb(166,202,236);
@@ -189,15 +188,11 @@ main {
   color: #fff;
   text-align: center;
   cursor: pointer;
-  flex-shrink: 0;  /* ボタンのサイズを固定 */
-  white-space: nowrap;  /* ボタンテキストの折り返しを防ぐ */
 }
 
 /* 完了ボタン */
 .complete {
   background: gray;
-  border-radius: 50%;
-  box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, .24);
   border: 1px solid rgb(255,127,0);
   font-size: 10px;
   line-height: 1.6;
@@ -205,7 +200,6 @@ main {
   color: #fff;
   text-align: center;
   cursor: pointer;
-  margin: 5px;
 }
 
 .complete_task {
@@ -258,7 +252,7 @@ main {
 }
 
 .modal__content, .modal__content2, .modal__content3 {
-  padding: 15px;
+  padding: 20px;
   text-align: center;
 }
 
@@ -307,12 +301,49 @@ main {
 select, input[type="text"] {
   width: 100%;
   max-width: 300px;
-  padding: 5px;
+  padding: 8px;
   margin: 5px 0;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  font-size: 17px;
+  color: #5e5e5e;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255,229,204,.7);
+  transition: all 0.2s ease-in-out;
+}
+
+#housework_submit {
+  margin-top: 20px;
+  text-align: center;
+  background: #FF7F00;
+  border-radius: 50px;
+  border-color: #A6CAEC;
+  position: relative;
+  align-items: center;
+  padding: 10px 25px;
+  color: #FFFFFF;
+  transition: 0.3s ease-in-out;
+  font-weight: 500;
+}
+
+#memo_submit {
+  margin-top: 20px;
+  text-align: center;
+  background: #FF7F00;
+  border-radius: 50px;
+  border-color: #A6CAEC;
+  position: relative;
+  align-items: center;
+  padding: 10px 25px;
+  color: #FFFFFF;
+  transition: 0.3s ease-in-out;
+  font-weight: 500;
 }
 
 .cancel, .ok {
-  margin: 5px;
+  margin: 0 20px ;
   padding: 5px 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -322,8 +353,9 @@ select, input[type="text"] {
 .ok {
   background: rgb(255,127,0);
   color: white;
-  border-color: rgb(255,127,0);
+   border-color: #A6CAEC;
 }
+
 
 /* フッター */
 #footer {
@@ -387,17 +419,17 @@ select, input[type="text"] {
   
   #noti_img {
     width: 30px;
-    right: 10px;  /* position: absolute の場合 */
+    right: 10px;
   }
   #housework_container, #memo_container {
-    width: 98%;
+    width: 90%;
     border-radius: 20px;
-    margin: 10px auto;
   }
   
   #today_housework {
     font-size: 1.5rem;
     padding-top: 20px;
+    padding-bottom: 20px;
   }
   
   #today_memo {
@@ -405,9 +437,25 @@ select, input[type="text"] {
     margin-left: 0;
   }
   
+  #housework_list {
+    text-align: left; 
+    padding: 0 10px;
+  }
+
   .housework {
-    flex-direction: column;
-    gap: 5px;
+    /* flex-direction: column; <--- 削除 */
+    display: flex; 
+    flex-direction: row; 
+    justify-content: flex-start; 
+    align-items: center;  
+    flex-wrap: nowrap; 
+  }
+
+  .housework > div {
+    flex-shrink: 0; 
+    white-space: nowrap; 
+    text-align: center; 
+    padding-right: 40px;
   }
   
   .button, .button2 {
@@ -416,7 +464,7 @@ select, input[type="text"] {
   }
   
   .button3 {
-    font-size: 10px;
+    font-size: 0.7rem;
     padding: 4px 8px;
   }
   
@@ -427,6 +475,7 @@ select, input[type="text"] {
   
   .modal__inner, .modal__inner2, .modal__inner3 {
     padding: 15px 5px;
+    font-size: 1.5rem;
   }
   
   .bottom_nav img {
