@@ -495,5 +495,48 @@ public class today_houseworkDAO {
 		}
 		return hwidList;
 	}
-	
+	public int selectachive2(String date, int housework_id) {
+		Connection conn = null;
+		int hwid = -1;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			String sql = "SELECT housework_id FROM achievement "
+					+ "WHERE housework_id = " + housework_id + " AND date Like '%" + date + "%'";
+			
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				hwid = (rs.getInt("housework_id"));
+			}
+			
+						
+		}catch (SQLException e) {
+			e.printStackTrace();
+			hwid = -1;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			hwid = -1;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hwid = -1;
+				}
+			}
+		}
+		return hwid;
+	}
 }

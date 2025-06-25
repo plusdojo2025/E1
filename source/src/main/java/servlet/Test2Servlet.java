@@ -6,17 +6,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dto.housework;
 
 /**
  * Servlet implementation class Test2Servlet
@@ -31,7 +30,8 @@ public class Test2Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String family_id = "sato0611";
-		List<housework> notiList = new ArrayList<>();
+		List<String> noti_timeList = new ArrayList<>();
+		List<String> noti_nameList = new ArrayList<>();
 		try {
 			// JDBCドライバを読み込む
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -41,7 +41,7 @@ public class Test2Servlet extends HttpServlet {
 			+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 			"root", "password");
 			
-			String sql = "SELECT housework_id, noti_time FROM housework "
+			String sql = "SELECT housework_name, noti_time FROM housework "
 					+ "WHERE housework_id IN "
 					+ "(SELECT today_housework_id FROM today_housework WHERE family_id = '" + family_id + "') "
 									+ "AND noti_flag = 1";
@@ -50,8 +50,8 @@ public class Test2Servlet extends HttpServlet {
 			ResultSet rs = pStmt.executeQuery();
 			
 			 while (rs.next()) {
-				 housework hw = new housework(rs.getInt("housework_id"),rs.getString("noti_time"));
-				 notiList.add(hw);
+				 noti_nameList.add(rs.getString("housework_name"));
+				 noti_timeList.add(rs.getString("noti_time")); 
 			}
 			 
 			// データベースを切断
@@ -68,11 +68,7 @@ public class Test2Servlet extends HttpServlet {
 			catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			}
-		
-		request.setAttribute("notiList", notiList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/test.jsp");
-		dispatcher.forward(request, response); 
-		
+		noti_timeList.sort(Comparator.comparing(LocalTime::parse));
 		
 		
 	}

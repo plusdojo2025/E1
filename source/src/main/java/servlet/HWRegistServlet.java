@@ -149,11 +149,11 @@ public class HWRegistServlet extends HttpServlet {
 				}
 				// DTOに渡す担当者の値
 				if ("0".equals(fixed_role)) {
-					fixed_role = "";
-					variable_role = "";
+					fixed_role = null;
+					variable_role = null;
 				}else {
 					fixed_role = variable_role;
-					variable_role = "";
+					variable_role = null;
 				}
 				 // DTOにセット
 					// finalFrequencyValueForDB を渡す

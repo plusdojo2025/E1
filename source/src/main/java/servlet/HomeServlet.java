@@ -78,7 +78,10 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		
+		LocalDateTime nowDate = LocalDateTime.now();
+		DateTimeFormatter dtf1 =
+				DateTimeFormatter.ofPattern("yyyy-MM-dd");
+					String formatNowDate1 = dtf1.format(nowDate);
 		 
 		String user_id = (String) session.getAttribute("user_id");
 		String family_id = (String) session.getAttribute("family_id"); 
@@ -88,22 +91,29 @@ public class HomeServlet extends HttpServlet {
 		today_memo memo = new today_memo(0,family_id,text);
 		today_houseworkDAO td_hwDAO = new today_houseworkDAO();
 		today_memoDAO memoDAO = new today_memoDAO();
-		
+
 
 		if (request.getParameter("submit").equals("完了")) {
 			int housework_id = Integer.parseInt(id);
-			if(td_hwDAO.submit(user_id, family_id ,housework_id)) { 
-					if (td_hwDAO.insert_notification(user_id,housework_id)){
-						response.sendRedirect(request.getContextPath() + "/HomeServlet");
-					}
-			}
-		}else if(request.getParameter("submit").equals("家事追加")) {
-			if (id == null) {
-				id = "0";
-			}
-			int housework_id = Integer.parseInt(id);
-			if(td_hwDAO.insert(housework_id)) {
+			if(td_hwDAO.selectachive2(formatNowDate1, housework_id) == -1) {
+				if(td_hwDAO.submit(user_id, family_id ,housework_id)) { 
+						if (td_hwDAO.insert_notification(user_id,housework_id)){
+							response.sendRedirect(request.getContextPath() + "/HomeServlet");
+						}
+				}
+			}else {
 				response.sendRedirect(request.getContextPath() + "/HomeServlet");
+			}
+			
+			
+		}else if(request.getParameter("submit").equals("家事追加")) {
+				if (id == null) {
+					id = "0";
+
+				int housework_id = Integer.parseInt(id);
+				if(td_hwDAO.insert(housework_id)) {
+					response.sendRedirect(request.getContextPath() + "/HomeServlet");
+				}
 			}
 		}else if(request.getParameter("submit").equals("メモ追加")) {	
 			if(memoDAO.insert(memo)) {
