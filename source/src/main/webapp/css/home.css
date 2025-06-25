@@ -356,7 +356,11 @@ select, input[type="text"] {
    border-color: #A6CAEC;
 }
 
-
+#housework_error {
+  color: red;
+  font-size: 1rem;
+  margin: auto;
+}
 /* フッター */
 #footer {
   width: 100%;
