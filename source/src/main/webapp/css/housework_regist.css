@@ -348,4 +348,11 @@ h3 {
   main {
     padding-bottom: 80px;
   }
+  
+  .noti-hidden {
+    display: none !important;
+  }
+
+  
+  
 }
