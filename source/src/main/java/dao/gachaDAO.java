@@ -123,7 +123,7 @@ public class gachaDAO {
 			String sql = "SELECT housework_id,housework_name,family_id,housework_level "
 					+ "FROM housework WHERE housework_id IN "
 					+ "(SELECT housework_id FROM today_housework) "
-					+ "AND family_id = '" + family_id + "' AND fixed_role = ''";
+					+ "AND family_id = '" + family_id + "' AND fixed_role IS NULL";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -170,7 +170,7 @@ public class gachaDAO {
 					"root", "password");
 			
 			String sql = "SELECT fixed_role, SUM(housework_level) AS housework_level FROM housework "
-					+ "WHERE family_id = '" + family_id + "' AND fixed_role != '' "
+					+ "WHERE family_id = '" + family_id + "' AND fixed_role IS NOT NULL "
 					+ "AND housework_id IN (SELECT housework_id FROM today_housework)"
 					+ "GROUP BY fixed_role";
 			
@@ -273,7 +273,7 @@ public class gachaDAO {
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				if (rs.getString("fixed_role").equals("")) {
+				if (rs.getString("fixed_role") == null) {
 				housework hw = new housework(rs.getString("housework_name"),rs.getString("variable_role"));
 				roleList.add(hw);
 				}else {
