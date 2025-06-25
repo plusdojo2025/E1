@@ -53,7 +53,7 @@
       <div class="modal__contents3">
         <div class="modal__content3">
         <form method="POST" action="${pageContext.request.contextPath}/HomeServlet" id="form${status.index}">
-	 <input type="hidden" name="housework_id" value="${e.housework_id}">
+	 <input type="hidden" name="housework_id" value="${e.housework_id}" id="housework${status.index}">
 	 <h6>完了チェックを行いますか？</h6>
 	 <br>
 	 <button class="cancel">Cancel</button>
@@ -89,7 +89,6 @@
 				</c:forEach>
 					</select>
 					<input type="submit" name="submit" value="家事追加" id="housework_submit">
-					
 				 </form>
 				 <br>
 					<div id="housework_error"></div>
@@ -152,6 +151,44 @@
 </div>
 <!-- フッター（ここまで） -->
  <script>
+ 
+ const getData = (index) =>{
+	  let request = new XMLHttpRequest();
+	  request.onreadystatechange = function(e){
+	    if (request.readyState == 4){
+	      if (request.status == 200){
+	    	let jsonObject = JSON.parse(request.responseText)
+	        let abc = jsonObject.data;
+	    	
+	    	const btn = document.getElementById("complete" + abc);
+		    const text = document.getElementById("task" + abc);
+		    if (btn) {
+		      btn.disabled = true;
+		      btn.classList.remove('button3');
+		      btn.classList.add('complete');
+		      text.classList.add('complete_task');
+		    }
+	    	
+	        }else{
+	            console.error(request.statusText);
+	       }
+	     }
+	  }
+
+ let housework = document.getElementById("housework" + index).value;
+ request.type = "json";
+ request.open('GET', 'http://localhost:8080/e1/TestServlet?housework_id=' + housework, true);
+ request.send();
+}
+ 
+ document.querySelectorAll('.ok').forEach((button, index) => {
+	  button.addEventListener('click', function(event) {
+	    event.preventDefault(); // フォーム送信を防ぐ
+	    modal3[index].classList.remove('is-open3');
+	    getData(index);
+	  });
+	});
+ 
  //モーダルのスクリプト
  const modal = document.querySelector('.js-modal'); // layer要素に付与したjs-modalクラスを取得し変数に格納
  const modalButton = document.querySelector('.js-modal-button'); // button要素に付与したjs-modal-buttonクラスを取得し、変数に格納
