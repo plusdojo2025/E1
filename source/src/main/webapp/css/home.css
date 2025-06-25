@@ -123,11 +123,17 @@ main {
 
 .housework {
   display: flex;
-  align-items: baseline;
+  align-items: center;  /* baseline から center に変更 */
   justify-content: center;
   gap: 10px;
   margin: 10px 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;  /* wrap から nowrap に変更 */
+}
+
+.housework > div {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;  /* テキストの折り返しを防ぐ */
 }
 
 /* メモ */
@@ -156,15 +162,16 @@ main {
 
 #memo_add {
   text-align: right;
+  margin-right: 20px;
   margin-bottom: 10px;
   padding-bottom: 20px;
 }
 
 /* ボタン共通 */
-.button, .button2 {
+.button, .button2, .button3 {
   background: rgb(255,127,0);
   border-radius: 50%;
-  border: 2px solid rgb(166,202,236);
+  border: 1px solid rgb(255,127,0);
   font-size: 16px;
   line-height: 1.6;
   padding: 9px 15px;
@@ -172,6 +179,7 @@ main {
   text-align: center;
   cursor: pointer;
 }
+
 .button3 {
   background: rgb(255,127,0);
   border: 2px solid rgb(166,202,236);
@@ -181,6 +189,8 @@ main {
   color: #fff;
   text-align: center;
   cursor: pointer;
+  flex-shrink: 0;  /* ボタンのサイズを固定 */
+  white-space: nowrap;  /* ボタンテキストの折り返しを防ぐ */
 }
 
 /* 完了ボタン */
@@ -248,7 +258,7 @@ main {
 }
 
 .modal__content, .modal__content2, .modal__content3 {
-  padding: 20px;
+  padding: 15px;
   text-align: center;
 }
 
@@ -297,45 +307,8 @@ main {
 select, input[type="text"] {
   width: 100%;
   max-width: 300px;
-  padding: 8px;
+  padding: 5px;
   margin: 5px 0;
-  text-decoration: none;
-  position: relative;
-  display: block;
-  font-size: 17px;
-  color: #5e5e5e;
-  border-radius: 6px;
-  border: none;
-  background: rgba(255,229,204,.7);
-  transition: all 0.2s ease-in-out;
-}
-
-#housework_submit {
-  margin-top: 20px;
-  text-align: center;
-  background: #FF7F00;
-  border-radius: 50px;
-  border-color: #A6CAEC;
-  position: relative;
-  align-items: center;
-  padding: 10px 25px;
-  color: #FFFFFF;
-  transition: 0.3s ease-in-out;
-  font-weight: 500;
-}
-
-#memo_submit {
-  margin-top: 20px;
-  text-align: center;
-  background: #FF7F00;
-  border-radius: 50px;
-  border-color: #A6CAEC;
-  position: relative;
-  align-items: center;
-  padding: 10px 25px;
-  color: #FFFFFF;
-  transition: 0.3s ease-in-out;
-  font-weight: 500;
 }
 
 .cancel, .ok {

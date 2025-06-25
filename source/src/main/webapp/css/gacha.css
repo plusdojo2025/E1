@@ -41,7 +41,15 @@ header {
   width: 100%;
   position: relative;
 }
-
+/* ログアウトアイコンを左端に設置 */
+#user_img {
+  width: 40px;
+  height: auto;
+  position: absolute;  /* 追加 */
+  left: 20px;  /* 追加 */
+  top: 50%;  /* 追加 */
+  transform: translateY(-50%);  /* 追加 */
+}
 #logo_img {
   max-width: 200px;
   height: auto;

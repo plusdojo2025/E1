@@ -430,9 +430,18 @@ public class houseworkDAO {
 	public List<housework> searchHouseworkSorted(String category_id, String housework_name, String frequency, String noti_flag, String sortOrder, String family_Id) {
 	    List<housework> cardList = new ArrayList<>();
 	    Connection conn = null;
-	    int Frequency = Integer.parseInt(frequency);
-	    int Noti_flag = Integer.parseInt(noti_flag);
-	    int Category_id = Integer.parseInt(category_id);
+	    int Frequency = -1;
+	    int Noti_flag = -1;
+	    int Category_id = 0;
+	    if (frequency != "") {
+	    Frequency = Integer.parseInt(frequency);
+	    }
+	    if (noti_flag != "") {
+	    Noti_flag = Integer.parseInt(noti_flag);
+	    }
+	    if (category_id != "") {
+	    Category_id = Integer.parseInt(category_id);
+	    }
 
 	    try {
 	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/e1?"
