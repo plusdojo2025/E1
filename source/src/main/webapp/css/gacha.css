@@ -31,15 +31,22 @@ body {
 header {
   width: 100%;
   overflow: hidden;
+  position: fixed;     /* 画面上部に固定 */
+  top: 0;
+  left: 0;
+  z-index: 1000; 
+  background-color: #fefefe;
 }
 
+/* 別の方法：3カラムレイアウト */
 #top_nav {
+  list-style: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  /* space-between から center に変更 */
   padding: 0 20px;
   width: 100%;
-  position: relative;
+  position: relative;  /* 追加 */
 }
 /* ログアウトアイコンを左端に設置 */
 #user_img {
@@ -50,22 +57,24 @@ header {
   top: 50%;  /* 追加 */
   transform: translateY(-50%);  /* 追加 */
 }
+
 #logo_img {
+  width: 100%;
   max-width: 200px;
   height: auto;
-  display: block;
-  margin: 0 auto;
+  display: block;  /* 追加 */
+  margin: 0 auto;  /* 追加 */
 }
 
+/* 通知アイコンを右端に配置 */
 #noti_img {
   width: 40px;
   height: auto;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: absolute;  /* 追加 */
+  right: 20px;  /* 追加 */
+  top: 50%;  /* 追加 */
+  transform: translateY(-50%);  /* 追加 */
 }
-
 #bar {
   width: 100%;
   overflow: hidden;
@@ -82,26 +91,44 @@ header {
 main {
   width: 100%;
   padding: 0 10px;
-  padding-bottom: 100px; /* フッターの分 */
+}
+#container {
+  position: relative;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
+  height: auto;
+  border: #5e5e5e;
+  border-radius: 30px;
+  background: #fefefe;
+  padding: 0 10px;
+}
+#gacha_title {
+  padding-top: 30px;
+  color: #FF7F00;
+  font-size: 2rem;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  text-align: center;
+  margin: 0;
 }
 
 #gacha {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 30px;
 }
 
 .wrapper {
   position: relative;
   width: 100%;
-  height: 1500px;
+  height: auto;
   min-height: 300px;
+  margin-bottom: 50px
 }
 
 .toy {
   width: 210px;
-  height: 1100px;
+  height: auto;
   margin: 300px auto 0;
   transition: transform 1.2s ease-in-out;
 }
@@ -221,21 +248,35 @@ svg .st13 { opacity: 0.5; fill: #FFFFFF; }
 
 /* スマホ対応 */
 @media screen and (max-width: 768px) {
-  html {
+ html {
     font-size: 14px;
   }
-
+  
+   #top_nav {
+    padding: 0 10px;
+  }
+  
   #logo_img {
     max-width: 150px;
   }
-
+  
   #noti_img {
     width: 30px;
     right: 10px;
   }
+    /* フッターの高さ分だけメインコンテンツに余白を追加 */
+  main {
+    padding-bottom: 80px;
+    margin-top: 80px; 
+  }
+  
+  #gacha_title {
+    font-size: 1.3rem;
+    font-weight: 200;
+  }
 
   .toy {
-    margin-top: 200px;
+    margin-top: 100px;
   }
 
   #none {

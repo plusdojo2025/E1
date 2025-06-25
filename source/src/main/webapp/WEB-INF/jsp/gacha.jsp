@@ -30,6 +30,9 @@
 </header>
 <!-- ヘッダー（ここまで） -->
 <main>
+<div id="container">
+<h2 id="gacha_title">家事分担ガチャ</h2>
+<h3 id="gacha_rule">※一日に一回引くことができます</h3>
 <form method="POST" action="${pageContext.request.contextPath}/GachaServlet" id="gachaForm">
 <input type="hidden" name="click" value="on">
 </form>
@@ -149,6 +152,7 @@
 </section>
 </div>
 <p id="none"></p>
+</div>
 </main>
  <!-- フッター（ここから） -->
 <div id="footer">

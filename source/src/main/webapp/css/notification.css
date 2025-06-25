@@ -71,7 +71,6 @@ h2 {
 }
 .noti h3{
 	font-size: 2rem;
-	text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
 }
 
 .noti p{
@@ -84,7 +83,8 @@ h2 {
   }
 
   .noti h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 100;
   }
 
   .noti p {
@@ -97,7 +97,7 @@ h2 {
   }
 
   #noti_container {
-    width: 95%;
+    width: 90%;
     padding: 10px;
   }
 }
