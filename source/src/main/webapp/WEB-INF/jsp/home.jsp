@@ -257,6 +257,13 @@
  modalClose.addEventListener('click', () => { // xボタンをクリックしたときのイベントを登録
    modal.classList.remove('is-open'); 
  });
+ window.addEventListener('click', (event) => {
+	  if (event.target === modal) {
+		  modal.classList.remove('is-open'); 
+	  }
+	});
+
+
  
  const modal2 = document.querySelector('.js-modal2'); // layer要素に付与したjs-modalクラスを取得し変数に格納
  const modalButton2 = document.querySelector('.js-modal-button2'); // button要素に付与したjs-modal-buttonクラスを取得し、変数に格納
@@ -272,6 +279,12 @@
  modalClose2.addEventListener('click', () => { // xボタンをクリックしたときのイベントを登録
    modal2.classList.remove('is-open2'); 
  });
+ 
+ window.addEventListener('click', (event) => {
+	  if (event.target === modal2) {
+		  modal2.classList.remove('is-open2'); 
+	  }
+	});
  
  const modal3 = document.querySelectorAll('.js-modal3'); // layer要素に付与したjs-modalクラスを取得し変数に格納
  const modalButton3 = document.querySelectorAll('.js-modal-button3'); // button要素に付与したjs-modal-buttonクラスを取得し、変数に格納
@@ -291,6 +304,12 @@
    modal3[index].classList.remove('is-open3'); 
  	});
  });
+ 
+ window.addEventListener('click', (event) => {
+	  if (event.target === modal3) {
+		  modal3.classList.remove('is-open3'); 
+	  }
+	});
  
  document.querySelectorAll('.cancel').forEach((button, index) => {
 	  button.addEventListener('click', function(event) {
