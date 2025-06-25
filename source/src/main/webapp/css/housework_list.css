@@ -1,20 +1,137 @@
 @charset "UTF-8";
+@font-face {
+  font-family: 'けいふぉんと';
+  src: url('../fonts/Keifont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* グローバル設定 */
+* {
+  box-sizing: border-box;
+}
 
 html {
   font-size: 16px;
   font-family: "けいふぉんと";
   color: #003366;
-  background-color: rgba(255, 229, 204, .3);
+  background-color: rgba(255,229,204,.3);
   scroll-behavior: smooth;
-  /*スムーズスクロールを有効にする*/
+  overflow-x: hidden;
 }
 
-/* 家事一覧用のｃｓｓ */
-html {
-  scroll-behavior: smooth;
-  /* スクロールちらつきを抑える */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
 }
 
+/* ヘッダー */
+header {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;     /* 画面上部に固定 */
+  top: 0;
+  left: 0;
+  z-index: 1000; 
+  background-color: #fefefe;
+}
+
+/* 別の方法：3カラムレイアウト */
+#top_nav {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* space-between から center に変更 */
+  padding: 0 20px;
+  width: 100%;
+  position: relative;  /* 追加 */
+}
+/* ログアウトアイコンを左端に設置 */
+#user_img {
+  width: 40px;
+  height: auto;
+  position: absolute;  /* 追加 */
+  left: 20px;  /* 追加 */
+  top: 50%;  /* 追加 */
+  transform: translateY(-50%);  /* 追加 */
+}
+
+#logo_img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  display: block;  /* 追加 */
+  margin: 0 auto;  /* 追加 */
+}
+
+/* 通知アイコンを右端に配置 */
+#noti_img {
+  width: 40px;
+  height: auto;
+  position: absolute;  /* 追加 */
+  right: 20px;  /* 追加 */
+  top: 50%;  /* 追加 */
+  transform: translateY(-50%);  /* 追加 */
+}
+#bar {
+  width: 100%;
+  overflow: hidden;
+}
+
+#bar_img {
+  height: 20px;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* メインコンテンツ */
+main {
+  width: 100%;
+  padding: 0 10px;
+}
+
+#container {
+  position: relative;
+  margin: 20px auto;
+  width: 95%;
+  max-width: 1200px;
+  height: auto;
+  border: #5e5e5e;
+  border-radius: 30px;
+  background: #fefefe;
+  padding: 0 10px;
+}
+#list_title {
+  padding-top: 30px;
+  color: #FF7F00;
+  font-size: 2rem;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  text-align: center;
+  margin: 0;
+}
+.tab_btn {
+  margin-top: 20px;
+  margin-left: 6px;
+  width: 70px;
+  background: rgb(166,202,236);
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 8px ;
+  color: #fefefe;
+  text-align: center;
+  cursor: pointer;
+}
+#search_img {
+    width: 13%;
+    height: auto;
+}
+#openSearchModal {
+  text-align: right;
+  padding: 20px
+}
 .tab_container {
   display: flex;
 }
@@ -85,35 +202,10 @@ html {
   color: #888;
 }
 
-.close-button:hover {
-  color: #f66;
-}
-
-.housework_list_wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* 横方向の中央揃え */
-  justify-content: center;
-  /* 縦方向の中央揃え（必要なら） */
-  min-height: 50vh;
-  /* 画面の高さを全体に使う */
-  text-align: center;
-  /* テキストを中央揃え */
-  justify-content: flex-start;
-  padding: 30px 10px;
-  background-color: rgba(255, 229, 204, 0.3);
-}
-
-h2 {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
-  color: #003366;
-}
 
 table {
   border-collapse: collapse;
-  width: 90%;
+  width: 100%;
   max-width: 700px;
   margin-top: 20px;
   background-color: #fff;
@@ -125,14 +217,15 @@ table {
 
 th,
 td {
-  padding: 12px 15px;
+  padding: 12px 0;
   font-size: 1rem;
+  text-align:center;
 }
 
 th {
   background-color: #ff7f00;
   color: white;
-  font-weight: bold;
+  font-family: Arial;
 }
 
 tr:nth-child(even) {
@@ -161,29 +254,6 @@ button.js-modal-button {
   border: none;
   cursor: pointer;
 }
-
-/* タブボタン調整 */
-.tab_container button {
-  margin: 0 5px;
-  padding: 8px 16px;
-  font-size: 1rem;
-  background-color: #ffb366;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.tab_container button:hover {
-  background-color: #ff9f33;
-}
-
-/* 家事名ホバー時のマウス形変更 */
-td.housework_name:hover {
-  cursor: pointer;
-}
-
 /* モーダル全体の背景（オーバーレイ） */
 .modal {
   position: fixed;
@@ -297,4 +367,135 @@ button {
 /* エラーメッセージ */
 #update_error_message {
   color: #f66;
+}
+
+/* フッター */
+#footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #fefefe;
+}
+
+#bottom_bar {
+  width: 100%;
+  overflow: hidden;
+}
+
+#bottom_bar_img {
+  height: 20px;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.bottom_nav {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.bottom_nav ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.bottom_nav li {
+  flex: 1;
+  text-align: center;
+}
+
+.bottom_nav img {
+  width: 30px;
+  height: auto;
+}
+/* スマートフォン対応 */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+   #top_nav {
+    padding: 0 10px;
+  }
+  
+  #logo_img {
+    max-width: 150px;
+  }
+  
+  #noti_img {
+    width: 30px;
+    right: 10px;
+  }
+  #housework_container, #memo_container {
+    width: 90%;
+    border-radius: 20px;
+  }
+  
+  #today_housework {
+    font-size: 1.5rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  #today_memo {
+    font-size: 1.2rem;
+    margin-left: 0;
+  }
+  
+  #housework_list {
+    text-align: left; 
+    padding: 0 10px;
+  }
+
+  .housework {
+    /* flex-direction: column; <--- 削除 */
+    display: flex; 
+    flex-direction: row; 
+    justify-content: flex-start; 
+    align-items: center;  
+    flex-wrap: nowrap; 
+  }
+
+  .housework > div {
+    flex-shrink: 0; 
+    white-space: nowrap; 
+    text-align: center; 
+    padding-right: 40px;
+  }
+  
+  .button, .button2 {
+    font-size: 14px;
+    padding: 7px 12px;
+  }
+  
+  .button3 {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+  
+  .modal, .modal2, .modal3 {
+    width: 95%;
+    top: 5%;
+  }
+  
+  .modal__inner, .modal__inner2, .modal__inner3 {
+    padding: 15px 5px;
+    font-size: 1.5rem;
+  }
+  
+  .bottom_nav img {
+    width: 25px;
+  }
+  
+  /* フッターの高さ分だけメインコンテンツに余白を追加 */
+  main {
+    padding-bottom: 80px;
+    margin-top: 80px; 
+  }
 }
