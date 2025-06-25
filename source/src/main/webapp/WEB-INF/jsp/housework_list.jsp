@@ -1,33 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家事一覧</title>
+<link rel="stylesheet" type="text/css" href="css/housework_list.css">
+</head>
+<body>
+<!-- ヘッダー（ここから） -->
+<header>
+<div id="top_nav">
+	<a href="${pageContext.request.contextPath}/LogoutServlet" id="logout_link" title="ログアウト">
+	<img src="img/user.svg" alt="ログアウト" id="user_img">
+	</a>
+	<a href="${pageContext.request.contextPath}/HomeServlet">
+	<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
+	</a>
+	<a href="${pageContext.request.contextPath}/NotificationServlet">
+	<img src="img/noti.svg" alt="通知" id="noti_img">
+	</a>
 
-    <!DOCTYPE html>
-    <html>
-
-    <head>
-      <meta charset="UTF-8">
-      <title>家事一覧</title>
-      <link rel="stylesheet" type="text/css" href="css/housework_list.css">
-      <!-- ↑cssのパスを動的に取得 -->
-      <!--  <link rel="stylesheet" type="text/css" href="<css/common.css">-->
-    </head>
-
-    <body>
-      <!-- ヘッダー -->
-      <header>
-        <!-- 通知とログアウトを入れる -->
-      </header>
-      <!-- メイン -->
-      <main class="housework_list_wrapper">
-        <h2>家事一覧</h2>
+</div>
+<div id="bar">
+<img src="img/bar.png" alt="" id="bar_img">
+</div>
+</header>
+<!-- ヘッダー（ここまで） -->
+<!-- メイン -->
+<main>
+<div id="container">
+        <h2 id="list_title">家事一覧</h2>
         <!--家事タブを押したときはカテゴリごとに検索、表示 -->
         <div class="tab_container">
           <form method="GET" id="tabsearch_form" action="${pageContext.request.contextPath}/HWSearchServlet">
             <input type="hidden" name="sortOrder" value="${param.sortOrder != null ? param.sortOrder : 'asc'}" />
-            <button type="submit" name="searchType" value="掃除">掃除</button>
-            <button type="submit" name="searchType" value="洗濯">洗濯</button>
-            <button type="submit" name="searchType" value="料理">料理</button>
-            <button type="submit" name="searchType" value="その他">その他</button>
+            <button type="submit" name="searchType" class="tab_btn" value="掃除">掃除</button>
+            <button type="submit" name="searchType" class="tab_btn" value="洗濯">洗濯</button>
+            <button type="submit" name="searchType" class="tab_btn" value="料理">料理</button>
+            <button type="submit" name="searchType" class="tab_btn" value="その他">その他</button>
           </form>
         </div>
 
@@ -132,7 +144,9 @@
         <!-- 家事が追加されるごとに行を追加 -->
 
         <!-- 検索アイコン押下時モーダル画面を表示 -->
-        <button id="openSearchModal">検索</button>
+        <div id="openSearchModal">
+        <img src="img/search.svg" alt="検索" id="search_img">
+        </div>
         <!-- 検索モーダルの中身 -->
         <div id="searchModal" class="modal" style="display: none;">
           <div class="modal-content">
@@ -369,21 +383,25 @@
             <button id="confirmDeleteBtn">OK</button>
           </div>
         </div>
+        </div>
       </main>
 
-      <!-- フッター -->
-      <footer>
-        <!-- 各コンテンツのアイコンを横に並べる -->
-        <div class="contents">
-          <form method="GET" id="contents_form" action="${pageContext.request.contextPath}/HWSearchServlet">
-            <a>ホーム</a>
-            <input type="submit" name="searchType" value="一覧">
-            <a>登録</a>
-            <a>分析</a>
-            <a>くじ</a>
-          </form>
-        </div>
-      </footer>
+ <!-- フッター（ここから） -->
+<div id="footer">
+	<div id="bottom_bar">
+	<img src="img/bar.png" alt="" id="bottom_bar_img">
+	</div>
+	  <nav class="bottom_nav">
+	    <ul>
+	      <li><a href="${pageContext.request.contextPath}/HomeServlet"><img src="img/home.svg" alt="ホーム" id="home_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWSearchServlet"><img src="img/list.svg" alt="一覧" id="list_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/HWRegistServlet"><img src="img/regist.svg" alt="登録" id="regist_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/GachaServlet"><img src="img/circle.svg" alt="くじ" id="gacha_img"></a></li>
+	      <li><a href="${pageContext.request.contextPath}/AnalysisServlet"><img src="img/analysis.svg" alt="分析" id="analysis_img"></a></li>
+	    </ul>
+	  </nav>
+</div>
+<!-- フッター（ここまで） -->
       <script>
         'use strict';
         // 負担度で昇順降順
