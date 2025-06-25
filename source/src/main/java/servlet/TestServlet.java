@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import dao.today_houseworkDAO;
 
+
 /**
  * Servlet implementation class TestServlet
  */
@@ -45,6 +46,8 @@ public class TestServlet extends HttpServlet {
 					td_hwDAO.insert_notification(user_id,housework_id);
 					int idList = td_hwDAO.selectachive2(formatNowDate1, housework_id);
 					json.put("data", idList);
+					
+					
 					//httpヘッダー送信の登録
 					response.setContentType("application/json");
 					response.setHeader("Cache-Control", "nocache");
@@ -54,5 +57,6 @@ public class TestServlet extends HttpServlet {
 					//送信データをネットストリームへ書き込む
 					out.print(json);
 					}
+				
 	}
 }
