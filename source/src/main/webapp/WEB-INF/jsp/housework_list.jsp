@@ -150,6 +150,7 @@
 
               <label>カテゴリー:</label>
               <select name="category_id">
+              	<option value="0">すべて</option>
                 <option value="1">掃除</option>
                 <option value="2">洗濯</option>
                 <option value="3">料理</option>
@@ -161,6 +162,7 @@
 
               <label>頻度:</label>
               <select name="frequency">
+              	<option value="-1">すべて</option>
                 <option value="0">毎日</option>
                 <option value="1">月</option>
                 <option value="2">火</option>
@@ -173,7 +175,8 @@
               </select><br>
 
               <label>通知ON/OFF:</label>
-              <input type="radio" name="noti_flag" value="0" checked> OFF
+              <input type="radio" name="noti_flag" value="-1" checked> すべて            
+              <input type="radio" name="noti_flag" value="0"> OFF
               <input type="radio" name="noti_flag" value="1"> ON<br>
               <input type="submit" name="search" value="検索">
             </form>
