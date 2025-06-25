@@ -29,7 +29,8 @@
 </header>
 <!-- ヘッダー（ここまで） -->
 <!-- メイン（ここから） -->
-	<main class="form-wrapper">
+	<main>
+	<div id="container">
 		<h2>家事登録</h2>
 		<h3>（新しい家事を入力してください）</h3>
 		<form id="form" method="POST" action="${pageContext.request.contextPath}/HWRegistServlet">
@@ -153,6 +154,7 @@
 	
 		</div>		
 		</form>
+		</div>
 		</main>
 		<!-- フッター（ここから） -->
 <div id="footer">
