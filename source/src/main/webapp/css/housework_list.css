@@ -115,7 +115,7 @@ main {
 .tab_btn {
   margin-top: 20px;
   margin-left: 6px;
-  width: 70px;
+  width: 66px;
   background: rgb(166,202,236);
   font-size: 16px;
   line-height: 1.6;
@@ -432,12 +432,12 @@ button {
     width: 30px;
     right: 10px;
   }
-  #housework_container, #memo_container {
+  #container {
     width: 90%;
     border-radius: 20px;
   }
   
-  #today_housework {
+  #list_title {
     font-size: 1.5rem;
     padding-top: 20px;
     padding-bottom: 20px;
