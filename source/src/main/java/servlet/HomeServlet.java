@@ -44,7 +44,10 @@ public class HomeServlet extends HttpServlet {
 					String formatNowDate1 = dtf1.format(nowDate);
 					String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
 		 Calendar cal = Calendar.getInstance();
-		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		 if (dayOfWeek == 0) {
+			 dayOfWeek = 7;
+		 }
 		String family_id = (String) session.getAttribute("family_id");
 		
 		 today_houseworkDAO td_hwDAO = new today_houseworkDAO();
