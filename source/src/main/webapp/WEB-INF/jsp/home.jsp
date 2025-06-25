@@ -103,7 +103,7 @@
  	<h3 id="today_memo">memo</h3>
  	<ul>
 	 <c:forEach var="e" items="${memoList}" varStatus="status" >	 
-	 <li>・<c:out value="${e.memo}" /></li>
+	 <li><c:out value="${e.memo}" /></li>
 	 </c:forEach>
 	 </ul>
 	 <div id="memo_add">
