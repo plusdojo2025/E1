@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.houseworkDAO;
+import dao.userDAO;
 import dto.housework;
 
 
@@ -32,7 +34,17 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 			return;
 		}
 		
-		// 検索ページにフォワードする
+		
+		// セッションからfamily_idを取得
+		String familyId = (String) session.getAttribute("family_id");
+		if (familyId == null) {
+			familyId = "se2025"; // テスト用の固定値
+		}
+		// houseworkDAOを使用してuserListを取得し、リクエスト属性に設定する
+	    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
+	    request.setAttribute("userList", userList);
+		
+		// 一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -47,6 +59,12 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 
 	    // リクエストパラメータを取得する
 	    request.setCharacterEncoding("UTF-8");
+	    
+		// セッションからfamily_idを取得
+		String familyId = (String) session.getAttribute("family_id");
+		if (familyId == null) {
+			familyId = "se2025"; // テスト用の固定値
+		}
 
 	    // housework_idは必須と仮定し、nullチェックを行う
 	    String houseworkIdStr = request.getParameter("housework_id");

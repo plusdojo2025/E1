@@ -67,7 +67,7 @@
 
           <!-- 取得した家事を一覧表示 -->
           <!--<div class="card_container">-->
-            
+
 
           <c:forEach var="e" items="${cardList}" varStatus="status">
             <tr class="card">
@@ -224,11 +224,6 @@
                 <option value="1">ON</option>
               </select>
 
-              <!--ラジオボタンにしたい
-              <input type="radio" name="noti_flag" id="modal-noti-flag" value="0" checked> OFF
-              <input type="radio" name="noti_flag" id="modal-noti-flag" value="1"> ON
-              -->
-
               <!-- 通知 -->
               <!-- <label>通知</label>
               <input type="radio" name="noti_flag" value=0 checked id="noti-off">off
@@ -239,9 +234,9 @@
               <input type="time" id="noti_time" name="noti_time" class="noti-hidden">
               </label> -->
 
-              <label>通知時間：</label>
-              <input type="time" name="noti_time" id="modal-noti-time" value="" /><br>
-
+              <label>通知時間：
+                <input type="time" name="noti_time" id="noti-time" value="" style="display: none;" /><br>
+              </label>
               <!-- セレクトにしたい -->
               <div class="form-group">
                 <label>家事頻度（必須）：</label>
@@ -316,10 +311,27 @@
                 <option value="1">決定する</option>
               </select><br>
 
-              <label>可変担当者：</label>
-              <input type="text" name="variable_role" id="modal-variable-role" value="" /><br>
+              <label>可変担当者：
+                <!-- <input type="text"> ダメなら手入力 -->
+                <select name="variable_role" id="modal-variable-role" style="display: none;">
+                  <option value="0">テスト担当者</option>
+                  <option value="1">テスト担当者</option>
+                </select>
+              </label>
+
+              <!-- 同じ家族IDのデータを表示する -->
+              <!-- 担当者選択プルダウン -->
+              <!-- <select name="variable_role" id="modal-variable_role" style="display: none;">
+                <c:forEach var="user" items="${userList}">
+                  <option value="${user.user_id}">
+                    <c:out value="${user.user_id}" />
+                  </option>
+                </c:forEach>
+              </select>
+              <br> -->
+
               <!-- ログ非表示 hidden-->
-              <label>ログ：</label>
+              <label>ログ 最終はhidden：</label>
               <input type="text" name="log" id="modal-log" value="" /><br>
 
               <!-- エラーメッセージ表示エリア -->
@@ -468,7 +480,7 @@
               document.getElementById("modal-category-id").value = category_id;
               document.getElementById("modal-housework-level").value = housework_level;
               document.getElementById("modal-noti-flag").value = noti_flag;
-              document.getElementById("modal-noti-time").value = noti_time;
+              document.getElementById("noti-time").value = noti_time;
               document.getElementById("modal-frequency").value = frequency;
               document.getElementById("modal-manual").value = manual;
               document.getElementById("modal-fixed-role").value = fixed_role;
@@ -761,6 +773,63 @@
             window.location.reload();
           }
         });
+
+        // 通知時間 セレクトによる表示・非表示の切り替え valueをチェック
+        document.addEventListener("DOMContentLoaded", function () {
+          const selectButtons = document.getElementById("modal-noti-flag");
+          const dropdown = document.getElementById("noti-time");
+
+          selectButtons.addEventListener("change", function () {
+            console.log("選ばれた値:", this.value);
+            if (document.getElementById("modal-noti-flag").value === "1") {
+              //dropdown.style.display = "inline-block";
+              document.getElementById("noti-time").style.display = "inline-block";
+              //console.log("通知時間を表示しました");
+
+            } else {
+              //dropdown.style.display = "none";
+              document.getElementById("noti-time").style.display = "none";
+              //console.log("通知時間を非表示にしました");
+            }
+          });
+          //初期状態に応じて切り替え
+          if (selectButtons.value === "1") {
+            document.getElementById("noti-time").style.display = "inline-block";
+          } else {
+            document.getElementById("noti-time").style.display = "none";
+            //console.log("通知時間を非表示にしました");
+          }
+
+        });
+
+        //　担当者 セレクトによる表示・非表示の切り替え valueをチェック
+        document.addEventListener("DOMContentLoaded", function () {
+          const selectButtons = document.getElementById("modal-fixed-role");
+          const dropdown = document.getElementById("modal-variable-role");
+
+          selectButtons.addEventListener("change", function () {
+            console.log("選ばれた値:", this.value);
+            if (document.getElementById("modal-fixed-role").value === "1") {
+              //dropdown.style.display = "inline-block";
+              document.getElementById("modal-variable-role").style.display = "inline-block";
+              //console.log("通知時間を表示しました");
+
+            } else {
+              //dropdown.style.display = "none";
+              document.getElementById("modal-variable-role").style.display = "none";
+              //console.log("通知時間を非表示にしました");
+            }
+          });
+          //初期状態に応じて切り替え　→　初期状態に応じて切り替えられない
+          if (selectButtons.value === "1") {
+            document.getElementById("modal-variable-role").style.display = "inline-block";
+          } else {
+            document.getElementById("modal-variable-role").style.display = "none";
+            //console.log("通知時間を非表示にしました");
+          }
+
+        });
+
 
 
 
