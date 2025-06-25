@@ -135,7 +135,8 @@
                       <input type="hidden" name="action_type" value="削除">
                     </form>
                     <!-- 削除ボタン -->
-                    <button class="js-modal-button" data-id="${e.housework_id}" id="deleteButton">
+                    <button class="js-modal-button" data-id="${e.housework_id}">
+                      <!-- <button class="js-modal-button" data-id="${e.housework_id}" id="deleteButton"> -->
                       <img src="<c:url value='/img/trash.svg' />" alt="削除" width="24" height="24">
                     </button>
                   </td>
