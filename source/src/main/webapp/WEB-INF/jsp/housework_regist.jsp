@@ -157,7 +157,7 @@
 		</form>
 		</div>
 		</main>
-		<!-- フッター（ここから） -->
+<!-- フッター（ここから） -->
 <div id="footer">
 	<div id="bottom_bar">
 	<img src="img/bar.png" alt="" id="bottom_bar_img">

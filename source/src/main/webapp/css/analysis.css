@@ -31,6 +31,11 @@ body {
 header {
   width: 100%;
   overflow: hidden;
+  position: fixed;     /* 画面上部に固定 */
+  top: 0;
+  left: 0;
+  z-index: 1000; 
+  background-color: #fefefe;
 }
 
 /* 別の方法：3カラムレイアウト */
@@ -42,6 +47,15 @@ header {
   padding: 0 20px;
   width: 100%;
   position: relative;  /* 追加 */
+}
+/* ログアウトアイコンを左端に設置 */
+#user_img {
+  width: 40px;
+  height: auto;
+  position: absolute;  /* 追加 */
+  left: 20px;  /* 追加 */
+  top: 50%;  /* 追加 */
+  transform: translateY(-50%);  /* 追加 */
 }
 
 #logo_img {
@@ -73,25 +87,54 @@ header {
   object-fit: cover;
 }
 
+/* メインコンテンツ */
 main {
   width: 100%;
   padding: 0 10px;
-  padding-bottom: 100px;
 }
 
 #share_goal {
   position: relative;
   margin: 20px auto;
-  width: 95%;
+  width: 90%;
   max-width: 1200px;
+  height: auto;
+  border: #5e5e5e;
   border-radius: 30px;
   background: #fefefe;
-  padding: 20px 10px;
+  padding: 0 10px;
 }
 
-h2 {
+#goal_title {
+  padding-top: 30px;
   color: #FF7F00;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  text-align: center;
+  margin: 0;
+}
+#yesterday_title {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  color: #FF7F00;
+  font-size: 1.4rem;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  text-align: center;
+  margin: 0;
+}
+#monthly_title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #FF7F00;
+  font-size: 1.4rem;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  text-align: center;
+  margin: 0;
+}
+h3 {
+  padding-bottom: 20px;
+  color: #FF7F00;
+  font-size: 1rem;
   text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
   text-align: center;
   margin: 0;
@@ -123,8 +166,9 @@ label {
 }
 
 #goal_submit {
-  margin-left: 123px;
+  margin-left: 115px;
   margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
   background: #FF7F00;
   border-radius: 50px;
@@ -180,6 +224,7 @@ label {
   display: block;
 }
 
+/* フッター */
 #footer {
   width: 100%;
   position: fixed;
@@ -225,11 +270,28 @@ label {
   height: auto;
 }
 
+
 @media screen and (max-width: 768px) {
-  html {
+   html {
     font-size: 14px;
   }
-
+  
+   #top_nav {
+    padding: 0 10px;
+  }
+  
+  #logo_img {
+    max-width: 150px;
+  }
+  
+  #noti_img {
+    width: 30px;
+    right: 10px;
+  }
+  #share_goal {
+    width: 90%;
+    border-radius: 20px;}
+  
   .goal_input {
     width: 80%;
   }
@@ -253,7 +315,10 @@ label {
     width: 25px;
   }
 
+  
+  /* フッターの高さ分だけメインコンテンツに余白を追加 */
   main {
     padding-bottom: 80px;
+    padding-top: 80px; 
   }
 }
