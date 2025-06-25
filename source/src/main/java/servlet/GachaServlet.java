@@ -53,14 +53,14 @@ public class GachaServlet extends HttpServlet {
 		}catch (Exception e){
 			
 		}
-		
-		 if (date / 100 != log /100) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
-			dispatcher.forward(request, response);			
-		}else if (sum_goal < 1 || sum_goal > 1.1){
+		if (sum_goal < 1 || sum_goal > 1.1){
 			request.setAttribute("msg", "分担目標を設定してください。");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
 			dispatcher.forward(request, response);
+		 		
+		}else if (date / 100 != log /100) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/gacha.jsp");
+			dispatcher.forward(request, response);	
 		}else {
 			List<housework> roleList = gcDAO.select_role(family_id);
 			if (roleList.size() == 0) {
@@ -96,8 +96,10 @@ public class GachaServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
 					int date = Integer.parseInt(dtf.format(nowDate));
 		String event = request.getParameter("click");
+		
 		if (event.equals("on")) {
 			gachaDAO gcDAO = new gachaDAO();
+			if (gcDAO.select_log(family_id) / 100 != date / 100) {
 			gcDAO.click_gacha(family_id,date);
 			
 			int sum_level = 0;
@@ -131,6 +133,7 @@ public class GachaServlet extends HttpServlet {
 					i++;
 				}
 			}
+		}
 		}
 		response.sendRedirect(request.getContextPath() + "/GachaServlet");
 	}
