@@ -64,10 +64,8 @@
         <th>家事名</th>
         <th>削除</th>
     </tr>-->
-
           <!-- 取得した家事を一覧表示 -->
           <!--<div class="card_container">-->
-
 
           <c:forEach var="e" items="${cardList}" varStatus="status">
             <tr class="card">
@@ -120,7 +118,8 @@
                   <input type="hidden" name="log" value="${e.log}">
                   <input type="hidden" name="action_type" value="削除">
                 </form>
-                <button class="js-modal-button" data-id="${e.housework_id}">
+                <!-- 削除ボタン -->
+                <button class="js-modal-button" data-id="${e.housework_id}" id="deleteButton">
                   <img src="<c:url value='/img/trash.svg' />" alt="削除" width="24" height="24">
                 </button>
               </td>
@@ -188,14 +187,16 @@
             <!-- 更新フォームに渡す値 -->
             <form id="updateForm" method="POST" action="${pageContext.request.contextPath}/HWUpdateDeleteServlet">
               <!-- 家事ID非表示 hidden-->
-              <label>家事ID（最終はhidden）：
-                <input type="text" name="housework_id" id="housework-id" value="" /></label><br>
+              <label>
+                <!-- 家事ID（最終はhidden）： -->
+                <input type="hidden" name="housework_id" id="housework-id" value="" /></label><br>
               <label>家事名（必須）：
                 <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
               </label>
               <!-- ファミリーID非表示 hidden-->
-              <label>ファミリーID（最終はhidden）：
-                <input type="text" name="family_id" id="family-id" value="" /><br>
+              <label>
+                <!-- ファミリーID（最終はhidden）： -->
+                <input type="hidden" name="family_id" id="family-id" value="" /><br>
               </label>
 
               <label>カテゴリ：
@@ -239,7 +240,8 @@
               <input type="time" id="noti_time" name="noti_time" class="noti-hidden">
               </label> -->
 
-              <label>通知時間：
+              <label>
+                <!-- 通知時間： -->
                 <input type="time" name="noti_time" id="noti-time" value="" style="display: none;" /><br>
               </label>
               <!-- セレクトにしたい -->
@@ -267,7 +269,8 @@
                   </select><br>
                 </label>
                 <!-- 曜日チェック（最初は非表示） -->
-                <div id="daysContainer" class="days-container">
+                 <!-- 曜日チェックはできない -->
+                <!-- <div id="daysContainer" class="days-container">
                   <input type="checkbox" id="mon" name="days" value="1" class="day-checkbox">
                   <label for="mon" class="day-label">月</label>
                   <input type="checkbox" id="tue" name="days" value="2" class="day-checkbox">
@@ -283,7 +286,7 @@
                   <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
                   <label for="sun" class="day-label">日</label>
                 </div>
-              </div>
+              </div> -->
 
               <!-- <label>メモ（マニュアルなど）：</label>
               <input type="text" name="manual" id="modal-manual" value="" /><br> -->
@@ -306,8 +309,8 @@
                 <br>
               </label>
 
-              <label>固定担当者：
-                <!-- 担当者と通知はラジオボタンにしたい
+              <label>担当者：
+                <!-- 固定担当者
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
               -->
@@ -319,35 +322,37 @@
                 </select><br>
               </label>
 
-              <label>可変担当者：
+              <label>
+                <!-- 可変担当者： -->
                 <!-- <input type="text"> ダメなら手入力 -->
-                <select name="variable_role" id="modal-variable-role" style="display: none;">
+                <!-- <select name="variable_role" id="modal-variable-role" style="display: none;">
                   <option value="0">テスト担当者</option>
                   <option value="1">テスト担当者</option>
                 </select>
-              </label>
+               -->
 
-              <!-- 同じ家族IDのデータを表示する -->
-              <!-- 担当者選択プルダウン -->
-              <!-- <select name="variable_role" id="modal-variable_role" style="display: none;">
-                <c:forEach var="user" items="${userList}">
-                  <option value="${user.user_id}">
-                    <c:out value="${user.user_id}" />
-                  </option>
-                </c:forEach>
-              </select>
-              <br> -->
+                <!-- 同じ家族IDのデータを表示する -->
+                <!-- 担当者選択プルダウン -->
+                <select name="variable_role" id="modal-variable-role" style="display: none;">
+                  <c:forEach var="user" items="${userList}">
+                    <option value="${user.user_id}">
+                      <c:out value="${user.user_id}" />
+                    </option>
+                  </c:forEach>
+                </select>
+                <br>
+                </label>
 
-              <!-- ログ非表示 hidden-->
-              <label>ログ 最終はhidden：
-                <input type="text" name="log" id="modal-log" value="" /><br>
-              </label>
+                <label>
+                  <!-- ログ 最終はhidden： -->
+                  <input type="hidden" name="log" id="modal-log" value="" /><br>
+                </label>
 
-              <!-- エラーメッセージ表示エリア -->
-              <span id="update_error_message">※必須項目</span><br>
+                <!-- エラーメッセージ表示エリア -->
+                <span id="update_error_message"></span><br>
 
-              <!--  <button type="button" id="updateTrigger">更新</button> -->
-              <input type="submit" id="updateTrigger" name="submit" value="更新" />
+                <!--  <button type="button" id="updateTrigger">更新</button> -->
+                <input type="submit" id="updateTrigger" name="submit" value="更新" />
             </form>
           </div>
         </div>
@@ -444,10 +449,6 @@
           }
         }
 
-        /*    submitBtn.onclick = function() {
-            alert("入力 " + userInput.value);
-            } */
-
         //  家事名押下時のスクリプト 家事カードを押下時更新画面をモーダル表示 
         document.addEventListener("DOMContentLoaded", function () {
           const updateModal = document.getElementById("updateModal");
@@ -493,7 +494,7 @@
               document.getElementById("modal-frequency").value = frequency;
               document.getElementById("modal-manual").value = manual;
               document.getElementById("modal-fixed-role").value = fixed_role;
-              document.getElementById("modal-variable-role").value = variable_role;
+              document.getElementById("modal-variable-role").value = variable_role;　// この行のvalueが取れていない
               document.getElementById("modal-log").value = log;
               document.getElementById("housework-id").value = housework_id;
               updateModal.style.display = "block";
@@ -584,10 +585,11 @@
         document.addEventListener("DOMContentLoaded", function () {
           const modal = document.getElementById("deleteConfirmModal");
           let currentForm = null;
+          const deleteTrigger = document.getElementById("deleteButton");
 
           // ごみ箱アイコンを押したらモーダルを開く
           document.querySelectorAll(".js-modal-button").forEach(button => {
-            button.addEventListener("click", function () {
+            deleteTrigger.addEventListener("click", function () {
               const houseworkId = this.getAttribute("data-id");
               const formId = "delete_form_" + houseworkId;
               currentForm = document.getElementById(formId);
@@ -657,7 +659,6 @@
           }
         };
 
-
         // 曜日選択プルダウン
         // プルダウンの選択に応じて曜日ボタンを制御
         document.getElementById('modal-frequency').addEventListener('change', function () {
@@ -719,62 +720,12 @@
           closeModal();
         }
 
-        // 通知スクリプト
-        // 通知ON/OFFで時間入力を有効・無効にする
-        // document.getElementById("noti-off").addEventListener("change", function () {
-        //   document.getElementById("noti_time").classList.add("noti-hidden");
-        // });
-        // document.getElementById("noti-on").addEventListener("change", function () {
-        //   document.getElementById("noti_time").classList.remove("noti-hidden");
-        // });
-        // // ページ読み込み時に状態を正しく初期化（特に戻ってきたとき対策）
-        // window.addEventListener("DOMContentLoaded", () => {
-        //   const isNotiOn = document.getElementById("noti-on").checked;
-        //   document.getElementById("noti_time").classList.toggle("noti-hidden", !isNotiOn);
-        // });
-        // // 通知ON/OFFに応じて通知時間の表示切替
-        // document.querySelectorAll('input[name="noti_flag"]').forEach(radio => {
-        //   radio.addEventListener('change', () => {
-        //     const timeInput = document.getElementById('noti_time');
-        //     if (document.querySelector('input[name="noti_flag"]:checked').value === '1') {
-        //       timeInput.classList.remove('noti-hidden');
-        //     } else {
-        //       timeInput.classList.add('noti-hidden');
-        //     }
-        //   });
-        // });
-        // // 初期状態の制御（ページ読み込み時）
-        // window.addEventListener("DOMContentLoaded", () => {
-        //   const timeInput = document.getElementById('noti_time');
-        //   const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
-        //   timeInput.classList.toggle('noti-hidden', !isOn);
-        // });
-
-
-        // window.addEventListener("DOMContentLoaded", () => {
-        //   const timeInput = document.getElementById("modal-noti-time");
-        //   const radios = document.querySelectorAll('input[name="noti_flag"]');
-
-        //   // 初期表示
-        //   const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
-        //   timeInput.classList.toggle("noti-hidden", !isOn);
-
-        //   // ラジオ変更時
-        //   radios.forEach(radio => {
-        //     radio.addEventListener("change", () => {
-        //       const isNowOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
-        //       timeInput.classList.toggle("noti-hidden", !isNowOn);
-        //     });
-        //   });
-        // });
-
         // 初期状態の制御（ページ読み込み時）
         window.addEventListener("DOMContentLoaded", () => {
           const timeInput = document.getElementById('noti_time');
           const isOn = document.querySelector('input[name="noti_flag"]:checked').value === '1';
           timeInput.classList.toggle('noti-hidden', !isOn);
         });
-
 
         window.addEventListener("load", function () {
           if (!localStorage.getItem("loaded")) {
@@ -838,10 +789,6 @@
           }
 
         });
-
-
-
-
       </script>
     </body>
 

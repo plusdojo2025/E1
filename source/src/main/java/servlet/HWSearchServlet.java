@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.houseworkDAO;
+import dao.userDAO;
 import dto.housework;
 
 /**
@@ -39,6 +40,10 @@ public class HWSearchServlet extends HttpServlet {
 	    
 
 		String family_Id = (String)session.getAttribute("family_id");
+		System.out.println("取得したファミリーID" + family_Id);
+		// houseworkDAOを使用してuserListを取得し、リクエスト属性に設定する
+	    List<dto.user> userList = new userDAO().getUsersByFamilyid(family_Id);
+	    request.setAttribute("userList", userList);
 		
 		//初期化
 		request.setCharacterEncoding("UTF-8");
@@ -231,6 +236,7 @@ public class HWSearchServlet extends HttpServlet {
         request.setAttribute("noti_flag", noti_flag);
         request.setAttribute("frequency", frequency);
 		request.setAttribute("cardList", cardList);
+		
 
 		// 家事一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
@@ -245,6 +251,15 @@ public class HWSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// ↓
+		// 一覧画面で家族情報を受け取りたい
+		HttpSession session = request.getSession();
+		String family_Id = (String)session.getAttribute("family_id");
+		System.out.println("取得したファミリーID" + family_Id);		
+	    // userListを再度取得してリクエスト属性に設定 (JSPでプルダウンを表示するため)
+	    List<dto.user> userList = new userDAO().getUsersByFamilyid(family_Id);
+	    request.setAttribute("userList", userList);
+	    // ↑
 		
 		    doGet(request, response);
 	}
