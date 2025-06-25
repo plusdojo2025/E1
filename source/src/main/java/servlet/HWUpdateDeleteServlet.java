@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.houseworkDAO;
 import dao.userDAO;
 import dto.housework;
+import dto.user;
 
 
 
@@ -40,9 +41,16 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		if (familyId == null) {
 			familyId = "se2025"; // テスト用の固定値
 		}
+		System.out.println("取得したファミリーID" + familyId);
 		// houseworkDAOを使用してuserListを取得し、リクエスト属性に設定する
 	    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
 	    request.setAttribute("userList", userList);
+	    
+	    // userListのサイズ確認
+	    System.out.println("userListのサイズ: " + userList.size());
+	    for (user u : userList) {
+	        System.out.println("user_id: " + u.getUser_id());
+	    }
 		
 		// 一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
@@ -65,6 +73,10 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		if (familyId == null) {
 			familyId = "se2025"; // テスト用の固定値
 		}
+		System.out.println("取得したファミリーID" + familyId);
+		// userDAOを使用してuserListを取得し、リクエスト属性に設定する
+//	    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
+//	    request.setAttribute("userList", userList);
 
 	    // housework_idは必須と仮定し、nullチェックを行う
 	    String houseworkIdStr = request.getParameter("housework_id");
@@ -113,6 +125,7 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 	        if (hwDao.update(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag,
 	                noti_time, frequency, manual, fixed_role, variable_role, log))) {
 	            request.setAttribute("update_message", "家事情報を更新しました。");
+	            
 	        } else {
 	            request.setAttribute("update_error", "レコードを更新できませんでした。");
 	        }
@@ -121,11 +134,21 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 	        if (hwDao.delete(new housework(housework_id, housework_name, family_id, category_id, housework_level, noti_flag,
 	                noti_time, frequency, manual, fixed_role, variable_role, log))) {
 	            request.setAttribute("delete_message", "家事情報を削除しました。");
+	            
 	        } else {
 	            request.setAttribute("delete_error", "家事情報を削除できませんでした。");
 	        }
 	    } else {
 	        request.setAttribute("update_error", "不正な操作です。");
+	    }
+	    // userListを再度取得してリクエスト属性に設定 (JSPでプルダウンを表示するため)
+	    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
+	    request.setAttribute("userList", userList);
+	    
+	    // userListのサイズ確認
+	    System.out.println("userListのサイズ: " + userList.size());
+	    for (user u : userList) {
+	        System.out.println("user_id: " + u.getUser_id());
 	    }
 
 	    // 結果ページにフォワードする

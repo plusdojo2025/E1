@@ -177,7 +177,7 @@
 
  let housework = document.getElementById("housework" + index).value;
  request.type = "json";
- request.open('GET', 'http://localhost:8080/e1/TestServlet?housework_id=' + housework, true);
+ request.open('GET', '${pageContext.request.contextPath}/TestServlet?housework_id=' + housework, true);
  request.send();
 }
  
@@ -188,6 +188,59 @@
 	    getData(index);
 	  });
 	});
+
+ let pollingInterval = null;
+ let previousCompleted = [];
+
+ function startPolling() {
+   if (pollingInterval === null) {
+     pollingInterval = setInterval(() => {
+       fetch('${pageContext.request.contextPath}/PollingServlet')
+         .then(res => res.json())
+         .then(data => {
+           const newCompleted = data.completedTasks;
+           const diff = newCompleted.filter(id => !previousCompleted.includes(id));
+           diff.forEach(id => {
+             const btn = document.getElementById("complete" + id);
+             const text = document.getElementById("task" + id);
+             if (btn && text && !btn.disabled) {
+               btn.disabled = true;
+               btn.classList.remove('button3');
+               btn.classList.add('complete');
+               text.classList.add('complete_task');
+             }
+           });
+           previousCompleted = newCompleted;
+         })
+         .catch(err => console.error(err));
+     }, 5000);
+   }
+ }
+
+ function stopPolling() {
+   if (pollingInterval !== null) {
+     clearInterval(pollingInterval);
+     pollingInterval = null;
+   }
+ }
+
+ // ページが表示状態になったときのみポーリング
+ document.addEventListener('visibilitychange', () => {
+   if (document.visibilityState === 'visible') {
+     startPolling();
+   } else {
+     stopPolling();
+   }
+ });
+
+ // 初期表示時に開始
+ window.addEventListener('load', startPolling);
+ window.addEventListener('beforeunload', stopPolling);
+
+
+
+
+
  
  //モーダルのスクリプト
  const modal = document.querySelector('.js-modal'); // layer要素に付与したjs-modalクラスを取得し変数に格納
