@@ -108,10 +108,10 @@
 		<label>マニュアル</label>	
 		<!-- メモ記入用のモーダル -->
 		<div id="memoModal" class="modal" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, 0); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
-		    <h3>メモを入力</h3>
+		    <h3>マニュアルを入力</h3>
 		    <textarea id="memoInput" rows="10" cols="40"></textarea><br>
-		    <button type="button" onclick="saveMemo()">保存</button>
-		    <button type="button" onclick="closeModal()">キャンセル</button>
+		    <button type="button" id="save" onclick="saveMemo()">保存</button>
+		    <button type="button" id="cancel" onclick="closeModal()">キャンセル</button>
 		</div>
 		
 		<!-- モーダルを開くボタン -->
@@ -144,15 +144,16 @@
 		  </c:forEach>
 		</select>
 		<br>		
-				
+		<div id="error_message">
+			<c:out value="${errorMessage}"/>
+		</div>
+					
 		<div class="form-submit">	
         <td colspan="2">
 			<input type="submit" name="regist" value="登録"><br>
-			<span id="error_message"></span>
+			
         </td>
-  		<c:out value="${errorMessage}"/>
 	
-		</div>		
 		</form>
 		</div>
 		</main>
