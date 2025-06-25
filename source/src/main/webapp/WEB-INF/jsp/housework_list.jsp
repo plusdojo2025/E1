@@ -150,7 +150,6 @@
 
               <label>カテゴリー:</label>
               <select name="category_id">
-              	<option value="0">すべて</option>
                 <option value="1">掃除</option>
                 <option value="2">洗濯</option>
                 <option value="3">料理</option>
@@ -162,7 +161,6 @@
 
               <label>頻度:</label>
               <select name="frequency">
-              	<option value="-1">すべて</option>
                 <option value="0">毎日</option>
                 <option value="1">月</option>
                 <option value="2">火</option>
@@ -175,8 +173,7 @@
               </select><br>
 
               <label>通知ON/OFF:</label>
-              <input type="radio" name="noti_flag" value="-1" checked> すべて            
-              <input type="radio" name="noti_flag" value="0"> OFF
+              <input type="radio" name="noti_flag" value="0" checked> OFF
               <input type="radio" name="noti_flag" value="1"> ON<br>
               <input type="submit" name="search" value="検索">
             </form>
@@ -193,39 +190,44 @@
               <!-- 家事ID非表示 hidden-->
               <label>家事ID（最終はhidden）：
                 <input type="text" name="housework_id" id="housework-id" value="" /></label><br>
-              <label>家事名（必須）：</label>
-              <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
+              <label>家事名（必須）：
+                <input type="text" name="housework_name" id="modal-housework-name" value="" /><br>
+              </label>
               <!-- ファミリーID非表示 hidden-->
-              <label>ファミリーID（最終はhidden）：</label>
-              <input type="text" name="family_id" id="family-id" value="" /><br>
+              <label>ファミリーID（最終はhidden）：
+                <input type="text" name="family_id" id="family-id" value="" /><br>
+              </label>
 
-              <label>カテゴリ：</label>
-              <!-- <input type="hidden" name="category_id" id="modal-category-id" value="" /><br> -->
-              <select name="category_id" id="modal-category-id">
-                <option value="1">掃除</option>
-                <option value="2">洗濯</option>
-                <option value="3">料理</option>
-                <option value="4">その他</option>
-              </select><br>
+              <label>カテゴリ：
+                <!-- <input type="hidden" name="category_id" id="modal-category-id" value="" /><br> -->
+                <select name="category_id" id="modal-category-id">
+                  <option value="1">掃除</option>
+                  <option value="2">洗濯</option>
+                  <option value="3">料理</option>
+                  <option value="4">その他</option>
+                </select><br>
+              </label>
 
-              <label>家事負担度（必須）：</label>
-              <!-- <input type="text" name="housework_level" id="modal-housework-level" value="" /><br> -->
+              <label>家事負担度（必須）：
+                <!-- <input type="text" name="housework_level" id="modal-housework-level" value="" /><br> -->
 
-              <select name="housework_level" id="modal-housework-level">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select><br>
+                <select name="housework_level" id="modal-housework-level">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select><br>
+              </label>
 
-              <label>通知：</label>
-              <!-- <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br> -->
+              <label>通知：
+                <!-- <input type="text" name="noti_flag" id="modal-noti-flag" value="" /><br> -->
 
-              <select name="noti_flag" id="modal-noti-flag">
-                <option value="0">OFF</option>
-                <option value="1">ON</option>
-              </select>
+                <select name="noti_flag" id="modal-noti-flag">
+                  <option value="0">OFF</option>
+                  <option value="1">ON</option>
+                </select>
+              </label>
 
               <!-- 通知 -->
               <!-- <label>通知</label>
@@ -242,27 +244,28 @@
               </label>
               <!-- セレクトにしたい -->
               <div class="form-group">
-                <label>家事頻度（必須）：</label>
-                <!-- <input type="text" name="frequency" id="modal-frequency" value="" /><br> -->
-                <select name="frequency" id="modal-frequency">
-                  <!-- 曜日チェックボックスが使えるならこっちを採用
+                <label>家事頻度（必須）：
+                  <!-- <input type="text" name="frequency" id="modal-frequency" value="" /><br> -->
+                  <select name="frequency" id="modal-frequency">
+                    <!-- 曜日チェックボックスが使えるならこっちを採用
                   <option value="0">毎日</option>
                   <option value="1">曜日を選択</option>
                   <option value="8">不定期</option> 
                   -->
 
-                  <!-- 応急処置としてプルダウンからの選択にしてあります -->
-                  <option value="0">毎日</option>
-                  <option value="1">月曜日</option>
-                  <option value="2">火曜日</option>
-                  <option value="3">水曜日</option>
-                  <option value="4">木曜日</option>
-                  <option value="5">金曜日</option>
-                  <option value="6">土曜日</option>
-                  <option value="7">日曜日</option>
-                  <option value="8">不定期</option>
+                    <!-- 応急処置としてプルダウンからの選択にしてあります -->
+                    <option value="0">毎日</option>
+                    <option value="1">月曜日</option>
+                    <option value="2">火曜日</option>
+                    <option value="3">水曜日</option>
+                    <option value="4">木曜日</option>
+                    <option value="5">金曜日</option>
+                    <option value="6">土曜日</option>
+                    <option value="7">日曜日</option>
+                    <option value="8">不定期</option>
 
-                </select><br>
+                  </select><br>
+                </label>
                 <!-- 曜日チェック（最初は非表示） -->
                 <div id="daysContainer" class="days-container">
                   <input type="checkbox" id="mon" name="days" value="1" class="day-checkbox">
@@ -286,33 +289,35 @@
               <input type="text" name="manual" id="modal-manual" value="" /><br> -->
 
               <!-- メモ -->
-              <label>マニュアル</label>
-              <!-- メモ記入用のモーダル -->
-              <div id="memoModal" class="modal"
-                style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, 0); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
-                <h3>メモを入力</h3>
-                <textarea id="modal-manual" name="manual" rows="10" cols="40"></textarea><br>
-                <button type="button" onclick="saveMemo()">保存</button>
-                <button type="button" onclick="closeModal()">キャンセル</button>
-              </div>
-              <!-- モーダルを開くボタン -->
-              <button type="button" onclick="openModal()">マニュアルを書く</button>
-              <!-- 実際のフォームの中に隠しフィールドとして保持 -->
-              <input type="hidden" name="manual" id="manual">
-              <br>
+              <label>マニュアル
+                <!-- メモ記入用のモーダル -->
+                <div id="memoModal" class="modal"
+                  style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, 0); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+                  <h3>メモを入力</h3>
+                  <textarea id="modal-manual" name="manual" rows="10" cols="40"></textarea><br>
+                  <button type="button" onclick="saveMemo()">保存</button>
+                  <button type="button" onclick="closeModal()">キャンセル</button>
+                </div>
 
+                <!-- モーダルを開くボタン -->
+                <button type="button" onclick="openModal()">マニュアルを書く</button>
+                <!-- 実際のフォームの中に隠しフィールドとして保持 -->
+                <input type="hidden" name="manual" id="manual">
+                <br>
+              </label>
 
-              <label>固定担当者：</label>
-              <!-- 担当者と通知はラジオボタンにしたい
+              <label>固定担当者：
+                <!-- 担当者と通知はラジオボタンにしたい
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
               -->
-              <!-- <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br> -->
+                <!-- <input type="text" name="fixed_role" id="modal-fixed-role" value="" /><br> -->
 
-              <select name="fixed_role" id="modal-fixed-role">
-                <option value="0">決定しない</option>
-                <option value="1">決定する</option>
-              </select><br>
+                <select name="fixed_role" id="modal-fixed-role">
+                  <option value="0">決定しない</option>
+                  <option value="1">決定する</option>
+                </select><br>
+              </label>
 
               <label>可変担当者：
                 <!-- <input type="text"> ダメなら手入力 -->
@@ -334,8 +339,9 @@
               <br> -->
 
               <!-- ログ非表示 hidden-->
-              <label>ログ 最終はhidden：</label>
-              <input type="text" name="log" id="modal-log" value="" /><br>
+              <label>ログ 最終はhidden：
+                <input type="text" name="log" id="modal-log" value="" /><br>
+              </label>
 
               <!-- エラーメッセージ表示エリア -->
               <span id="update_error_message">※必須項目</span><br>
