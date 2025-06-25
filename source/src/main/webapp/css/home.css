@@ -31,6 +31,11 @@ body {
 header {
   width: 100%;
   overflow: hidden;
+  position: fixed;     /* 画面上部に固定 */
+  top: 0;
+  left: 0;
+  z-index: 1000; 
+  background-color: #fefefe;
 }
 
 /* 別の方法：3カラムレイアウト */
@@ -489,6 +494,7 @@ select, input[type="text"] {
   /* フッターの高さ分だけメインコンテンツに余白を追加 */
   main {
     padding-bottom: 80px;
+    margin-top: 80px; 
   }
 }
 

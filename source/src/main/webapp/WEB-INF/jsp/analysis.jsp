@@ -11,8 +11,12 @@
 <title>分析</title>
 </head>
 <body>
+<!-- ヘッダー（ここから） -->
 <header>
 <div id="top_nav">
+	<a href="${pageContext.request.contextPath}/LogoutServlet" id="logout_link" title="ログアウト">
+	<img src="img/user.svg" alt="ログアウト" id="user_img">
+	</a>
 	<a href="${pageContext.request.contextPath}/HomeServlet">
 	<img src="img/logo_lightblue.png" alt="カジミエール" id="logo_img">
 	</a>
@@ -24,28 +28,30 @@
 <img src="img/bar.png" alt="" id="bar_img">
 </div>
 </header>
+<!-- ヘッダー（ここまで） -->
 <main>
 <div id="share_goal">
-  <h2>分担目標</h2>
+  <h2 id="goal_title">分担目標</h2>
   <form method="POST" action="${pageContext.request.contextPath}/AnalysisServlet" id="form${status.index}" onsubmit="return validateGoals();">
 	  <c:forEach var="e" items="${userList}" varStatus="status">
 	      <label for="goal${status.index}"><c:out value="${e.user_id}" />の分担割合</label>
 	      <input type="text" name="goal" class="goal_input" id="goal${status.index}" value="<c:out value='${e.share_goal}'/>">
 	      <input type="hidden" name="user_id" value="<c:out value='${e.user_id}'/>">
 	  </c:forEach>
-	  <input type="submit" name="submit" value="設定" id="goal_submit">
 	  <p id="error_message">${errorMessage}</p>
+	  <input type="submit" name="submit" value="設定" id="goal_submit">
   </form>
 </div>
 
-<nav id="chart_nav">
+<!-- <nav id="chart_nav">
   <ul>
     <li id="daily_nav"><a href="#daily_chart">前日の負担割合</a></li>
     <li id="monthly_nav"><a href="#monthly_chart">月ごとの負担割合の推移</a></li>
   </ul>
 </nav>
-
+ -->
 <div id="daily_chart">
+<h2 id="yesterday_title">前日の負担割合</h2>
   <c:choose>
     <c:when test="${empty yesterdayList}">
       <p id="no_yesterday">前日の実績データがありません。</p>
@@ -58,6 +64,8 @@
 </div>
 
 <div id="monthly_chart">
+<h2 id="monthly_title">月ごとの負担割合の推移</h2>
+<h3>(過去12か月)</h3>
   <c:choose>
     <c:when test="${empty yearList}">
       <p>過去12か月分の実績データがありません。</p>
@@ -69,7 +77,7 @@
   </c:choose>
 </div>
 </main>
- <!-- フッター（ここから） -->
+<!-- フッター（ここから） -->
 <div id="footer">
 	<div id="bottom_bar">
 	<img src="img/bar.png" alt="" id="bottom_bar_img">
