@@ -335,7 +335,7 @@
                   <br>
                 </label>
 
-                <label>担当者：
+                <label id="role">担当者：
                   <!-- 固定担当者
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON

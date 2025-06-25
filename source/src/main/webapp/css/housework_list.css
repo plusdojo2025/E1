@@ -123,6 +123,7 @@ main {
   color: #fefefe;
   text-align: center;
   cursor: pointer;
+  border-color: rgb(166,202,236);
 }
 #search_img {
     width: 13%;
@@ -132,77 +133,46 @@ main {
   text-align: right;
   padding: 20px
 }
-.tab_container {
-  display: flex;
+label {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
-
-.contents_label {
-  display: flex;
+#role {
+  margin-top: 30px
 }
-
-.contents {
-  display: flex;
-}
-
-.modal-inner {
-  /* margin-top: 0; */
-  margin-bottom: 125px;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  background: #fff;
-  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 13px;
-  display: block;
-  padding: 21px 8px 21px;
-  height: auto;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  /* 網掛け効果 */
+#fi {
   display: none;
-  z-index: 999;
-  backdrop-filter: blur(3px);
-  /* 背景を軽くぼかす */
+}
+input[type="text"],
+input[type="time"],
+select {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  margin: 5px 0;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  font-size: 17px;
+  color: #003366;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255,229,204,.7);
+  transition: all 0.2s ease-in-out;
 }
 
-.modal-content {
-  background: #fffbea;
-  /* 淡いクリーム色でやさしい印象 */
-  margin: 8% auto;
-  padding: 30px;
-  width: 400px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-family: 'Rounded Mplus 1c', sans-serif;
-  animation: fadeIn 0.3s ease-in-out;
-  max-height: 80vh;
-  /* 表示領域の80%まで */
-  overflow-y: auto;
-  /* 内容があふれたらスクロール */
-
+input[type="radio"] {
+  margin-right: 5px;
 }
-
-.modal-content h2 {
-  font-size: 1.4em;
-  margin-bottom: 1em;
-  color: #444;
+h2 {
+  padding-top: 30px;
+  color: #FF7F00;
+  font-size: 2rem;
+  text-shadow: 1px 1px 0 #A6CAEC, -1px 1px 0 #A6CAEC, 1px -1px 0 #A6CAEC, -1px -1px 0 #A6CAEC;
+  text-align: center;
+  margin: 0;
 }
-
-.close-button {
-  float: right;
-  font-size: 1.6em;
-  cursor: pointer;
-  color: #888;
-}
-
-
+/* -------------------- 家事一覧テーブル -------------------- */
 table {
   border-collapse: collapse;
   width: 100%;
@@ -254,58 +224,131 @@ button.js-modal-button {
   border: none;
   cursor: pointer;
 }
-/* モーダル全体の背景（オーバーレイ） */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+
+.housework_name.open-modal {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-/* モーダルの内容（フォーム含む） */
+.housework_name.open-modal:hover {
+  background-color: #d9eaff;
+  border-radius: 4px;
+}
+
+.delete {
+  width: 20%;
+  text-align: center;
+}
+
+/* 削除ボタン */
+.delete button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+}
+
+.delete button img {
+  transition: filter 0.25s ease;
+}
+
+.delete button:hover img {
+  filter: brightness(0.7);
+}
+
+/* -------------------- ソートボタン -------------------- */
+.sort-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+.sort-button img {
+  vertical-align: middle;
+}
+
+/* -------------------- モーダル共通 -------------------- */
+.modal {
+  display: none; /* 非表示 */
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: rgba(0,0,0,0.5);
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal.open {
+  display: block;
+}
+
 .modal-content {
-  background-color: #fff;
-  padding: 30px 40px;
-  border-radius: 8px;
-  width: 90%;
+  background: #fff;
   max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  margin: 3rem auto 4rem auto;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   position: relative;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: modalFadeInScale 0.25s ease forwards;
+  color: #2a3a52;
+  font-size: 1rem;
+  line-height: 1.6;
+  user-select: text;
+}
+
+@keyframes modalFadeInScale {
+  from {opacity: 0; transform: scale(0.95);}
+  to {opacity: 1; transform: scale(1);}
 }
 
 /* 閉じるボタン */
 .close-button {
   position: absolute;
-  right: 16px;
-  top: 12px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #888;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #999;
+  background: none;
+  border: none;
   cursor: pointer;
+  transition: color 0.25s ease;
+  user-select: none;
 }
-
 .close-button:hover {
-  color: #333;
+  color: #555;
 }
 
-/* ラベルと入力のレイアウト調整 */
-label {
-  font-weight: bold;
+/* モーダルタイトル */
+.modal-content h2,
+.modal-content h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  user-select: none;
+  font-weight: 100;
+}
+
+/* フォームラベル */
+.modal-content label {
   display: block;
-  margin-top: 16px;
+  font-weight: 100;
+  color: #003366;
 }
 
-input[type="text"],
-select,
-input[type="time"],
-textarea {
+/* 入力、セレクト、テキストエリア共通 */
+.modal-content input[type="text"],
+.modal-content select,
+.modal-content textarea,
+.modal-content input[type="time"] {
   width: 100%;
   height: 75%;
   padding: 8px 10px;
@@ -315,60 +358,60 @@ textarea {
   box-sizing: border-box;
 }
 
-/* 曜日チェックエリア */
-.days-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
+/* ボタン */
+.modal-content button,
+.modal-content input[type="submit"] {
+  text-align: center;
+  background: #FF7F00;
+  border-radius: 50px;
+  border-color: #A6CAEC;
+  position: relative;
+  align-items: center;
+  padding: 10px 25px;
+  color: #FFFFFF;
+  transition: 0.3s ease-in-out;
+  font-weight: 500;
 }
 
-.day-label {
-  margin-right: 12px;
-}
-
-/* メモ用モーダルの基本スタイル */
+/* メモ用モーダル */
 #memoModal {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background-color: #fff;
-  padding: 24px 32px;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  z-index: 1000;
-  display: none;
-  width: 90%;
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 480px;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  color: #2a3a52;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: white;
+  position: fixed !important;
+  top: 20% !important;
+  left: 50% !important;
+  transform: translate(-50%, 0) !important;
+  z-index: 1100;
 }
 
-/* モーダル内の見出し */
-#memoModal h3 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 1.2rem;
-}
-
-/* 送信ボタン */
-input[type="submit"],
-button {
-  padding: 10px 20px;
-  font-size: 1.1rem;
-  background-color: #ff7f00;
-  color: white;
+#memoModal textarea {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  margin: 5px 0;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  font-size: 17px;
+  color: #003366;
+  border-radius: 6px;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background: rgba(255,229,204,.7);
+  transition: all 0.2s ease-in-out;
 }
-
-/* エラーメッセージ */
-#update_error_message {
-  color: #f66;
+#confirmOk {
+  margin-left: 20px;
 }
-
+#confirmCancel {
+  background: rgba(128,128,128,0.5);
+  margin-left: 40px
+}
 /* フッター */
 #footer {
   width: 100%;
@@ -442,54 +485,29 @@ button {
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  
-  #today_memo {
-    font-size: 1.2rem;
-    margin-left: 0;
+  .tab_btn {
+    font-size: 0.9rem;
+    margin: 0 0.2rem 0.4rem 0.2rem;
   }
   
-  #housework_list {
-    text-align: left; 
-    padding: 0 10px;
+  table {
+    font-size: 0.9rem;
   }
-
-  .housework {
-    /* flex-direction: column; <--- 削除 */
-    display: flex; 
-    flex-direction: row; 
-    justify-content: flex-start; 
-    align-items: center;  
-    flex-wrap: nowrap; 
-  }
-
-  .housework > div {
-    flex-shrink: 0; 
-    white-space: nowrap; 
-    text-align: center; 
-    padding-right: 40px;
-  }
-  
-  .button, .button2 {
-    font-size: 14px;
-    padding: 7px 12px;
-  }
-  
-  .button3 {
-    font-size: 0.7rem;
-    padding: 4px 8px;
-  }
-  
-  .modal, .modal2, .modal3 {
+  .modal-content {
+    margin: 1.5rem 1rem 2rem 1rem;
+    padding: 1.5rem 1.8rem;
     width: 95%;
-    top: 5%;
   }
-  
-  .modal__inner, .modal__inner2, .modal__inner3 {
-    padding: 15px 5px;
-    font-size: 1.5rem;
+  .modal-content h2,
+  .modal-content h3 {
+    font-size: 1.3rem;
   }
-  
-  .bottom_nav img {
+  .modal-content button,
+  .modal-content input[type="submit"] {
+    width: 100%;
+    padding: 0.8rem;
+  }
+    .bottom_nav img {
     width: 25px;
   }
   
