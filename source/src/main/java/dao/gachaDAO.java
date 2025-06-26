@@ -534,7 +534,7 @@ public class gachaDAO {
 					"root", "password");
 			
 			String sql = "SELECT user_id FROM user WHERE family_id = '" + family_id + "' "
-					+ "AND user_id IN (SELECT variable_role FROM housework WHERE variable_role IS NOT NULL)";
+					+ "AND user_id IN (SELECT variable_role FROM housework WHERE variable_role IS NOT NULL OR fixed_role IS NOT NULL)";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
