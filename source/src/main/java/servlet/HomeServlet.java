@@ -44,7 +44,7 @@ public class HomeServlet extends HttpServlet {
 					String formatNowDate1 = dtf1.format(nowDate);
 					String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
 		 Calendar cal = Calendar.getInstance();
-		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		 if (dayOfWeek == 0) {
 			 dayOfWeek = 7;
 		 }

@@ -85,12 +85,12 @@ public class houseworkDAO {
 				if (card.getFixed_role() != null) {
 					pStmt.setString(9, card.getFixed_role());
 				} else {
-					pStmt.setString(9, "");
+					pStmt.setNull(9, java.sql.Types.NULL);
 				}
 				if (card.getVariable_role() != null) {
 					pStmt.setString(10, card.getVariable_role());
 				} else {
-					pStmt.setString(10, "");
+					pStmt.setNull(10, java.sql.Types.NULL);
 				}
 				if (card.getLog() != 0) {
 					pStmt.setInt(11, card.getLog());
