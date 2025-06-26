@@ -335,7 +335,7 @@
                   <br>
                 </label>
 
-                <label id="role">担当者：
+                <label>担当者：
                   <!-- 固定担当者
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
@@ -524,7 +524,7 @@
               document.getElementById("modal-frequency").value = frequency;
               document.getElementById("modal-manual").value = manual;
               document.getElementById("modal-fixed-role").value = fixed_role;
-              document.getElementById("modal-variable-role").value = variable_role;　// この行のvalueが取れていない
+              document.getElementById("modal-variable-role").value = variable_role;　
               document.getElementById("modal-log").value = log;
               document.getElementById("housework-id").value = housework_id;
               updateModal.style.display = "block";
@@ -537,9 +537,9 @@
             const updateErrorCheck2 = document.getElementById("family-id").value.trim();
             const updateErrorCheck3 = document.getElementById("modal-category-id").value.trim();
             const updateErrorCheck4 = document.getElementById("modal-housework-level").value.trim();
-            const updateErrorCheck5 = document.getElementById("modal-noti-flag").value.trim();
+            // const updateErrorCheck5 = document.getElementById("modal-noti-flag").value.trim();
             const updateErrorCheck6 = document.getElementById("modal-frequency").value.trim();
-            const updateErrorCheck7 = document.getElementById("modal-fixed-role").value.trim();
+            // const updateErrorCheck7 = document.getElementById("modal-fixed-role").value.trim();
             const updateErrorCheck8 = document.getElementById("housework-id").value.trim();
             // const updateErrorCheck9 = document.getElementById("").value.trim();
             // const updateErrorCheck10 = document.getElementById("").value.trim();
@@ -550,9 +550,9 @@
               updateErrorCheck2 === '' ||
               updateErrorCheck3 === '' ||
               updateErrorCheck4 === '' ||
-              updateErrorCheck5 === '' ||
+              // updateErrorCheck5 === '' ||
               updateErrorCheck6 === '' ||
-              updateErrorCheck7 === '' ||
+              // updateErrorCheck7 === '' ||
               updateErrorCheck8 === ''
             ) {
               document.getElementById("update_error_message").textContent = "必須項目が未入力です";
