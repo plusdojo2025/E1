@@ -199,7 +199,7 @@ button:hover {
 }
 /* 星 */
 .star {
-  font-size: 3rem;
+  font-size: 2.6rem;
   color: lightgray;
   cursor: pointer;
   transition: color 0.2s;
@@ -344,7 +344,7 @@ h3 {
     font-size: 1rem;
   }
   .star {
-    font-size: 3rem;
+    font-size: 2.6rem;
   }
   .day-label {
     width: 40px;
