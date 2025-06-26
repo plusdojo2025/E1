@@ -211,8 +211,10 @@
             <div class="modal-content">
               <span class="close-button">&times;</span>
               <p>本当に削除しますか？</p>
+              <div class="modal-buttons">
               <button id="cancelDeleteBtn">Cancel</button>
               <button id="confirmDeleteBtn">OK</button>
+              </div>
             </div>
           </div>
           <!-- 更新モーダルの中身 -->
