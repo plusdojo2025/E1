@@ -111,6 +111,7 @@ public class GachaServlet extends HttpServlet {
 			List<housework> fixed_levelList = gcDAO.selecthwlevel(family_id);
 			List<housework> vari_houseworkList = gcDAO.selecthw_vari(family_id);
 			List<Integer> numList = new ArrayList<>();
+			List<Integer> fixnum = new ArrayList<>();
 			for (housework hw:houseworkList) {
 				sum_level += hw.getHousework_level();
 			}
@@ -118,25 +119,33 @@ public class GachaServlet extends HttpServlet {
 			for (user fm:familyList) {
 				fm.setUser_level(sum_level * fm.getShare_goal());
 			}
-			
+			int number = 0;
 			for (user fm:familyList) {
+				int count = 0;
 				for (housework hw:fixed_levelList) {
 					if (hw.getFixed_role().equals(fm.getUser_id())) {
 						fm.addUser_level(hw.getHousework_level());
+						count += 1;
 					}
+					if (count > 0) {
+						fixnum.add(number);
+					}
+					number += 1;
 				}
 			}
 			
 			
 			int i = 0;
-			while (i < familyList.size()) {
-				numList.add(i);
-				i ++;
+			for (int k = 0; k< familyList.size(); k++) {
+				if (fixnum.indexOf(i) == -1) {
+				numList.add(k);
+				}
 			}
 			Collections.shuffle(numList);
 			for (int index:numList) {
 				gcDAO.update(familyList.get(index),vari_houseworkList.get(i));
 				familyList.get(index).addUser_level(vari_houseworkList.get(i).getHousework_level());
+				i++;
 			}
 			Random rand = new Random();
 			while (i < vari_houseworkList.size()) {

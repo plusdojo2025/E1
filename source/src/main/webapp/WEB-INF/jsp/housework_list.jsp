@@ -67,7 +67,7 @@
                 <tr class="card_label">
                   <th>
                     <button type="button" id="sortToggleBtn" class="sort-button" title="負担度で並び替え">
-                      <img id="sortIcon" src="img/<c:out value='${param.sortOrder == " desc" ? "sort_down.svg"
+                      <img id="sortIcon" src="img/<c:out value='${param.sortOrder == "desc" ? "sort_down.svg"
                         : "sort_up.svg" }' />"
                       alt="ソートアイコン" style="width:16px; height:16px; vertical-align:middle;">
                     </button>
@@ -206,7 +206,15 @@
               </form>
             </div>
           </div>
-
+<!-- 削除確認モーダルの中身 -->
+          <div id="deleteConfirmModal" class="modal" style="display:none;">
+            <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <p>本当に削除しますか？</p>
+              <button id="cancelDeleteBtn">Cancel</button>
+              <button id="confirmDeleteBtn">OK</button>
+            </div>
+          </div>
           <!-- 更新モーダルの中身 -->
           <div id="updateModal" class="modal modal-inner" style="display: none;">
             <div class="modal-content">
@@ -393,15 +401,7 @@
               <button id="confirmOk">OK</button>
             </div>
           </div>
-          <!-- 削除確認モーダルの中身 -->
-          <div id="deleteConfirmModal" class="modal" style="display:none;">
-            <div class="modal-content">
-              <span class="close-button">&times;</span>
-              <p>本当に削除しますか？</p>
-              <button id="cancelDeleteBtn">Cancel</button>
-              <button id="confirmDeleteBtn">OK</button>
-            </div>
-          </div>
+          
           <!-- </div> -->
       </main>
 
