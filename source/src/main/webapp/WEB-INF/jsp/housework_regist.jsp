@@ -91,7 +91,7 @@
 		<!-- 負担度 -->		
 		
 		<div class="stars" id="star-rating">
-		<label>負担度
+		<label>負担度（必須）
 			
 				  <span class="star" data-value="1">★</span>
 				  <span class="star" data-value="2">★</span>
