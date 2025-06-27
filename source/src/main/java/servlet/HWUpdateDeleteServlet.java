@@ -103,9 +103,13 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 
 	    String noti_time = request.getParameter("noti_time");
 	    String frequency = request.getParameter("frequency");
+	    String[] days = request.getParameterValues("days");
 	    String manual = request.getParameter("manual");
 	    String fixed_role = request.getParameter("fixed_role");
 	    String variable_role = request.getParameter("variable_role");
+	    if (frequency.equals("1")){
+	    	frequency = String.join(",", days);
+	    }
 	    if (fixed_role.equals("0")) {
 	    	fixed_role = null;
 	    }

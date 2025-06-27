@@ -285,13 +285,13 @@
                   <label>家事頻度（※必須）：
                     <!-- <input type="text" name="frequency" id="modal-frequency" value="" /><br> -->
                     <select name="frequency" id="modal-frequency">
-                      <!-- 曜日チェックボックスが使えるならこっちを採用
+                      <!-- 曜日チェックボックスが使えるならこっちを採用 -->
                   <option value="0">毎日</option>
                   <option value="1">曜日を選択</option>
                   <option value="8">不定期</option> 
-                  -->
+                  
 
-                      <!-- 応急処置としてプルダウンからの選択にしてあります -->
+                      <!-- 応急処置としてプルダウンからの選択にしてあります 
                       <option value="0">毎日</option>
                       <option value="1">月曜日</option>
                       <option value="2">火曜日</option>
@@ -300,29 +300,29 @@
                       <option value="5">金曜日</option>
                       <option value="6">土曜日</option>
                       <option value="7">日曜日</option>
-                      <option value="8">不定期</option>
+                      <option value="8">不定期</option> -->
 
                     </select><br>
                   </label>
                   <!-- 曜日チェック（最初は非表示） -->
                   <!-- 曜日チェックはできない -->
-                  <!-- <div id="daysContainer" class="days-container">
-                  <input type="checkbox" id="mon" name="days" value="1" class="day-checkbox">
+                  <div id="daysContainer" class="days-container">
+                  <input type="checkbox" id="1" name="days" value="1" class="day-checkbox">
                   <label for="mon" class="day-label">月</label>
-                  <input type="checkbox" id="tue" name="days" value="2" class="day-checkbox">
+                  <input type="checkbox" id="2" name="days" value="2" class="day-checkbox">
                   <label for="tue" class="day-label">火</label>
-                  <input type="checkbox" id="wed" name="days" value="3" class="day-checkbox">
+                  <input type="checkbox" id="3" name="days" value="3" class="day-checkbox">
                   <label for="wed" class="day-label">水</label>
-                  <input type="checkbox" id="thu" name="days" value="4" class="day-checkbox">
+                  <input type="checkbox" id="4" name="days" value="4" class="day-checkbox">
                   <label for="thu" class="day-label">木</label>
-                  <input type="checkbox" id="fri" name="days" value="5" class="day-checkbox">
+                  <input type="checkbox" id="5" name="days" value="5" class="day-checkbox">
                   <label for="fri" class="day-label">金</label>
-                  <input type="checkbox" id="sat" name="days" value="6" class="day-checkbox">
+                  <input type="checkbox" id="6" name="days" value="6" class="day-checkbox">
                   <label for="sat" class="day-label">土</label>
-                  <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
+                  <input type="checkbox" id="7" name="days" value="7" class="day-checkbox">
                   <label for="sun" class="day-label">日</label>
                 </div> 
-              </div> -->
+             <!-- </div> -->
 
                   <!-- <label>メモ（マニュアルなど）：</label>
               <input type="text" name="manual" id="modal-manual" value="" /><br> -->
@@ -505,15 +505,15 @@
               //updateModal.style.display = "block";
 
               // モーダル内に値を格納
-              const housework_name = this.dataset.houseworkName;
-              const housework_id = this.dataset.houseworkId;
-              const family_id = this.dataset.familyId;
-              const category_id = this.dataset.categoryId;
-              const housework_level = this.dataset.houseworkLevel;
-              const noti_flag = this.dataset.notiFlag;
-              const noti_time = this.dataset.notiTime;
-              const frequency = this.dataset.frequency;
-              const manual = this.dataset.manual;
+              let housework_name = this.dataset.houseworkName;
+              let housework_id = this.dataset.houseworkId;
+              let family_id = this.dataset.familyId;
+              let category_id = this.dataset.categoryId;
+              let housework_level = this.dataset.houseworkLevel;
+              let noti_flag = this.dataset.notiFlag;
+              let noti_time = this.dataset.notiTime;
+              let frequency = this.dataset.frequency;
+              let manual = this.dataset.manual;
               let fixed_role = this.dataset.fixedRole;
               let variable_role = this.dataset.variableRole;
               if (fixed_role === ""){
@@ -536,7 +536,29 @@
               document.getElementById("modal-housework-level").value = housework_level;
               document.getElementById("modal-noti-flag").value = noti_flag;
               document.getElementById("noti-time").value = noti_time;
-              document.getElementById("modal-frequency").value = frequency;
+              if (frequency === "0"){
+              document.getElementById("modal-frequency").options[0].selected = true;
+              document.querySelectorAll(".day-checkbox").forEach(cb => {
+            	  cb.checked = true;
+              });
+
+            }else if (frequency === "8"){
+            	document.getElementById("modal-frequency").options[2].selected = true;	
+            	daysContainer.style.display = 'none';
+            	document.querySelectorAll(".day-checkbox").forEach(cb => {
+              	  cb.checked = false;
+                });
+            }else{
+            	document.getElementById("modal-frequency").options[1].selected = true;
+            	document.querySelectorAll(".day-checkbox").forEach(cb => {
+              	  cb.checked = false;
+                });
+            	for (let i = 1; i < 8; i++) {
+            		if (frequency.indexOf(String(i)) !== -1){
+            			document.getElementById(i).checked = true;
+            		}
+            		}
+            }
               document.getElementById("modal-manual").value = manual;
               if (fixed_role === 0){
             	  document.getElementById("modal-fixed-role").options[0].selected = true;
@@ -736,19 +758,19 @@
 
           if (selection === '1') {
             // 「曜日を選択」の場合：ボタンを表示し、選択状態をリセット
-            daysContainer.classList.remove('hidden');
+            daysContainer.style.display = 'inline-block';
             checkboxes.forEach(checkbox => {
               checkbox.checked = false;
             });
           } else if (selection === '0') {
             // 「毎日」の場合：ボタンを表示し、すべて選択
-            daysContainer.classList.remove('hidden');
+            daysContainer.style.display = 'inline-block';
             checkboxes.forEach(checkbox => {
               checkbox.checked = true;
             });
           } else if (selection === '8') {
             // 「不定期」の場合：ボタンを非表示にし、選択状態をリセット
-            daysContainer.classList.add('hidden');
+            daysContainer.style.display = 'none';
             checkboxes.forEach(checkbox => {
               checkbox.checked = false;
             });
