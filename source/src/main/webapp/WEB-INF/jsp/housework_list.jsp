@@ -347,7 +347,7 @@
                     <br>
                   </label>
 
-                  <label>担当者：
+                  <label>担当者（※必須）：
                     <!-- 固定担当者
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
@@ -548,7 +548,7 @@
             const updateErrorCheck4 = document.getElementById("modal-housework-level").value.trim();
             // const updateErrorCheck5 = document.getElementById("modal-noti-flag").value.trim();
             const updateErrorCheck6 = document.getElementById("modal-frequency").value.trim();
-            // const updateErrorCheck7 = document.getElementById("modal-fixed-role").value.trim();
+            const updateErrorCheck7 = document.getElementById("modal-fixed-role").value.trim();
             const updateErrorCheck8 = document.getElementById("housework-id").value.trim();
             // const updateErrorCheck9 = document.getElementById("").value.trim();
             // const updateErrorCheck10 = document.getElementById("").value.trim();
@@ -561,7 +561,7 @@
               updateErrorCheck4 === '' ||
               // updateErrorCheck5 === '' ||
               updateErrorCheck6 === '' ||
-              // updateErrorCheck7 === '' ||
+              updateErrorCheck7 === '' ||
               updateErrorCheck8 === ''
             ) {
               document.getElementById("update_error_message").textContent = "必須項目が未入力です";
