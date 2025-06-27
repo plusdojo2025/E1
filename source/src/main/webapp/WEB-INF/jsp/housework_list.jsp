@@ -593,8 +593,10 @@
               const noti_time = this.dataset.notiTime;
               const frequency = this.dataset.frequency;
               const manual = this.dataset.manual;
-              const fixed_role = this.dataset.fixedRole;
-              const variable_role = this.dataset.variableRole;
+              const fixed_role = this.dataset.variableRole;
+              const variable_role = null;
+              // const fixed_role = this.dataset.fixedRole;
+              // const variable_role = this.dataset.variableRole;
               const log = this.dataset.log
               updateForm.submit();
             } else {
