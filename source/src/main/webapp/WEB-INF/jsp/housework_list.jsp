@@ -321,8 +321,8 @@
                   <label for="sat" class="day-label">土</label>
                   <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
                   <label for="sun" class="day-label">日</label>
-                </div>
-              </div> -->
+                </div> -->
+              </div> 
 
                   <!-- <label>メモ（マニュアルなど）：</label>
               <input type="text" name="manual" id="modal-manual" value="" /><br> -->
@@ -344,7 +344,8 @@
                     <input type="hidden" name="manual" id="manual">
                     <br>
                   </label>
-
+                  </div>
+                  
                   <label>担当者：
                     <!-- 固定担当者
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
@@ -513,8 +514,15 @@
               const noti_time = this.dataset.notiTime;
               const frequency = this.dataset.frequency;
               const manual = this.dataset.manual;
-              const fixed_role = this.dataset.fixedRole;
-              const variable_role = this.dataset.variableRole;
+              let fixed_role = this.dataset.fixedRole;
+              let variable_role = this.dataset.variableRole;
+              if (fixed_role === ""){
+            	  fixed_role = 0;
+              }else{
+            	  variable_role = this.dataset.fixedRole;
+            	  fixed_role = 1;
+              }
+              
               const log = this.dataset.log;
 
               // 更新モーダルに値を表示

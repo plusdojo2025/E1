@@ -40,16 +40,13 @@ public class HWRegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		/*if (session.getAttribute("user_id") == null) {
+		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
-		}*/
+		}
 		
 		// セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
-		if (familyId == null) {
-			familyId = "sato0611"; // テスト用の固定値
-				}
 		
 		// userDAOを使用してuserListを取得し、リクエスト属性に設定する
 	    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
@@ -69,17 +66,14 @@ public class HWRegistServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		/*if (session.getAttribute("user_id") == null) {
+		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
-		}*/
+		}
 		
 		
 		// セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
-		if (familyId == null) {
-			familyId = "sato0611"; // テスト用の固定値
-		}
 		
 		// **バリデーションフラグ**
 				boolean hasValidationError = false;
