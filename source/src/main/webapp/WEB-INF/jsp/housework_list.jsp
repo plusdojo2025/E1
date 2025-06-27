@@ -211,10 +211,8 @@
             <div class="modal-content">
               <span class="close-button">&times;</span>
               <p>本当に削除しますか？</p>
-              <div class="modal-buttons">
               <button id="cancelDeleteBtn">Cancel</button>
               <button id="confirmDeleteBtn">OK</button>
-              </div>
             </div>
           </div>
           <!-- 更新モーダルの中身 -->
@@ -323,8 +321,8 @@
                   <label for="sat" class="day-label">土</label>
                   <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
                   <label for="sun" class="day-label">日</label>
-                </div>
-              </div> -->
+                </div> -->
+              </div> 
 
                   <!-- <label>メモ（マニュアルなど）：</label>
               <input type="text" name="manual" id="modal-manual" value="" /><br> -->
@@ -346,8 +344,9 @@
                     <input type="hidden" name="manual" id="manual">
                     <br>
                   </label>
-
-                  <label>担当者（※必須）：
+                  </div>
+                  
+                  <label>担当者：
                     <!-- 固定担当者
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="0" checked> OFF
               <input type="radio" name="fixed_role" id="modal-fixed-role" value="1"> ON
@@ -515,8 +514,14 @@
               const noti_time = this.dataset.notiTime;
               const frequency = this.dataset.frequency;
               const manual = this.dataset.manual;
-              const fixed_role = this.dataset.fixedRole;
+              let fixed_role = this.dataset.fixedRole;
               const variable_role = this.dataset.variableRole;
+              if (fixed_role === null){
+            	  fixed_role = "0";
+              }else{
+            	  fixed_role = "1";
+              }
+              
               const log = this.dataset.log;
 
               // 更新モーダルに値を表示
@@ -548,7 +553,7 @@
             const updateErrorCheck4 = document.getElementById("modal-housework-level").value.trim();
             // const updateErrorCheck5 = document.getElementById("modal-noti-flag").value.trim();
             const updateErrorCheck6 = document.getElementById("modal-frequency").value.trim();
-            const updateErrorCheck7 = document.getElementById("modal-fixed-role").value.trim();
+            // const updateErrorCheck7 = document.getElementById("modal-fixed-role").value.trim();
             const updateErrorCheck8 = document.getElementById("housework-id").value.trim();
             // const updateErrorCheck9 = document.getElementById("").value.trim();
             // const updateErrorCheck10 = document.getElementById("").value.trim();
@@ -561,7 +566,7 @@
               updateErrorCheck4 === '' ||
               // updateErrorCheck5 === '' ||
               updateErrorCheck6 === '' ||
-              updateErrorCheck7 === '' ||
+              // updateErrorCheck7 === '' ||
               updateErrorCheck8 === ''
             ) {
               document.getElementById("update_error_message").textContent = "必須項目が未入力です";
