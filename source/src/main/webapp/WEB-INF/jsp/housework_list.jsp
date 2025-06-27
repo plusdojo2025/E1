@@ -321,8 +321,8 @@
                   <label for="sat" class="day-label">土</label>
                   <input type="checkbox" id="sun" name="days" value="7" class="day-checkbox">
                   <label for="sun" class="day-label">日</label>
-                </div> -->
-              </div> 
+                </div> 
+              </div> -->
 
                   <!-- <label>メモ（マニュアルなど）：</label>
               <input type="text" name="manual" id="modal-manual" value="" /><br> -->
@@ -515,11 +515,12 @@
               const frequency = this.dataset.frequency;
               const manual = this.dataset.manual;
               let fixed_role = this.dataset.fixedRole;
-              const variable_role = this.dataset.variableRole;
-              if (fixed_role === null){
-            	  fixed_role = "0";
+              let variable_role = this.dataset.variableRole;
+              if (fixed_role === ""){
+            	  fixed_role = 0;
               }else{
-            	  fixed_role = "1";
+            	  variable_role = this.dataset.fixedRole;
+            	  fixed_role = 1;
               }
               
               const log = this.dataset.log;
@@ -537,7 +538,14 @@
               document.getElementById("noti-time").value = noti_time;
               document.getElementById("modal-frequency").value = frequency;
               document.getElementById("modal-manual").value = manual;
-              document.getElementById("modal-fixed-role").value = fixed_role;
+              if (fixed_role === 0){
+            	  document.getElementById("modal-fixed-role").options[0].selected = true;
+            	  document.getElementById("modal-variable-role").style.display = "none";
+              }else{
+            	  document.getElementById("modal-fixed-role").options[1].selected = true;
+            	  document.getElementById("modal-variable-role").style.display = "inline-block";
+              }
+              
               document.getElementById("modal-variable-role").value = variable_role;
               document.getElementById("modal-log").value = log;
               document.getElementById("housework-id").value = housework_id;
