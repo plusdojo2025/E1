@@ -373,6 +373,47 @@ button.js-modal-button {
   font-weight: 500;
 }
 
+/* 削除確認モーダルのボタンを横並びに＆余白調整 */
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* ボタン同士の間隔 */
+  margin-top: 20px;
+}
+
+/* Cancelボタンをグレーに */
+#cancelDeleteBtn {
+  background-color: #ccc;
+  color: #333;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* OKボタン（オレンジ） */
+#confirmDeleteBtn {
+  background-color: #FF7F00;
+  color: #fff;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* ホバー効果（任意） */
+#cancelDeleteBtn:hover {
+  background-color: #bbb;
+}
+
+#confirmDeleteBtn:hover {
+  background-color: #e66900;
+}
+
+
+
 /* メモ用モーダル */
 #memoModal {
   max-width: 480px;

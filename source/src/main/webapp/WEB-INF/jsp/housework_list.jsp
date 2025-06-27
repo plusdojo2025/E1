@@ -515,12 +515,11 @@
               const frequency = this.dataset.frequency;
               const manual = this.dataset.manual;
               let fixed_role = this.dataset.fixedRole;
-              let variable_role = this.dataset.variableRole;
-              if (fixed_role === ""){
-            	  fixed_role = 0;
+              const variable_role = this.dataset.variableRole;
+              if (fixed_role === null){
+            	  fixed_role = "0";
               }else{
-            	  variable_role = this.dataset.fixedRole;
-            	  fixed_role = 1;
+            	  fixed_role = "1";
               }
               
               const log = this.dataset.log;
