@@ -38,9 +38,6 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 		
 		// セッションからfamily_idを取得
 		String familyId = (String) session.getAttribute("family_id");
-		if (familyId == null) {
-			familyId = "se2025"; // テスト用の固定値
-		}
 		System.out.println("取得したファミリーID" + familyId);
 		// houseworkDAOを使用してuserListを取得し、リクエスト属性に設定する
 	    List<dto.user> userList = new userDAO().getUsersByFamilyid(familyId);
@@ -109,6 +106,12 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 	    String manual = request.getParameter("manual");
 	    String fixed_role = request.getParameter("fixed_role");
 	    String variable_role = request.getParameter("variable_role");
+	    if (fixed_role.equals("0")) {
+	    	fixed_role = null;
+	    }
+	    if (variable_role != null) {
+	    	fixed_role = variable_role;
+	    }
 	    
 	    // logのnullチェック
 	    String logStr = request.getParameter("log");
@@ -150,7 +153,9 @@ public class HWUpdateDeleteServlet extends HttpServlet {
 	    for (user u : userList) {
 	        System.out.println("user_id: " + u.getUser_id());
 	    }
-
+	    
+	    List<housework> cardList = hwDao.selectAllSorted("asc", familyId);
+	    request.setAttribute("cardList", cardList);
 	    // 結果ページにフォワードする
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/housework_list.jsp");
 	    dispatcher.forward(request, response);

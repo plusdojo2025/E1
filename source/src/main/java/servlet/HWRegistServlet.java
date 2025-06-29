@@ -1,5 +1,8 @@
 package servlet;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.houseworkDAO;
+import dao.today_houseworkDAO;
 import dao.userDAO;
 import dto.housework;
 /**
@@ -99,6 +103,13 @@ public class HWRegistServlet extends HttpServlet {
 				int log = parseIntOrDefault(request.getParameter("log"), 0);
 		String[] days = request.getParameterValues("days");
 		String a = "";
+		LocalDateTime nowDate = LocalDateTime.now();
+		DateTimeFormatter dtf1 =
+				DateTimeFormatter.ofPattern("yyyy-MM-dd");
+					String formatNowDate1 = dtf1.format(nowDate);
+					String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
+		 Calendar cal = Calendar.getInstance();
+		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
 		
 		// **必須チェックロジック**
 				// 1. 家事名
@@ -164,6 +175,8 @@ public class HWRegistServlet extends HttpServlet {
 					
 					if (hDao.insert(hw)) { // 登録成功
 						// 一覧ページにフォワードする
+						today_houseworkDAO td_hwDAO = new today_houseworkDAO();
+						td_hwDAO.first_insert(dayOfWeek,familyId);
 						response.sendRedirect(request.getContextPath() + "/HWSearchServlet");
 					} else { // 登録失敗 (DBエラーなど)
 					    // 登録失敗時もエラーメッセージを表示してJSPに戻す

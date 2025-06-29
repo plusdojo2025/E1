@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -44,7 +45,7 @@ public class GachaServlet extends HttpServlet {
 				DateTimeFormatter.ofPattern("yyyyMMddHH");
 					int date = Integer.parseInt(dtf.format(nowDate));
 		gachaDAO gcDAO = new gachaDAO();
-		List<user> familyList = gcDAO.select(family_id);
+		List<user> familyList = gcDAO.selectga(family_id);
 		
 		float sum_goal = gcDAO.sum_goal(family_id);
 		int log = 0;
@@ -100,13 +101,16 @@ public class GachaServlet extends HttpServlet {
 		if (event.equals("on")) {
 			gachaDAO gcDAO = new gachaDAO();
 			if (gcDAO.select_log(family_id) / 100 != date / 100) {
+
+			gcDAO.update(family_id);
 			gcDAO.click_gacha(family_id,date);
 			
 			int sum_level = 0;
 			List<user> familyList = gcDAO.select(family_id);
 			List<housework> houseworkList = gcDAO.selecthw(family_id);
 			List<housework> fixed_levelList = gcDAO.selecthwlevel(family_id);
-			List<housework> vari_houseworkList = gcDAO.selecthw_vari(family_id);		
+			List<housework> vari_houseworkList = gcDAO.selecthw_vari(family_id);
+			List<Integer> numList = new ArrayList<>();
 			for (housework hw:houseworkList) {
 				sum_level += hw.getHousework_level();
 			}
@@ -123,14 +127,24 @@ public class GachaServlet extends HttpServlet {
 				}
 			}
 			
+			
 			int i = 0;
+			while (i < familyList.size()) {
+				numList.add(i);
+				i ++;
+			}
+			Collections.shuffle(numList);
+			for (int index:numList) {
+				gcDAO.update(familyList.get(index),vari_houseworkList.get(i));
+				familyList.get(index).addUser_level(vari_houseworkList.get(i).getHousework_level());
+			}
 			Random rand = new Random();
 			while (i < vari_houseworkList.size()) {
 				int num = rand.nextInt(familyList.size());
 				if (familyList.get(num).getUser_level() > 0) {
 					gcDAO.update(familyList.get(num),vari_houseworkList.get(i));
 					familyList.get(num).addUser_level(vari_houseworkList.get(i).getHousework_level());
-					i++;
+					i++;	
 				}
 			}
 		}

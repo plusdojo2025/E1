@@ -44,7 +44,7 @@ public class HomeServlet extends HttpServlet {
 					String formatNowDate1 = dtf1.format(nowDate);
 					String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
 		 Calendar cal = Calendar.getInstance();
-		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
 		 if (dayOfWeek == 0) {
 			 dayOfWeek = 7;
 		 }
@@ -52,13 +52,9 @@ public class HomeServlet extends HttpServlet {
 		
 		 today_houseworkDAO td_hwDAO = new today_houseworkDAO();
 		 today_memoDAO memoDAO = new today_memoDAO();
-		 if (td_hwDAO.selectdate(formatyesterdayDate) != 0) {
-			 td_hwDAO.reset();
-		 }
-		 int a = td_hwDAO.selectdate(formatNowDate1, family_id);
-		 if (a == 0) {
-		 	td_hwDAO.first_insert(dayOfWeek,family_id);
-		 }
+		 
+		 
+		
 			List<housework> houseworkList = td_hwDAO.select(family_id); 
 			request.setAttribute("houseworkList",houseworkList);
 			

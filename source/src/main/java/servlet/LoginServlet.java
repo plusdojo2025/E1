@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.today_houseworkDAO;
 import dao.userDAO;
 import dto.user;
 import process.Sha256Util;
@@ -66,6 +70,21 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user_id", user_id);
 			session.setAttribute("family_id", family_id);
+			LocalDateTime nowDate = LocalDateTime.now();
+			DateTimeFormatter dtf1 =
+					DateTimeFormatter.ofPattern("yyyy-MM-dd");
+						String formatyesterdayDate = dtf1.format(nowDate.minusDays(1));
+			Calendar cal = Calendar.getInstance();
+			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
+			 if (dayOfWeek == 0) {
+				 dayOfWeek = 7;
+			 }
+			 
+			today_houseworkDAO td_hwDAO = new today_houseworkDAO();
+			if (td_hwDAO.selectdate(formatyesterdayDate) != 0) {
+				 td_hwDAO.reset();
+			 }
+			td_hwDAO.first_insert(dayOfWeek,family_id);
 			
 			// ホームサーブレットにリダイレクトする
 			response.sendRedirect(request.getContextPath() + "/HomeServlet");
