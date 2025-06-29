@@ -368,6 +368,7 @@ h3 {
   /* フッターの高さ分だけメインコンテンツに余白を追加 */
   main {
     padding-bottom: 80px;
+    margin-top: 80px; 
   }
   
   .noti-hidden {

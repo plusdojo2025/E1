@@ -166,9 +166,7 @@ label {
 }
 
 #goal_submit {
-  margin-left: 115px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 117px;
   text-align: center;
   background: #FF7F00;
   border-radius: 50px;
@@ -208,19 +206,21 @@ label {
 }
 
 #daily_chart, #monthly_chart {
-  width: 95%;
+  width: 100%;
+  height: 100%;
   max-width: 900px;
   margin: 30px auto;
   border-radius: 30px;
   background: #fefefe;
   text-align: center;
-  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 #daily_chart_Canvas, #monthly_chart_Canvas {
   width: 90%;
   height: auto;
-  margin: 0 auto 50px;
+  margin: auto;
   display: block;
 }
 
